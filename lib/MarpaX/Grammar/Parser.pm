@@ -10,8 +10,6 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 use File::Basename; # For basename().
 use File::Spec;
 
-use Parser;
-
 use List::AllUtils qw/first_index indexes/;
 
 use Log::Handler;
@@ -62,6 +60,14 @@ has minlevel =>
 	required => 0,
 );
 
+has root =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	#isa     => 'Tree::DAG_Node',
+	required => 0,
+);
+
 has tree_file =>
 (
 	default  => sub{return ''},
@@ -76,8 +82,8 @@ our $VERSION = '1.00';
 
 sub add_lexeme
 {
-	my($self, $start, $node, $field) = @_;
-	my($parent) = $$node{$start};
+	my($self, $field) = @_;
+	my($parent) = $self -> root;
 	my($name)   = shift @$field;
 	my($kid)    = Tree::DAG_Node -> new
 	({
@@ -131,10 +137,10 @@ sub add_adverb_record
 
 sub add_event_record
 {
-	my($self, $parent, $field) = @_;
+	my($self, $field) = @_;
 	my($label) = '{' . join('|', @$field) . '}';
 
-	$parent -> add_daughter
+	$self -> root -> add_daughter
 	(
 		Tree::DAG_Node -> new
 		({
@@ -143,7 +149,7 @@ sub add_event_record
 		})
 	);
 
-} # End of add_adverb_record.
+} # End of add_event_record.
 
 # ------------------------------------------------
 
@@ -261,11 +267,11 @@ sub log
 
 sub log_tree
 {
-	my($self, $start, $node, $level) = @_;
+	my($self, $node, $level) = @_;
 	$level ||= $self -> maxlevel;
 
 	$self -> log($level => '-' x 50);
-	$self -> log($level => $_) for @{$$node{$start} -> tree2string({no_attributes => 1})};
+	$self -> log($level => $_) for @{$self -> root -> tree2string({no_attributes => 1})};
 	$self -> log($level => '-' x 50);
 
 } # End of log_tree.
@@ -274,11 +280,11 @@ sub log_tree
 
 sub process_rhs
 {
-	my($self, $start, $node, $field, $lhs) = @_;
+	my($self, $node, $field, $lhs) = @_;
 
 	my($parent);
 
-	$$node{$start} -> walk_down
+	$self -> root -> walk_down
 	({
 		callback => sub
 		{
@@ -295,7 +301,7 @@ sub process_rhs
 		_depth => 0,
 	});
 
-	$parent      = $$node{$start} if (! $parent);
+	$parent      = $self -> root if (! $parent);
 	my($adverbs) = $self -> adverbs;
 	my($index)   = first_index{$_ =~ /^$adverbs$/} @$field;
 
@@ -319,6 +325,9 @@ sub process_rhs
 sub run
 {
 	my($self)    = @_;
+
+	print STDERR "Input file: " . $self -> input_file . "\n";
+
 	my(@grammar) = slurp($self -> input_file, {chomp => 1});
 
 	$self -> log(info => 'Entered run()');
@@ -386,17 +395,17 @@ sub run
 
 				next;
 			}
+			elsif ($lhs =~ /^event/)
+			{
+				push @event, join(' ', @field);
+
+				next;
+			}
 			elsif ($lhs eq ':lexeme')
 			{
 				# Discard ':lexeme' and '~'.
 
-				$self -> process_rhs($start, \%node, \@field, $field[2]);
-
-				next;
-			}
-			elsif ($lhs =~ /^event/)
-			{
-				push @event, join(' ', @field);
+				$self -> process_rhs(\%node, \@field, $field[2]);
 
 				next;
 			}
@@ -434,12 +443,15 @@ sub run
 			{
 				# Discard ':start' and '::='.
 
-				$start        = $field[2];
-				$node{$start} = Tree::DAG_Node -> new
+				$start = $field[2];
+				$node{$start} =
+					Tree::DAG_Node -> new
 					({
 						attributes => {fillcolor => 'lightgreen', label => $start, shape => 'rectangle', style => 'filled'},
 						name       => $start,
 					});
+
+				$self -> root($node{$start});
 
 				next;
 			}
@@ -455,12 +467,12 @@ sub run
 			{
 				# Otherwise, it's a 'normal' line.
 
-				$self -> process_rhs($start, \%node, \@field, $lhs);
+				$self -> process_rhs(\%node, \@field, $lhs);
 			}
 		}
 		elsif ($field[1] =~ /^\|\|?$/)
 		{
-			$self -> process_rhs($start, \%node, \@field, $lhs);
+			$self -> process_rhs(\%node, \@field, $lhs);
 		}
 	}
 
@@ -470,53 +482,10 @@ sub run
 
 	my(@discard) = map{$_ eq ':discard' ? $_ : "$_ = $discard{$_}"} sort keys %discard;
 
-	$self -> add_lexeme($start, \%node, \@default)              if ($#default >= 0);
-	$self -> add_lexeme($start, \%node, \@discard)              if ($#discard >= 0);
 	$self -> add_adverb_record($node{$start}, \@lexeme_default) if ($#lexeme_default >= 0);
-	$self -> add_event_record($node{$start}, \@event)           if ($#event >= 0);
-
-	$self -> log(info => 'Building tree');
-
-	my($attributes);
-	my($name);
-
-	$node{$start} -> walk_down
-	({
-		callback => sub
-		{
-			my($n, $options) = @_;
-
-			# $n -> attributues() returns a hashref, and values are never undef:
-			# o fillcolor => $fillcolor.
-			# o label     => $label.
-			# o shape     => $shape.
-			# o style     => $style.
-			#
-			# Fix any '<x_y>' label issues we rigged in clean_up_angle_brackets():
-			# o Replace superscript '_' with real '_'.
-			# o Do not replace chevrons with '<>', because dot chokes.
-			#
-			# There is no need to fix these things in names, because every
-			# node has a defined value for both label name name, but it's
-			# some labels which dot chokes on (by hiding the text of the label).
-
-			$attributes         = $n -> attributes;
-			$$attributes{label} =~ s/\x{00AF}/ /g if ($$attributes{label});
-			$name               = $n -> name;
-
-			$self -> graph -> add_node(name => $name, %$attributes);
-
-			if ($n -> mother)
-			{
-				$self -> graph -> add_edge(from => $n -> mother -> name, to => $name);
-			}
-
-			# 1 => Keep walking.
-
-			return 1;
-		},
-		_depth => 0,
-	});
+	$self -> add_event_record(\@event)                          if ($#event >= 0);
+	$self -> add_lexeme(\@default)                              if ($#default >= 0);
+	$self -> add_lexeme(\@discard)                              if ($#discard >= 0);
 
 	my($tree_file) = $self -> tree_file;
 
@@ -525,7 +494,7 @@ sub run
 		$self -> log(info => 'Printing tree');
 
 		open(OUT, '>', $tree_file) || die "Can't open(> $tree_file): $!\n";
-		print OUT map{"$_\n"} @{$node{$start} -> tree2string({no_attributes => 1})};
+		print OUT map{"$_\n"} @{$self -> root -> tree2string({no_attributes => 1})};
 		close OUT;
 	}
 

@@ -1,14 +1,12 @@
 #!/usr/bin/env perl
 
-use 5.010;
+#use 5.010;
 use warnings;
 use strict;
 use English qw( -no_match_vars );
 use autodie;
 
-#use Data::TreeDraw;        # For draw().
 use Data::Dumper::Concise; # For Dumper().
-#use Data::TreeDumper;      # DumpTree().
 
 use Marpa::R2;
 
