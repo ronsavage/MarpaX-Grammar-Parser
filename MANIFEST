@@ -5,6 +5,7 @@ data/json2.bnf
 data/metag.bnf
 data/stringparser.bnf
 data/stringparser.log
+data/stringparser.tree
 lib/MarpaX/Grammar/Parser.pm
 Makefile.PL
 MANIFEST			This list of files
@@ -14,4 +15,5 @@ README
 scripts/g2g.sh
 scripts/g2p.pl
 scripts/metag.pl
+t/runner.t
 xt/author/pod.t
