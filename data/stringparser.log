@@ -1,0 +1,45 @@
+graph_grammar
+   |---{action = graph}
+   |---«graph¯definition»
+   |   |---node_definition
+   |   |   |---node_statement
+   |   |   |---node_statement
+   |   |   |   |---node_name
+   |   |   |   |---node_name
+   |   |   |   |   |---start_node
+   |   |   |   |   |   |---{event = start_node|pause = before}
+   |   |   |   |   |   |---'['
+   |   |   |   |   |---end_node
+   |   |   |   |       |---']'
+   |   |   |   |---attribute_definition
+   |   |   |   |   |---attribute_statement
+   |   |   |   |       |---start_attributes
+   |   |   |   |       |   |---{event = start_attributes|pause = before}
+   |   |   |   |       |   |---'{'
+   |   |   |   |       |---end_attributes
+   |   |   |   |           |---'}'
+   |   |   |   |---(',')
+   |   |   |---«graph¯definition»
+   |   |---edge_definition
+   |       |---edge_statement
+   |       |---edge_statement
+   |       |   |---edge_name
+   |       |   |---edge_name
+   |       |   |   |---('%1')
+   |       |   |   |---directed_edge
+   |       |   |   |   |---{event = directed_edge|pause = before}
+   |       |   |   |   |---{priority = 1}
+   |       |   |   |   |---'->'
+   |       |   |   |---('%2')
+   |       |   |   |---undirected_edge
+   |       |   |       |---{event = undirected_edge|pause = before}
+   |       |   |       |---{priority = 2}
+   |       |   |       |---'--'
+   |       |   |---attribute_definition
+   |       |   |---(',')
+   |       |---«graph¯definition»
+   |---:default
+   |   |---{action = [values]|bless = ::lhs}
+   |---:discard = :discard
+   |   |---{whitespace = [\\s]+}
+   |---{event subtext = completed «sub¯text»|event 'A[]' = nulled «A»|event '^a' = predicted A}

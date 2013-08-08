@@ -1,0 +1,36 @@
+---
+abstract: 'Convert a Marpa grammar into an image'
+author:
+  - 'Ron Savage <ron@savage.net.au>'
+build_requires:
+  Test::More: 0.94
+configure_requires:
+  Module::Build: 0.38
+dynamic_config: 0
+generated_by: 'Module::Build version 0.4005, CPAN::Meta::Converter version 2.131560'
+license: artistic_2
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: MarpaX-Grammar-Parser
+provides:
+  MarpaX::Grammar::Parser:
+    file: lib/MarpaX/Grammar/Parser.pm
+    version: 1.00
+requires:
+  File::Spec: 3.33
+  List::AllUtils: 0.03
+  Log::Handler: 0.78
+  Moo: 1.002
+  Perl6::Slurp: 0.03
+  Pod::Usage: 1.36
+  Text::Xslate: 1.4001
+  Tree::DAG_Node: 1.12
+  charnames: 0
+  open: 0
+  strict: 0
+  utf8: 0
+  warnings: 0
+resources:
+  license: http://www.perlfoundation.org/artistic_license_2_0
+version: 1.00

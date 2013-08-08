@@ -1,0 +1,69 @@
+:default				::= action => [values] bless => ::lhs
+
+event subtext			= completed <sub text>
+
+event 'A[]'				= nulled <A>
+
+event '^a'				= predicted A
+
+# Overall stuff.
+
+:start 					::= graph_grammar
+
+graph_grammar			::= <graph definition>	action => graph
+
+# Graph stuff.
+
+<graph definition>		::= node_definition
+							| edge_definition
+# Node stuff
+
+node_definition			::= node_statement
+							| node_statement <graph definition>
+
+node_statement			::= node_name
+							| node_name attribute_definition
+							| node_statement (',') node_statement
+
+node_name				::= start_node end_node
+
+:lexeme					~ start_node		pause => before		event => start_node
+start_node				~ '['
+
+:lexeme					~ end_node
+end_node				~ ']'
+
+# Edge stuff
+
+edge_definition			::= edge_statement
+							| edge_statement <graph definition>
+
+edge_statement			::= edge_name
+							| edge_name attribute_definition
+							| edge_statement (',') edge_statement
+
+edge_name				::= directed_edge
+							| undirected_edge
+
+:lexeme					~ directed_edge		pause => before		event => directed_edge
+directed_edge			~ '->'				priority => 1
+
+:lexeme					~ undirected_edge	pause => before		event => undirected_edge
+undirected_edge			~ '--'				priority => 2
+
+# Attribute stuff.
+
+attribute_definition	::= attribute_statement*
+
+attribute_statement		::= start_attributes end_attributes
+
+:lexeme					~ start_attributes	pause => before		event => start_attributes
+start_attributes		~ '{'
+
+:lexeme					~ end_attributes
+end_attributes			~ '}'
+
+# Boilerplate.
+
+:discard				~ whitespace
+whitespace				~ [\s]+
