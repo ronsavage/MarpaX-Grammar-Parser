@@ -444,14 +444,15 @@ sub run
 				# Discard ':start' and '::='.
 
 				$start = $field[2];
-				$node{$start} =
+
+				$self -> root
+				(
 					Tree::DAG_Node -> new
 					({
 						attributes => {fillcolor => 'lightgreen', label => $start, shape => 'rectangle', style => 'filled'},
 						name       => $start,
-					});
-
-				$self -> root($node{$start});
+					})
+				);
 
 				next;
 			}
@@ -482,7 +483,7 @@ sub run
 
 	my(@discard) = map{$_ eq ':discard' ? $_ : "$_ = $discard{$_}"} sort keys %discard;
 
-	$self -> add_adverb_record($node{$start}, \@lexeme_default) if ($#lexeme_default >= 0);
+	$self -> add_adverb_record($self -> root, \@lexeme_default) if ($#lexeme_default >= 0);
 	$self -> add_event_record(\@event)                          if ($#event >= 0);
 	$self -> add_lexeme(\@default)                              if ($#default >= 0);
 	$self -> add_lexeme(\@discard)                              if ($#discard >= 0);
