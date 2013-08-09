@@ -200,12 +200,12 @@ sub add_event_record
 
 sub add_token_node
 {
-	my($self, $node, $parent, $chain, $name) = @_;
+	my($self, $node, $parent, $chaining, $name) = @_;
 	$name                =~ s/"/\\"/g;
 	my($label)           = $name;
 	substr($name, -1, 1) = '' if (substr($name, -1, 1) =~ /[?*+]/);
 
-	$self -> log(info => "Add token. " . $parent -> name . " -> $name");
+	$self -> log(info => "Add token. Chaining: $chaining. Parent: " . $parent -> name . ". Node: $name");
 
 	if ($parent -> name ne $name)
 	{
@@ -225,7 +225,7 @@ sub add_token_node
 
 		$parent -> add_daughter($kid);
 
-		$parent = $kid if ($chain);
+		$parent = $kid if ($chaining);
 	}
 
 	return $parent;
@@ -387,16 +387,17 @@ sub process
 		$line  =~ s/[\s]+/ /g;
 		@field = split(/\s/, $line);
 
-		$self -> log(debug => "Input: $line");
+		$self -> log(debug => "\tInput: $line");
 		$self -> check_angle_brackets(\@field, \%names);
 
 		$g_index = first_index{$_ =~ /^(?:~|::=|=$)/} @field;
 
 		if ($g_index > 0)
 		{
-			$lhs = join(' ', @field[0 .. $g_index - 1]);
+			# This is set inside the 'if' because in the case of a line which
+			# starts with '|', we want to use $lhs from the previous line.
 
-			$self -> log(info => "lhs => <$lhs>");
+			$lhs = join(' ', @field[0 .. $g_index - 1]);
 
 			if ($lhs eq ':default')
 			{
@@ -429,7 +430,7 @@ sub process
 			{
 				# Discard ':lexeme' and '~'.
 
-				$self -> process_rhs(\%node, \@field, $field[2]);
+				$self -> process_rhs(\%node, $field[2], \@field);
 
 				next;
 			}
@@ -500,12 +501,12 @@ sub process
 			{
 				# Otherwise, it's a 'normal' line.
 
-				$self -> process_rhs(\%node, \@field, $lhs);
+				$self -> process_rhs(\%node, $lhs, \@field);
 			}
 		}
 		elsif ($field[0] =~ /^\|{1,2}$/)
 		{
-			$self -> process_rhs(\%node, \@field, $lhs);
+			$self -> process_rhs(\%node, $lhs, \@field);
 		}
 	}
 
@@ -529,7 +530,7 @@ sub process
 
 sub process_rhs
 {
-	my($self, $node, $field, $lhs) = @_;
+	my($self, $node, $lhs, $field) = @_;
 
 	my($parent);
 
