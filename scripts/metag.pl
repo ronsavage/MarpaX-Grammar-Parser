@@ -1,26 +1,31 @@
 #!/usr/bin/env perl
 
 #use 5.010;
+use autodie;
 use warnings;
 use strict;
-use English qw( -no_match_vars );
-use autodie;
 
 use Data::Dumper::Concise; # For Dumper().
+#use Data::TreeDumper      # For DumpTree().
+
+use English qw( -no_match_vars );
 
 use Marpa::R2;
 
 # ------------------------------------------------
 
-die "usage: $0 grammar input" if scalar @ARGV != 2;
-my $grammar_file = do { local $RS = undef; open my $fh, q{<}, $ARGV[0]; my $file = <$fh>; close $fh; \$file };
-my $input_file = do { local $RS = undef; open my $fh, q{<}, $ARGV[1]; my $file = <$fh>; close $fh; \$file };
-my $slg = Marpa::R2::Scanless::G->new( { source => $grammar_file, bless_package => 'My_Nodes' } );
-my $slr = Marpa::R2::Scanless::R->new( { grammar => $slg } );
+die "Usage: $0 grammar input\n" if scalar @ARGV != 2;
 
-$slr->read($input_file);
+my($grammar_file) = do { local $RS = undef; open my $fh, q{<}, $ARGV[0]; my $file = <$fh>; close $fh; \$file };
+my($input_file)   = do { local $RS = undef; open my $fh, q{<}, $ARGV[1]; my $file = <$fh>; close $fh; \$file };
+my($slg)          = Marpa::R2::Scanless::G -> new( { source => $grammar_file, bless_package => 'My_Nodes' } );
+my($slr)          = Marpa::R2::Scanless::R -> new( { grammar => $slg } );
+
+$slr -> read($input_file);
 
 say Dumper $slr -> value;
+
+=pod
 
 say DumpTree
 (
@@ -32,11 +37,10 @@ say DumpTree
 	NO_WRAP              => 1,
 );
 
+=cut
+
 package My_Nodes;
 
-sub new
-{
-	return {};
-}
+sub new{return {};}
 
 1;

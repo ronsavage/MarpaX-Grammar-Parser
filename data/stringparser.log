@@ -25,12 +25,10 @@ graph_grammar
    |       |---edge_statement
    |       |   |---edge_name
    |       |   |---edge_name
-   |       |   |   |---('%1')
    |       |   |   |---directed_edge
    |       |   |   |   |---{event = directed_edge|pause = before}
    |       |   |   |   |---{priority = 1}
    |       |   |   |   |---'->'
-   |       |   |   |---('%2')
    |       |   |   |---undirected_edge
    |       |   |       |---{event = undirected_edge|pause = before}
    |       |   |       |---{priority = 2}
@@ -38,8 +36,8 @@ graph_grammar
    |       |   |---attribute_definition
    |       |   |---(',')
    |       |---«graph¯definition»
+   |---{event subtext = completed «sub¯text»|event 'A[]' = nulled «A»|event '^a' = predicted A}
    |---:default
    |   |---{action = [values]|bless = ::lhs}
-   |---:discard = :discard
-   |   |---{whitespace = [\\s]+}
-   |---{event subtext = completed «sub¯text»|event 'A[]' = nulled «A»|event '^a' = predicted A}
+   |---:discard
+       |---{whitespace = [\\s]+}

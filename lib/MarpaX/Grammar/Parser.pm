@@ -60,6 +60,14 @@ has minlevel =>
 	required => 0,
 );
 
+has names =>
+(
+	default  => sub{return {}},
+	is       => 'rw',
+	#isa     => 'HashRef',
+	required => 0,
+);
+
 has root =>
 (
 	default  => sub{return ''},
@@ -82,12 +90,21 @@ our $VERSION = '1.00';
 
 sub add_lexeme
 {
-	my($self, $field) = @_;
-	my($parent) = $self -> root;
-	my($name)   = shift @$field;
-	my($kid)    = Tree::DAG_Node -> new
+	my($self, $type, $field) = @_;
+	my($parent)     = $self -> root;
+	my($name)       = shift @$field;
+	my($attributes) =
+	{
+		fillcolor => 'lightblue',
+		label     => $name,
+		shape     => 'rectangle',
+		style     => 'filled',
+		type      => $type,
+	};
+
+	my($kid) = Tree::DAG_Node -> new
 	({
-		attributes => {fillcolor => 'lightblue', label => $name, shape => 'rectangle', style => 'filled'},
+		attributes => $attributes,
 		name       => $name,
 	});
 
@@ -96,10 +113,12 @@ sub add_lexeme
 	my($label)              = [map{ {text => $_} } @$field];
 	$$label[0]{text}        = "{$$label[0]{text}";
 	$$label[$#$label]{text} = "$$label[$#$label]{text}\}";
+	$$attributes{label}     = $label;
+	$$attributes{shape}     = 'record';
 	$parent                 = $kid;
 	$kid                    = Tree::DAG_Node -> new
 	({
-		attributes => {fillcolor => 'lightblue', label => $label, shape => 'record', style => 'filled'},
+		attributes => $attributes,
 		name       => join('|', map{$$_{text} } @$label),
 	});
 
@@ -120,12 +139,20 @@ sub add_adverb_record
 		my($label)              = [map{ {text => "$$field[$_] = $$field[$_ + 2]"} } sort{$$field[$a] cmp $$field[$b]} @index];
 		$$label[0]{text}        = "{$$label[0]{text}";
 		$$label[$#$label]{text} = "$$label[$#$label]{text}}";
+		my($attributes)         =
+		{
+			fillcolor => 'lightblue',
+			label     => $label,
+			shape     => 'record',
+			style     => 'filled',
+			type      => 'lexeme default',
+		};
 
 		$parent -> add_daughter
 		(
 			Tree::DAG_Node -> new
 			({
-				attributes => {fillcolor => 'lightblue', label => $label, shape => 'record', style => 'filled'},
+				attributes => $attributes,
 				name       => join('|', map{$$_{text} } @$label),
 			})
 		);
@@ -138,13 +165,21 @@ sub add_adverb_record
 sub add_event_record
 {
 	my($self, $field) = @_;
-	my($label) = '{' . join('|', @$field) . '}';
+	my($label)        = '{' . join('|', @$field) . '}';
+	my($attributes)   =
+	{
+		fillcolor => 'lightblue',
+		label     => $label,
+		shape     => 'record',
+		style     => 'filled',
+		type      => 'event',
+	};
 
 	$self -> root -> add_daughter
 	(
 		Tree::DAG_Node -> new
 		({
-			attributes => {fillcolor => 'lightblue', label => $label, shape => 'record', style => 'filled'},
+			attributes => $attributes,
 			name       => $label,
 		})
 	);
@@ -162,9 +197,17 @@ sub add_token_node
 
 	if ($parent -> name ne $name)
 	{
+		my($attributes) =
+		{
+			fillcolor => 'white',
+			label     => $label,
+			shape     => 'rectangle',
+			style     => '',
+			type      => 'token',
+		};
 		$$node{$name} = my($kid) = Tree::DAG_Node -> new
 			({
-				attributes => {fillcolor => 'white', label => $label, shape => 'rectangle', style => ''},
+				attributes => $attributes,
 				name       => $name,
 			});
 
@@ -172,6 +215,8 @@ sub add_token_node
 
 		$parent = $kid if ($chain);
 	}
+
+	return $parent;
 
 } # End of add_token_node.
 
@@ -216,33 +261,30 @@ sub BUILD
 
 sub clean_up_angle_brackets
 {
-	my($self, $field) = @_;
+	my($self, $field, $names) = @_;
 	my($index) = first_index{$_ =~ /^</} @$field;
 
+	my($name);
 	my($quantifier);
-	my($width);
 
 	while ($index >= 0)
 	{
-		# Steps:
-		# o Replace '<' and '>' with chevrons.
-		# o Combine '<x' 'y>' into '<x_y>' (but with '_' replaced by a superscript '_').
-		#	Note: This takes place even for '<A>'. Hence $i = $index and not $i = $index + 1.
-
 		for (my $i = $index; $i <= $#$field; $i++)
 		{
 			if ($$field[$i] =~ />([*+])?$/)
 			{
 				$quantifier = $1 || '';
-				$width      = $quantifier ? 2 : 1;
 
-				splice(@$field, $index, ($i - $index + 1), join("\x{00AF}", @$field[$index .. $i]) );
+				splice(@$field, $index, ($i - $index + 1), join(' ', @$field[$index .. $i]) );
 
-				substr($$field[$index], 0,  1)           = "\x{00AB}"; # <<.
-				substr($$field[$index], -$width, $width) = "\x{00BB}"; # >>.
-				$$field[$index]                          .= $quantifier;
+				$name          = $$field[$index];
+				$$names{$name} =
+				{
+					angled     => 1,
+					quantified => $quantifier,
+				};
 
-				# Keep searching for '<x' 'y>'.
+				# Keep searching.
 
 				$index = first_index{$_ =~ /^</ && $_ !~ />[*+]?$/} @$field;
 
@@ -262,19 +304,6 @@ sub log
 	$self -> logger -> log($level => $s) if ($self -> logger);
 
 } # End of log.
-
-# --------------------------------------------------
-
-sub log_tree
-{
-	my($self, $node, $level) = @_;
-	$level ||= $self -> maxlevel;
-
-	$self -> log($level => '-' x 50);
-	$self -> log($level => $_) for @{$self -> root -> tree2string({no_attributes => 1})};
-	$self -> log($level => '-' x 50);
-
-} # End of log_tree.
 
 # ------------------------------------------------
 
@@ -311,10 +340,13 @@ sub process_rhs
 	if ($index >= 0)
 	{
 		$self -> add_adverb_record($parent, $field);
-		$self -> add_token_node($node, $parent, 1, $_) for @$field[2 .. $index - 1];
+
+		$parent = $self -> add_token_node($node, $parent, 1, $_) for @$field[2 .. $index - 1];
 	}
 	else
 	{
+		# Discard return value because we are not chaining (the 0).
+
 		$self -> add_token_node($node, $parent, 0, $_) for @$field[2 .. $#$field];
 	}
 
@@ -325,9 +357,6 @@ sub process_rhs
 sub run
 {
 	my($self)    = @_;
-
-	print STDERR "Input file: " . $self -> input_file . "\n";
-
 	my(@grammar) = slurp($self -> input_file, {chomp => 1});
 
 	$self -> log(info => 'Entered run()');
@@ -337,7 +366,7 @@ sub run
 	my(@field);
 	my($g_index);
 	my($line, $lhs, @lexeme_default);
-	my(%node);
+	my(%names, %node);
 	my($rhs);
 	my($start, %seen);
 
@@ -356,17 +385,16 @@ sub run
 		# TODO:
 		# o Handle in-line comments, '... # ...'.
 
-		$line     =~ tr/ 	/  /s;
-		$line     =~ s/\\/\\\\/g;
+		$line  =~ s/[\s\n\r]+/ /g;
+		$line  =~ s/\\/\\\\/g;
+		$line  =~ s/^\s+//;
+		$line  =~ s/\s+$//;
+		@field = split(/\s/, $line);
 
 		$self -> log(debug => "\t<$line>");
+		$self -> clean_up_angle_brackets(\@field, \%names);
 
-		@field    = split(/\s/, $line);
-		$field[0] =~ s/^\s+//;
-
-		$self -> clean_up_angle_brackets(\@field);
-
-		$g_index  = first_index{$_ =~ /^(?:~|::=|=$)/} @field;
+		$g_index = first_index{$_ =~ /^(?:~|::=|=$)/} @field;
 
 		if ($g_index > 0)
 		{
@@ -443,13 +471,21 @@ sub run
 			{
 				# Discard ':start' and '::='.
 
-				$start = $field[2];
+				$start          = $field[2];
+				my($attributes) =
+				{
+					fillcolor => 'lightgreen',
+					label     => $start,
+					shape     => 'rectangle',
+					style     => 'filled',
+					type      => ':start',
+				};
 
 				$self -> root
 				(
 					Tree::DAG_Node -> new
 					({
-						attributes => {fillcolor => 'lightgreen', label => $start, shape => 'rectangle', style => 'filled'},
+						attributes => $attributes,
 						name       => $start,
 					})
 				);
@@ -485,14 +521,14 @@ sub run
 
 	$self -> add_adverb_record($self -> root, \@lexeme_default) if ($#lexeme_default >= 0);
 	$self -> add_event_record(\@event)                          if ($#event >= 0);
-	$self -> add_lexeme(\@default)                              if ($#default >= 0);
-	$self -> add_lexeme(\@discard)                              if ($#discard >= 0);
+	$self -> add_lexeme(':default', \@default)                  if ($#default >= 0);
+	$self -> add_lexeme(':discard', \@discard)                  if ($#discard >= 0);
 
 	my($tree_file) = $self -> tree_file;
 
 	if ($tree_file)
 	{
-		$self -> log(info => 'Printing tree');
+		$self -> log(info => 'Saving tree');
 
 		open(OUT, '>', $tree_file) || die "Can't open(> $tree_file): $!\n";
 		print OUT map{"$_\n"} @{$self -> root -> tree2string({no_attributes => 1})};
@@ -663,6 +699,10 @@ Get or set the value used by the logger object.
 This option is only used if an object of type L<Log::Handler> is created. See L<Log::Handler::Levels>.
 
 Note: C<minlevel> is a parameter to new().
+
+=head2 root()
+
+Returns the root node, of type L<Tree::DAG_Node>, of the tree of items in the input stream's BNF.
 
 =head2 tree_file([$output_file_name])
 

@@ -44,7 +44,6 @@ my(%params) =
 		'Pod::Usage'            => 1.36,
 		'Tree::DAG_Node'        => 1.12,
 		'strict'                => 0,
-		'Text::Xslate'          => 1.4001,
 		'Test::More'            => 0.94,
 #		'Test::Pod'             => 1.45, # Make it optional. See xt/author/pod.t
 		'utf8'                  => 0,
