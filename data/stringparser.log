@@ -1,42 +1,31 @@
 graph_grammar
    |---{action = graph}
-   |---«graph¯definition»
+   |---<graph definition>
    |   |---node_definition
-   |   |   |---node_statement
-   |   |   |---node_statement
-   |   |   |   |---node_name
-   |   |   |   |---node_name
-   |   |   |   |   |---start_node
-   |   |   |   |   |   |---{event = start_node|pause = before}
-   |   |   |   |   |   |---'['
-   |   |   |   |   |---end_node
-   |   |   |   |       |---']'
-   |   |   |   |---attribute_definition
-   |   |   |   |   |---attribute_statement
-   |   |   |   |       |---start_attributes
-   |   |   |   |       |   |---{event = start_attributes|pause = before}
-   |   |   |   |       |   |---'{'
-   |   |   |   |       |---end_attributes
-   |   |   |   |           |---'}'
-   |   |   |   |---(',')
-   |   |   |---«graph¯definition»
-   |   |---edge_definition
-   |       |---edge_statement
-   |       |---edge_statement
-   |       |   |---edge_name
-   |       |   |---edge_name
-   |       |   |   |---directed_edge
-   |       |   |   |   |---{event = directed_edge|pause = before}
-   |       |   |   |   |---{priority = 1}
-   |       |   |   |   |---'->'
-   |       |   |   |---undirected_edge
-   |       |   |       |---{event = undirected_edge|pause = before}
-   |       |   |       |---{priority = 2}
-   |       |   |       |---'--'
-   |       |   |---attribute_definition
-   |       |   |---(',')
-   |       |---«graph¯definition»
-   |---{event subtext = completed «sub¯text»|event 'A[]' = nulled «A»|event '^a' = predicted A}
+   |       |---node_statement
+   |           |---node_name
+   |               |---start_node
+   |               |   |---{event = start_node|pause = before}
+   |               |   |---'['
+   |               |---end_node
+   |                   |---']'
+   |---edge_statement
+   |   |---edge_name
+   |       |---directed_edge
+   |           |---{event = directed_edge|pause = before}
+   |           |---{priority = 1}
+   |           |---'->'
+   |---{event = undirected_edge|pause = before}
+   |---undirected_edge
+   |   |---{priority = 2}
+   |   |---'--'
+   |---attribute_statement
+   |   |---start_attributes
+   |   |   |---{event = start_attributes|pause = before}
+   |   |   |---'{'
+   |   |---end_attributes
+   |       |---'}'
+   |---{event subtext = completed <sub text>|event 'A[]' = nulled <A>|event '^a' = predicted A}
    |---:default
    |   |---{action = [values]|bless = ::lhs}
    |---:discard

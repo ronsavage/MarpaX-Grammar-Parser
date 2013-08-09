@@ -7,6 +7,8 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
+use Data::Dumper::Concise; # For Dumper().
+
 use File::Basename; # For basename().
 use File::Spec;
 
@@ -259,7 +261,7 @@ sub BUILD
 
 # --------------------------------------------------
 
-sub clean_up_angle_brackets
+sub check_angle_brackets
 {
 	my($self, $field, $names) = @_;
 	my($index) = first_index{$_ =~ /^</} @$field;
@@ -273,7 +275,8 @@ sub clean_up_angle_brackets
 		{
 			if ($$field[$i] =~ />([*+])?$/)
 			{
-				$quantifier = $1 || '';
+				$quantifier                = $1 || '';
+				substr($$field[$i], -1, 1) = '' if ($quantifier);
 
 				splice(@$field, $index, ($i - $index + 1), join(' ', @$field[$index .. $i]) );
 
@@ -281,7 +284,7 @@ sub clean_up_angle_brackets
 				$$names{$name} =
 				{
 					angled     => 1,
-					quantified => $quantifier,
+					quantifier => $quantifier,
 				};
 
 				# Keep searching.
@@ -293,7 +296,35 @@ sub clean_up_angle_brackets
 		}
 	}
 
-} # End of clean_up_angle_brackets.
+	for (my $i = $index; $i <= $#$field; $i++)
+	{
+		if ( (! $$names{$$field[$i]}) && ($$field[$i] =~ /^\w/) && ($$field[$i] !~ /^\d/) )
+		{
+			if ($$field[$i] =~ /([*+])?$/)
+			{
+				$quantifier = $1 || '';
+
+				if ($quantifier)
+				{
+					delete $$names{$$field[$i]};
+
+					substr($$field[$i], -1, 1) = '';
+				}
+			}
+			else
+			{
+				$quantifier = '';
+			}
+
+			$$names{$$field[$i]} =
+			{
+				angled     => 0,
+				quantifier => $quantifier,
+			};
+		}
+	}
+
+} # End of check_angle_brackets.
 
 # --------------------------------------------------
 
@@ -307,59 +338,12 @@ sub log
 
 # ------------------------------------------------
 
-sub process_rhs
-{
-	my($self, $node, $field, $lhs) = @_;
-
-	my($parent);
-
-	$self -> root -> walk_down
-	({
-		callback => sub
-		{
-			my($n, $options) = @_;
-
-			$parent = $n if ($n -> name eq $lhs);
-
-			# Return:
-			# o 0 to stop walk if parent found.
-			# o 1 to keep walking otherwise.
-
-			return $parent ? 0 : 1;
-		},
-		_depth => 0,
-	});
-
-	$parent      = $self -> root if (! $parent);
-	my($adverbs) = $self -> adverbs;
-	my($index)   = first_index{$_ =~ /^$adverbs$/} @$field;
-
-	my($kid);
-	my($rhs);
-
-	if ($index >= 0)
-	{
-		$self -> add_adverb_record($parent, $field);
-
-		$parent = $self -> add_token_node($node, $parent, 1, $_) for @$field[2 .. $index - 1];
-	}
-	else
-	{
-		# Discard return value because we are not chaining (the 0).
-
-		$self -> add_token_node($node, $parent, 0, $_) for @$field[2 .. $#$field];
-	}
-
-} # End of process_rhs.
-
-# ------------------------------------------------
-
-sub run
+sub process
 {
 	my($self)    = @_;
 	my(@grammar) = slurp($self -> input_file, {chomp => 1});
 
-	$self -> log(info => 'Entered run()');
+	$self -> log(info => 'Entered process()');
 
 	my(@default, %discard);
 	my(@event);
@@ -392,7 +376,7 @@ sub run
 		@field = split(/\s/, $line);
 
 		$self -> log(debug => "\t<$line>");
-		$self -> clean_up_angle_brackets(\@field, \%names);
+		$self -> check_angle_brackets(\@field, \%names);
 
 		$g_index = first_index{$_ =~ /^(?:~|::=|=$)/} @field;
 
@@ -516,6 +500,7 @@ sub run
 	die ":start token not found\n" if (! $start);
 
 	# Process the things we stockpiled, since by now $start is defined.
+	# Convert {':discard' => ':discard'} to ':discard'. It makes the output prettier.
 
 	my(@discard) = map{$_ eq ':discard' ? $_ : "$_ = $discard{$_}"} sort keys %discard;
 
@@ -523,6 +508,89 @@ sub run
 	$self -> add_event_record(\@event)                          if ($#event >= 0);
 	$self -> add_lexeme(':default', \@default)                  if ($#default >= 0);
 	$self -> add_lexeme(':discard', \@discard)                  if ($#discard >= 0);
+
+	return \%names;
+
+} # End of process.
+
+# ------------------------------------------------
+
+sub process_rhs
+{
+	my($self, $node, $field, $lhs) = @_;
+
+	my($parent);
+
+	$self -> root -> walk_down
+	({
+		callback => sub
+		{
+			my($n, $options) = @_;
+
+			$parent = $n if ($n -> name eq $lhs);
+
+			# Return:
+			# o 0 to stop walk if parent found.
+			# o 1 to keep walking otherwise.
+
+			return $parent ? 0 : 1;
+		},
+		_depth => 0,
+	});
+
+	$parent      = $self -> root if (! $parent);
+	my($adverbs) = $self -> adverbs;
+	my($index)   = first_index{$_ =~ /^$adverbs$/} @$field;
+
+	my($kid);
+	my($rhs);
+
+	if ($index >= 0)
+	{
+		$self -> add_adverb_record($parent, $field);
+
+		$parent = $self -> add_token_node($node, $parent, 1, $_) for @$field[2 .. $index - 1];
+	}
+	else
+	{
+		# Discard return value because we are not chaining (the 0).
+
+		$self -> add_token_node($node, $parent, 0, $_) for @$field[2 .. $#$field];
+	}
+
+} # End of process_rhs.
+
+# ------------------------------------------------
+
+sub run
+{
+	my($self) = @_;
+
+	$self -> log(info => 'Entered run()');
+
+	my($names) = $self -> process;
+
+	my($name);
+
+	$self -> root -> walk_down
+	({
+		callback => sub
+		{
+			my($n, $options) = @_;
+			$name = $n -> name;
+
+			if (defined $$names{$name})
+			{
+				$n -> attributes
+				(
+					{%{$n -> attributes}, %{$$names{$name} } }
+				);
+			}
+
+			return 1;
+		},
+		_depth => 0,
+	});
 
 	my($tree_file) = $self -> tree_file;
 
@@ -534,6 +602,8 @@ sub run
 		print OUT map{"$_\n"} @{$self -> root -> tree2string({no_attributes => 1})};
 		close OUT;
 	}
+
+	print Dumper($names);
 
 } # End of run.
 

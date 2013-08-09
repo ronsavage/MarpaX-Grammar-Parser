@@ -1,6 +1,6 @@
 graph_grammar
    |---{action = graph}
-   |---«graph¯definition»
+   |---<graph definition>
    |   |---node_definition
    |   |   |---node_statement
    |   |   |---node_statement
@@ -19,7 +19,7 @@ graph_grammar
    |   |   |   |       |---end_attributes
    |   |   |   |           |---'}'
    |   |   |   |---(',')
-   |   |   |---«graph¯definition»
+   |   |   |---<graph definition>
    |   |---edge_definition
    |       |---edge_statement
    |       |---edge_statement
@@ -35,7 +35,7 @@ graph_grammar
    |       |   |       |---'--'
    |       |   |---attribute_definition
    |       |   |---(',')
-   |       |---«graph¯definition»
+   |       |---<graph definition>
    |---{event subtext = completed «sub¯text»|event 'A[]' = nulled «A»|event '^a' = predicted A}
    |---:default
    |   |---{action = [values]|bless = ::lhs}
