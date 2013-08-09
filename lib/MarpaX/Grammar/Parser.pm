@@ -70,6 +70,14 @@ has names =>
 	required => 0,
 );
 
+has no_attributes =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	#isa     => 'Bool',
+	required => 0,
+);
+
 has root =>
 (
 	default  => sub{return ''},
@@ -196,6 +204,8 @@ sub add_token_node
 	$name                =~ s/"/\\"/g;
 	my($label)           = $name;
 	substr($name, -1, 1) = '' if (substr($name, -1, 1) =~ /[?*+]/);
+
+	$self -> log(info => "Add token. " . $parent -> name . " -> $name");
 
 	if ($parent -> name ne $name)
 	{
@@ -342,6 +352,7 @@ sub process
 {
 	my($self)    = @_;
 	my(@grammar) = slurp($self -> input_file, {chomp => 1});
+	my($count)   = 0;
 
 	$self -> log(info => 'Entered process()');
 
@@ -356,6 +367,8 @@ sub process
 
 	for (my $i = 0; $i <= $#grammar; $i++)
 	{
+		$count++;
+
 		$line = $grammar[$i];
 
 		next if ($line =~ /^(\s*\#|\s*$)/);
@@ -369,13 +382,12 @@ sub process
 		# TODO:
 		# o Handle in-line comments, '... # ...'.
 
-		$line  =~ s/[\s\n\r]+/ /g;
-		$line  =~ s/\\/\\\\/g;
 		$line  =~ s/^\s+//;
 		$line  =~ s/\s+$//;
+		$line  =~ s/[\s]+/ /g;
 		@field = split(/\s/, $line);
 
-		$self -> log(debug => "\t<$line>");
+		$self -> log(debug => "Input: $line");
 		$self -> check_angle_brackets(\@field, \%names);
 
 		$g_index = first_index{$_ =~ /^(?:~|::=|=$)/} @field;
@@ -491,7 +503,7 @@ sub process
 				$self -> process_rhs(\%node, \@field, $lhs);
 			}
 		}
-		elsif ($field[1] =~ /^\|\|?$/)
+		elsif ($field[0] =~ /^\|{1,2}$/)
 		{
 			$self -> process_rhs(\%node, \@field, $lhs);
 		}
@@ -599,11 +611,9 @@ sub run
 		$self -> log(info => 'Saving tree');
 
 		open(OUT, '>', $tree_file) || die "Can't open(> $tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> root -> tree2string({no_attributes => 1})};
+		print OUT map{"$_\n"} @{$self -> root -> tree2string({no_attributes => $self -> no_attributes})};
 		close OUT;
 	}
-
-	print Dumper($names);
 
 } # End of run.
 

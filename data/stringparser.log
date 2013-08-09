@@ -3,30 +3,36 @@ graph_grammar
    |---<graph definition>
    |   |---node_definition
    |       |---node_statement
-   |           |---node_name
-   |               |---start_node
-   |               |   |---{event = start_node|pause = before}
-   |               |   |---'['
-   |               |---end_node
-   |                   |---']'
+   |       |   |---node_name
+   |       |   |   |---start_node
+   |       |   |   |   |---{event = start_node|pause = before}
+   |       |   |   |   |---'['
+   |       |   |   |---end_node
+   |       |   |       |---']'
+   |       |   |---attribute_definition
+   |       |   |   |---attribute_statement
+   |       |   |       |---start_attributes
+   |       |   |       |   |---{event = start_attributes|pause = before}
+   |       |   |       |   |---'{'
+   |       |   |       |---end_attributes
+   |       |   |           |---'}'
+   |       |   |---(',')
+   |       |---<graph definition>
    |---edge_statement
    |   |---edge_name
-   |       |---directed_edge
-   |           |---{event = directed_edge|pause = before}
-   |           |---{priority = 1}
-   |           |---'->'
+   |   |   |---directed_edge
+   |   |       |---{event = directed_edge|pause = before}
+   |   |       |---{priority = 1}
+   |   |       |---'->'
+   |   |---attribute_definition
+   |   |---(',')
+   |---<graph definition>
    |---{event = undirected_edge|pause = before}
    |---undirected_edge
    |   |---{priority = 2}
    |   |---'--'
-   |---attribute_statement
-   |   |---start_attributes
-   |   |   |---{event = start_attributes|pause = before}
-   |   |   |---'{'
-   |   |---end_attributes
-   |       |---'}'
    |---{event subtext = completed <sub text>|event 'A[]' = nulled <A>|event '^a' = predicted A}
    |---:default
    |   |---{action = [values]|bless = ::lhs}
    |---:discard
-       |---{whitespace = [\\s]+}
+       |---{whitespace = [\s]+}

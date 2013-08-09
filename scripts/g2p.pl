@@ -23,6 +23,7 @@ if ($option_parser -> getoptions
 	'logger=s',
 	'maxlevel=s',
 	'minlevel=s',
+	'no_attributes=i',
 	'tree_file=s',
 ) )
 {
@@ -54,6 +55,7 @@ g2p.pl [options]
 	-logger aLog::HandlerObject
 	-maxlevel logOption1
 	-minlevel logOption2
+	-no_attributes Boolean
 	-tree_file aTextFileName
 
 Exit value: 0 for success, 1 for failure. Die upon error.
@@ -99,6 +101,12 @@ See the Log::handler docs.
 Default: 'error'.
 
 No lower levels are used.
+
+=item o -no_attributes Boolean
+
+Include (0) or exclude (1) attributes from the tree_file output.
+
+Default: 0.
 
 =item o -tree_file aTextFileName
 
