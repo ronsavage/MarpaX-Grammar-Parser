@@ -7,11 +7,6 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
-use Data::Dumper::Concise; # For Dumper().
-
-use File::Basename; # For basename().
-use File::Spec;
-
 use List::AllUtils qw/first_index indexes/;
 
 use Log::Handler;
@@ -204,8 +199,6 @@ sub add_token_node
 	$name                =~ s/"/\\"/g;
 	my($label)           = $name;
 	substr($name, -1, 1) = '' if (substr($name, -1, 1) =~ /[?*+]/);
-
-	$self -> log(info => "Add token. Chaining: $chaining. Parent: " . $parent -> name . ". Node: $name");
 
 	if ($parent -> name ne $name)
 	{
@@ -440,8 +433,6 @@ sub process
 	my(@grammar) = slurp($self -> input_file, {chomp => 1});
 	my($count)   = 0;
 
-	$self -> log(info => 'Entered process()');
-
 	my(@default, %discard);
 	my(@event);
 	my(@field);
@@ -612,10 +603,7 @@ sub process_rhs
 
 sub run
 {
-	my($self) = @_;
-
-	$self -> log(info => 'Entered run()');
-
+	my($self)  = @_;
 	my($names) = $self -> process;
 
 	my($name);
@@ -644,8 +632,6 @@ sub run
 
 	if ($tree_file)
 	{
-		$self -> log(info => 'Saving tree');
-
 		open(OUT, '>', $tree_file) || die "Can't open(> $tree_file): $!\n";
 		print OUT map{"$_\n"} @{$self -> root -> tree2string({no_attributes => $self -> no_attributes})};
 		close OUT;
