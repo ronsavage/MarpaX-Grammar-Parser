@@ -93,46 +93,6 @@ our $VERSION = '1.00';
 
 # ------------------------------------------------
 
-sub add_lexeme
-{
-	my($self, $type, $field) = @_;
-	my($parent)     = $self -> root;
-	my($name)       = shift @$field;
-	my($attributes) =
-	{
-		fillcolor => 'lightblue',
-		label     => $name,
-		shape     => 'rectangle',
-		style     => 'filled',
-		type      => $type,
-	};
-
-	my($kid) = Tree::DAG_Node -> new
-	({
-		attributes => $attributes,
-		name       => $name,
-	});
-
-	$parent -> add_daughter($kid);
-
-	my($label)              = [map{ {text => $_} } @$field];
-	$$label[0]{text}        = "{$$label[0]{text}";
-	$$label[$#$label]{text} = "$$label[$#$label]{text}\}";
-	$$attributes{label}     = $label;
-	$$attributes{shape}     = 'record';
-	$parent                 = $kid;
-	$kid                    = Tree::DAG_Node -> new
-	({
-		attributes => $attributes,
-		name       => join('|', map{$$_{text} } @$label),
-	});
-
-	$parent -> add_daughter($kid);
-
-} # End of add_lexeme.
-
-# ------------------------------------------------
-
 sub add_adverb_record
 {
 	my($self, $parent, $field) = @_;
@@ -190,6 +150,46 @@ sub add_event_record
 	);
 
 } # End of add_event_record.
+
+# ------------------------------------------------
+
+sub add_lexeme
+{
+	my($self, $type, $field) = @_;
+	my($parent)     = $self -> root;
+	my($name)       = shift @$field;
+	my($attributes) =
+	{
+		fillcolor => 'lightblue',
+		label     => $name,
+		shape     => 'rectangle',
+		style     => 'filled',
+		type      => $type,
+	};
+
+	my($kid) = Tree::DAG_Node -> new
+	({
+		attributes => $attributes,
+		name       => $name,
+	});
+
+	$parent -> add_daughter($kid);
+
+	my($label)              = [map{ {text => $_} } @$field];
+	$$label[0]{text}        = "{$$label[0]{text}";
+	$$label[$#$label]{text} = "$$label[$#$label]{text}\}";
+	$$attributes{label}     = $label;
+	$$attributes{shape}     = 'record';
+	$parent                 = $kid;
+	$kid                    = Tree::DAG_Node -> new
+	({
+		attributes => $attributes,
+		name       => join('|', map{$$_{text} } @$label),
+	});
+
+	$parent -> add_daughter($kid);
+
+} # End of add_lexeme.
 
 # ------------------------------------------------
 
@@ -384,6 +384,53 @@ sub handle_lexeme_default
 
 } # End of handle_lexeme_default.
 
+# ------------------------------------------------
+
+sub handle_rhs
+{
+	my($self, $node, $lhs, $field) = @_;
+
+	my($parent);
+
+	$self -> root -> walk_down
+	({
+		callback => sub
+		{
+			my($n, $options) = @_;
+
+			$parent = $n if ($n -> name eq $lhs);
+
+			# Return:
+			# o 0 to stop walk if parent found.
+			# o 1 to keep walking otherwise.
+
+			return $parent ? 0 : 1;
+		},
+		_depth => 0,
+	});
+
+	$parent      = $self -> root if (! $parent);
+	my($adverbs) = $self -> adverbs;
+	my($index)   = first_index{$_ =~ /^$adverbs$/} @$field;
+
+	my($kid);
+	my($rhs);
+
+	if ($index >= 0)
+	{
+		$self -> add_adverb_record($parent, $field);
+
+		$parent = $self -> add_token_node($node, $parent, 1, $_) for @$field[2 .. $index - 1];
+	}
+	else
+	{
+		# Discard return value because we are not chaining (the 0).
+
+		$self -> add_token_node($node, $parent, 0, $_) for @$field[2 .. $#$field];
+	}
+
+} # End of handle_rhs.
+
 # --------------------------------------------------
 
 sub handle_start
@@ -464,7 +511,7 @@ sub process
 		$line  =~ s/[\s]+/ /g;
 		@field = split(/\s/, $line);
 
-		$self -> log(debug => "\tInput: $line");
+		$self -> log(debug => "\t$count: Input: <$line>");
 		$self -> check_angle_brackets(\@field, \%names);
 
 		$g_index = first_index{$_ =~ /^(?:~|::=|=$)/} @field;
@@ -499,7 +546,7 @@ sub process
 			{
 				# Discard ':lexeme' and '~'.
 
-				$self -> process_rhs(\%node, $field[2], \@field);
+				$self -> handle_rhs(\%node, $field[2], \@field);
 
 				next;
 			}
@@ -527,12 +574,15 @@ sub process
 			{
 				# Otherwise, it's a 'normal' line.
 
-				$self -> process_rhs(\%node, $lhs, \@field);
+				$self -> handle_rhs(\%node, $lhs, \@field);
 			}
 		}
 		elsif ($field[0] =~ /^\|{1,2}$/)
 		{
-			$self -> process_rhs(\%node, $lhs, \@field);
+			# Fields 0 and 1 are not used in what's passed
+			# from handle_rhs() to add_token_node().
+
+			$self -> handle_rhs(\%node, $lhs, ['Dummy', 'Dummy', @field[1 .. $#field] ]);
 		}
 	}
 
@@ -551,53 +601,6 @@ sub process
 	return \%names;
 
 } # End of process.
-
-# ------------------------------------------------
-
-sub process_rhs
-{
-	my($self, $node, $lhs, $field) = @_;
-
-	my($parent);
-
-	$self -> root -> walk_down
-	({
-		callback => sub
-		{
-			my($n, $options) = @_;
-
-			$parent = $n if ($n -> name eq $lhs);
-
-			# Return:
-			# o 0 to stop walk if parent found.
-			# o 1 to keep walking otherwise.
-
-			return $parent ? 0 : 1;
-		},
-		_depth => 0,
-	});
-
-	$parent      = $self -> root if (! $parent);
-	my($adverbs) = $self -> adverbs;
-	my($index)   = first_index{$_ =~ /^$adverbs$/} @$field;
-
-	my($kid);
-	my($rhs);
-
-	if ($index >= 0)
-	{
-		$self -> add_adverb_record($parent, $field);
-
-		$parent = $self -> add_token_node($node, $parent, 1, $_) for @$field[2 .. $index - 1];
-	}
-	else
-	{
-		# Discard return value because we are not chaining (the 0).
-
-		$self -> add_token_node($node, $parent, 0, $_) for @$field[2 .. $#$field];
-	}
-
-} # End of process_rhs.
 
 # ------------------------------------------------
 
