@@ -5,8 +5,10 @@ use autodie;
 use warnings;
 use strict;
 
-use Data::Dumper::Concise; # For Dumper().
-#use Data::TreeDumper      # For DumpTree().
+#use Data::Dumper::Concise; # For Dumper().
+#use Data::TreeDumper;      # For DumpTree().
+#use Data::TreeDraw;        # For draw().
+#use Data::Printer colored => 1; # For p().
 
 use English qw( -no_match_vars );
 
@@ -23,21 +25,46 @@ my($slr)          = Marpa::R2::Scanless::R -> new( { grammar => $slg } );
 
 $slr -> read($input_file);
 
-say Dumper $slr -> value;
+# 1: Data::Dumper::Concise.Dumper().
+# Output to data/stringparser.dumper.
 
-=pod
+#print Dumper $slr -> value;
 
-say DumpTree
+# 2: Data::TreeDumper.DumpTree().
+# Output to data/stringparser.treedumper.
+
+print DumpTree
 (
-	$slr -> value,
+	${$slr -> value},
 	$ARGV[1], # Title is input bnf file name.
 	#DISPLAY_OBJECT_TYPE  => 0, # Suppresses class names.
 	DISPLAY_ROOT_ADDRESS => 1,
-	#NO_PACKAGE_SETUP    => 1,  # Does nothing for me.
+	#NO_PACKAGE_SETUP    => 1,  # No change in output.
 	NO_WRAP              => 1,
 );
 
+# 3: Data::TreeDraw.draw().
+# Output to data/stringparser.treedraw.
+# Ignores nesting, even with unwrap_object option set.
+
+=pod
+
+print draw
+(
+	${$slr -> value},
+	{
+		spaces        => 0,
+		unwrap_object => 1,
+	}
+);
+
 =cut
+
+# 4: Data::Printer.p().
+# Output to data/stringparser.printer.
+# Ignores nesting.
+
+#print p(${$slr -> value});
 
 package My_Nodes;
 

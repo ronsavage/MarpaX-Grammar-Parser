@@ -7,6 +7,8 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
+use Data::Dumper::Concise; # For Dumper().
+
 use List::AllUtils qw/first_index indexes/;
 
 use Log::Handler;
@@ -157,11 +159,10 @@ sub add_lexeme
 {
 	my($self, $type, $field) = @_;
 	my($parent)     = $self -> root;
-	my($name)       = shift @$field;
 	my($attributes) =
 	{
 		fillcolor => 'lightblue',
-		label     => $name,
+		label     => $type,
 		shape     => 'rectangle',
 		style     => 'filled',
 		type      => $type,
@@ -170,8 +171,10 @@ sub add_lexeme
 	my($kid) = Tree::DAG_Node -> new
 	({
 		attributes => $attributes,
-		name       => $name,
+		name       => $type,
 	});
+
+	$self -> log(info => "Add lexeme $type");
 
 	$parent -> add_daughter($kid);
 
@@ -333,20 +336,19 @@ sub check_angle_brackets
 
 sub handle_default
 {
-	my($self, $lhs, $field) = @_;
+	my($self, $field) = @_;
 
 	# Discard ':default' and '='.
 
 	shift @$field;
 	shift @$field;
 
-	# The -1 and +1 mean we ignore the '=>'
-	# in cases like 'action => [values]'.
+	# The -1 and +1 mean we ignore the '=>' in cases like 'action => [values]'.
 
 	my(@indexes) = indexes{$_ =~ /^=>$/} @$field;
 	$field       = [map{"$$field[$_ - 1] = $$field[$_ + 1]"} sort{$$field[$a] cmp $$field[$b]} @indexes];
 
-	return [$lhs, @$field];
+	return [@$field];
 
 } # End of handle_default.
 
@@ -525,14 +527,13 @@ sub process
 
 			if ($lhs eq ':default')
 			{
-				push @default, @{$self -> handle_default($lhs, [@field])};
+				push @default, @{$self -> handle_default([@field])};
 
 				next;
 			}
 			elsif ($lhs eq ':discard')
 			{
-				$discard{':discard'} = $lhs;
-				$discard{$field[2]}  = '';
+				$discard{$field[2]} = '';
 
 				next;
 			}
@@ -565,8 +566,8 @@ sub process
 
 			if (defined $discard{$field[0]})
 			{
-				# Grab the thing previously mentioned in a ':discard',
-				# hoping they are declared in the expected order :-(.
+				# Grab the thing previously mentioned in a ':discard'.
+				# What was in ':discard ~ x (i.e. $field[2])' is now 'x (i.e. $field[0]) ~ $field[2]'.
 
 				$discard{$field[0]} = $field[2];
 			}
@@ -588,10 +589,9 @@ sub process
 
 	die ":start token not found\n" if (! $start);
 
-	# Process the things we stockpiled, since by now $start is defined.
-	# Convert {':discard' => ':discard'} to ':discard'. It makes the output prettier.
+	# Process the things we stockpiled.
 
-	my(@discard) = map{$_ eq ':discard' ? $_ : "$_ = $discard{$_}"} sort keys %discard;
+	my(@discard) = map{"$_ = $discard{$_}"} sort keys %discard;
 
 	$self -> add_adverb_record($self -> root, \@lexeme_default) if ($#lexeme_default >= 0);
 	$self -> add_event_record(\@event)                          if ($#event >= 0);
