@@ -1,20 +1,14 @@
-:default				::= action => [values] bless => ::lhs
-
-event subtext			= completed <sub text>
-
-event 'A[]'				= nulled <A>
-
-event '^a'				= predicted A
+:default				::= action => [values]
 
 # Overall stuff.
 
 :start 					::= graph_grammar
 
-graph_grammar			::= <graph definition>	action => graph
+graph_grammar			::= graph_definition	action => graph
 
 # Graph stuff.
 
-<graph definition>		::= node_definition
+graph_definition		::= node_definition
 							| edge_definition
 # Node stuff
 
