@@ -338,6 +338,92 @@ sub check_angle_brackets
 
 # --------------------------------------------------
 
+sub handle_default
+{
+	my($self, $lhs, $field) = @_;
+
+	# Discard ':default' and '='.
+
+	shift @$field;
+	shift @$field;
+
+	# The -1 and +1 mean we ignore the '=>'
+	# in cases like 'action => [values]'.
+
+	my(@indexes) = indexes{$_ =~ /^=>$/} @$field;
+	$field       = [map{"$$field[$_ - 1] = $$field[$_ + 1]"} sort{$$field[$a] cmp $$field[$b]} @indexes];
+
+	return [$lhs, @$field];
+
+} # End of handle_default.
+
+# --------------------------------------------------
+
+sub handle_lexeme_default
+{
+	my($self, $lhs, $field) = @_;
+
+	# Clean up the 'lexeme default' line, which may look like one of:
+	# o lexeme default = action => [start,length,value]
+	# o lexeme default = action => [start,length,value] bless => ::name
+	# Steps:
+	# o Check for spaces in '[start, length, value]'.
+	# o Combine these 2 or 3 fields into 1.
+
+	@$field      = @$field[3 .. $#$field];
+	my(@indexes) = indexes{$_ =~ /[[\]]/} @$field;
+
+	# If the '[' and ']' are at different indexes, then spaces were found.
+
+	if ($#indexes > 0)
+	{
+		splice
+		(
+			@$field,
+			$indexes[0],
+			$indexes[$#indexes],
+			join('', @$field[$indexes[0] .. $indexes[$#indexes] ]),
+			@$field[$indexes[$#indexes] + 1 .. $#$field]
+		);
+	}
+
+	return [$lhs, @$field];
+
+} # End of handle_lexeme_default.
+
+# --------------------------------------------------
+
+sub handle_start
+{
+	my($self, $field) = @_;
+
+	# Discard ':start' and '::='.
+
+	my($start)      = $$field[2];
+	my($attributes) =
+	{
+		fillcolor => 'lightgreen',
+		label     => $start,
+		shape     => 'rectangle',
+		style     => 'filled',
+		type      => ':start',
+	};
+
+	$self -> root
+	(
+		Tree::DAG_Node -> new
+		({
+			attributes => $attributes,
+			name       => $start,
+		})
+	);
+
+	return $start;
+
+} # End of handle_start.
+
+# --------------------------------------------------
+
 sub log
 {
 	my($self, $level, $s) = @_;
@@ -401,15 +487,7 @@ sub process
 
 			if ($lhs eq ':default')
 			{
-				# Discard ':default' and '='.
-
-				shift @field;
-				shift @field;
-
-				my(@indexes) = indexes{$_ =~ /^=>$/} @field;
-				@field       = map{"$field[$_ - 1] = $field[$_ + 1]"} sort{$field[$a] cmp $field[$b]} @indexes;
-
-				push @default, $lhs, @field;
+				push @default, @{$self -> handle_default($lhs, [@field])};
 
 				next;
 			}
@@ -436,56 +514,13 @@ sub process
 			}
 			elsif ($lhs eq 'lexeme default')
 			{
-				# Clean up the 'lexeme default' line, which may look like one of:
-				# o lexeme default = action => [start,length,value]
-				# o lexeme default = action => [start,length,value] bless => ::name
-				# Steps:
-				# o Check for spaces in '[start, length, value]'.
-				# o Combine these 2 or 3 fields into 1.
-
-				@field       = @field[3 .. $#field];
-				my(@indexes) = indexes{$_ =~ /[[\]]/} @field;
-
-				# If the '[' and ']' are at different indexes, then spaces were found.
-
-				if ($#indexes > 0)
-				{
-					splice
-					(
-						@field,
-						$indexes[0],
-						$indexes[$#indexes],
-						join('', @field[$indexes[0] .. $indexes[$#indexes] ]),
-						@field[$indexes[$#indexes] + 1 .. $#field]
-					);
-				}
-
-				push @lexeme_default, $lhs, @field;
+				push @lexeme_default, @{$self -> handle_lexeme_default($lhs, [@field])};
 
 				next;
 			}
 			elsif ($lhs eq ':start')
 			{
-				# Discard ':start' and '::='.
-
-				$start          = $field[2];
-				my($attributes) =
-				{
-					fillcolor => 'lightgreen',
-					label     => $start,
-					shape     => 'rectangle',
-					style     => 'filled',
-					type      => ':start',
-				};
-
-				$self -> root
-				(
-					Tree::DAG_Node -> new
-					({
-						attributes => $attributes,
-						name       => $start,
-					})
-				);
+				$start = $self -> handle_start([@field]);
 
 				next;
 			}
