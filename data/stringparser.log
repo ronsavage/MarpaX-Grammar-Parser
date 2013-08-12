@@ -1,6 +1,6 @@
 graph_grammar
    |---{action = graph}
-   |---<graph definition>
+   |---graph_definition
    |   |---node_definition
    |       |---node_statement
    |       |   |---node_name
@@ -31,8 +31,7 @@ graph_grammar
    |---undirected_edge
    |   |---{priority = 2}
    |   |---'--'
-   |---{event subtext = completed <sub text>|event 'A[]' = nulled <A>|event '^a' = predicted A}
    |---:default
-   |   |---{action = [values]|bless = ::lhs}
+   |   |---{action = [values]}
    |---:discard
        |---{whitespace = [\s]+}
