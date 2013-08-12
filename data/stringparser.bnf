@@ -40,10 +40,10 @@ edge_name				::= directed_edge
 							| undirected_edge
 
 :lexeme					~ directed_edge		pause => before		event => directed_edge
-directed_edge			~ '->'				priority => 1
+directed_edge			~ '->'
 
 :lexeme					~ undirected_edge	pause => before		event => undirected_edge
-undirected_edge			~ '--'				priority => 2
+undirected_edge			~ '--'
 
 # Attribute stuff.
 

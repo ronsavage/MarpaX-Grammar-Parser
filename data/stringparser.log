@@ -22,14 +22,12 @@ graph_grammar
    |   |---edge_name
    |   |   |---directed_edge
    |   |       |---{event = directed_edge|pause = before}
-   |   |       |---{priority = 1}
    |   |       |---'->'
    |   |---attribute_definition
    |   |---(',')
    |---<graph definition>
    |---{event = undirected_edge|pause = before}
    |---undirected_edge
-   |   |---{priority = 2}
    |   |---'--'
    |---:default
    |   |---{action = [values]}
