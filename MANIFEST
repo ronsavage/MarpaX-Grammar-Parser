@@ -12,8 +12,8 @@ MANIFEST			This list of files
 META.json
 META.yml
 README
-scripts/g2g.sh
 scripts/g2p.pl
+scripts/g2p.sh
 scripts/metag.pl
 t/runner.t
 xt/author/pod.t
