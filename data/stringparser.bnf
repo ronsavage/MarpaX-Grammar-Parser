@@ -13,7 +13,7 @@ graph_definition		::= node_definition
 # Node stuff
 
 node_definition			::= node_statement
-							| node_statement <graph definition>
+							| node_statement graph_definition
 
 node_statement			::= node_name
 							| node_name attribute_definition

@@ -17,7 +17,7 @@ graph_grammar
    |       |   |       |---end_attributes
    |       |   |           |---'}'
    |       |   |---(',')
-   |       |---<graph definition>
+   |       |---graph_definition
    |---edge_statement
    |   |---edge_name
    |   |   |---directed_edge
