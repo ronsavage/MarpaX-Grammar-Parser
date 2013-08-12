@@ -30,7 +30,7 @@ end_node				~ ']'
 # Edge stuff
 
 edge_definition			::= edge_statement
-							| edge_statement <graph definition>
+							| edge_statement graph_definition
 
 edge_statement			::= edge_name
 							| edge_name attribute_definition
