@@ -6,7 +6,7 @@ use warnings;
 
 use Tree::DAG_Node;
 
-my($previous_level) = 0;
+my($previous_level) = - 1;
 my($previous_type)  = '';
 
 my($current_node);
@@ -56,6 +56,9 @@ sub node
 	$setup,
 	) = @_ ;
 
+#	print "element: $element. level: $previous_level => $level. is_terminal: $is_terminal. name: $element_name. value: $element_value. \n";
+#	print "\n";
+
 	my($token);
 	my($type);
 
@@ -70,17 +73,17 @@ sub node
 		$type  = 'token';
 	}
 
-#	print "Level: $previous_level => $level. Value: $element_value. Element: $token. \n";
-
 	my($new_node) = Tree::DAG_Node -> new
 	({
 		attributes => {level => $level, type => $type},
 		name       => $token,
 	});
 
-	if ($level == 0)
+	# This test works for the very first call because the initial value of $previous_level is < 0.
+
+	if ($level > $previous_level)
 	{
-		$current_node = $$setup{RENDERER}{root};
+		$current_node = $level == 0 ? $$setup{RENDERER}{root} : $node_per_level{$previous_level};
 
 		$current_node -> add_daughter($new_node);
 
@@ -88,33 +91,23 @@ sub node
 
 #		print "1 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 	}
-	elsif ($level > $previous_level)
-	{
-		$current_node = $node_per_level{$previous_level};
-
-		$current_node -> add_daughter($new_node);
-
-		$node_per_level{$level} = $new_node;
-
-#		print "2 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
-	}
 	elsif ($level == $previous_level)
 	{
 		$current_node -> add_daughter($new_node);
 
 		$node_per_level{$level} = $new_node;
 
-#		print "3 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
+#		print "2 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 	}
 	else # $level < $previous_level.
 	{
-		$current_node = $node_per_level{$level - 1};
+		$current_node = $level == 0 ? $$setup{RENDERER}{root} : $node_per_level{$level - 1};
 
 		$current_node -> add_daughter($new_node);
 
 		$node_per_level{$level} = $new_node;
 
-#		print "4 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
+#		print "3 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 	}
 
 	$previous_level = $level;
