@@ -6,13 +6,11 @@ use warnings;
 
 use Tree::DAG_Node;
 
-my($previous_level) = - 1;
+my($previous_level) = 0;
 my($previous_type)  = '';
 
-my($attributes);
 my($current_node);
 my(%node_per_level);
-my(%sister_count);
 
 our $VERSION = '1.00';
 
@@ -58,7 +56,6 @@ sub node
 	$setup,
 	) = @_ ;
 
-	my($new_node);
 	my($token);
 	my($type);
 
@@ -73,50 +70,36 @@ sub node
 		$type  = 'token';
 	}
 
-	$sister_count{$level} = 0 if (! defined $sister_count{$level});
+#	print "Level: $previous_level => $level. Value: $element_value. Element: $token. \n";
 
-#	print "Sisters: $sister_count. Level: $previous_level => $level. Value: $element_value. Element: $token. \n";
+	my($new_node) = Tree::DAG_Node -> new
+	({
+		attributes => {level => $level, type => $type},
+		name       => $token,
+	});
 
 	if ($level == 0)
 	{
-		$sister_count{$level}++;
+		$current_node = $$setup{RENDERER}{root};
 
-		if ($sister_count{$level} == 1)
-		{
-			$attributes = {start => $token};
-		}
-		elsif ($sister_count{$level} = 2)
-		{
-			$$attributes{end} = $token;
-		}
-		else
-		{
-			$$attributes{level} = $level;
-			$$attributes{type}  = $type;
-			$new_node           = Tree::DAG_Node -> new
-			({
-				attributes => {%$attributes},
-				name       => $token,
-			});
+		$current_node -> add_daughter($new_node);
 
-			$current_node = $$setup{RENDERER}{root};
+		$node_per_level{$level} = $new_node;
 
-			$current_node -> add_daughter($new_node);
-
-			$node_per_level{$level} = $new_node;
-
-#			print "1 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
-		}
-
+#		print "1 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 	}
 	elsif ($level > $previous_level)
 	{
-		$sister_count{$level} = 1;
+		$current_node = $node_per_level{$previous_level};
+
+		$current_node -> add_daughter($new_node);
+
+		$node_per_level{$level} = $new_node;
+
+#		print "2 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 	}
 	elsif ($level == $previous_level)
 	{
-		$sister_count{$level}++;
-
 		$current_node -> add_daughter($new_node);
 
 		$node_per_level{$level} = $new_node;
@@ -125,7 +108,6 @@ sub node
 	}
 	else # $level < $previous_level.
 	{
-		$sister_count{$level} = 1;
 		$current_node = $node_per_level{$level - 1};
 
 		$current_node -> add_daughter($new_node);
