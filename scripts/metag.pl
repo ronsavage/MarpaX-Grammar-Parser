@@ -40,10 +40,9 @@ $slr -> read($input_file);
 my($root) = Tree::DAG_Node -> new
 ({
 	attributes => {},
-	name       => 'root',
+	name       => 'statements',
 });
 
-print "Root: $root. \n";
 print DumpTree
 (
 	${$slr -> value},
@@ -62,7 +61,6 @@ print DumpTree
 
 my($no_attributes) = 1;
 
-print '-' x 50, "\n";
 print map{"$_\n"} @{$root -> tree2string({no_attributes => $no_attributes})};
 
 # 3: Data::TreeDraw.draw().
