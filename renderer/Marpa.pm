@@ -6,9 +6,13 @@ use warnings;
 
 use Tree::DAG_Node;
 
-my($current_node)   = '';
-my($previous_level) = 1;
-my($previous_node)  = '';
+my($previous_level) = - 1;
+my($previous_type)  = '';
+
+my($attributes);
+my($current_node);
+my(%node_per_level);
+my(%sister_count);
 
 our $VERSION = '1.00';
 
@@ -54,35 +58,90 @@ sub node
 	$setup,
 	) = @_ ;
 
-	return '' if ($element =~ /^\d+$/);
+	my($new_node);
+	my($token);
+	my($type);
 
-	my($package)  = $$setup{RENDERER}{package};
-	$current_node = $$setup{RENDERER}{root} if ($level < $previous_level);
-	my($new_node) = Tree::DAG_Node -> new
-	({
-		attributes => {},
-		name       => $1,
-	});
-
-	if ($element =~ /$package\:\:(.+)=/)
+	if ($element =~ /$$setup{RENDERER}{package}\:\:(.+)=/)
 	{
-		if ($level > $previous_level)
+		$token = $1;
+		$type  = 'class';
+	}
+	else
+	{
+		$token = $element;
+		$type  = 'token';
+	}
+
+	$sister_count{$level} = 0 if (! defined $sister_count{$level});
+
+#	print "Sisters: $sister_count. Level: $previous_level => $level. Value: $element_value. Element: $token. \n";
+
+	if ($level == 0)
+	{
+		$sister_count{$level}++;
+
+		if ($sister_count{$level} == 1)
 		{
-#			$current_node -> add_daughter($new_node);
+			$attributes = {start => $token};
+		}
+		elsif ($sister_count{$level} = 2)
+		{
+			$$attributes{end} = $token;
 		}
 		else
 		{
-#			$current_node -> add_right_sister($new_node);
+			$$attributes{level} = $level;
+			$$attributes{type}  = $type;
+			$new_node           = Tree::DAG_Node -> new
+			({
+				attributes => {%$attributes},
+				name       => $token,
+			});
+
+			$current_node = $$setup{RENDERER}{root};
+
+			$current_node -> add_daughter($new_node);
+
+			$node_per_level{$level} = $new_node;
+
+#			print "1 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 		}
+
+	}
+	elsif ($level > $previous_level)
+	{
+		$sister_count{$level} = 1;
+	}
+	elsif ($level == $previous_level)
+	{
+		$sister_count{$level}++;
+
+		$current_node -> add_daughter($new_node);
+
+		$node_per_level{$level} = $new_node;
+
+#		print "3 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
+	}
+	else # $level < $previous_level.
+	{
+		$sister_count{$level} = 1;
+		$current_node = $node_per_level{$level - 1};
+
+		$current_node -> add_daughter($new_node);
+
+		$node_per_level{$level} = $new_node;
+
+#		print "4 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 	}
 
 	$previous_level = $level;
+	$previous_type  = $type;
 
-	my($result);
+#	print map{"$_\n"} @{$$setup{RENDERER}{root} -> tree2string({no_attributes => 0})};
+#	print "\n";
 
-	$result = "Element: $element. Level: $previous_level => $level. Name: $element_name. Value: $element_value. \n";
-
-	return $result;
+	return '';
 
 } # End of node.
 
