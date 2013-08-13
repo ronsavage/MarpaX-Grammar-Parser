@@ -1,23 +1,32 @@
-Root: Tree::DAG_Node=HASH(0x2b29658). 
-Level: 0 => 0. Value: . Element: My_Nodes::statement=ARRAY(0x2a59db0). 
-Level 0. Set node 'statement' of type 'class'. 
+Root: Tree::DAG_Node=HASH(0x225dbf8). 
+Level: 0 => 0. Value: . Element: My_Nodes::statement=ARRAY(0x218e228). 
+Level 0. Set 'statement' => 'class' @ Tree::DAG_Node=HASH(0x225e510). 
 root. Attributes: {}
    |---statement. Attributes: {level => "0", type => "class"}
-Level: 0 => 1. Value: . Element: My_Nodes::statement_body=ARRAY(0x2a599c0). 
-Level 1. Set node 'statement_body' of type 'class'. 
+Level: 0 => 1. Value: . Element: My_Nodes::statement_body=ARRAY(0x218de38). 
+Level 1. Set 'statement_body' => 'class' @ Tree::DAG_Node=HASH(0x1def390). 
 root. Attributes: {}
    |---statement. Attributes: {level => "0", type => "class"}
        |---statement_body. Attributes: {level => "1", type => "class"}
-Level: 1 => 2. Value: . Element: My_Nodes::default_rule=ARRAY(0x2a5a008). 
-Level 2. Set node 'default_rule' of type 'class'. 
+Level: 1 => 2. Value: . Element: My_Nodes::default_rule=ARRAY(0x218e480). 
+Level 2. Set 'default_rule' => 'class' @ Tree::DAG_Node=HASH(0x1fb6ed0). 
 root. Attributes: {}
    |---statement. Attributes: {level => "0", type => "class"}
        |---statement_body. Attributes: {level => "1", type => "class"}
            |---default_rule. Attributes: {level => "2", type => "class"}
 Level: 2 => 3. Value: :default. Element: :default. 
+Level 3. Set ':default' => 'token' @ Tree::DAG_Node=HASH(0x1fb6ed0). 
 root. Attributes: {}
    |---statement. Attributes: {level => "0", type => "class"}
        |---statement_body. Attributes: {level => "1", type => "class"}
            |---default_rule. Attributes: {level => "2", type => "class"}
                |---:default. Attributes: {level => "3", type => "token"}
-Level: 3 => 3. Value: . Element: My_Nodes::op_declare_bnf=ARRAY(0x287ed98). 
+Level: 3 => 3. Value: . Element: My_Nodes::op_declare_bnf=ARRAY(0x1fb31d0). 
+Level 3. Set 'op_declare_bnf' => 'class'. Current: Tree::DAG_Node=HASH(0x1fb6ed0). 
+root. Attributes: {}
+   |---statement. Attributes: {level => "0", type => "class"}
+       |---statement_body. Attributes: {level => "1", type => "class"}
+           |---default_rule. Attributes: {level => "2", type => "class"}
+           |   |---:default. Attributes: {level => "3", type => "token"}
+           |---op_declare_bnf. Attributes: {level => "3", type => "class"}
+Level: 3 => 4. Value: ::=. Element: ::=. 
