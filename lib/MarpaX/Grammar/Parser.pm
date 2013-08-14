@@ -492,7 +492,7 @@ Then patch sub run() as below, and run:
 
 The output is data/stringparser.treedumper.
 
-Then you can compare the default output of L<Data::TreeDumper> with the output from this module.
+Then you can compare the latter (the default) output of L<Data::TreeDumper> with the output from this module.
 
 Patch run() from this (which returns the tree but prints nothing):
 
@@ -510,7 +510,7 @@ Patch run() from this (which returns the tree but prints nothing):
 		}
 	);
 
-To this (which just prints):
+To this (which just prints the default output):
 
 	print Data::TreeDumper::DumpTree
 	(
