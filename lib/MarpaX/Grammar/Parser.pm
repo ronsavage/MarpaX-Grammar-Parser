@@ -193,6 +193,10 @@ sub run
 
 =cut
 
+	# Return 0 for success and 1 for failure.
+
+	return 0;
+
 } # End of run.
 
 # ------------------------------------------------

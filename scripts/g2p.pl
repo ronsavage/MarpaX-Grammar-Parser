@@ -53,6 +53,7 @@ g2p.pl [options]
 
 	Options:
 	-help
+	-input_file aMarpaGrammarFileName
 	-logger aLog::HandlerObject
 	-maxlevel logOption1
 	-minlevel logOption2
@@ -108,7 +109,7 @@ No lower levels are used.
 
 =item o -no_attributes Boolean
 
-Include (0) or exclude (1) attributes from the tree_file output.
+Include (0) or exclude (1) attributes in the tree_file output.
 
 Default: 0.
 
