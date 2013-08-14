@@ -7,7 +7,7 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
-use Data::TreeDumper;                  # For DumpTree().
+use Data::TreeDumper ();               # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
 use English '-no_match_vars';
@@ -140,18 +140,16 @@ sub run
 		name       => 'statements',
 	});
 
-	print DumpTree
+	Data::TreeDumper::DumpTree
 	(
 		${$recce -> value},
-		$ARGV[1], # Title is input bnf file name.
-		#DISPLAY_OBJECT_TYPE  => 0, # Suppresses class names.
+		$self -> input_file,
 		DISPLAY_ROOT_ADDRESS => 1,
-		#NO_PACKAGE_SETUP    => 1,  # No change in output.
 		NO_WRAP              => 1,
 		RENDERER             =>
 		{
-			NAME    => 'Marpa',
-			package => $package,
+			NAME    => 'Marpa',  # I.e.: Data::TreeDumper::Renderer::Marpa.
+			package => $package, # I.e.: MarpaX::Grammar::Parser::Dummy.
 			root    => $root,
 		}
 	);
