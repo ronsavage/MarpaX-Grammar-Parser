@@ -31,7 +31,7 @@ has logger =>
 	required => 0,
 );
 
-has marpas_bnf_file =>
+has marpa_bnf_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
@@ -79,7 +79,7 @@ has raw_tree_file =>
 	required => 0,
 );
 
-has users_bnf_file =>
+has user_bnf_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
@@ -134,14 +134,14 @@ sub log
 
 sub run
 {
-	my($self)           = @_;
-	my($package)        = 'MarpaX::Grammar::Parser::Dummy';
-	my $marpas_bnf      = slurp $self -> marpas_bnf_file, {utf8 => 1};
-	my($marpas_grammar) = Marpa::R2::Scanless::G -> new({bless_package => $package, source => \$marpas_bnf});
-	my $users_bnf       = slurp $self -> users_bnf_file, {utf8 => 1};
-	my($recce)          = Marpa::R2::Scanless::R -> new({grammar => $marpas_grammar});
+	my($self)          = @_;
+	my($package)       = 'MarpaX::Grammar::Parser::Dummy';
+	my $marpa_bnf      = slurp $self -> marpa_bnf_file, {utf8 => 1};
+	my($marpa_grammar) = Marpa::R2::Scanless::G -> new({bless_package => $package, source => \$marpa_bnf});
+	my $user_bnf       = slurp $self -> user_bnf_file, {utf8 => 1};
+	my($recce)         = Marpa::R2::Scanless::R -> new({grammar => $marpa_grammar});
 
-	$recce -> read(\$users_bnf);
+	$recce -> read(\$user_bnf);
 
 	Data::TreeDumper::DumpTree
 	(
@@ -188,9 +188,9 @@ C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a tree using Tree::DA
 
 	my(%option) =
 	(
-		marpas_bnf_file => 'metag.bnf',
-		raw_tree_file   => 'my.raw.tree',
-		users_bnf_file  => 'my.bnf,
+		marpa_bnf_file => 'metag.bnf',
+		raw_tree_file  => 'my.raw.tree',
+		user_bnf_file  => 'my.bnf,
 	);
 
 	MarpaX::Grammar::Parser -> new(%option) -> run;
@@ -230,7 +230,7 @@ C<new()> is called as C<< my($parser) = MarpaX::Grammar::Parser -> new(k1 => v1,
 It returns a new object of type C<MarpaX::Grammar::Parser>.
 
 Key-value pairs accepted in the parameter list (see corresponding methods for details
-[e.g. marpas_bnf_file([$string])]):
+[e.g. marpa_bnf_file([$string])]):
 
 =over 4
 
@@ -244,7 +244,7 @@ Set C<logger> to '' to stop logging.
 
 Default: undef.
 
-=item o -marpas_bnf_file aMarpaBNFFileName
+=item o -marpa_bnf_file aMarpaBNFFileName
 
 Specify the name of Marpa's own BNF file. This file ships with L<Marpa::R2>, in the meta/ directory.
 It's name is metag.bnf.
@@ -287,7 +287,7 @@ If '', the file is not written.
 
 Default: ''.
 
-=item o -users_bnf_file aUsersGrammarFileName
+=item o -user_bnf_file aUserGrammarFileName
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 
@@ -341,7 +341,7 @@ To disable logging, just set logger to the empty string.
 
 Note: C<logger> is a parameter to new().
 
-=head2 marpas_bnf_file([$bnf_file_name])
+=head2 marpa_bnf_file([$bnf_file_name])
 
 Here, the [] indicate an optional parameter.
 
@@ -355,7 +355,7 @@ A copy, as of Marpa::R2 V 2.066000, ships with L<MarpaX::Grammar::Parser>.
 
 See data/metag.bnf for a sample.
 
-Note: C<marpas_bnf_file> is a parameter to new().
+Note: C<marpa_bnf_file> is a parameter to new().
 
 =head2 maxlevel([$string])
 
@@ -409,7 +409,7 @@ This latter file is the grammar used in L<Marpa::Demo::StringParser>.
 
 Note: C<raw_tree_file> is a parameter to new().
 
-=head2 users_bnf_file([$bnf_file_name])
+=head2 user_bnf_file([$bnf_file_name])
 
 Here, the [] indicate an optional parameter.
 
@@ -419,7 +419,7 @@ The parameter is mandatory.
 
 See data/stringparser.bnf for a sample. It is the grammar used in L<MarpaX::Demo::StringParser>.
 
-Note: C<users_bnf_file> is a parameter to new().
+Note: C<user_bnf_file> is a parameter to new().
 
 =head1 Files Shipped with this Module
 
@@ -462,7 +462,7 @@ This is the output from parsing data/json.2.bnf.
 
 This is a copy of L<Marpa::R2>'s BNF.
 
-See L</marpas_bnf_file([$bnf_file_name])> below.
+See L</marpa_bnf_file([$bnf_file_name])> below.
 
 =item o data/stringparser.bnf.
 
@@ -470,7 +470,7 @@ This is a copy of L<MarpaX::Demo::StringParser>'s BNF.
 
 The output is data/stringparser.tree.
 
-See L</users_bnf_file([$bnf_file_name])> below.
+See L</user_bnf_file([$bnf_file_name])> below.
 
 =item o data/stringparser.tree
 
@@ -484,15 +484,15 @@ This is the I<default> output from parsing data/stringparser.bnf, as generated b
 
 In other words, if you run:
 
-	perl -Ilib scripts/g2p.pl -marpas_bnf data/metag.bnf -n 1 \
-		-tree data/stringparser.tree -users_bnf data/stringparser.bnf
+	perl -Ilib scripts/g2p.pl -marpa_bnf data/metag.bnf -n 1 \
+		-tree data/stringparser.tree -user_bnf data/stringparser.bnf
 
 The output is data/stringparser.tree.
 
 But if you patch sub run() as below, and run:
 
-	perl -Ilib scripts/g2p.pl -marpas_bnf data/metag.bnf -n 1 \
-		-users_bnf data/stringparser.bnf > data/stringparser.treedumper
+	perl -Ilib scripts/g2p.pl -marpa_bnf data/metag.bnf -n 1 \
+		-user_bnf data/stringparser.bnf > data/stringparser.treedumper
 
 The output is data/stringparser.treedumper.
 

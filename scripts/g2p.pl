@@ -20,12 +20,12 @@ if ($option_parser -> getoptions
 	\%option,
 	'help',
 	'logger=s',
-	'marpas_bnf_file=s',
+	'marpa_bnf_file=s',
 	'maxlevel=s',
 	'minlevel=s',
 	'no_attributes=i',
 	'raw_tree_file=s',
-	'users_bnf_file=s',
+	'user_bnf_file=s',
 ) )
 {
 	pod2usage(1) if ($option{'help'});
@@ -53,13 +53,13 @@ g2p.pl [options]
 
 	Options:
 	-help
-	-users_bnf_file aUsersGrammarFileName
 	-logger aLog::HandlerObject
 	-maxlevel logOption1
 	-minlevel logOption2
 	-no_attributes Boolean
-	-marpas_bnf_file aMarpaBNFFileName
+	-marpa_bnf_file aMarpaBNFFileName
 	-raw_tree_file aTextFileName
+	-user_bnf_file aUserGrammarFileName
 
 Exit value: 0 for success, 1 for failure. Die upon error.
 
@@ -79,7 +79,7 @@ Set this to '' to stop logging.
 
 Default: undef.
 
-=item o -marpas_bnf_file aMarpaBNFFileName
+=item o -marpa_bnf_file aMarpaBNFFileName
 
 Specify the name of Marpa's own BNF file.
 
@@ -125,7 +125,7 @@ If '', the file is not written.
 
 Default: ''.
 
-=item o -users_bnf_file aUsersGrammarFileName
+=item o -user_bnf_file aUserGrammarFileName
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 
