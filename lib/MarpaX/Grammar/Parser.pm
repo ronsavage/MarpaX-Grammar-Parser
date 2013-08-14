@@ -10,6 +10,8 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 use Data::TreeDumper ();               # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
+use File::Basename; # For basename().
+
 use English '-no_match_vars';
 
 use Log::Handler;
@@ -23,19 +25,19 @@ use Perl6::Slurp; # For slurp().
 
 use Tree::DAG_Node;
 
-has input_file =>
-(
-	default  => sub{return ''},
-	is       => 'rw',
-	#isa     => 'Str',
-	required => 0,
-);
-
 has logger =>
 (
 	default  => sub{return undef},
 	is       => 'rw',
 #	isa      => 'Str',
+	required => 0,
+);
+
+has marpas_bnf_file =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	#isa     => 'Str',
 	required => 0,
 );
 
@@ -71,7 +73,7 @@ has root =>
 	required => 0,
 );
 
-has scanless_file =>
+has tree_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
@@ -79,7 +81,7 @@ has scanless_file =>
 	required => 0,
 );
 
-has tree_file =>
+has users_bnf_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
@@ -125,14 +127,15 @@ sub log
 
 sub run
 {
-	my($self)          = @_;
-	my($package)       = 'MarpaX::Grammar::Parser::Dummy';
-	my $scanless_file  = slurp $self -> scanless_file, {utf8 => 1};
-	my($scanless_bnf)  = Marpa::R2::Scanless::G -> new({bless_package => $package, source => \$scanless_file});
-	my $input_file     = slurp $self -> input_file, {utf8 => 1};
-	my($recce)         = Marpa::R2::Scanless::R -> new({grammar => $scanless_bnf});
+	my($self)           = @_;
+	my($package)        = 'MarpaX::Grammar::Parser::Dummy';
+	my $marpas_bnf      = slurp $self -> marpas_bnf_file, {utf8 => 1};
+	my($marpas_grammar) = Marpa::R2::Scanless::G -> new({bless_package => $package, source => \$marpas_bnf});
+	my($users_bnf_file) = $self -> users_bnf_file;
+	my $users_bnf       = slurp $users_bnf_file, {utf8 => 1};
+	my($recce)          = Marpa::R2::Scanless::R -> new({grammar => $marpas_grammar});
 
-	$recce -> read(\$input_file);
+	$recce -> read(\$users_bnf);
 
 	my($root) = Tree::DAG_Node -> new
 	({
@@ -143,7 +146,7 @@ sub run
 	Data::TreeDumper::DumpTree
 	(
 		${$recce -> value},
-		$self -> input_file,
+		basename($users_bnf_file), # I.e.: A title.
 		DISPLAY_ROOT_ADDRESS => 1,
 		NO_WRAP              => 1,
 		RENDERER             =>
@@ -205,15 +208,25 @@ sub run
 
 =head1 NAME
 
-L<MarpaX::Grammar::Parser> - Convert a Marpa grammar into a tree using Tree::DAG_Node
+C<MarpaX::Grammar::Parser> - Convert a Marpa grammar into a tree using Tree::DAG_Node
 
 =head1 Synopsis
+
+	use MarpaX::Grammar::Parser;
+
+	my(%option) =
+	(
+		input_file   => 'my.bnf',
+
+	);
+
+	MarpaX::Grammar::Parser -> new(%option) -> run;
 
 =head1 Description
 
 =head1 Installation
 
-Install L<MarpaX::Grammar::Parser> as you would for any C<Perl> module:
+Install C<MarpaX::Grammar::Parser> as you would for any C<Perl> module:
 
 Run:
 

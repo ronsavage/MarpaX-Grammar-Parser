@@ -19,13 +19,13 @@ if ($option_parser -> getoptions
 (
 	\%option,
 	'help',
-	'input_file=s',
 	'logger=s',
+	'marpas_bnf_file=s',
 	'maxlevel=s',
 	'minlevel=s',
 	'no_attributes=i',
-	'scanless_file=s',
 	'tree_file=s',
+	'users_bnf_file=s',
 ) )
 {
 	pod2usage(1) if ($option{'help'});
@@ -53,12 +53,12 @@ g2p.pl [options]
 
 	Options:
 	-help
-	-input_file aMarpaGrammarFileName
+	-users_bnf_file aUsersGrammarFileName
 	-logger aLog::HandlerObject
 	-maxlevel logOption1
 	-minlevel logOption2
 	-no_attributes Boolean
-	-scanless_file aMarpaBNFFileName
+	-marpas_bnf_file aMarpaBNFFileName
 	-tree_file aTextFileName
 
 Exit value: 0 for success, 1 for failure. Die upon error.
@@ -71,16 +71,6 @@ Exit value: 0 for success, 1 for failure. Die upon error.
 
 Print help and exit.
 
-=item o -input_file aMarpaGrammarFileName
-
-Specify the name of your file containing the Marpa::R2-style grammar.
-
-See data/stringparser.bnf for a sample.
-
-This option is mandatory.
-
-Default: ''.
-
 =item o -logger aLog::HandlerObject
 
 By default, an object is created which prints to STDOUT.
@@ -88,6 +78,20 @@ By default, an object is created which prints to STDOUT.
 Set this to '' to stop logging.
 
 Default: undef.
+
+=item o -marpas_bnf_file aMarpaBNFFileName
+
+Specify the name of Marpa's own BNF file.
+
+This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bnf.
+
+A copy, as of Marpa::R2 V 2.066000, ships with L<MarpaX::Grammar::Parser>.
+
+See data/metag.bnf.
+
+This option is mandatory.
+
+Default: ''.
 
 =item o -maxlevel logOption1
 
@@ -113,21 +117,21 @@ Include (0) or exclude (1) attributes in the tree_file output.
 
 Default: 0.
 
-=item o -scanless_file aMarpaBNFFileName
-
-Specify the name of Marpa's own BNF file.
-
-See data/metag.bnf.
-
-This option is mandatory.
-
-Default: ''.
-
 =item o -tree_file aTextFileName
 
 The name of the text file to write containing the grammar as a tree.
 
 If '', the file is not written.
+
+Default: ''.
+
+=item o -users_bnf_file aUsersGrammarFileName
+
+Specify the name of the file containing your Marpa::R2-style grammar.
+
+See data/stringparser.bnf for a sample.
+
+This option is mandatory.
 
 Default: ''.
 

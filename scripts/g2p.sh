@@ -7,4 +7,4 @@
 #	E.g. xyz simultaneously means data/xyz.bnf and data/xyz.log.
 # 2 .. 5: Use for anything. E.g.: -maxlevel debug.
 
-perl -Ilib scripts/g2p.pl -i data/$1.bnf -n 1 -s data/metag.bnf -t data/$1.log $2 $3 $4 $5
+perl -Ilib scripts/g2p.pl -marpas_bnf data/metag.bnf -n 1 -tree data/$1.log -users_bnf data/$1.bnf $2 $3 $4 $5

@@ -115,5 +115,7 @@ Data::TreeDumper::Renderer::Marpa - Marpa renderer for Data::TreeDumper
 
 L<Data::TreeDumper>.
 
+L<MarpaX::Grammar::Parser>.
+
 =cut
 
