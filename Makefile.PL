@@ -9,7 +9,7 @@ use ExtUtils::MakeMaker;
 my(%params) =
 (
 	AUTHOR   => 'Ron Savage (ron@savage.net.au)',
-	ABSTRACT => 'Convert a Marpa grammar into a tree using Tree::DAG_Node',
+	ABSTRACT => 'Converts a Marpa grammar into a tree using Tree::DAG_Node',
 	clean =>
 	{
 		FILES => 'blib/* Makefile MANIFEST MarpaX-Grammar-Parser-*'
@@ -24,30 +24,26 @@ my(%params) =
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
-		'Algorithm::Diff'       => 1.1902,
-		'autodie'               => 2.16,
-		'charnames'             => 0,
-		'English'               => 1.04,
-		'Data::Dumper::Concise' => 2.020,
-		'Getopt::Long'          => 2.41,
-		'File::Basename'        => 2.82,
-		'File::Spec'            => 3.40,
-		'File::Temp'            => 0.2301,
-		'List::AllUtils'        => 0.03,
-		'Log::Handler'          => 0.78,
-		'Marpa::R2'             => 2.066000,
-		'Moo'                   => 1.002000,
-		'open'                  => 0,
-		'Path::Tiny'            => 0.025,
-		'perl'                  => '5.14.2', # For the utf8 stuff.
-		'Perl6::Slurp'          => 0.03,
-		'Pod::Usage'            => 1.36,
-		'Tree::DAG_Node'        => 1.12,
-		'strict'                => 0,
-		'Test::More'            => 0.94,
-#		'Test::Pod'             => 1.45, # Make it optional. See xt/author/pod.t
-		'utf8'                  => 0,
-		'warnings'              => 0,
+		'Algorithm::Diff'  => 1.1902,
+		'charnames'        => 0,
+		'Data::TreeDumper' => 0.40,
+		'English'          => 1.04,
+		'Getopt::Long'     => 2.41,
+		'File::Temp'       => 0.2301,
+		'Log::Handler'     => 0.78,
+		'Marpa::R2'        => 2.066000,
+		'Moo'              => 1.002000,
+		'open'             => 0,
+		'Path::Tiny'       => 0.025,
+		'perl'             => '5.14.2', # For the utf8 stuff.
+		'Perl6::Slurp'     => 0.03,
+		'Pod::Usage'       => 1.36,
+		'Tree::DAG_Node'   => 1.12,
+		'strict'           => 0,
+		'Test::More'       => 0.94,
+#		'Test::Pod'        => 1.45, # Make it optional. See xt/author/pod.t
+		'utf8'             => 0,
+		'warnings'         => 0,
 	},
 	VERSION_FROM => 'lib/MarpaX/Grammar/Parser.pm',
 );
