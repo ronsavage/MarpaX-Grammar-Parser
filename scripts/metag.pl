@@ -4,7 +4,7 @@
 use warnings;
 use strict;
 
-use Data::TreeDumper;            # For DumpTree().
+use Data::TreeDumper; # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa;
 
 use English '-no_match_vars';

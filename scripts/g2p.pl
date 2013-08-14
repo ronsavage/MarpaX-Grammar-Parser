@@ -24,6 +24,7 @@ if ($option_parser -> getoptions
 	'maxlevel=s',
 	'minlevel=s',
 	'no_attributes=i',
+	'scanless_file=s',
 	'tree_file=s',
 ) )
 {
@@ -56,6 +57,7 @@ g2p.pl [options]
 	-maxlevel logOption1
 	-minlevel logOption2
 	-no_attributes Boolean
+	-scanless_file aMarpaBNFFileName
 	-tree_file aTextFileName
 
 Exit value: 0 for success, 1 for failure. Die upon error.
@@ -70,11 +72,13 @@ Print help and exit.
 
 =item o -input_file aMarpaGrammarFileName
 
-Specify the name of the file containing the Marpa::R2-style grammar.
+Specify the name of your file containing the Marpa::R2-style grammar.
 
-See data/stringparser.grammar.bnf for a sample.
+See data/stringparser.bnf for a sample.
 
-Default: 'grammar.bnf'.
+This option is mandatory.
+
+Default: ''.
 
 =item o -logger aLog::HandlerObject
 
@@ -107,6 +111,16 @@ No lower levels are used.
 Include (0) or exclude (1) attributes from the tree_file output.
 
 Default: 0.
+
+=item o -scanless_file aMarpaBNFFileName
+
+Specify the name of Marpa's own BNF file.
+
+See data/metag.bnf.
+
+This option is mandatory.
+
+Default: ''.
 
 =item o -tree_file aTextFileName
 

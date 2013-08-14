@@ -7,11 +7,15 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
-use Data::Dumper::Concise; # For Dumper().
+use Data::TreeDumper;                  # For DumpTree().
+use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
-use List::AllUtils qw/first_index indexes/;
+use English '-no_match_vars';
 
 use Log::Handler;
+
+use MarpaX::Grammar::Parser::Dummy;
+use Marpa::R2;
 
 use Moo;
 
@@ -21,7 +25,7 @@ use Tree::DAG_Node;
 
 has input_file =>
 (
-	default  => sub{return 'grammar.bnf'},
+	default  => sub{return ''},
 	is       => 'rw',
 	#isa     => 'Str',
 	required => 0,
@@ -67,6 +71,14 @@ has root =>
 	required => 0,
 );
 
+has scanless_file =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	#isa     => 'Str',
+	required => 0,
+);
+
 has tree_file =>
 (
 	default  => sub{return ''},
@@ -101,73 +113,6 @@ sub BUILD
 
 # --------------------------------------------------
 
-sub check_angle_brackets
-{
-	my($self, $field, $names) = @_;
-	my($index) = first_index{$_ =~ /^</} @$field;
-
-	my($name);
-	my($quantifier);
-
-	while ($index >= 0)
-	{
-		for (my $i = $index; $i <= $#$field; $i++)
-		{
-			if ($$field[$i] =~ />([*+])?$/)
-			{
-				$quantifier                = $1 || '';
-				substr($$field[$i], -1, 1) = '' if ($quantifier);
-
-				splice(@$field, $index, ($i - $index + 1), join(' ', @$field[$index .. $i]) );
-
-				$name          = $$field[$index];
-				$$names{$name} =
-				{
-					angled     => 1,
-					quantifier => $quantifier,
-				};
-
-				# Keep searching.
-
-				$index = first_index{$_ =~ /^</ && $_ !~ />[*+]?$/} @$field;
-
-				last;
-			}
-		}
-	}
-
-	for (my $i = $index; $i <= $#$field; $i++)
-	{
-		if ( (! $$names{$$field[$i]}) && ($$field[$i] =~ /^\w/) && ($$field[$i] !~ /^\d/) )
-		{
-			if ($$field[$i] =~ /([*+])?$/)
-			{
-				$quantifier = $1 || '';
-
-				if ($quantifier)
-				{
-					delete $$names{$$field[$i]};
-
-					substr($$field[$i], -1, 1) = '';
-				}
-			}
-			else
-			{
-				$quantifier = '';
-			}
-
-			$$names{$$field[$i]} =
-			{
-				angled     => 0,
-				quantifier => $quantifier,
-			};
-		}
-	}
-
-} # End of check_angle_brackets.
-
-# --------------------------------------------------
-
 sub log
 {
 	my($self, $level, $s) = @_;
@@ -180,7 +125,48 @@ sub log
 
 sub run
 {
-	my($self)  = @_;
+	my($self)          = @_;
+	my($package)       = 'MarpaX::Grammar::Parser::Dummy';
+	my $scanless_file  = slurp $self -> scanless_file, {utf8 => 1};
+	my($scanless_bnf)  = Marpa::R2::Scanless::G -> new({bless_package => $package, source => \$scanless_file});
+	my $input_file     = slurp $self -> input_file, {utf8 => 1};
+	my($recce)         = Marpa::R2::Scanless::R -> new({grammar => $scanless_bnf});
+
+	$recce -> read(\$input_file);
+
+	my($root) = Tree::DAG_Node -> new
+	({
+		attributes => {},
+		name       => 'statements',
+	});
+
+	print DumpTree
+	(
+		${$recce -> value},
+		$ARGV[1], # Title is input bnf file name.
+		#DISPLAY_OBJECT_TYPE  => 0, # Suppresses class names.
+		DISPLAY_ROOT_ADDRESS => 1,
+		#NO_PACKAGE_SETUP    => 1,  # No change in output.
+		NO_WRAP              => 1,
+		RENDERER             =>
+		{
+			NAME    => 'Marpa',
+			package => $package,
+			root    => $root,
+		}
+	);
+
+	my($tree_file) = $self -> tree_file;
+
+	if ($tree_file)
+	{
+		open(OUT, '>', $tree_file) || die "Can't open(> $tree_file): $!\n";
+		print OUT map{"$_\n"} @{$root -> tree2string({no_attributes => $self -> no_attributes})};
+		close OUT;
+	}
+
+=pod
+
 	my($names) = $self -> process;
 
 	my($name);
@@ -205,14 +191,7 @@ sub run
 		_depth => 0,
 	});
 
-	my($tree_file) = $self -> tree_file;
-
-	if ($tree_file)
-	{
-		open(OUT, '>', $tree_file) || die "Can't open(> $tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> root -> tree2string({no_attributes => $self -> no_attributes})};
-		close OUT;
-	}
+=cut
 
 } # End of run.
 
@@ -394,6 +373,14 @@ If no output file is supplied, nothing is written.
 Note: C<tree_file> is a parameter to new().
 
 =head1 FAQ
+
+# 3: Data::TreeDraw.draw().
+# Output to data/stringparser.treedraw.
+# Ignores nesting, even with unwrap_object option set.
+
+# 4: Data::Printer.p().
+# Output to data/stringparser.printer.
+# Ignores nesting.
 
 =head1 Machine-Readable Change Log
 
