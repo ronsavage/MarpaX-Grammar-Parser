@@ -236,21 +236,20 @@ Key-value pairs accepted in the parameter list (see corresponding methods for de
 
 =item o -logger aLog::HandlerObject
 
-By default, an object is created which prints to STDOUT.
+By default, an object of type L<Log::Handler> is created which prints to STDOUT, but nothing is actually printed.
 
-Set this to '' to stop logging.
+See C<maxlevel> and C<minlevel> below.
+
+Set C<logger> to '' to stop logging.
 
 Default: undef.
 
 =item o -marpas_bnf_file aMarpaBNFFileName
 
-Specify the name of Marpa's own BNF file.
+Specify the name of Marpa's own BNF file. This file ships with L<Marpa::R2>, in the meta/ directory.
+It's name is metag.bnf.
 
-This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bnf.
-
-A copy, as of Marpa::R2 V 2.066000, ships with L<MarpaX::Grammar::Parser>.
-
-See data/metag.bnf.
+A copy, as of Marpa::R2 V 2.066000, ships with C<MarpaX::Grammar::Parser>. See data/metag.bnf.
 
 This option is mandatory.
 
@@ -258,17 +257,17 @@ Default: ''.
 
 =item o -maxlevel logOption1
 
-This option affects Log::Handler.
+This option affects L<Log::Handler> objects.
 
-See the Log::handler docs.
+See the L<Log::Handler::Levels> docs.
 
 Default: 'info'.
 
 =item o -minlevel logOption2
 
-This option affects Log::Handler.
+This option affects L<Log::Handler> object.
 
-See the Log::handler docs.
+See the L<Log::Handler::Levels> docs.
 
 Default: 'error'.
 
@@ -340,17 +339,13 @@ Get or set the logger object.
 
 To disable logging, just set logger to the empty string.
 
-This logger is passed to L<Graph::Easy::Marpa::Parser> and L<Graph::Easy::Marpa::Renderer::Parser>.
-
 Note: C<logger> is a parameter to new().
 
 =head2 marpas_bnf_file([$bnf_file_name])
 
 Here, the [] indicate an optional parameter.
 
-Get or set the name of the file to read Marpa's grammar's BNF from.
-
-The whole file is slurped in as a single string.
+Get or set the name of the file to read Marpa's grammar's BNF from. The whole file is slurped in as a single string.
 
 The parameter is mandatory.
 
@@ -386,7 +381,7 @@ Note: C<minlevel> is a parameter to new().
 
 Here, the [] indicate an optional parameter.
 
-Get or set the option which includes (0) or excludes (1) from node attributes being included in the output
+Get or set the option which includes (0) or excludes (1) node attributes from being included in the output
 C<raw_tree_file>.
 
 Note: C<no_attributes> is a parameter to new().
@@ -408,7 +403,7 @@ Get or set the name of the file to which the tree form of the user's grammar wil
 
 If no output file is supplied, nothing is written.
 
-See data/stringparser.log for the output of parsing data/stringparser.bnf.
+See data/stringparser.tree for the output of parsing data/stringparser.bnf.
 
 This latter file is the grammar used in L<Marpa::Demo::StringParser>.
 
@@ -418,9 +413,7 @@ Note: C<raw_tree_file> is a parameter to new().
 
 Here, the [] indicate an optional parameter.
 
-Get or set the name of the file to read the user's grammar's BNF from.
-
-The whole file is slurped in as a single string.
+Get or set the name of the file to read the user's grammar's BNF from. The whole file is slurped in as a single string.
 
 The parameter is mandatory.
 
@@ -432,9 +425,20 @@ Note: C<users_bnf_file> is a parameter to new().
 
 =over 4
 
+=item o data/c.ast.bnf
+
+This is part of L<MarpaX::Languages::C::AST>, by Peter Stuifzand. It's 1,565 lines long.
+
+The output is data/c.ast.tree.
+
+=item o data/c.ast.tree
+
+This is the output from parsing data/c.ast.bnf. It's 56,723 lines long, which indicates the complexity of
+Peter's grammar for C.
+
 =item o data/json.1.bnf
 
-It is part of the unreleased module MarpaX::Demo::JSON_1, written as a gist by Peter Stuifzand.
+It is part of L<MarpaX::Demo::JSON_1>, written as a gist by Peter Stuifzand.
 
 See L<https://gist.github.com/pstuifzand/4447349>.
 
@@ -446,7 +450,7 @@ This is the output from parsing data/json.1.bnf.
 
 =item o data/json.2.bnf
 
-It is part of the unreleased module MarpaX::Demo::JSON_2, written by Jeffrey Kegler as a reply to the gist from Peter.
+It is part of L<MarpaX::Demo::JSON_2>, written by Jeffrey Kegler as a reply to the gist above from Peter.
 
 The output is data/json.2.tree.
 
@@ -485,7 +489,7 @@ In other words, if you run:
 
 The output is data/stringparser.tree.
 
-Then patch sub run() as below, and run:
+But if you patch sub run() as below, and run:
 
 	perl -Ilib scripts/g2p.pl -marpas_bnf data/metag.bnf -n 1 \
 		-users_bnf data/stringparser.bnf > data/stringparser.treedumper
@@ -572,13 +576,17 @@ L<https://rt.cpan.org/Public/Dist/Display.html?Name=MarpaX::Grammar::Parser>.
 
 =head1 See Also
 
-L<Data::TreeDumper>.
+L<Marpa::Demo::JSON_1>.
 
-L<MarpaX::Grammar::Parser>.
+L<Marpa::Demo::JSON_2>.
 
 L<Marpa::Demo::StringParser>.
 
 L<MarpaX::Languages::C::AST>.
+
+L<Data::TreeDumper>.
+
+L<Log::Handler>.
 
 =head1 Author
 

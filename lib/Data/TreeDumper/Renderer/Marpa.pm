@@ -135,13 +135,17 @@ L<https://rt.cpan.org/Public/Dist/Display.html?Name=MarpaX::Grammar::Parser>.
 
 =head1 See Also
 
-L<Data::TreeDumper>.
+L<Marpa::Demo::JSON_1>.
 
-L<MarpaX::Grammar::Parser>.
+L<Marpa::Demo::JSON_2>.
 
 L<Marpa::Demo::StringParser>.
 
 L<MarpaX::Languages::C::AST>.
+
+L<Data::TreeDumper>.
+
+L<Log::Handler>.
 
 =head1 Author
 
