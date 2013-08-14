@@ -1,12 +1,19 @@
 Build.PL
 Changelog.ini
 Changes
-data/json2.bnf
+data/c.ast.bnf
+data/c.ast.tree
+data/json.1.bnf
+data/json.1.tree
+data/json.2.bnf
+data/json.2.tree
 data/metag.bnf
 data/stringparser.bnf
-data/stringparser.log
 data/stringparser.tree
+data/stringparser.treedumper
+lib/Data/TreeDumper/Renderer/Marpa.pm
 lib/MarpaX/Grammar/Parser.pm
+lib/MarpaX/Grammar/Parser/Dummy.pm
 Makefile.PL
 MANIFEST			This list of files
 META.json
@@ -14,6 +21,6 @@ META.yml
 README
 scripts/g2p.pl
 scripts/g2p.sh
-scripts/metag.pl
+scripts/pod2html.sh
 t/runner.t
 xt/author/pod.t
