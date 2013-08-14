@@ -24,7 +24,7 @@ if ($option_parser -> getoptions
 	'maxlevel=s',
 	'minlevel=s',
 	'no_attributes=i',
-	'tree_file=s',
+	'raw_tree_file=s',
 	'users_bnf_file=s',
 ) )
 {
@@ -59,7 +59,7 @@ g2p.pl [options]
 	-minlevel logOption2
 	-no_attributes Boolean
 	-marpas_bnf_file aMarpaBNFFileName
-	-tree_file aTextFileName
+	-raw_tree_file aTextFileName
 
 Exit value: 0 for success, 1 for failure. Die upon error.
 
@@ -117,9 +117,9 @@ Include (0) or exclude (1) attributes in the tree_file output.
 
 Default: 0.
 
-=item o -tree_file aTextFileName
+=item o -raw_tree_file aTextFileName
 
-The name of the text file to write containing the grammar as a tree.
+The name of the text file to write containing the grammar as a raw tree.
 
 If '', the file is not written.
 

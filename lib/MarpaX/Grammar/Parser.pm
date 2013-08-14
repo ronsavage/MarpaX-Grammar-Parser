@@ -63,7 +63,7 @@ has no_attributes =>
 	required => 0,
 );
 
-has root =>
+has raw_tree =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
@@ -71,7 +71,7 @@ has root =>
 	required => 0,
 );
 
-has tree_file =>
+has raw_tree_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
@@ -109,7 +109,7 @@ sub BUILD
 		);
 	}
 
-	$self -> root
+	$self -> raw_tree
 	(
 		Tree::DAG_Node -> new
 		({
@@ -149,20 +149,20 @@ sub run
 		'', # No title since Data::TreeDumper::Renderer::Marpa prints nothing.
 		DISPLAY_ROOT_ADDRESS => 1,
 		NO_WRAP              => 1,
-	#	RENDERER             =>
-	#	{
-	#		NAME    => 'Marpa',  # I.e.: Data::TreeDumper::Renderer::Marpa.
-	#		package => $package, # I.e.: MarpaX::Grammar::Parser::Dummy.
-	#		root    => $self -> root,
-	#	}
+		RENDERER             =>
+		{
+			NAME    => 'Marpa',  # I.e.: Data::TreeDumper::Renderer::Marpa.
+			package => $package, # I.e.: MarpaX::Grammar::Parser::Dummy.
+			root    => $self -> raw_tree,
+		}
 	);
 
-	my($tree_file) = $self -> tree_file;
+	my($raw_tree_file) = $self -> raw_tree_file;
 
-	if ($tree_file)
+	if ($raw_tree_file)
 	{
-		open(OUT, '>', $tree_file) || die "Can't open(> $tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> root -> tree2string({no_attributes => $self -> no_attributes})};
+		open(OUT, '>', $raw_tree_file) || die "Can't open(> $raw_tree_file): $!\n";
+		print OUT map{"$_\n"} @{$self -> raw_tree -> tree2string({no_attributes => $self -> no_attributes})};
 		close OUT;
 	}
 
@@ -189,7 +189,7 @@ C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a tree using Tree::DA
 	my(%option) =
 	(
 		marpas_bnf_file => 'metag.bnf',
-		tree_file       => 'my.tree',
+		raw_tree_file   => 'my.raw.tree',
 		users_bnf_file  => 'my.bnf,
 	);
 
@@ -276,11 +276,11 @@ No lower levels are used.
 
 =item o -no_attributes Boolean
 
-Include (0) or exclude (1) attributes in the tree_file output.
+Include (0) or exclude (1) attributes in the raw_tree_file output.
 
 Default: 0.
 
-=item o -tree_file aTextFileName
+=item o -raw_tree_file aTextFileName
 
 The name of the text file to write containing the grammar as a tree.
 
@@ -387,17 +387,20 @@ Note: C<minlevel> is a parameter to new().
 Here, the [] indicate an optional parameter.
 
 Get or set the option which includes (0) or excludes (1) from node attributes being included in the output
-C<tree_file>.
+C<raw_tree_file>.
 
 Note: C<no_attributes> is a parameter to new().
 
-=head2 root()
+=head2 raw_tree()
 
-Returns the root node, of type L<Tree::DAG_Node>, of the tree of items in the user's BNF.
+Returns the root node, of type L<Tree::DAG_Node>, of the raw tree of items in the user's BNF.
 
-It is this tree which is optionally written to the file name given by L</tree_file([$output_file_name])>.
+By raw tree, I mean as derived directly from Marpa. Later, a cooked_tree() method will be provided,
+for a compressed version of the tree.
 
-=head2 tree_file([$output_file_name])
+The raw tree is optionally written to the file name given by L</raw_tree_file([$output_file_name])>.
+
+=head2 raw_tree_file([$output_file_name])
 
 Here, the [] indicate an optional parameter.
 
@@ -409,7 +412,7 @@ See data/stringparser.log for the output of parsing data/stringparser.bnf.
 
 This latter file is the grammar used in L<Marpa::Demo::StringParser>.
 
-Note: C<tree_file> is a parameter to new().
+Note: C<raw_tree_file> is a parameter to new().
 
 =head2 users_bnf_file([$bnf_file_name])
 
@@ -503,7 +506,7 @@ Patch run() from this (which returns the tree but prints nothing):
 		{
 			NAME    => 'Marpa',  # I.e.: Data::TreeDumper::Renderer::Marpa.
 			package => $package, # I.e.: MarpaX::Grammar::Parser::Dummy.
-			root    => $self -> root,
+			root    => $self -> raw__tree,
 		}
 	);
 
@@ -519,7 +522,7 @@ To this (which just prints):
 	#	{
 	#		NAME    => 'Marpa',  # I.e.: Data::TreeDumper::Renderer::Marpa.
 	#		package => $package, # I.e.: MarpaX::Grammar::Parser::Dummy.
-	#		root    => $self -> root,
+	#		root    => $self -> raw_tree,
 	#	}
 	);
 
