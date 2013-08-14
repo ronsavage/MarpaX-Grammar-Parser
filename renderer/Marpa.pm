@@ -41,23 +41,8 @@ sub begin
 
 sub node
 {
-	my(
-	$element,
-	$level,
-	$is_terminal,
-	$previous_level_separator,
-	$separator,
-	$element_name,
-	$element_value,
-	$td_address,
-	$address_link,
-	$perl_size,
-	$perl_address,
-	$setup,
-	) = @_ ;
-
-#	print "element: $element. level: $previous_level => $level. is_terminal: $is_terminal. name: $element_name. value: $element_value. \n";
-#	print "\n";
+	my($element, $level, $is_terminal, $previous_level_separator, $separator, $element_name,
+		$element_value, $td_address, $address_link, $perl_size, $perl_address, $setup) = @_ ;
 
 	my($token);
 	my($type);
@@ -80,41 +65,22 @@ sub node
 	});
 
 	# This test works for the very first call because the initial value of $previous_level is < 0.
+	# Also, $current_node is unchanged by this if when $level == $previous_level.
 
 	if ($level > $previous_level)
 	{
 		$current_node = $level == 0 ? $$setup{RENDERER}{root} : $node_per_level{$previous_level};
-
-		$current_node -> add_daughter($new_node);
-
-		$node_per_level{$level} = $new_node;
-
-#		print "1 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 	}
-	elsif ($level == $previous_level)
-	{
-		$current_node -> add_daughter($new_node);
-
-		$node_per_level{$level} = $new_node;
-
-#		print "2 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
-	}
-	else # $level < $previous_level.
+	elsif ($level < $previous_level)
 	{
 		$current_node = $level == 0 ? $$setup{RENDERER}{root} : $node_per_level{$level - 1};
-
-		$current_node -> add_daughter($new_node);
-
-		$node_per_level{$level} = $new_node;
-
-#		print "3 Level $level. Set '$token' => '$type' @ $current_node => $new_node. \n";
 	}
 
-	$previous_level = $level;
-	$previous_type  = $type;
+	$current_node -> add_daughter($new_node);
 
-#	print map{"$_\n"} @{$$setup{RENDERER}{root} -> tree2string({no_attributes => 0})};
-#	print "\n";
+	$node_per_level{$level} = $new_node;
+	$previous_level         = $level;
+	$previous_type          = $type;
 
 	return '';
 
