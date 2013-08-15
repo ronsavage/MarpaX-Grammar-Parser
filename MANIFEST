@@ -13,7 +13,6 @@ data/stringparser.tree
 data/stringparser.treedumper
 lib/Data/TreeDumper/Renderer/Marpa.pm
 lib/MarpaX/Grammar/Parser.pm
-lib/MarpaX/Grammar/Parser/Dummy.pm
 Makefile.PL
 MANIFEST			This list of files
 META.json
@@ -21,6 +20,7 @@ META.yml
 README
 scripts/g2p.pl
 scripts/g2p.sh
+scripts/metag.pl
 scripts/pod2html.sh
 t/runner.t
 xt/author/pod.t
