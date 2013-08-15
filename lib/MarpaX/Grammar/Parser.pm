@@ -241,7 +241,7 @@ Key-value pairs accepted in the parameter list (see corresponding methods for de
 
 =over 4
 
-=item o -logger aLog::HandlerObject
+=item o logger aLog::HandlerObject
 
 By default, an object of type L<Log::Handler> is created which prints to STDOUT, but nothing is actually printed.
 
@@ -251,7 +251,7 @@ Set C<logger> to '' to stop logging.
 
 Default: undef.
 
-=item o -marpa_bnf_file aMarpaBNFFileName
+=item o marpa_bnf_file aMarpaBNFFileName
 
 Specify the name of Marpa's own BNF file. This file ships with L<Marpa::R2>, in the meta/ directory.
 It's name is metag.bnf.
@@ -262,7 +262,7 @@ This option is mandatory.
 
 Default: ''.
 
-=item o -maxlevel logOption1
+=item o maxlevel logOption1
 
 This option affects L<Log::Handler> objects.
 
@@ -270,7 +270,7 @@ See the L<Log::Handler::Levels> docs.
 
 Default: 'info'.
 
-=item o -minlevel logOption2
+=item o minlevel logOption2
 
 This option affects L<Log::Handler> object.
 
@@ -280,13 +280,13 @@ Default: 'error'.
 
 No lower levels are used.
 
-=item o -no_attributes Boolean
+=item o no_attributes Boolean
 
 Include (0) or exclude (1) attributes in the raw_tree_file output.
 
 Default: 0.
 
-=item o -raw_tree_file aTextFileName
+=item o raw_tree_file aTextFileName
 
 The name of the text file to write containing the grammar as a raw tree.
 
@@ -294,7 +294,7 @@ If '', the file is not written.
 
 Default: ''.
 
-=item o -user_bnf_file aUserGrammarFileName
+=item o user_bnf_file aUserGrammarFileName
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 
