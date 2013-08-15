@@ -7,12 +7,31 @@ use warnings;
 use Tree::DAG_Node;
 
 my($previous_level) = - 1;
-my($previous_type)  = '';
 
 my($current_node);
 my(%node_per_level);
 
 our $VERSION = '1.00';
+
+#-------------------------------------------------
+
+sub begin
+{
+	my($title, $td_address, $element, $perl_size, $perl_address, $setup) = @_ ;
+
+	return '';
+
+} # End of begin.
+
+#-------------------------------------------------
+
+sub end
+{
+	my($setup) = @_;
+
+	return '';
+
+} # End of end.
 
 #-------------------------------------------------
 
@@ -26,16 +45,6 @@ sub GetRenderer
 	});
 
 } # End of Getrenderer.
-
-#-------------------------------------------------
-
-sub begin
-{
-	my($title, $td_address, $element, $perl_size, $perl_address, $setup) = @_ ;
-
-	return '';
-
-} # End of begin.
 
 #-------------------------------------------------
 
@@ -80,21 +89,10 @@ sub node
 
 	$node_per_level{$level} = $new_node;
 	$previous_level         = $level;
-	$previous_type          = $type;
 
 	return '';
 
 } # End of node.
-
-#-------------------------------------------------
-
-sub end
-{
-	my($setup) = @_;
-
-	return '';
-
-} # End of end.
 
 #-------------------------------------------------
 
@@ -112,12 +110,34 @@ No synopsis needed since this module is used automatically by L<MarpaX::Grammar:
 
 =head1 Description
 
-This module is a dummy plugin for L<Data::TreeDumper>. It is used by L<MarpaX::Grammar::Parser>
-as a namespace during the parsing of a L<Marpa::R2>-style BNF.
+This module is a plugin for L<Data::TreeDumper>. It is used by L<MarpaX::Grammar::Parser> during the parsing
+of a L<Marpa::R2>-style BNF.
+
+Users do not need to call any of the functions in this module, and it has no methods.
 
 =head1 Installation
 
 This module is installed automatically when you install L<MarpaX::Grammar::Parser>.
+
+=head1 Methods
+
+This class has no methods, only functions as per the design of L<Data::TreeDumper>.
+
+=head2 begin()
+
+This is called before the traversal of the data structure starts.
+
+=head2 end()
+
+This is called after the last node has been processed.
+
+=head2 GetRenderer()
+
+This is called by L<Data::TreeDumper> to initialize the plugin.
+
+=head2 node()
+
+This is called for each node in the data structure.
 
 =head1 Machine-Readable Change Log
 
