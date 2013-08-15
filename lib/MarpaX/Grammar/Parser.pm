@@ -112,7 +112,7 @@ sub BUILD
 	(
 		Tree::DAG_Node -> new
 		({
-			attributes => {},
+			attributes => {level => 0, type => 'class'},
 			name       => 'statements',
 		})
 	);
@@ -288,7 +288,7 @@ Default: 0.
 
 =item o -raw_tree_file aTextFileName
 
-The name of the text file to write containing the grammar as a tree.
+The name of the text file to write containing the grammar as a raw tree.
 
 If '', the file is not written.
 
@@ -406,7 +406,7 @@ The raw tree is optionally written to the file name given by L</raw_tree_file([$
 
 Here, the [] indicate an optional parameter.
 
-Get or set the name of the file to which the tree form of the user's grammar will be written.
+Get or set the name of the file to which the raw tree form of the user's grammar will be written.
 
 If no output file is supplied, nothing is written.
 
@@ -517,9 +517,9 @@ But if you patch sub run() as below, and run:
 	perl -Ilib scripts/g2p.pl -marpa_bnf data/metag.bnf -n 1 \
 		-user_bnf data/stringparser.bnf > data/stringparser.treedumper
 
-The output is data/stringparser.treedumper.
+Then the output is data/stringparser.treedumper.
 
-Then you can compare the latter (the default) output of L<Data::TreeDumper> with the output from this module.
+Thus you can compare the latter (the default) output of L<Data::TreeDumper> with the output from this module.
 
 Patch run() from this (which returns the tree but prints nothing):
 
@@ -577,6 +577,52 @@ This lets me quickly proof-read edits to the docs.
 
 =head1 FAQ
 
+=head2 What are the attributes and name of each node in tree?
+
+=over 4
+
+=item o Attributes
+
+=over 4
+
+=item o level
+
+This is the level in the tree of the 'current' node.
+
+The root of the tree is level 0. All other nodes have the value of $level + 1, where $level (starting from 0) is
+determined by L<Data::TreeDumper>.
+
+=item o type
+
+This indicates what type of node it is.  Values:
+
+=over 4
+
+=item o Grammar
+
+'Grammar' means the node's name is an item from the user-specified grammar.
+
+=item o Marpa
+
+'Marpa' means that Marpa has assigned a class to the node, of the form:
+
+	$class_name::$node_name
+
+See data/stringparser.treedumper, which will make this much clearer.
+
+C<$class_name> is a constant provided by this module, and is 'MarpaX::Grammar::Parser::Dummy'.
+
+=back
+
+=back
+
+=item o Name
+
+This is either an item from the user-specified grammar (when the attribute C<type> is 'Grammar') or
+a Marpa-internal token (when the attribute C<type> is 'Marpa').
+
+=back
+
 =head2 Where did the basic code come from?
 
 Jeffrey Kegler wrote it, and posted it on the Google Group dedicated to Marpa, on 2013-07-22,
@@ -593,23 +639,37 @@ directory. Of course I try not to use both in the same module.
 It offered the output which was most easily parsed of the modules I tested.
 The others were L<Data::Dumper>, L<Data::TreeDraw>, L<Data::TreeDumper> and L<Data::Printer>.
 
-=head2 Where is Marpa's Home Page?
+=head2 Why are some options/methods called raw_*?
 
-L<http://jeffreykegler.github.io/Ocean-of-Awareness-blog/metapages/annotated.html>.
+See L</ToDo> below for details.
+
+=head2 Where is Marpa's Homepage?
+
+L<http://jeffreykegler.github.io/Ocean-of-Awareness-blog/>.
 
 =head2 Are there any articles discussing Marpa?
 
-Yes, many by the author, and several others.
+Yes, many by its author, and several others. See Marpa's homepage, just above, and:
 
-See Marpa's home page, mentioned just above.
+L<The Marpa Guide|http://marpa-guide.github.io/> (in progress, by Peter Stuifzand and Ron Savage).
 
-See L<The Marpa Guide|http://marpa-guide.github.io/>.
+L<Parsing a here doc|http://peterstuifzand.nl/2013/04/19/parse-a-heredoc-with-marpa.html> by Peter Stuifzand.
 
-See L<Parsing a here doc|http://peterstuifzand.nl/2013/04/19/parse-a-heredoc-with-marpa.html> by Peter Stuifzand.
+L<Conditional preservation of whitespace|http://savage.net.au/Ron/html/Conditional.preservation.of.whitespace.html> by Ron Savage.
 
-See L<Conditional preservation of whitespace|http://savage.net.au/Ron/html/Conditional.preservation.of.whitespace.html> by Ron Savage.
+=head1 See Also
 
-=head1 TODO
+L<Marpa::Demo::JSONParser>.
+
+L<Marpa::Demo::StringParser>.
+
+L<MarpaX::Languages::C::AST>.
+
+L<Data::TreeDumper>.
+
+L<Log::Handler>.
+
+=head1 ToDo
 
 =over 4
 
@@ -623,9 +683,11 @@ At the moment, the first 2 children of each 'class' type node are the offset and
 where the parser found each token. I want to move those into the attributes of the 'class' node, and hence remove
 those 2 nodes at each level of the tree.
 
+See data/stringparser.tree.
+
 =item o Vertical compression
 
-The tree contains many nodes which are artifacts of Marpa's processing method. I want to remove those nodes which
+The tree contains many nodes which are artifacts of Marpa's processing method. I want to remove any nodes which
 do not refer directly to items in the user's grammar.
 
 =back
@@ -652,18 +714,6 @@ Version numbers < 1.00 represent development versions. From 1.00 up, they are pr
 Email the author, or log a bug on RT:
 
 L<https://rt.cpan.org/Public/Dist/Display.html?Name=MarpaX::Grammar::Parser>.
-
-=head1 See Also
-
-L<Marpa::Demo::JSONParser>.
-
-L<Marpa::Demo::StringParser>.
-
-L<MarpaX::Languages::C::AST>.
-
-L<Data::TreeDumper>.
-
-L<Log::Handler>.
 
 =head1 Author
 

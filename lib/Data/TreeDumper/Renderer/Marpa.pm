@@ -59,17 +59,17 @@ sub node
 	if ($element =~ /$$setup{RENDERER}{package}\:\:(.+)=/)
 	{
 		$token = $1;
-		$type  = 'class';
+		$type  = 'Marpa';
 	}
 	else
 	{
 		$token = $element;
-		$type  = 'token';
+		$type  = 'Grammar';
 	}
 
 	my($new_node) = Tree::DAG_Node -> new
 	({
-		attributes => {level => $level, type => $type},
+		attributes => {level => $level + 1, type => $type},
 		name       => $token,
 	});
 
@@ -152,18 +152,6 @@ Version numbers < 1.00 represent development versions. From 1.00 up, they are pr
 Email the author, or log a bug on RT:
 
 L<https://rt.cpan.org/Public/Dist/Display.html?Name=MarpaX::Grammar::Parser>.
-
-=head1 See Also
-
-L<Marpa::Demo::JSONParser>.
-
-L<Marpa::Demo::StringParser>.
-
-L<MarpaX::Languages::C::AST>.
-
-L<Data::TreeDumper>.
-
-L<Log::Handler>.
 
 =head1 Author
 
