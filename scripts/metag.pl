@@ -14,7 +14,7 @@ use Marpa::R2;
 die "usage: $0 grammar input" if scalar @ARGV != 2;
 my $grammar_file = do { local $RS = undef; open my $fh, q{<}, $ARGV[0]; my $file = <$fh>; close $fh; \$file };
 my $input_file = do { local $RS = undef; open my $fh, q{<}, $ARGV[1]; my $file = <$fh>; close $fh; \$file };
-my $slg = Marpa::R2::Scanless::G->new( { source => $grammar_file, bless_package => 'My_Nodes' } );
+my $slg = Marpa::R2::Scanless::G->new( { source => $grammar_file, bless_package => 'MarpaX::Grammar::Parser::Dummy' } );
 my $slr = Marpa::R2::Scanless::R->new( { grammar => $slg } );
 
 $slr->read($input_file);
@@ -31,7 +31,7 @@ say DumpTree
 
 # ------------------------------------------------
 
-package My_Nodes;
+package MarpaX::Grammar::Parser::Dummy;
 
 sub new
 {
