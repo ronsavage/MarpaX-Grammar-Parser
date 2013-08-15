@@ -1,5 +1,5 @@
 {
-   "abstract" : "Convert a Marpa grammar into a tree using Tree::DAG_Node",
+   "abstract" : "Converts a Marpa grammar into a tree using Tree::DAG_Node",
    "author" : [
       "Ron Savage <ron@savage.net.au>"
    ],
@@ -48,7 +48,15 @@
       }
    },
    "provides" : {
+      "Data::TreeDumper::Renderer::Marpa" : {
+         "file" : "lib/Data/TreeDumper/Renderer/Marpa.pm",
+         "version" : "1.00"
+      },
       "MarpaX::Grammar::Parser" : {
+         "file" : "lib/MarpaX/Grammar/Parser.pm",
+         "version" : "1.00"
+      },
+      "MarpaX::Grammar::Parser::Dummy" : {
          "file" : "lib/MarpaX/Grammar/Parser.pm",
          "version" : "1.00"
       }
