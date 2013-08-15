@@ -10,8 +10,6 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 use Data::TreeDumper ();               # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
-use English '-no_match_vars';
-
 use Log::Handler;
 
 use Marpa::R2;

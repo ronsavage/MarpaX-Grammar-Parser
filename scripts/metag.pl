@@ -4,11 +4,8 @@ use 5.010;
 use warnings;
 use strict;
 use English qw( -no_match_vars );
-use autodie;
 
-use Data::TreeDraw;        # For draw().
-use Data::Dumper::Concise; # For Dumper().
-use Data::TreeDumper;      # DumpTree().
+use Data::TreeDumper; # For DumpTree().
 
 use Marpa::R2;
 
@@ -22,9 +19,6 @@ my $slr = Marpa::R2::Scanless::R->new( { grammar => $slg } );
 
 $slr->read($input_file);
 
-#say Dumper $slr -> value;
-#say draw ${$slr->value}, {upwrap_objects => 1};
-
 say DumpTree
 (
 	$slr -> value,
@@ -34,6 +28,8 @@ say DumpTree
 	#NO_PACKAGE_SETUP    => 1,  # Does nothing for me.
 	NO_WRAP              => 1,
 );
+
+# ------------------------------------------------
 
 package My_Nodes;
 
