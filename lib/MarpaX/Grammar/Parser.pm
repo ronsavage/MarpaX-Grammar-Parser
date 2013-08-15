@@ -443,9 +443,13 @@ The output is data/c.ast.tree.
 This is the output from parsing data/c.ast.bnf. It's 56,723 lines long, which indicates the complexity of
 Peter's grammar for C.
 
+The command to generate this file is:
+
+	shell> scripts/g2p.sh c.ast
+
 =item o data/json.1.bnf
 
-It is part of L<MarpaX::Demo::JSON_1>, written as a gist by Peter Stuifzand.
+It is part of L<MarpaX::Demo::JSONParser>, written as a gist by Peter Stuifzand.
 
 See L<https://gist.github.com/pstuifzand/4447349>.
 
@@ -455,15 +459,23 @@ The output is data/json.1.tree.
 
 This is the output from parsing data/json.1.bnf.
 
+The command to generate this file is:
+
+	shell> scripts/g2p.sh json.1
+
 =item o data/json.2.bnf
 
-It is part of L<MarpaX::Demo::JSON_2>, written by Jeffrey Kegler as a reply to the gist above from Peter.
+It also is part of L<MarpaX::Demo::JSONParser>, written by Jeffrey Kegler as a reply to the gist above from Peter.
 
 The output is data/json.2.tree.
 
 =item o data/json.2.tree
 
 This is the output from parsing data/json.2.bnf.
+
+The command to generate this file is:
+
+	shell> scripts/g2p.sh json.2
 
 =item o data/metag.bnf.
 
@@ -482,6 +494,10 @@ See L</user_bnf_file([$bnf_file_name])> below.
 =item o data/stringparser.tree
 
 This is the output from parsing data/stringparser.bnf.
+
+The command to generate this file is:
+
+	shell> scripts/g2p.sh stringparser
 
 See also the next item.
 
@@ -552,6 +568,10 @@ This is a quick way for me to run g2p.pl.
 =item o scripts/metag.pl
 
 This is Jeffrey Kegler's code. See the first FAQ question.
+
+=item o scripts/pod2html.sh
+
+This lets me quickly proof-read edits to the docs.
 
 =back
 
@@ -635,9 +655,7 @@ L<https://rt.cpan.org/Public/Dist/Display.html?Name=MarpaX::Grammar::Parser>.
 
 =head1 See Also
 
-L<Marpa::Demo::JSON_1>.
-
-L<Marpa::Demo::JSON_2>.
+L<Marpa::Demo::JSONParser>.
 
 L<Marpa::Demo::StringParser>.
 

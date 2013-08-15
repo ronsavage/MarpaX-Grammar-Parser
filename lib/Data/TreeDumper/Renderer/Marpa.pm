@@ -135,9 +135,7 @@ L<https://rt.cpan.org/Public/Dist/Display.html?Name=MarpaX::Grammar::Parser>.
 
 =head1 See Also
 
-L<Marpa::Demo::JSON_1>.
-
-L<Marpa::Demo::JSON_2>.
+L<Marpa::Demo::JSONParser>.
 
 L<Marpa::Demo::StringParser>.
 
