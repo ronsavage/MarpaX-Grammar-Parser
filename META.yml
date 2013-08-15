@@ -1,5 +1,5 @@
 ---
-abstract: 'Convert a Marpa grammar into a tree using Tree::DAG_Node'
+abstract: 'Converts a Marpa grammar into a tree using Tree::DAG_Node'
 author:
   - 'Ron Savage <ron@savage.net.au>'
 build_requires:
@@ -14,18 +14,21 @@ meta-spec:
   version: 1.4
 name: MarpaX-Grammar-Parser
 provides:
+  Data::TreeDumper::Renderer::Marpa:
+    file: lib/Data/TreeDumper/Renderer/Marpa.pm
+    version: 1.00
   MarpaX::Grammar::Parser:
+    file: lib/MarpaX/Grammar/Parser.pm
+    version: 1.00
+  MarpaX::Grammar::Parser::Dummy:
     file: lib/MarpaX/Grammar/Parser.pm
     version: 1.00
 requires:
   Algorithm::Diff: 1.1902
-  Data::Dumper::Concise: 2.02
+  Data::TreeDumper: 0.4
   English: 1.04
-  File::Basename: 2.82
-  File::Spec: 3.4
   File::Temp: 0.2301
   Getopt::Long: 2.41
-  List::AllUtils: 0.03
   Log::Handler: 0.78
   Marpa::R2: 2.066
   Moo: 1.002
@@ -33,7 +36,6 @@ requires:
   Perl6::Slurp: 0.03
   Pod::Usage: 1.36
   Tree::DAG_Node: 1.12
-  autodie: 2.16
   charnames: 0
   open: 0
   perl: v5.14.2
