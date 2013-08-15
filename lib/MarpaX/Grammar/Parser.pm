@@ -14,7 +14,6 @@ use English '-no_match_vars';
 
 use Log::Handler;
 
-use MarpaX::Grammar::Parser::Dummy;
 use Marpa::R2;
 
 use Moo;
@@ -135,7 +134,7 @@ sub log
 sub run
 {
 	my($self)          = @_;
-	my($package)       = 'MarpaX::Grammar::Parser::Dummy';
+	my($package)       = 'MarpaX::Grammar::Parser::Dummy'; # This is actually included below.
 	my $marpa_bnf      = slurp $self -> marpa_bnf_file, {utf8 => 1};
 	my($marpa_grammar) = Marpa::R2::Scanless::G -> new({bless_package => $package, source => \$marpa_bnf});
 	my $user_bnf       = slurp $self -> user_bnf_file, {utf8 => 1};
@@ -173,6 +172,14 @@ sub run
 } # End of run.
 
 # ------------------------------------------------
+
+package MarpaX::Grammar::Parser::Dummy;
+
+our $VERSION = '1.00';
+
+sub new{return {};}
+
+#-------------------------------------------------
 
 1;
 
@@ -530,6 +537,22 @@ To this (which just prints the default output):
 	#	}
 	);
 
+=item o scripts/g2p.pl
+
+This is a neat way of using the module. For help, run:
+
+	shell> perl -Ilib scripts/g2p.pl -h
+
+Of course you are also encouraged to include the module directly in your own code.
+
+=item o scripts/g2p.sh
+
+This is a quick way for me to run g2p.pl.
+
+=item o scripts/metag.pl
+
+This is Jeffrey Kegler's code. See the first FAQ question.
+
 =back
 
 =head1 FAQ
@@ -538,6 +561,12 @@ To this (which just prints the default output):
 
 Jeffrey Kegler wrote it, and posted it on the Google Group dedicated to Marpa, on 2013-07-22,
 in the thread 'Low-hanging fruit'. I modified it slightly for a module context.
+
+The original code is shipped as scripts/metag.pl.
+
+As you can see he uses a different way of reading the files, one which avoids loading a separate module.
+I've standardized on L<Perl6::Slurp>, especially when I want utf8, and L<File::Slurp> when I want to read a
+directory. Of course I try not to use both in the same module.
 
 =head2 Why did you use Data::TreeDump?
 
@@ -559,6 +588,36 @@ See L<The Marpa Guide|http://marpa-guide.github.io/>.
 See L<Parsing a here doc|http://peterstuifzand.nl/2013/04/19/parse-a-heredoc-with-marpa.html> by Peter Stuifzand.
 
 See L<Conditional preservation of whitespace|http://savage.net.au/Ron/html/Conditional.preservation.of.whitespace.html> by Ron Savage.
+
+=head1 TODO
+
+=over 4
+
+=item o Compress the tree
+
+=over 4
+
+=item o Horizontal compression
+
+At the moment, the first 2 children of each 'class' type node are the offset and length within the input stream
+where the parser found each token. I want to move those into the attributes of the 'class' node, and hence remove
+those 2 nodes at each level of the tree.
+
+=item o Vertical compression
+
+The tree contains many nodes which are artifacts of Marpa's processing method. I want to remove those nodes which
+do not refer directly to items in the user's grammar.
+
+=back
+
+Together this will mean the remaining nodes can be used without further modification as input to my other module
+L<Marpa::Grammar::GraphViz2>. The latter is on hold until I can effect these compressions, so don't be surprized
+if that link fails.
+
+When this work is done, there will be 2 new attributes in this module, cooked_tree() to return the root of the
+compressed tree, and cooked_tree_file(), which will name the file to use to save the new tree to disk.
+
+=back
 
 =head1 Machine-Readable Change Log
 
