@@ -138,18 +138,18 @@ sub compress_branch
 		{
 			my($node, $option) = @_;
 
-			push @stack, $node -> copy;
+			push @stack, [$node -> name, $node -> attributes];
 
 			return 1; # Keep walking.
 		},
 		_depth => 0,
 	});
 
-	if (any {$_ -> name eq 'default_rule'} @stack)
+	if (any {$$_[0] eq 'default_rule'} @stack)
 	{
 		$self -> process_default_rule($index, \@stack);
 	}
-	elsif (any {$_ -> name eq 'start_rule'} @stack)
+	elsif (any {$$_[0] eq 'start_rule'} @stack)
 	{
 		$self -> process_start_rule($index, \@stack);
 	}
@@ -198,7 +198,7 @@ sub process_default_rule
 {
 	my($self, $index, $stack) = @_;
 
-	$self -> log(debug => join(' ', map{$_ -> name} @$stack) );
+	$self -> log(debug => join(' ', map{$$_[0]} @$stack) );
 
 	my($attributes);
 	my($name);
@@ -206,13 +206,17 @@ sub process_default_rule
 
 	for my $i (0 .. $#$stack)
 	{
-		$attributes = $$stack[$i] -> attributes;
-		$name       = $$stack[$i] -> name;
+		$attributes = $$stack[$i][1];
+		$name       = $$stack[$i][0];
 
-		if ($name =~ /^(?:action|bless|:default|\[values\]|::=)$/)
+		if ($name =~ /^(?:action|:default|\[values\]|::=)$/)
 		{
 			push @token, $name;
 			push @token, '=>' if ($name eq 'action');
+		}
+		elsif ( ($i >= 3) && ($$stack[$i - 3][0] eq 'reserved_blessing_name') )
+		{
+			push @token, 'bless', '=>', $name;
 		}
 	}
 
@@ -226,7 +230,7 @@ sub process_start_rule
 {
 	my($self, $index, $stack) = @_;
 
-	$self -> log(debug => join(' ', map{$_ -> name} @$stack) );
+	$self -> log(debug => join(' ', map{$$_[0]} @$stack) );
 
 	my($attributes);
 	my($name);
@@ -234,11 +238,11 @@ sub process_start_rule
 
 	for my $i (0 .. $#$stack)
 	{
-		$attributes = $$stack[$i] -> attributes;
-		$name       = $$stack[$i] -> name;
+		$attributes = $$stack[$i][1];
+		$name       = $$stack[$i][0];
 
 		push @token, ':start'     if ($name eq 'start_rule');
-		push @token, '::=', $name if ( ($i > 3) && ($$stack[$i - 3] -> name eq 'bare_name') );
+		push @token, '::=', $name if ( ($i >= 3) && ($$stack[$i - 3][0] eq 'bare_name') );
 	}
 
 	$self -> log(info => join(' ', @token) );
