@@ -61,6 +61,11 @@ sub node
 		$token = $1;
 		$type  = 'Marpa';
 	}
+	elsif ($element_value =~ /^\d+$/)
+	{
+		$token = $element_value;
+		$type  = 'Marpa';
+	}
 	else
 	{
 		$token = $element;
