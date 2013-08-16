@@ -10,8 +10,6 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 use Data::TreeDumper ();               # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
-use List::AllUtils 'any';
-
 use Log::Handler;
 
 use Marpa::R2;
@@ -130,6 +128,8 @@ sub compress_branch
 
 	# Phase 2: Get the definition of this statement.
 
+	my($name);
+	my(%rule);
 	my(@stack);
 
 	$statement -> walk_down
@@ -137,19 +137,25 @@ sub compress_branch
 		callback => sub
 		{
 			my($node, $option) = @_;
+			$name        = $node -> name;
+			$rule{$name} = 1;
 
-			push @stack, [$node -> name, $node -> attributes];
+			push @stack, [$name, $node -> attributes];
 
 			return 1; # Keep walking.
 		},
 		_depth => 0,
 	});
 
-	if (any {$$_[0] eq 'default_rule'} @stack)
+	if ($rule{default_rule})
 	{
 		$self -> process_default_rule($index, \@stack);
 	}
-	elsif (any {$$_[0] eq 'start_rule'} @stack)
+	elsif ($rule{priority_rule})
+	{
+		$self -> process_priority_rule($index, \@stack);
+	}
+	elsif ($rule{start_rule})
 	{
 		$self -> process_start_rule($index, \@stack);
 	}
@@ -198,7 +204,7 @@ sub process_default_rule
 {
 	my($self, $index, $stack) = @_;
 
-	$self -> log(debug => join(' ', map{$$_[0]} @$stack) );
+	$self -> log(debug => join(' ', "<$index>", map{$$_[0]} @$stack) );
 
 	my($attributes);
 	my($name);
@@ -209,20 +215,72 @@ sub process_default_rule
 		$attributes = $$stack[$i][1];
 		$name       = $$stack[$i][0];
 
-		if ($name =~ /^(?:action|:default|\[values\]|::=)$/)
+		if ($name =~ /^(?::default|::=)$/)
 		{
 			push @token, $name;
-			push @token, '=>' if ($name eq 'action');
 		}
-		elsif ( ($i >= 3) && ($$stack[$i - 3][0] eq 'reserved_blessing_name') )
+		elsif ( ($i >= 6) && ($$stack[$i - 6][0] eq 'blessing_name') )
 		{
 			push @token, 'bless', '=>', $name;
 		}
+		elsif ( ($i >= 6) && ($$stack[$i - 6][0] eq 'action_name') )
+		{
+			push @token, 'action', '=>', $name;
+		}
 	}
 
-	$self -> log(info => join(' ', @token) );
+	$self -> log(info => join(' ', "<$index>", @token) );
 
 } # End of process_default_rule.
+
+# --------------------------------------------------
+
+sub process_priority_rule
+{
+	my($self, $index, $stack) = @_;
+
+	return if ($index > 6);
+
+	$self -> log(debug => join(' ', "<$index>", map{$$_[0]} @$stack) );
+
+	my($alternative_count) = 0;
+
+	my($attributes);
+	my($name);
+	my(@token);
+
+	for my $i (0 .. $#$stack)
+	{
+		$attributes = $$stack[$i][1];
+		$name       = $$stack[$i][0];
+
+		if ($name =~ /^(?:::=)$/)
+		{
+			push @token, $name;
+		}
+		elsif ($name eq 'alternative')
+		{
+			$alternative_count++;
+
+			push @token, '|' if ($alternative_count > 1);
+		}
+		elsif ( ($i >= 6) && ($$stack[$i - 6][0] eq 'action_name') )
+		{
+			push @token, 'action', '=>', $name;
+		}
+		elsif ( ($i >= 9) && ($$stack[$i - 9][0] eq 'lhs') )
+		{
+			push @token, $name;
+		}
+		elsif ( ($i >= 15) && ($$stack[$i - 15][0] eq 'rhs_primary') )
+		{
+			push @token, $name;
+		}
+	}
+
+	$self -> log(info => join(' ', "<$index>", @token) );
+
+} # End of process_priority_rule.
 
 # --------------------------------------------------
 
@@ -230,7 +288,7 @@ sub process_start_rule
 {
 	my($self, $index, $stack) = @_;
 
-	$self -> log(debug => join(' ', map{$$_[0]} @$stack) );
+	$self -> log(debug => join(' ', "<$index>", map{$$_[0]} @$stack) );
 
 	my($attributes);
 	my($name);
@@ -245,7 +303,7 @@ sub process_start_rule
 		push @token, '::=', $name if ( ($i >= 3) && ($$stack[$i - 3][0] eq 'bare_name') );
 	}
 
-	$self -> log(info => join(' ', @token) );
+	$self -> log(info => join(' ', "<$index>", @token) );
 
 } # End of process_start_rule.
 
