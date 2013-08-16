@@ -10,6 +10,8 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 use Data::TreeDumper ();               # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
+use List::AllUtils 'any';
+
 use Log::Handler;
 
 use Marpa::R2;
@@ -84,13 +86,16 @@ has user_bnf_file =>
 	required => 0,
 );
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 # ------------------------------------------------
 
 sub BUILD
 {
 	my($self)  = @_;
+
+	die "No Marpa BNF file provided\n" if (! $self -> marpa_bnf_file);
+	die "No user BNF file provided\n"  if (! $self -> user_bnf_file);
 
 	if (! defined $self -> logger)
 	{
@@ -119,6 +124,66 @@ sub BUILD
 
 # --------------------------------------------------
 
+sub compress_branch
+{
+	my($self, $index, $statement) = @_;
+
+	# Phase 2: Get the definition of this statement.
+
+	my(@stack);
+
+	$statement -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+
+			push @stack, $node -> copy;
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	if (any {$_ -> name eq 'default_rule'} @stack)
+	{
+		$self -> process_default_rule($index, \@stack);
+	}
+	elsif (any {$_ -> name eq 'start_rule'} @stack)
+	{
+		$self -> process_start_rule($index, \@stack);
+	}
+
+} # End of compress_branch.
+
+# --------------------------------------------------
+
+sub compress_tree
+{
+	my($self) = @_;
+
+	# Phase 1: Get the children of the root:
+	# o First is offset of start within input stream.
+	# o Second is offset of end within input stream.
+	# o Remainer are statements.
+
+	my($name)      = $self -> raw_tree -> name;
+	my(@daughters) = $self -> raw_tree -> daughters;
+	my($offset)    = (shift @daughters) -> name;
+	my($length)    = (shift @daughters) -> name;
+	my($count)     = scalar @daughters;
+
+	$self -> log(debug => "$name. Offset: $offset. Length: $length. Statement count: $count");
+
+	for my $index (0 .. $#daughters)
+	{
+		$self -> compress_branch($index + 1, $daughters[$index]);
+	}
+
+} # End of compress_tree.
+
+# --------------------------------------------------
+
 sub log
 {
 	my($self, $level, $s) = @_;
@@ -126,6 +191,59 @@ sub log
 	$self -> logger -> log($level => $s) if ($self -> logger);
 
 } # End of log.
+
+# --------------------------------------------------
+
+sub process_default_rule
+{
+	my($self, $index, $stack) = @_;
+
+	$self -> log(debug => join(' ', map{$_ -> name} @$stack) );
+
+	my($attributes);
+	my($name);
+	my(@token);
+
+	for my $i (0 .. $#$stack)
+	{
+		$attributes = $$stack[$i] -> attributes;
+		$name       = $$stack[$i] -> name;
+
+		if ($name =~ /^(?:action|bless|:default|\[values\]|::=)$/)
+		{
+			push @token, $name;
+			push @token, '=>' if ($name eq 'action');
+		}
+	}
+
+	$self -> log(info => join(' ', @token) );
+
+} # End of process_default_rule.
+
+# --------------------------------------------------
+
+sub process_start_rule
+{
+	my($self, $index, $stack) = @_;
+
+	$self -> log(debug => join(' ', map{$_ -> name} @$stack) );
+
+	my($attributes);
+	my($name);
+	my(@token);
+
+	for my $i (0 .. $#$stack)
+	{
+		$attributes = $$stack[$i] -> attributes;
+		$name       = $$stack[$i] -> name;
+
+		push @token, ':start'     if ($name eq 'start_rule');
+		push @token, '::=', $name if ( ($i > 3) && ($$stack[$i - 3] -> name eq 'bare_name') );
+	}
+
+	$self -> log(info => join(' ', @token) );
+
+} # End of process_start_rule.
 
 # ------------------------------------------------
 

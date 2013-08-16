@@ -1,4 +1,7 @@
 Revision history for Perl extension MarpaX::Grammar::Parser.
 
+1.01  Fri Aug 16 14:53:00 2013
+	- Explicitly test for missing parameters marpa_bnf_file and user_bnf_file. Die if missing.
+
 1.00  Tue Aug  6 15:47:00 2013
 	  - Original version
