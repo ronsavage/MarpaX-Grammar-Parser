@@ -126,8 +126,6 @@ sub compress_branch
 {
 	my($self, $index, $a_node) = @_;
 
-	# Phase 2: Get the definition of this statement.
-
 	my($name);
 
 	$a_node -> walk_down
@@ -175,18 +173,16 @@ sub compress_tree
 {
 	my($self) = @_;
 
-	# Phase 1: Get the children of the root:
-	# o First is offset of start within input stream.
-	# o Second is offset of end within input stream.
-	# o Remainer are statements.
+	# Phase 1: Process the children of the root:
+	# o First daughter is offset of start within input stream.
+	# o Second daughter is offset of end within input stream.
+	# o Remainder are statements.
 
-	my($name)      = $self -> raw_tree -> name;
 	my(@daughters) = $self -> raw_tree -> daughters;
-	my($offset)    = (shift @daughters) -> name;
-	my($length)    = (shift @daughters) -> name;
-	my($count)     = scalar @daughters;
+	my($start)    = (shift @daughters) -> name;
+	my($end)      = (shift @daughters) -> name;
 
-	$self -> log(debug => "$name. Offset: $offset. Length: $length. Statement count: $count");
+	# Phase 2: Process each statement.
 
 	for my $index (0 .. $#daughters)
 	{
@@ -237,7 +233,7 @@ sub process_default_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', "<$index>", @token) );
+	$self -> log(info => join(' ', @token) );
 
 } # End of process_default_rule.
 
@@ -269,7 +265,7 @@ sub process_discard_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', "<$index>", @token) );
+	$self -> log(info => join(' ', @token) );
 
 } # End of process_discard_rule.
 
@@ -309,7 +305,7 @@ sub process_lexeme_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', "<$index>", @token) );
+	$self -> log(info => join(' ', @token) );
 
 } # End of process_lexeme_rule.
 
@@ -339,6 +335,10 @@ sub process_priority_rule
 
 				push @token, '|' if ($alternative_count > 1);
 			}
+			elsif ($node -> mother -> name eq 'character_class')
+			{
+				push @token, $name;
+			}
 			elsif ($node -> mother -> name =~ /op_declare_+/)
 			{
 				push @token, $name;
@@ -361,7 +361,7 @@ sub process_priority_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', "<$index>", @token) );
+	$self -> log(info => join(' ', @token) );
 
 } # End of process_priority_rule.
 
@@ -383,7 +383,11 @@ sub process_quantified_rule
 
 			return 1 if ($name =~ /^\d+$/);
 
-			if ($node -> mother -> name eq 'character_class')
+			if ($node -> mother -> mother -> name eq 'action_name')
+			{
+				push @token, 'action', '=>', $name;
+			}
+			elsif ($node -> mother -> name eq 'character_class')
 			{
 				push @token, $name;
 			}
@@ -395,6 +399,10 @@ sub process_quantified_rule
 			{
 				$token[$#token] .= $name;
 			}
+			elsif ($node -> mother -> mother -> name eq 'separator_specification')
+			{
+				push @token, 'separator', '=>';
+			}
 			elsif ($node -> mother -> mother -> name eq 'symbol_name')
 			{
 				push @token, $name;
@@ -405,7 +413,7 @@ sub process_quantified_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', "<$index>", @token) );
+	$self -> log(info => join(' ', @token) );
 
 } # End of process_quantified_rule.
 
@@ -437,7 +445,7 @@ sub process_start_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', "<$index>", @token) );
+	$self -> log(info => join(' ', @token) );
 
 } # End of process_start_rule.
 

@@ -79,7 +79,7 @@ sub node
 	});
 
 	# This test works for the very first call because the initial value of $previous_level is < 0.
-	# Also, $current_node is unchanged by this if when $level == $previous_level.
+	# Also, $current_node is unchanged by this 'if' when $level == $previous_level.
 
 	if ($level > $previous_level)
 	{
