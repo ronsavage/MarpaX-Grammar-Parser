@@ -143,6 +143,10 @@ sub compress_branch
 			{
 				$self -> process_discard_rule($index, $node);
 			}
+			elsif ($name eq 'lexeme_default_statement')
+			{
+				$self -> process_lexeme_default($index, $node);
+			}
 			elsif ($name eq 'lexeme_rule')
 			{
 				$self -> process_lexeme_rule($index, $node);
@@ -206,6 +210,11 @@ sub log
 sub process_default_rule
 {
 	my($self, $index, $a_node) = @_;
+	my(%map) =
+	(
+		action   => 'action',
+		blessing => 'bless',
+	);
 
 	my($name);
 	my(@token);
@@ -223,9 +232,9 @@ sub process_default_rule
 			{
 				push @token, ':default', $name;
 			}
-			elsif ($node -> mother -> mother -> name eq 'action_name')
+			elsif ($node -> mother -> mother -> name =~ /(action|blessing)_name/)
 			{
-				push @token, 'action', '=>', $name;
+				push @token, $map{$1}, '=>', $name;
 			}
 
 			return 1; # Keep walking.
@@ -268,6 +277,43 @@ sub process_discard_rule
 	$self -> log(info => join(' ', @token) );
 
 } # End of process_discard_rule.
+
+# --------------------------------------------------
+
+sub process_lexeme_default
+{
+	my($self, $index, $a_node) = @_;
+	my(%map) =
+	(
+		action   => 'action',
+		blessing => 'bless',
+	);
+	my(@token) = ('lexeme default', '=');
+
+	my($name);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			return 1 if ($name =~ /^\d+$/);
+
+			if ($node -> mother -> mother -> name =~ /(action|blessing)_name/)
+			{
+				push @token, $map{$1}, '=>', $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	$self -> log(info => join(' ', @token) );
+
+} # End of process_lexeme_default.
 
 # --------------------------------------------------
 
