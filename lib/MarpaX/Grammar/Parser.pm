@@ -223,13 +223,9 @@ sub process_default_rule
 
 			return 1 if ($name =~ /^\d+$/);
 
-			if ($node -> mother -> name eq 'default_rule')
+			if ($node -> mother -> name =~ /op_declare_+/)
 			{
-				push @token, $name;
-			}
-			elsif ($node -> mother -> name =~ /op_declare_+/)
-			{
-				push @token, $name;
+				push @token, ':default', $name;
 			}
 			elsif ($node -> mother -> mother -> name eq 'action_name')
 			{
