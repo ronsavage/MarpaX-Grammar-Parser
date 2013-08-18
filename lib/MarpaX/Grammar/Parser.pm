@@ -124,13 +124,13 @@ sub BUILD
 
 sub compress_branch
 {
-	my($self, $index, $statement) = @_;
+	my($self, $index, $a_node) = @_;
 
 	# Phase 2: Get the definition of this statement.
 
 	my($name);
 
-	$statement -> walk_down
+	$a_node -> walk_down
 	({
 		callback => sub
 		{
@@ -140,6 +140,22 @@ sub compress_branch
 			if ($name eq 'default_rule')
 			{
 				$self -> process_default_rule($index, $node);
+			}
+			elsif ($name eq 'discard_rule')
+			{
+				$self -> process_discard_rule($index, $node);
+			}
+			elsif ($name eq 'lexeme_rule')
+			{
+				$self -> process_lexeme_rule($index, $node);
+			}
+			elsif ($name eq 'priority_rule')
+			{
+				$self -> process_priority_rule($index, $node);
+			}
+			elsif ($name eq 'quantified_rule')
+			{
+				$self -> process_quantified_rule($index, $node);
 			}
 			elsif ($name eq 'start_rule')
 			{
@@ -193,12 +209,12 @@ sub log
 
 sub process_default_rule
 {
-	my($self, $index, $node) = @_;
+	my($self, $index, $a_node) = @_;
 
 	my($name);
 	my(@token);
 
-	$node -> walk_down
+	$a_node -> walk_down
 	({
 		callback => sub
 		{
@@ -207,7 +223,11 @@ sub process_default_rule
 
 			return 1 if ($name =~ /^\d+$/);
 
-			if ($name =~ /^(?::default|::=)$/)
+			if ($node -> mother -> name eq 'default_rule')
+			{
+				push @token, $name;
+			}
+			elsif ($node -> mother -> name =~ /op_declare_+/)
 			{
 				push @token, $name;
 			}
@@ -227,55 +247,14 @@ sub process_default_rule
 
 # --------------------------------------------------
 
-sub process_priority_rule
+sub process_discard_rule
 {
-	my($self, $index, $stack) = @_;
-
-	return if ($index > 7);
-
-	my($alternative_count) = 0;
-
-=pod
-
-	my($attributes);
-	my($name);
-	my(@token);
-
-	for my $i (0 .. $#$stack)
-	{
-		$attributes = $$stack[$i][1];
-		$name       = $$stack[$i][0];
-
-		if ($name =~ /^(?:::=)$/)
-		{
-			push @token, $name;
-		}
-		elsif ($name eq 'alternative')
-		{
-			$alternative_count++;
-
-			push @token, '|' if ($alternative_count > 1);
-		}
-		elsif ( ($i >= 6) && ($$stack[$i - 6][0] eq 'action_name') )
-		{
-			push @token, 'action', '=>', $name;
-		}
-		elsif ( ($i >= 9) && ($$stack[$i - 9][0] eq 'lhs') )
-		{
-			push @token, $name;
-		}
-		elsif ( ($i >= 15) && ($$stack[$i - 15][0] eq 'rhs_primary') )
-		{
-			push @token, $name;
-		}
-	}
-
-=cut
+	my($self, $index, $a_node) = @_;
 
 	my($name);
 	my(@token);
 
-	$node -> walk_down
+	$a_node -> walk_down
 	({
 		callback => sub
 		{
@@ -286,7 +265,99 @@ sub process_priority_rule
 
 			if ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, ':start', '=>', $name;
+				push @token, ':discard', '=>', $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	$self -> log(info => join(' ', "<$index>", @token) );
+
+} # End of process_discard_rule.
+
+# --------------------------------------------------
+
+sub process_lexeme_rule
+{
+	my($self, $index, $a_node) = @_;
+	my(@token) = (':lexeme', '~');
+
+	my($name);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			return 1 if ($name =~ /^\d+$/);
+
+			if ($node -> mother -> mother -> name eq 'event_name')
+			{
+				push @token, 'event', '=>', $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'pause_specification')
+			{
+				push @token, 'pause', '=>', $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	$self -> log(info => join(' ', "<$index>", @token) );
+
+} # End of process_lexeme_rule.
+
+# --------------------------------------------------
+
+sub process_priority_rule
+{
+	my($self, $index, $a_node) = @_;
+
+	my($alternative_count) = 0;
+
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			return 1 if ($name =~ /^\d+$/);
+
+			if ($name eq 'alternative')
+			{
+				$alternative_count++;
+
+				push @token, '|' if ($alternative_count > 1);
+			}
+			elsif ($node -> mother -> name =~ /op_declare_+/)
+			{
+				push @token, $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'action_name')
+			{
+				push @token, 'action', '=>', $name;
+			}
+			elsif ($node -> mother -> name eq 'single_quoted_string')
+			{
+				push @token, $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
 			}
 
 			return 1; # Keep walking.
@@ -300,14 +371,58 @@ sub process_priority_rule
 
 # --------------------------------------------------
 
-sub process_start_rule
+sub process_quantified_rule
 {
-	my($self, $index, $node) = @_;
+	my($self, $index, $a_node) = @_;
 
 	my($name);
 	my(@token);
 
-	$node -> walk_down
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			return 1 if ($name =~ /^\d+$/);
+
+			if ($node -> mother -> name eq 'character_class')
+			{
+				push @token, $name;
+			}
+			elsif ($node -> mother -> name =~ /op_declare_+/)
+			{
+				push @token, $name;
+			}
+			elsif ($node -> mother -> name eq 'quantifier')
+			{
+				$token[$#token] .= $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	$self -> log(info => join(' ', "<$index>", @token) );
+
+} # End of process_quantified_rule.
+
+# --------------------------------------------------
+
+sub process_start_rule
+{
+	my($self, $index, $a_node) = @_;
+
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
 	({
 		callback => sub
 		{
@@ -318,7 +433,7 @@ sub process_start_rule
 
 			if ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, ':start', '=>', $name;
+				push @token, ':start', '::=', $name;
 			}
 
 			return 1; # Keep walking.
