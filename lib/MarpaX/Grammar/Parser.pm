@@ -735,7 +735,7 @@ Get or set the name of the file to which the raw tree form of the user's grammar
 
 If no output file is supplied, nothing is written.
 
-See data/stringparser.tree for the output of parsing data/stringparser.bnf.
+See data/stringparser.tree for the output of processing Marpa's analysis of data/stringparser.bnf.
 
 This latter file is the grammar used in L<Marpa::Demo::StringParser>.
 
@@ -765,8 +765,8 @@ The output is data/c.ast.tree.
 
 =item o data/c.ast.tree
 
-This is the output from parsing data/c.ast.bnf. It's 56,723 lines long, which indicates the complexity of
-Peter's grammar for C.
+This is the output from processing Marpa's analysis of data/c.ast.bnf. It's 56,723 lines long, which indicates
+the complexity of Peter's grammar for C.
 
 The command to generate this file is:
 
@@ -782,7 +782,7 @@ The output is data/json.1.tree.
 
 =item o data/json.1.tree
 
-This is the output from parsing data/json.1.bnf.
+This is the output from processing Marpa's analysis of data/json.1.bnf.
 
 The command to generate this file is:
 
@@ -796,7 +796,7 @@ The output is data/json.2.tree.
 
 =item o data/json.2.tree
 
-This is the output from parsing data/json.2.bnf.
+This is the output from processing Marpa's analysis of data/json.2.bnf.
 
 The command to generate this file is:
 
@@ -818,7 +818,7 @@ See L</user_bnf_file([$bnf_file_name])> above.
 
 =item o data/stringparser.tree
 
-This is the output from parsing data/stringparser.bnf.
+This is the output from processing Marpa's analysis of data/stringparser.bnf.
 
 The command to generate this file is:
 
