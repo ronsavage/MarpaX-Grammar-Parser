@@ -311,14 +311,12 @@ sub process_lexeme_rule
 
 # --------------------------------------------------
 
-sub process_priority_rule
+sub process_parenthesized_list
 {
-	my($self, $index, $a_node) = @_;
-
-	my($alternative_count) = 0;
+	my($self, $index, $a_node, $depth_under) = @_;
 
 	my($name);
-	my(@token);
+	my(@rhs);
 
 	$a_node -> walk_down
 	({
@@ -329,11 +327,59 @@ sub process_priority_rule
 
 			return 1 if ($name =~ /^\d+$/);
 
-			if ($name eq 'alternative')
+			if ($$option{_depth} == $depth_under)
+			{
+				push @rhs, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	$rhs[0]     = "($rhs[0]";
+	$rhs[$#rhs] = "$rhs[$#rhs])";
+
+	return [@rhs];
+
+} # End of process_parenthesized_list.
+
+# --------------------------------------------------
+
+sub process_priority_rule
+{
+	my($self, $index, $a_node) = @_;
+
+	my($alternative_count) = 0;
+
+	my($continue);
+	my($depth_under);
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name     = $node -> name;
+			$continue = 1;
+
+			return $continue if ($name =~ /^\d+$/);
+
+			if ($node -> mother -> mother -> name eq 'action_name')
+			{
+				push @token, 'action', '=>', $name;
+			}
+			elsif ($name eq 'alternative')
 			{
 				$alternative_count++;
 
 				push @token, '|' if ($alternative_count > 1);
+			}
+			elsif ($node -> mother -> mother -> name eq 'blessing_name')
+			{
+				push @token, 'bless', '=>', $name;
 			}
 			elsif ($node -> mother -> name eq 'character_class')
 			{
@@ -343,9 +389,12 @@ sub process_priority_rule
 			{
 				push @token, $name;
 			}
-			elsif ($node -> mother -> mother -> name eq 'action_name')
+			elsif ($name eq 'parenthesized_rhs_primary_list')
 			{
-				push @token, 'action', '=>', $name;
+				$continue    = 0;
+				$depth_under = $node -> depth_under;
+
+				push @token, @{$self -> process_parenthesized_list($index, $node, $depth_under)};
 			}
 			elsif ($node -> mother -> name eq 'single_quoted_string')
 			{
@@ -356,7 +405,7 @@ sub process_priority_rule
 				push @token, $name;
 			}
 
-			return 1; # Keep walking.
+			return $continue;
 		},
 		_depth => 0,
 	});
