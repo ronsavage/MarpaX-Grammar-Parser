@@ -143,6 +143,10 @@ sub compress_branch
 			{
 				$self -> process_discard_rule($index, $node);
 			}
+			elsif ($name eq 'empty_rule')
+			{
+				$self -> process_empty_rule($index, $node);
+			}
 			elsif ($name =~ /(.+)_event_declaration$/)
 			{
 				$self -> process_event_declaration($index, $node, $1);
@@ -281,6 +285,42 @@ sub process_discard_rule
 	$self -> log(info => join(' ', @token) );
 
 } # End of process_discard_rule.
+
+# --------------------------------------------------
+
+sub process_empty_rule
+{
+	my($self, $index, $a_node) = @_;
+
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			return 1 if ($name =~ /^\d+$/);
+
+			if ($node -> mother -> name =~ /op_declare_+/)
+			{
+				push @token, $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	$self -> log(info => join(' ', @token) );
+
+} # End of process_empty_rule.
 
 # --------------------------------------------------
 
