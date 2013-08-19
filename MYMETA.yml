@@ -3,7 +3,8 @@ abstract: 'Converts a Marpa grammar into a tree using Tree::DAG_Node'
 author:
   - 'Ron Savage <ron@savage.net.au>'
 build_requires:
-  Test::More: 0.94
+  ExtUtils::MakeMaker: 6.59
+  Test::More: 0.98
 configure_requires:
   Module::Build: 0.38
 dynamic_config: 0
@@ -38,7 +39,7 @@ requires:
   Tree::DAG_Node: 1.12
   charnames: 0
   open: 0
-  perl: v5.14.2
+  perl: 5.014
   strict: 0
   utf8: 0
   warnings: 0

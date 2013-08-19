@@ -16,7 +16,8 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::More" : "0.94"
+            "ExtUtils::MakeMaker" : "6.59",
+            "Test::More" : "0.98"
          }
       },
       "configure" : {
@@ -40,7 +41,7 @@
             "Tree::DAG_Node" : "1.12",
             "charnames" : "0",
             "open" : "0",
-            "perl" : "v5.14.2",
+            "perl" : "5.014",
             "strict" : "0",
             "utf8" : "0",
             "warnings" : "0"
