@@ -9,7 +9,7 @@ use ExtUtils::MakeMaker;
 my(%params) =
 (
 	AUTHOR   => 'Ron Savage (ron@savage.net.au)',
-	ABSTRACT => 'Converts a Marpa grammar into a tree using Tree::DAG_Node',
+	ABSTRACT => 'Converts a Marpa grammar into a forest using Tree::DAG_Node',
 	clean =>
 	{
 		FILES => 'blib/* Makefile MANIFEST MarpaX-Grammar-Parser-*'

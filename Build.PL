@@ -26,7 +26,7 @@ $class -> new
 (
 	module_name    => 'MarpaX::Grammar::Parser',
 	license        => 'artistic_2',
-	dist_abstract  => 'Converts a Marpa grammar into a tree using Tree::DAG_Node',
+	dist_abstract  => 'Converts a Marpa grammar into a forest using Tree::DAG_Node',
 	dist_author    => 'Ron Savage <ron@savage.net.au>',
 	build_requires =>
 	{

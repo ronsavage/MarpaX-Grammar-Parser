@@ -20,6 +20,22 @@ use Perl6::Slurp; # For slurp().
 
 use Tree::DAG_Node;
 
+has cooked_tree =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	#isa     => 'Tree::DAG_Node',
+	required => 0,
+);
+
+has cooked_tree_file =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	#isa     => 'Str',
+	required => 0,
+);
+
 has logger =>
 (
 	default  => sub{return undef},
@@ -109,12 +125,21 @@ sub BUILD
 		);
 	}
 
+	$self -> cooked_tree
+	(
+		Tree::DAG_Node -> new
+		({
+			attributes => {level => 0},
+			name       => 'Cooked Grammar',
+		})
+	);
+
 	$self -> raw_tree
 	(
 		Tree::DAG_Node -> new
 		({
 			attributes => {level => 0, type => 'class'},
-			name       => 'statements',
+			name       => 'Raw Grammar',
 		})
 	);
 
@@ -726,7 +751,7 @@ sub new{return {};}
 
 =head1 NAME
 
-C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a tree using Tree::DAG_Node
+C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a forest using Tree::DAG_Node
 
 =head1 Synopsis
 
@@ -734,16 +759,17 @@ C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a tree using Tree::DA
 
 	my(%option) =
 	(
-		marpa_bnf_file => 'data/metag.bnf',   # Input.
-		raw_tree_file  => 'data/my.raw.tree', # Output.
-		user_bnf_file  => 'data/my.bnf',      # Input.
+		cooked_tree_file => 'share/stringparser.cooked.tree', # Output.
+		marpa_bnf_file   => 'share/metag.bnf',                # Input.
+		raw_tree_file    => 'share/stringparser.raw.tree',    # Output.
+		user_bnf_file    => 'share/stringparser.bnf',         # Input.
 	);
 
 	my($parser) = MarpaX::Grammar::Parser -> new(%option);
 
 	$parser -> run;
 
-	print map{"$_\n"} @{$parser -> raw_tree -> tree2string({no_attributes => 1})};
+	# Output is in share/stringparser.cooked.tree and share/stringparser.raw.tree.
 
 See data/metag.bnf for the BNF file which ships with L<Marpa::R2> V 2.066000.
 
@@ -754,6 +780,12 @@ For help, run
 	shell> perl -Ilib scripts/g2p.pl -h
 
 =head1 Description
+
+C<MarpaX::Grammar::Parser> uses L<Marpa::R2> to convert a user's BNF into a tree of Marpa-style attributes,
+(see L</raw_tree()>), and then post-processes (see L</compress_tree()> that to create another tree, this time
+containing just the original grammar (see L</cooked_tree()>.
+
+So, currently, the forest contains 2 trees.
 
 =head1 Installation
 
@@ -949,10 +981,11 @@ Note: C<no_attributes> is a parameter to new().
 
 Returns the root node, of type L<Tree::DAG_Node>, of the raw tree of items in the user's BNF.
 
-By raw tree, I mean as derived directly from Marpa. Later, a cooked_tree() method will be provided,
-for a compressed version of the tree.
+By raw tree, I mean as derived directly from Marpa.
 
 The raw tree is optionally written to the file name given by L</raw_tree_file([$output_file_name])>.
+
+See also </cooked_tree()>.
 
 =head2 raw_tree_file([$output_file_name])
 
@@ -1147,10 +1180,6 @@ directory. Of course I try not to use both in the same module.
 It offered the output which was most easily parsed of the modules I tested.
 The others were L<Data::Dumper>, L<Data::TreeDraw>, L<Data::TreeDumper> and L<Data::Printer>.
 
-=head2 Why are some options/methods called raw_*?
-
-See L</ToDo> below for details.
-
 =head2 Where is Marpa's Homepage?
 
 L<http://jeffreykegler.github.io/Ocean-of-Awareness-blog/>.
@@ -1178,38 +1207,6 @@ L<MarpaX::Languages::C::AST>.
 L<Data::TreeDumper>.
 
 L<Log::Handler>.
-
-=head1 ToDo
-
-=over 4
-
-=item o Compress the tree
-
-=over 4
-
-=item o Horizontal compression
-
-At the moment, the first 2 children of each 'class' type node are the offset and length within the input stream
-where the parser found each token. I want to move those into the attributes of the 3rd node, and hence remove
-those 2 nodes at each level of the tree.
-
-See data/stringparser.tree.
-
-=item o Vertical compression
-
-The tree contains many nodes which are artifacts of Marpa's processing method. I want to remove any nodes which
-do not refer directly to items in the user's grammar.
-
-=back
-
-Together this will mean the remaining nodes can be used without further modification as input to my other module
-L<Marpa::Grammar::GraphViz2>. The latter is on hold until I can effect these compressions, so don't be surprized
-if that link fails.
-
-When this work is done, there will be 2 new attributes in this module, cooked_tree() to return the root of the
-compressed tree, and cooked_tree_file(), which will name the file to use to save the new tree to disk.
-
-=back
 
 =head1 Machine-Readable Change Log
 
