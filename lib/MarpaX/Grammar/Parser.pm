@@ -291,7 +291,7 @@ sub process_event_declaration
 	(
 		completion => 'completed',
 		nulled     => 'nulled',
-		prediction => 'prediction',
+		prediction => 'predicted',
 	);
 
 	my($name);
