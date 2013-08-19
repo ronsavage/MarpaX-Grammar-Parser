@@ -771,9 +771,9 @@ C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a forest using Tree::
 
 	# Output is in share/stringparser.cooked.tree and share/stringparser.raw.tree.
 
-See data/metag.bnf for the BNF file which ships with L<Marpa::R2> V 2.066000.
+See share/metag.bnf for the BNF file which ships with L<Marpa::R2> V 2.066000.
 
-See data/*.bnf for input files and data/*.tree for output files.
+See share/*.bnf for input files and share/*.tree for output files.
 
 For help, run
 
@@ -840,7 +840,7 @@ Default: undef.
 Specify the name of Marpa's own BNF file. This file ships with L<Marpa::R2>, in the meta/ directory.
 It's name is metag.bnf.
 
-A copy, as of Marpa::R2 V 2.066000, ships with C<MarpaX::Grammar::Parser>. See data/metag.bnf.
+A copy, as of Marpa::R2 V 2.066000, ships with C<MarpaX::Grammar::Parser>. See share/metag.bnf.
 
 This option is mandatory.
 
@@ -882,7 +882,7 @@ Default: ''.
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 
-See data/stringparser.bnf for a sample.
+See share/stringparser.bnf for a sample.
 
 This option is mandatory.
 
@@ -944,7 +944,7 @@ This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bn
 
 A copy, as of Marpa::R2 V 2.066000, ships with L<MarpaX::Grammar::Parser>.
 
-See data/metag.bnf for a sample.
+See share/metag.bnf for a sample.
 
 Note: C<marpa_bnf_file> is a parameter to new().
 
@@ -995,7 +995,7 @@ Get or set the name of the file to which the raw tree form of the user's grammar
 
 If no output file is supplied, nothing is written.
 
-See data/stringparser.tree for the output of processing Marpa's analysis of data/stringparser.bnf.
+See share/stringparser.tree for the output of processing Marpa's analysis of share/stringparser.bnf.
 
 This latter file is the grammar used in L<Marpa::Demo::StringParser>.
 
@@ -1009,76 +1009,78 @@ Get or set the name of the file to read the user's grammar's BNF from. The whole
 
 The parameter is mandatory.
 
-See data/stringparser.bnf for a sample. It is the grammar used in L<MarpaX::Demo::StringParser>.
+See share/stringparser.bnf for a sample. It is the grammar used in L<MarpaX::Demo::StringParser>.
 
 Note: C<user_bnf_file> is a parameter to new().
 
 =head1 Files Shipped with this Module
 
+=head2 Data Files
+
 =over 4
 
-=item o data/c.ast.bnf
+=item o share/c.ast.bnf
 
 This is part of L<MarpaX::Languages::C::AST>, by Peter Stuifzand. It's 1,565 lines long.
 
-The output is data/c.ast.tree.
+The output is share/c.ast.raw.tree.
 
-=item o data/c.ast.tree
+=item o share/c.ast.raw.tree
 
-This is the output from processing Marpa's analysis of data/c.ast.bnf. It's 56,723 lines long, which indicates
+This is the output from processing Marpa's analysis of share/c.ast.bnf. It's 56,723 lines long, which indicates
 the complexity of Peter's grammar for C.
 
 The command to generate this file is:
 
 	shell> scripts/g2p.sh c.ast
 
-=item o data/json.1.bnf
+=item o share/json.1.bnf
 
 It is part of L<MarpaX::Demo::JSONParser>, written as a gist by Peter Stuifzand.
 
 See L<https://gist.github.com/pstuifzand/4447349>.
 
-The output is data/json.1.tree.
+The output is share/json.1.raw.tree.
 
-=item o data/json.1.tree
+=item o share/json.1.raw.tree
 
-This is the output from processing Marpa's analysis of data/json.1.bnf.
+This is the output from processing Marpa's analysis of share/json.1.bnf.
 
 The command to generate this file is:
 
 	shell> scripts/g2p.sh json.1
 
-=item o data/json.2.bnf
+=item o share/json.2.bnf
 
 It also is part of L<MarpaX::Demo::JSONParser>, written by Jeffrey Kegler as a reply to the gist above from Peter.
 
-The output is data/json.2.tree.
+The output is share/json.2.raw.tree.
 
-=item o data/json.2.tree
+=item o share/json.2.raw.tree
 
-This is the output from processing Marpa's analysis of data/json.2.bnf.
+This is the output from processing Marpa's analysis of share/json.2.bnf.
 
 The command to generate this file is:
 
 	shell> scripts/g2p.sh json.2
 
-=item o data/metag.bnf.
+=item o share/metag.bnf.
 
 This is a copy of L<Marpa::R2>'s BNF.
 
 See L</marpa_bnf_file([$bnf_file_name])> above.
 
-=item o data/stringparser.bnf.
+=item o share/stringparser.bnf.
 
 This is a copy of L<MarpaX::Demo::StringParser>'s BNF.
 
-The output is data/stringparser.tree.
+The output is share/stringparser.raw.tree.
 
 See L</user_bnf_file([$bnf_file_name])> above.
 
-=item o data/stringparser.tree
+=item o share/stringparser.raw.tree
 
-This is the output from processing Marpa's analysis of data/stringparser.bnf.
+This is the output from processing Marpa's analysis of share/stringparser.bnf.
 
 The command to generate this file is:
 
@@ -1086,13 +1088,46 @@ The command to generate this file is:
 
 See also the next item.
 
-=item o data/stringparser.treedumper
+=item o share/stringparser.treedumper
 
 This is the output of running:
 
-	shell> perl scripts/metag.pl data/metag.bnf data/stringparser.bnf > data/stringparser.treedumper
+	shell> perl scripts/metag.pl share/metag.bnf share/stringparser.bnf > share/stringparser.treedumper
 
 That script, metag.pl, is discussed just below, and in the L</FAQ>.
+
+=item o share/termcap.info.bnf
+
+It also is part of L<MarpaX::Database::Terminfo>, written by Jean-Damien Durand.
+
+The output is share/termcap.info.raw.tree.
+
+=item o share/termcap.info.raw.tree
+
+This is the output from processing Marpa's analysis of share/termcap.info.bnf.
+
+The command to generate this file is:
+
+	shell> scripts/g2p.sh termcap.info
+
+=back
+
+=head2 Scripts
+
+=over 4
+
+=item o scripts/find.grammars.pl
+
+After installation of the module, run it with:
+
+	shell> perl scripts/find.grammars.pl (Defaults to stringparser.bnf)
+	shell> perl scripts/find.grammars.pl c.ast.bnf
+	shell> perl scripts/find.grammars.pl json.1.bnf
+	shell> perl scripts/find.grammars.pl json.2.bnf
+	shell> perl scripts/find.grammars.pl stringparser.bnf
+	shell> perl scripts/find.grammars.pl termcap.info.bnf
+
+It will print the name of the path to given grammar file.
 
 =item o scripts/g2p.pl
 
@@ -1149,7 +1184,7 @@ This indicates what type of node it is.  Values:
 
 	$class_name::$node_name
 
-See data/stringparser.treedumper, which will make this much clearer.
+See share/stringparser.treedumper, which will make this much clearer.
 
 C<$class_name> is a constant provided by this module, and is 'MarpaX::Grammar::Parser::Dummy'.
 

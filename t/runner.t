@@ -51,6 +51,8 @@ sub process
 
 BEGIN {use_ok('MarpaX::Grammar::Parser'); }
 
+# We omit c.ast only because it takes 7 seconds to process.
+
 for (qw/json.1 json.2 stringparser termcap.info/)
 {
 	process($_);
