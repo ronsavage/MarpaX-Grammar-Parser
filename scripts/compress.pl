@@ -9,10 +9,10 @@ use MarpaX::Grammar::Parser;
 
 my($parser) = MarpaX::Grammar::Parser -> new
 (
-	marpa_bnf_file => 'data/metag.bnf',
-	user_bnf_file  => shift || 'data/stringparser.bnf',
+	cooked_tree_file => 'share/stringparser.cooked.tree',
+	marpa_bnf_file   => 'share/metag.bnf',
+	no_attributes    => 1,
+	user_bnf_file    => shift || 'share/stringparser.bnf',
 );
 
 die "Parse failed. \n" if ($parser -> run != 0);
-
-$parser -> compress_tree;

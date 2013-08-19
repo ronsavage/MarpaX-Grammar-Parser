@@ -129,8 +129,7 @@ sub BUILD
 	(
 		Tree::DAG_Node -> new
 		({
-			attributes => {level => 0},
-			name       => 'Cooked Grammar',
+			name => 'Cooked Grammar',
 		})
 	);
 
@@ -152,6 +151,7 @@ sub compress_branch
 	my($self, $index, $a_node) = @_;
 
 	my($name);
+	my($token);
 
 	$a_node -> walk_down
 	({
@@ -162,45 +162,63 @@ sub compress_branch
 
 			if ($name eq 'default_rule')
 			{
-				$self -> process_default_rule($index, $node);
+				$token = $self -> process_default_rule($index, $node);
 			}
 			elsif ($name eq 'discard_rule')
 			{
-				$self -> process_discard_rule($index, $node);
+				$token = $self -> process_discard_rule($index, $node);
 			}
 			elsif ($name eq 'empty_rule')
 			{
-				$self -> process_empty_rule($index, $node);
+				$token = $self -> process_empty_rule($index, $node);
 			}
 			elsif ($name =~ /(.+)_event_declaration$/)
 			{
-				$self -> process_event_declaration($index, $node, $1);
+				$token = $self -> process_event_declaration($index, $node, $1);
 			}
 			elsif ($name eq 'lexeme_default_statement')
 			{
-				$self -> process_lexeme_default($index, $node);
+				$token = $self -> process_lexeme_default($index, $node);
 			}
 			elsif ($name eq 'lexeme_rule')
 			{
-				$self -> process_lexeme_rule($index, $node);
+				$token = $self -> process_lexeme_rule($index, $node);
 			}
 			elsif ($name eq 'priority_rule')
 			{
-				$self -> process_priority_rule($index, $node);
+				$token = $self -> process_priority_rule($index, $node);
 			}
 			elsif ($name eq 'quantified_rule')
 			{
-				$self -> process_quantified_rule($index, $node);
+				$token = $self -> process_quantified_rule($index, $node);
 			}
 			elsif ($name eq 'start_rule')
 			{
-				$self -> process_start_rule($index, $node);
+				$token = $self -> process_start_rule($index, $node);
 			}
 
 			return 1; # Keep walking.
 		},
 		_depth => 0,
 	});
+
+	my($node) = Tree::DAG_Node -> new
+	({
+		name => shift @$token,
+	});
+
+	$self -> cooked_tree -> add_daughter($node);
+
+	for (@$token)
+	{
+		$node -> add_daughter
+		(
+			Tree::DAG_Node -> new
+			({
+				name => $_,
+			})
+		);
+	}
 
 } # End of compress_branch.
 
@@ -278,7 +296,7 @@ sub process_default_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_default_rule.
 
@@ -313,7 +331,7 @@ sub process_discard_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_discard_rule.
 
@@ -352,7 +370,7 @@ sub process_empty_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_empty_rule.
 
@@ -397,7 +415,7 @@ sub process_event_declaration
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_event_declaration.
 
@@ -437,7 +455,7 @@ sub process_lexeme_default
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_lexeme_default.
 
@@ -484,7 +502,7 @@ sub process_lexeme_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_lexeme_rule.
 
@@ -599,7 +617,7 @@ sub process_priority_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_priority_rule.
 
@@ -654,7 +672,7 @@ sub process_quantified_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_quantified_rule.
 
@@ -689,7 +707,7 @@ sub process_start_rule
 		_depth => 0,
 	});
 
-	$self -> log(info => join(' ', @token) );
+	return [@token];
 
 } # End of process_start_rule.
 
@@ -726,6 +744,17 @@ sub run
 	{
 		open(OUT, '>', $raw_tree_file) || die "Can't open(> $raw_tree_file): $!\n";
 		print OUT map{"$_\n"} @{$self -> raw_tree -> tree2string({no_attributes => $self -> no_attributes})};
+		close OUT;
+	}
+
+	$self -> compress_tree;
+
+	my($cooked_tree_file) = $self -> cooked_tree_file;
+
+	if ($cooked_tree_file)
+	{
+		open(OUT, '>', $cooked_tree_file) || die "Can't open(> $cooked_tree_file): $!\n";
+		print OUT map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => $self -> no_attributes})};
 		close OUT;
 	}
 
@@ -1153,7 +1182,7 @@ This lets me quickly proof-read edits to the docs.
 
 =head1 FAQ
 
-=head2 What are the attributes and name of each node in tree?
+=head2 What are the attributes and name of each node in the raw tree?
 
 =over 4
 
@@ -1198,6 +1227,14 @@ This is either an item from the user-specified grammar (when the attribute C<typ
 a Marpa-internal token (when the attribute C<type> is 'Marpa').
 
 =back
+
+=head2 How do I sort the daughters of the root?
+
+Choose $root as either $self -> raw_tree or $self -> cooked_tree, and then:
+
+	@daughters = sort{$a -> name cmp $b -> name} $root -> daughters;
+
+	$root -> set_daughters(@daughters);
 
 =head2 Where did the basic code come from?
 
