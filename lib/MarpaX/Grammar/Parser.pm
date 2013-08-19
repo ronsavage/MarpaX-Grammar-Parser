@@ -143,6 +143,10 @@ sub compress_branch
 			{
 				$self -> process_discard_rule($index, $node);
 			}
+			elsif ($name =~ /(.+)_event_declaration$/)
+			{
+				$self -> process_event_declaration($index, $node, $1);
+			}
 			elsif ($name eq 'lexeme_default_statement')
 			{
 				$self -> process_lexeme_default($index, $node);
@@ -277,6 +281,48 @@ sub process_discard_rule
 	$self -> log(info => join(' ', @token) );
 
 } # End of process_discard_rule.
+
+# --------------------------------------------------
+
+sub process_event_declaration
+{
+	my($self, $index, $a_node, $type) = @_;
+	my(%type) =
+	(
+		completion => 'completed',
+		nulled     => 'nulled',
+		prediction => 'prediction',
+	);
+
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			return 1 if ($name =~ /^\d+$/);
+
+			if ($node -> mother -> mother -> name eq 'event_name')
+			{
+				push @token, 'event', $name, '=', $type{$type};
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	$self -> log(info => join(' ', @token) );
+
+} # End of process_event_declaration.
 
 # --------------------------------------------------
 
