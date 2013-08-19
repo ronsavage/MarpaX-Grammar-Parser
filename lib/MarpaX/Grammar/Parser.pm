@@ -234,7 +234,10 @@ sub process_default_rule
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> name =~ /op_declare_+/)
 			{
@@ -270,7 +273,10 @@ sub process_discard_rule
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> mother -> name eq 'symbol_name')
 			{
@@ -302,7 +308,10 @@ sub process_empty_rule
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> name =~ /op_declare_+/)
 			{
@@ -344,7 +353,10 @@ sub process_event_declaration
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> mother -> name eq 'event_name')
 			{
@@ -385,7 +397,10 @@ sub process_lexeme_default
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> mother -> name =~ /(action|blessing)_name/)
 			{
@@ -417,7 +432,10 @@ sub process_lexeme_rule
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> mother -> name eq 'event_name')
 			{
@@ -426,6 +444,10 @@ sub process_lexeme_rule
 			elsif ($node -> mother -> mother -> name eq 'pause_specification')
 			{
 				push @token, 'pause', '=>', $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'priority_specification')
+			{
+				push @token, 'priority', '=>', $name;
 			}
 			elsif ($node -> mother -> mother -> name eq 'symbol_name')
 			{
@@ -457,7 +479,10 @@ sub process_parenthesized_list
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($$option{_depth} == $depth_under)
 			{
@@ -497,7 +522,10 @@ sub process_priority_rule
 			$name     = $node -> name;
 			$continue = 1;
 
-			return $continue if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> mother -> name eq 'action_name')
 			{
@@ -527,6 +555,10 @@ sub process_priority_rule
 				$depth_under = $node -> depth_under;
 
 				push @token, @{$self -> process_parenthesized_list($index, $node, $depth_under)};
+			}
+			elsif ($node -> mother -> mother -> name eq 'rank_specification')
+			{
+				push @token, 'rank', '=>', $name;
 			}
 			elsif ($node -> mother -> name eq 'single_quoted_string')
 			{
@@ -562,7 +594,10 @@ sub process_quantified_rule
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> mother -> name eq 'action_name')
 			{
@@ -614,7 +649,10 @@ sub process_start_rule
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			return 1 if ($name =~ /^\d+$/);
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
 
 			if ($node -> mother -> mother -> name eq 'symbol_name')
 			{
