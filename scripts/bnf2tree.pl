@@ -18,6 +18,7 @@ my(%option);
 if ($option_parser -> getoptions
 (
 	\%option,
+	'cooked_tree_file=s',
 	'help',
 	'logger=s',
 	'marpa_bnf_file=s',
@@ -52,6 +53,7 @@ bnf2tree.pl - Convert a Marpa grammar into a tree using Tree::DAG_Node.
 bnf2tree.pl [options]
 
 	Options:
+	-cooked_tree_file aTextFileName
 	-help
 	-logger aLog::HandlerObject
 	-maxlevel logOption1
@@ -66,6 +68,14 @@ Exit value: 0 for success, 1 for failure. Die upon error.
 =head1 OPTIONS
 
 =over 4
+
+=item o -cooked_tree_file aTextFileName
+
+The name of the text file to write containing the grammar as a cooked tree.
+
+If '', the file is not written.
+
+Default: ''.
 
 =item o -help
 
