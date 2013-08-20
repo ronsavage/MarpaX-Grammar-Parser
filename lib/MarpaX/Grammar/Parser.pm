@@ -129,7 +129,7 @@ sub BUILD
 	(
 		Tree::DAG_Node -> new
 		({
-			name => 'Cooked Grammar',
+			name => 'statements',
 		})
 	);
 
@@ -137,8 +137,8 @@ sub BUILD
 	(
 		Tree::DAG_Node -> new
 		({
-			attributes => {type => 'class'},
-			name       => 'Raw Grammar',
+			attributes => {type => 'Marpa'},
+			name       => 'statements',
 		})
 	);
 
@@ -811,10 +811,14 @@ For help, run
 =head1 Description
 
 C<MarpaX::Grammar::Parser> uses L<Marpa::R2> to convert a user's BNF into a tree of Marpa-style attributes,
-(see L</raw_tree()>), and then post-processes that (see L</compress_tree()> to create another tree, this time
-containing just the original grammar (see L</cooked_tree()>.
+(see L</raw_tree()>), and then post-processes that (see L</compress_tree()>) to create another tree, this time
+containing just the original grammar (see L</cooked_tree()>).
 
 So, currently, the forest contains 2 trees.
+
+The nature of these trees is discussed in the L</FAQ>.
+
+Lastly, one purpose of the cooked tree is to serve as input to L<MarpaX::Grammar::GraphViz2>.
 
 =head1 Installation
 
@@ -957,13 +961,15 @@ or:
 
 =head2 cooked_tree()
 
-Returns the root node, of type L<Tree::DAG_Node>, of the cooked tree of items in the user's BNF.
+Returns the root node, of type L<Tree::DAG_Node>, of the cooked tree of items in the user's grammar.
 
-By cooked tree, I mean as post-processed from the raw to so as to include just the original user's BNF tokens.
+By cooked tree, I mean as post-processed from the raw tree so as to include just the original user's BNF tokens.
 
 The cooked tree is optionally written to the file name given by L</cooked_tree_file([$output_file_name])>.
 
-See also </raw_tree()>.
+The nature of this tree is discussed in the L</FAQ>.
+
+See also L</raw_tree()>.
 
 =head2 cooked_tree_file([$output_file_name])
 
@@ -973,9 +979,9 @@ Get or set the name of the file to which the cooked tree form of the user's gram
 
 If no output file is supplied, nothing is written.
 
-See share/stringparser.cooked.tree for the output of processing Marpa's analysis of share/stringparser.bnf.
+See share/stringparser.cooked.tree for the output of post-processing Marpa's analysis of share/stringparser.bnf.
 
-This latter file is the grammar used in L<Marpa::Demo::StringParser>.
+This latter file is the grammar used in L<MarpaX::Demo::StringParser>.
 
 Note: C<cooked_tree_file> is a parameter to new().
 
@@ -997,9 +1003,7 @@ Note: C<logger> is a parameter to new().
 
 Here, the [] indicate an optional parameter.
 
-Get or set the name of the file to read Marpa's grammar's BNF from. The whole file is slurped in as a single string.
-
-The parameter is mandatory.
+Get or set the name of the file to read Marpa's grammar from. The whole file is slurped in as a single string.
 
 This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bnf.
 
@@ -1040,13 +1044,15 @@ Note: C<no_attributes> is a parameter to new().
 
 =head2 raw_tree()
 
-Returns the root node, of type L<Tree::DAG_Node>, of the raw tree of items in the user's BNF.
+Returns the root node, of type L<Tree::DAG_Node>, of the raw tree of items in the user's grammar.
 
 By raw tree, I mean as derived directly from Marpa.
 
 The raw tree is optionally written to the file name given by L</raw_tree_file([$output_file_name])>.
 
-See also </cooked_tree()>.
+The nature of this tree is discussed in the L</FAQ>.
+
+See also L</cooked_tree()>.
 
 =head2 raw_tree_file([$output_file_name])
 
@@ -1056,9 +1062,9 @@ Get or set the name of the file to which the raw tree form of the user's grammar
 
 If no output file is supplied, nothing is written.
 
-See share/stringparser.raw.tree for the output of processing Marpa's analysis of share/stringparser.bnf.
+See share/stringparser.raw.tree for the output of Marpa's analysis of share/stringparser.bnf.
 
-This latter file is the grammar used in L<Marpa::Demo::StringParser>.
+This latter file is the grammar used in L<MarpaX::Demo::StringParser>.
 
 Note: C<raw_tree_file> is a parameter to new().
 
@@ -1067,8 +1073,6 @@ Note: C<raw_tree_file> is a parameter to new().
 Here, the [] indicate an optional parameter.
 
 Get or set the name of the file to read the user's grammar's BNF from. The whole file is slurped in as a single string.
-
-The parameter is mandatory.
 
 See share/stringparser.bnf for a sample. It is the grammar used in L<MarpaX::Demo::StringParser>.
 
@@ -1082,14 +1086,14 @@ Note: C<user_bnf_file> is a parameter to new().
 
 =item o share/c.ast.bnf
 
-This is part of L<MarpaX::Languages::C::AST>, by Peter Stuifzand. It's 1,565 lines long.
+This is part of L<MarpaX::Languages::C::AST>, by Jean-Damien Durand. It's 1,565 lines long.
 
 The output is share/c.ast.raw.tree.
 
 =item o share/c.ast.raw.tree
 
 This is the output from processing Marpa's analysis of share/c.ast.bnf. It's 56,723 lines long, which indicates
-the complexity of Peter's grammar for C.
+the complexity of Jean-Damien's grammar for C.
 
 The command to generate this file is:
 
@@ -1237,23 +1241,73 @@ This lets me quickly proof-read edits to the docs.
 
 =head2 What is the difference between the cooked tree and the raw tree?
 
-The raw tree is generated from processing the output of Marpa's parse of the user's grammar file.
+The raw tree is generated by processing the output of Marpa's parse of the user's grammar file.
 It contains Marpa's view of that grammar.
 
-The cooked tree is generared from processing the raw tree, to extract just the user's gammar's tokens.
+The cooked tree is generated by processing the raw tree, to extract just the user's grammar's tokens.
 It contains the user's view of their grammar.
 
-Lastly, the purpose of the cooked tree is to serve as input to L<MarpaX::Grammar::GraphViz2>.
+The following items explain this in more detail.
 
-=head2 What are the attributes and name of each node in the cooked tree?
+=head2 What are the details of the nodes in the cooked tree?
 
-The cooked tree's node don't have any attributes.
-
-=head2 What are the attributes and name of each node in the raw tree?
+Under the root, there are a set of nodes:
 
 =over 4
 
-=item o Attributes
+=item o N nodes, 1 per statement in the grammar
+
+The node's names are the left-hand side of each statement in the grammar.
+
+Each node is the root of a subtree describing the statement.
+
+Under those nodes are a set of nodes:
+
+=over 4
+
+=item o 1 node for the separator between the left and right sides of the statement
+
+So, the node's name is one of: '=' '::=' or '~'.
+
+=item o 1 node per token from the right-hand side of each statement
+
+The node's name is the token itself.
+
+=back
+
+=back
+
+The cooked tree's node don't have any attributes.
+
+See share/stringparser.cooked.tree.
+
+=head2 What are the details of the nodes in the raw tree?
+
+Under the root, there are a set of nodes:
+
+=over 4
+
+=item o One node for the offset of the start of the grammar within the input stream.
+
+The node's name is the integer start offset.
+
+=item o One node for the offset of the end of the grammar within the input stream.
+
+The node's name is the integer end offset.
+
+=item o N nodes, 1 per statement in the grammar
+
+The node's names are either an item from the user's grammar (when the attribute 'type' is 'Grammar')
+or a Marpa-assigned token (when the attribute 'type' is 'Marpa').
+
+Each node is the root of a subtree describing the statement.
+
+See share/stringparser.raw.attributes.tree for a tree with attributes displayed, and
+share/stringparser.raw.tree for the same tree without attributes.
+
+=back
+
+The attributes of each node are a hashref, with these keys:
 
 =over 4
 
@@ -1263,28 +1317,22 @@ This indicates what type of node it is.  Values:
 
 =over 4
 
-=item o Grammar
+=item o 'Grammar' => The node's name is an item from the user-specified grammar.
 
-'Grammar' means the node's name is an item from the user-specified grammar.
+=item o 'Marpa' => Marpa has assigned a class to the node
 
-=item o Marpa
-
-'Marpa' means that Marpa has assigned a class to the node, of the form:
-
-	$class_name::$node_name
-
-See share/stringparser.treedumper, which will make this much clearer.
+The class name is for the form: $class_name::$node_name.
 
 C<$class_name> is a constant provided by this module, and is 'MarpaX::Grammar::Parser::Dummy'.
 
-=back
+See share/stringparser.treedumper, which will make this much clearer.
+
+The technique used to generate this file is discussed above, under L</Data Files>.
+
+Note: The file share/stringparser.treedumper shows some class names, but they are currently I<not> stored
+in the tree returned by the method L</raw_tree()>.
 
 =back
-
-=item o Name
-
-This is either an item from the user-specified grammar (when the attribute C<type> is 'Grammar') or
-a Marpa-internal token (when the attribute C<type> is 'Marpa').
 
 =back
 
@@ -1332,9 +1380,11 @@ L<Conditional preservation of whitespace|http://savage.net.au/Ron/html/Condition
 
 =head1 See Also
 
-L<Marpa::Demo::JSONParser>.
+L<MarpaX::Demo::JSONParser>.
 
-L<Marpa::Demo::StringParser>.
+L<MarpaX::Demo::StringParser>.
+
+L<MarpaX::Grammar::GraphViz2>.
 
 L<MarpaX::Languages::C::AST>.
 
