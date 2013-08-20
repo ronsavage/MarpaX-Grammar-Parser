@@ -811,7 +811,7 @@ For help, run
 =head1 Description
 
 C<MarpaX::Grammar::Parser> uses L<Marpa::R2> to convert a user's BNF into a tree of Marpa-style attributes,
-(see L</raw_tree()>), and then post-processes (see L</compress_tree()> that to create another tree, this time
+(see L</raw_tree()>), and then post-processes that (see L</compress_tree()> to create another tree, this time
 containing just the original grammar (see L</cooked_tree()>.
 
 So, currently, the forest contains 2 trees.
@@ -852,6 +852,14 @@ Key-value pairs accepted in the parameter list (see corresponding methods for de
 [e.g. marpa_bnf_file([$string])]):
 
 =over 4
+
+=item o cooked_tree_file aTextFileName
+
+The name of the text file to write containing the grammar as a cooked tree.
+
+If '', the file is not written.
+
+Default: ''.
 
 =item o logger aLog::HandlerObject
 
@@ -895,7 +903,7 @@ No lower levels are used.
 
 =item o no_attributes Boolean
 
-Include (0) or exclude (1) attributes in the raw_tree_file output.
+Include (0) or exclude (1) attributes in the cooked_tree_file and the raw_tree_file.
 
 Default: 0.
 
@@ -946,6 +954,30 @@ or:
 	make install
 
 =head1 Methods
+
+=head2 cooked_tree()
+
+Returns the root node, of type L<Tree::DAG_Node>, of the cooked tree of items in the user's BNF.
+
+By cooked tree, I mean as post-processed from the raw to so as to include just the original user's BNF tokens.
+
+The cooked tree is optionally written to the file name given by L</cooked_tree_file([$output_file_name])>.
+
+See also </raw_tree()>.
+
+=head2 cooked_tree_file([$output_file_name])
+
+Here, the [] indicate an optional parameter.
+
+Get or set the name of the file to which the cooked tree form of the user's grammar will be written.
+
+If no output file is supplied, nothing is written.
+
+See share/stringparser.cooked.tree for the output of processing Marpa's analysis of share/stringparser.bnf.
+
+This latter file is the grammar used in L<Marpa::Demo::StringParser>.
+
+Note: C<cooked_tree_file> is a parameter to new().
 
 =head2 log($level, $s)
 
@@ -1002,7 +1034,7 @@ Note: C<minlevel> is a parameter to new().
 Here, the [] indicate an optional parameter.
 
 Get or set the option which includes (0) or excludes (1) node attributes from being included in the output
-C<raw_tree_file>.
+C<cooked_tree_file> and C<raw_tree_file>.
 
 Note: C<no_attributes> is a parameter to new().
 
@@ -1024,7 +1056,7 @@ Get or set the name of the file to which the raw tree form of the user's grammar
 
 If no output file is supplied, nothing is written.
 
-See share/stringparser.tree for the output of processing Marpa's analysis of share/stringparser.bnf.
+See share/stringparser.raw.tree for the output of processing Marpa's analysis of share/stringparser.bnf.
 
 This latter file is the grammar used in L<Marpa::Demo::StringParser>.
 
@@ -1103,9 +1135,17 @@ See L</marpa_bnf_file([$bnf_file_name])> above.
 
 This is a copy of L<MarpaX::Demo::StringParser>'s BNF.
 
-The output is share/stringparser.raw.tree.
+The output is share/stringparser.cooked.tree and share/stringparser.raw.tree.
 
 See L</user_bnf_file([$bnf_file_name])> above.
+
+=item o share/stringparser.cooked.tree
+
+This is the output from post-processing Marpa's analysis of share/stringparser.bnf.
+
+The command to generate this file is:
+
+	shell> scripts/bnf2tree.sh stringparser
 
 =item o share/stringparser.raw.tree
 
@@ -1170,6 +1210,19 @@ Of course you are also encouraged to include this module directly in your own co
 
 This is a quick way for me to run bnf2tree.pl.
 
+=item o scripts/find.grammars.pl
+
+This prints the path to a grammar file. After installation of the module, run it with:
+
+	shell> perl scripts/find.grammars.pl (Defaults to json.1.bnf)
+	shell> perl scripts/find.grammars.pl c.ast.bnf
+	shell> perl scripts/find.grammars.pl json.1.bnf
+	shell> perl scripts/find.grammars.pl json.2.bnf
+	shell> perl scripts/find.grammars.pl stringparser.bnf
+	shell> perl scripts/find.grammars.pl termcap.inf.bnf
+
+It will print the name of the path to given grammar file.
+
 =item o scripts/metag.pl
 
 This is Jeffrey Kegler's code. See the first FAQ question.
@@ -1181,6 +1234,20 @@ This lets me quickly proof-read edits to the docs.
 =back
 
 =head1 FAQ
+
+=head2 What is the difference between the cooked tree and the raw tree?
+
+The raw tree is generated from processing the output of Marpa's parse of the user's grammar file.
+It contains Marpa's view of that grammar.
+
+The cooked tree is generared from processing the raw tree, to extract just the user's gammar's tokens.
+It contains the user's view of their grammar.
+
+Lastly, the purpose of the cooked tree is to serve as input to L<MarpaX::Grammar::GraphViz2>.
+
+=head2 What are the attributes and name of each node in the cooked tree?
+
+The cooked tree's node don't have any attributes.
 
 =head2 What are the attributes and name of each node in the raw tree?
 
@@ -1223,7 +1290,9 @@ a Marpa-internal token (when the attribute C<type> is 'Marpa').
 
 =head2 How do I sort the daughters of the root?
 
-Choose $root as either $self -> raw_tree or $self -> cooked_tree, and then:
+Here's one way, using the node names as sort keys.
+
+Choose $root as either $self -> cooked_tree or $self -> raw_tree, and then:
 
 	@daughters = sort{$a -> name cmp $b -> name} $root -> daughters;
 
