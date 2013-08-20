@@ -768,7 +768,7 @@ sub run
 
 package MarpaX::Grammar::Parser::Dummy;
 
-our $VERSION = '1.02';
+our $VERSION = '1.01';
 
 sub new{return {};}
 

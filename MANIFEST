@@ -19,7 +19,6 @@ META.yml
 README
 scripts/bnf2tree.pl
 scripts/bnf2tree.sh
-scripts/compress.pl
 scripts/find.grammars.pl
 scripts/metag.pl
 scripts/pod2html.sh

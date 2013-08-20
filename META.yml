@@ -16,13 +16,13 @@ name: MarpaX-Grammar-Parser
 provides:
   Data::TreeDumper::Renderer::Marpa:
     file: lib/Data/TreeDumper/Renderer/Marpa.pm
-    version: 1.00
+    version: 1.01
   MarpaX::Grammar::Parser:
     file: lib/MarpaX/Grammar/Parser.pm
-    version: 1.00
+    version: 1.01
   MarpaX::Grammar::Parser::Dummy:
     file: lib/MarpaX/Grammar/Parser.pm
-    version: 1.00
+    version: 1.01
 requires:
   Algorithm::Diff: 1.1902
   Data::TreeDumper: 0.4
@@ -44,4 +44,4 @@ requires:
   warnings: 0
 resources:
   license: http://www.perlfoundation.org/artistic_license_2_0
-version: 1.00
+version: 1.01
