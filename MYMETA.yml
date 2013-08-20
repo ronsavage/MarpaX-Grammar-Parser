@@ -28,6 +28,7 @@ requires:
   Algorithm::Diff: 1.1902
   Data::TreeDumper: 0.4
   English: 1.04
+  File::ShareDir: 1.03
   File::Temp: 0.2301
   Getopt::Long: 2.41
   Log::Handler: 0.78

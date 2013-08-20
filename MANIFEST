@@ -32,6 +32,7 @@ share/json.2.raw.tree
 share/metag.bnf
 share/stringparser.bnf
 share/stringparser.cooked.tree
+share/stringparser.raw.attributes.tree
 share/stringparser.raw.tree
 share/stringparser.treedumper
 share/termcap.info.bnf
