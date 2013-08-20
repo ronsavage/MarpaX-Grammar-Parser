@@ -74,7 +74,7 @@ sub node
 
 	my($new_node) = Tree::DAG_Node -> new
 	({
-		attributes => {level => $level + 1, type => $type},
+		attributes => {type => $type},
 		name       => $token,
 	});
 

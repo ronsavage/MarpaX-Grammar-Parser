@@ -137,7 +137,7 @@ sub BUILD
 	(
 		Tree::DAG_Node -> new
 		({
-			attributes => {level => 0, type => 'class'},
+			attributes => {type => 'class'},
 			name       => 'Raw Grammar',
 		})
 	);
@@ -1189,13 +1189,6 @@ This lets me quickly proof-read edits to the docs.
 =item o Attributes
 
 =over 4
-
-=item o level
-
-This is the level in the tree of the 'current' node.
-
-The root of the tree is level 0. All other nodes have the value of $level + 1, where $level (starting from 0) is
-determined by L<Data::TreeDumper>.
 
 =item o type
 
