@@ -45,11 +45,11 @@ __END__
 
 =head1 NAME
 
-g2p.pl - Convert a Marpa grammar into a tree using Tree::DAG_Node.
+bnf2tree.pl - Convert a Marpa grammar into a tree using Tree::DAG_Node.
 
 =head1 SYNOPSIS
 
-g2p.pl [options]
+bnf2tree.pl [options]
 
 	Options:
 	-help

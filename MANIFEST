@@ -17,10 +17,10 @@ MANIFEST			This list of files
 META.json
 META.yml
 README
+scripts/bnf2tree.pl
+scripts/bnf2tree.sh
 scripts/compress.pl
 scripts/find.grammars.pl
-scripts/g2p.pl
-scripts/g2p.sh
 scripts/metag.pl
 scripts/pod2html.sh
 share/c.ast.bnf
@@ -31,6 +31,7 @@ share/json.2.bnf
 share/json.2.raw.tree
 share/metag.bnf
 share/stringparser.bnf
+share/stringparser.cooked.tree
 share/stringparser.raw.tree
 share/stringparser.treedumper
 share/termcap.info.bnf

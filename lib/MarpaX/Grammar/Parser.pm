@@ -806,7 +806,7 @@ See share/*.bnf for input files and share/*.tree for output files.
 
 For help, run
 
-	shell> perl -Ilib scripts/g2p.pl -h
+	shell> perl -Ilib scripts/bnf2tree.pl -h
 
 =head1 Description
 
@@ -1061,7 +1061,7 @@ the complexity of Peter's grammar for C.
 
 The command to generate this file is:
 
-	shell> scripts/g2p.sh c.ast
+	shell> scripts/bnf2tree.sh c.ast
 
 =item o share/json.1.bnf
 
@@ -1077,7 +1077,7 @@ This is the output from processing Marpa's analysis of share/json.1.bnf.
 
 The command to generate this file is:
 
-	shell> scripts/g2p.sh json.1
+	shell> scripts/bnf2tree.sh json.1
 
 =item o share/json.2.bnf
 
@@ -1091,7 +1091,7 @@ This is the output from processing Marpa's analysis of share/json.2.bnf.
 
 The command to generate this file is:
 
-	shell> scripts/g2p.sh json.2
+	shell> scripts/bnf2tree.sh json.2
 
 =item o share/metag.bnf.
 
@@ -1113,7 +1113,7 @@ This is the output from processing Marpa's analysis of share/stringparser.bnf.
 
 The command to generate this file is:
 
-	shell> scripts/g2p.sh stringparser
+	shell> scripts/bnf2tree.sh stringparser
 
 See also the next item.
 
@@ -1137,7 +1137,7 @@ This is the output from processing Marpa's analysis of share/termcap.info.bnf.
 
 The command to generate this file is:
 
-	shell> scripts/g2p.sh termcap.info
+	shell> scripts/bnf2tree.sh termcap.info
 
 =back
 
@@ -1158,17 +1158,17 @@ After installation of the module, run it with:
 
 It will print the name of the path to given grammar file.
 
-=item o scripts/g2p.pl
+=item o scripts/bnf2tree.pl
 
 This is a neat way of using the module. For help, run:
 
-	shell> perl -Ilib scripts/g2p.pl -h
+	shell> perl -Ilib scripts/bnf2tree.pl -h
 
 Of course you are also encouraged to include this module directly in your own code.
 
-=item o scripts/g2p.sh
+=item o scripts/bnf2tree.sh
 
-This is a quick way for me to run g2p.pl.
+This is a quick way for me to run bnf2tree.pl.
 
 =item o scripts/metag.pl
 
