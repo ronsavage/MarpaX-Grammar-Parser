@@ -959,6 +959,21 @@ or:
 
 =head1 Methods
 
+=head2 compress_branch($index, $node)
+
+Called by L</compress_tree()>.
+
+Converts 1 sub-tree of the raw tree into one sub-tree of the cooked tree.
+
+=head2 compress_tree()
+
+Called automatically by L</new()>.
+
+Converts the raw tree into the cooked tree, calling L</compress_branch($index, $node)> once for each
+daughter of the raw tree.
+
+Output is the tree returned by L</cooked_tree()>.
+
 =head2 cooked_tree()
 
 Returns the root node, of type L<Tree::DAG_Node>, of the cooked tree of items in the user's grammar.
@@ -1032,6 +1047,10 @@ Get or set the value used by the logger object.
 This option is only used if an object of type L<Log::Handler> is created. See L<Log::Handler::Levels>.
 
 Note: C<minlevel> is a parameter to new().
+
+=head2 new()
+
+The constructor. See L</Constructor and Initialization>.
 
 =head2 no_attributes([$Boolean])
 
