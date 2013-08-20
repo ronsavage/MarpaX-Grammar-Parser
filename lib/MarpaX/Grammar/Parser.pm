@@ -100,7 +100,7 @@ has user_bnf_file =>
 	required => 0,
 );
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 # ------------------------------------------------
 
@@ -768,7 +768,7 @@ sub run
 
 package MarpaX::Grammar::Parser::Dummy;
 
-our $VERSION = '1.00';
+our $VERSION = '1.02';
 
 sub new{return {};}
 
