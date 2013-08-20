@@ -19,6 +19,7 @@ requires 'charnames'        => 0;
 requires 'Data::TreeDumper' => 0.40;
 requires 'English'          => 1.04;
 requires 'Getopt::Long'     => 2.41;
+requires 'File::ShareDir'   => 1.03;
 requires 'File::Temp'       => 0.2301;
 requires 'Log::Handler'     => 0.78;
 requires 'Marpa::R2'        => 2.066000;
