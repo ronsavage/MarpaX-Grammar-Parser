@@ -919,7 +919,7 @@ If '', the file is not written.
 
 Default: ''.
 
-=item o user_bnf_file aUserGrammarFileName
+=item o user_bnf_file aUserSLIF-DSLFileName
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 

@@ -61,7 +61,7 @@ bnf2tree.pl [options]
 	-no_attributes Boolean
 	-marpa_bnf_file aMarpaSLIF-DSLFileName
 	-raw_tree_file aTextFileName
-	-user_bnf_file aUserGrammarFileName
+	-user_bnf_file aUserSLIF-DSLFileName
 
 Exit value: 0 for success, 1 for failure. Die upon error.
 
@@ -135,7 +135,7 @@ If '', the file is not written.
 
 Default: ''.
 
-=item o -user_bnf_file aUserGrammarFileName
+=item o -user_bnf_file aUserSLIF-DSLFileName
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 
