@@ -59,7 +59,7 @@ bnf2tree.pl [options]
 	-maxlevel logOption1
 	-minlevel logOption2
 	-no_attributes Boolean
-	-marpa_bnf_file aMarpaBNFFileName
+	-marpa_bnf_file aMarpaSLIF-DSLFileName
 	-raw_tree_file aTextFileName
 	-user_bnf_file aUserGrammarFileName
 
@@ -89,9 +89,9 @@ Set this to '' to stop logging.
 
 Default: undef.
 
-=item o -marpa_bnf_file aMarpaBNFFileName
+=item o -marpa_bnf_file aMarpaSLIF-DSLFileName
 
-Specify the name of Marpa's own BNF file.
+Specify the name of Marpa's own SLIF-DSL file.
 
 This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bnf.
 
