@@ -1458,6 +1458,10 @@ in the tree returned by the method L</raw_tree()>.
 
 See share/stringparser.raw.tree.
 
+=head2 Why are attributes used to identify bracketed names?
+
+Because L<Graphviz|http://graphviz.org> assigns a special meaning to labels which begin with '<' and '<<'.
+
 =head2 How do I sort the daughters of the root?
 
 Here's one way, using the node names as sort keys.
