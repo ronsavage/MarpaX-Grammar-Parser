@@ -103,7 +103,7 @@ statements
    |   |---'--'
    |---attribute_definition
    |   |---::=
-   |   |---attribute_statement*
+   |   |---attribute_statement
    |---attribute_statement
    |   |---::=
    |   |---start_attributes
@@ -131,4 +131,4 @@ statements
    |   |---whitespace
    |---whitespace
        |---~
-       |---[\s]+
+       |---[\s]

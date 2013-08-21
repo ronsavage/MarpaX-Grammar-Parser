@@ -146,6 +146,39 @@ sub BUILD
 
 # --------------------------------------------------
 
+sub clean_name
+{
+	my($self, $name) = @_;
+	my($attributes)  = {bracketed_name => 0, quantifier => ''};
+
+	# Expected cases:
+	# o {bare_name => $name}.
+	# o {bracketed_name => $name}.
+	# o $name.
+	#
+	# Quantified names are handled in sub compress_branch.
+
+	if (ref $name eq 'HASH')
+	{
+		if (defined $$name{bare_name})
+		{
+			$name = $$name{bare_name};
+		}
+		else
+		{
+			$name       = $$name{bracketed_name};
+			$name       =~ s/^<//;
+			$name       =~ s/>$//;
+			$attributes = {bracketed_name => 1};
+		}
+	}
+
+	return ($name, $attributes);
+
+} # End of clean_name.
+
+# --------------------------------------------------
+
 sub compress_branch
 {
 	my($self, $index, $a_node) = @_;
@@ -202,20 +235,37 @@ sub compress_branch
 		_depth => 0,
 	});
 
-	my($node) = Tree::DAG_Node -> new
+	my($attributes);
+
+	($name, $attributes) = $self -> clean_name(shift @$token);
+	my($node)            = Tree::DAG_Node -> new
 	({
-		name => shift @$token,
+		attributes => $attributes,
+		name       => $name,
 	});
 
 	$self -> cooked_tree -> add_daughter($node);
 
-	for (@$token)
+	for (my $i = 0; $i <= $#$token; $i++)
 	{
+		$name                = $$token[$i];
+		($name, $attributes) = $self -> clean_name($name);
+
+		# Special case handling: Quantitied rules.
+
+		if ( ($i < $#$token) && (ref $$token[$i + 1] eq 'HASH') && ($$token[$i + 1]{quantifier}) )
+		{
+			$i++;
+
+			$$attributes{quantifier} = $$token[$i]{quantifier};
+		}
+
 		$node -> add_daughter
 		(
 			Tree::DAG_Node -> new
 			({
-				name => $_,
+				attributes => $attributes,
+				name       => $name,
 			})
 		);
 	}
@@ -323,7 +373,7 @@ sub process_discard_rule
 
 			if ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, ':discard', '=>', $name;
+				push @token, ':discard', '=>', {$node -> mother -> name => $name};
 			}
 
 			return 1; # Keep walking.
@@ -362,7 +412,7 @@ sub process_empty_rule
 			}
 			elsif ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, $name;
+				push @token, {$node -> mother -> name => $name};
 			}
 
 			return 1; # Keep walking.
@@ -407,7 +457,7 @@ sub process_event_declaration
 			}
 			elsif ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, $name;
+				push @token, {$node -> mother -> name => $name};
 			}
 
 			return 1; # Keep walking.
@@ -494,7 +544,7 @@ sub process_lexeme_rule
 			}
 			elsif ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, $name;
+				push @token, {$node -> mother -> name => $name};
 			}
 
 			return 1; # Keep walking.
@@ -609,7 +659,7 @@ sub process_priority_rule
 			}
 			elsif ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, $name;
+				push @token, {$node -> mother -> name => $name};
 			}
 
 			return $continue;
@@ -656,7 +706,7 @@ sub process_quantified_rule
 			}
 			elsif ($node -> mother -> name eq 'quantifier')
 			{
-				$token[$#token] .= $name;
+				push @token, {quantifier => $name};
 			}
 			elsif ($node -> mother -> mother -> name eq 'separator_specification')
 			{
@@ -664,7 +714,7 @@ sub process_quantified_rule
 			}
 			elsif ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, $name;
+				push @token, {$node -> mother -> name => $name};
 			}
 
 			return 1; # Keep walking.
@@ -699,7 +749,9 @@ sub process_start_rule
 
 			if ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, ':start', '::=', $name;
+				push @token, ':start', '::=', {$node -> mother -> name => $name};
+
+				return 0;
 			}
 
 			return 1; # Keep walking.
@@ -958,6 +1010,28 @@ or:
 	make install
 
 =head1 Methods
+
+=head2 clean_name($name)
+
+Returns a list of 2 elements: ($name, $attributes).
+
+$name is just the name of the token.
+
+$attributes is a hashref with these keys:
+
+=over 4
+
+=item o bracketed_name => $Boolean
+
+Indicates the token's name is or is not of the form '<...>'.
+
+=item o quantifier => $char
+
+Indicates the token is quantified. $char is one of '', '*' or '+'.
+
+If $char is '' (the empty string), the token is not quantified.
+
+=back
 
 =head2 compress_branch($index, $node)
 
@@ -1311,7 +1385,21 @@ The node's name is the token itself.
 
 =back
 
-The cooked tree's node don't have any attributes.
+The attributes of each node are a hashref, with these keys:
+
+=over 4
+
+=item o bracketed_name => $Boolean
+
+Indicates the token's name is or is not of the form '<...>'.
+
+=item o quantifier => $char
+
+Indicates the token is quantified. $char is one of '', '*' or '+'.
+
+If $char is ' ' (the empty string), the token is not quantified.
+
+=back
 
 See share/stringparser.cooked.tree.
 
