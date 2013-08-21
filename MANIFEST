@@ -23,10 +23,13 @@ scripts/find.grammars.pl
 scripts/metag.pl
 scripts/pod2html.sh
 share/c.ast.bnf
+share/c.ast.cooked.tree
 share/c.ast.raw.tree
 share/json.1.bnf
+share/json.1.cooked.tree
 share/json.1.raw.tree
 share/json.2.bnf
+share/json.2.cooked.tree
 share/json.2.raw.tree
 share/metag.bnf
 share/stringparser.bnf
@@ -35,6 +38,7 @@ share/stringparser.raw.attributes.tree
 share/stringparser.raw.tree
 share/stringparser.treedumper
 share/termcap.info.bnf
+share/termcap.info.cooked.tree
 share/termcap.info.raw.tree
 t/runner.t
 xt/author/pod.t
