@@ -750,8 +750,6 @@ sub process_start_rule
 			if ($node -> mother -> mother -> name eq 'symbol_name')
 			{
 				push @token, ':start', '::=', {$node -> mother -> name => $name};
-
-				return 0;
 			}
 
 			return 1; # Keep walking.
