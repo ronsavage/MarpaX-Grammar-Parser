@@ -158,6 +158,8 @@ sub clean_name
 	#
 	# Quantified names are handled in sub compress_branch.
 
+	$$attributes{real_name} = $name;
+
 	if (ref $name eq 'HASH')
 	{
 		if (defined $$name{bare_name})
