@@ -1,0 +1,90 @@
+statements
+   |---:start
+   |   |---::=
+   |   |---json
+   |---json
+   |   |---::=
+   |   |---object
+   |   |---|
+   |   |---array
+   |---object
+   |   |---::=
+   |   |---'{'
+   |   |---'}'
+   |   |---action
+   |   |---=>
+   |   |---do_empty_object
+   |   |---|
+   |   |---'{'
+   |   |---members
+   |   |---'}'
+   |   |---action
+   |   |---=>
+   |   |---do_object
+   |---members
+   |   |---::=
+   |   |---value
+   |   |---separator
+   |   |---=>
+   |   |---comma
+   |   |---action
+   |   |---=>
+   |   |---do_list
+   |---value
+   |   |---::=
+   |   |---int
+   |   |---comma
+   |   |---action
+   |   |---=>
+   |   |---do_int_list
+   |   |---|
+   |   |---object
+   |   |---|
+   |   |---number
+   |   |---comma
+   |   |---action
+   |   |---=>
+   |   |---do_number_list
+   |   |---|
+   |   |---array
+   |---array
+   |   |---::=
+   |   |---'['
+   |   |---']'
+   |   |---action
+   |   |---=>
+   |   |---do_empty_array
+   |   |---|
+   |   |---'['
+   |   |---elements
+   |   |---']'
+   |   |---action
+   |   |---=>
+   |   |---do_array
+   |---elements
+   |   |---::=
+   |   |---value
+   |   |---separator
+   |   |---=>
+   |   |---comma
+   |   |---action
+   |   |---=>
+   |   |---do_list
+   |---number
+   |   |---~
+   |   |---int
+   |---int
+   |   |---~
+   |   |---digits
+   |---digits
+   |   |---~
+   |   |---[\d]
+   |---comma
+   |   |---~
+   |   |---','
+   |---:discard
+   |   |---=>
+   |   |---whitespace
+   |---whitespace
+       |---~
+       |---[\s]
