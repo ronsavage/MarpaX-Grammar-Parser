@@ -149,7 +149,7 @@ sub BUILD
 sub clean_name
 {
 	my($self, $name) = @_;
-	my($attributes)  = {bracketed_name => 0, quantifier => ''};
+	my($attributes)  = {bracketed_name => 0, quantifier => '', real_name => $name};
 
 	# Expected cases:
 	# o {bare_name => $name}.
@@ -166,15 +166,11 @@ sub clean_name
 		}
 		else
 		{
-			$attributes{real_name}      = $name = $$name{bracketed_name};
-			$attributes{bracketed_name} = 1;
-			$name                       =~ s/^<//;
-			$name                       =~ s/>$//;
+			$$attributes{real_name}      = $name = $$name{bracketed_name};
+			$$attributes{bracketed_name} = 1;
+			$name                        =~ s/^<//;
+			$name                        =~ s/>$//;
 		}
-	}
-	else
-	{
-		$attributes{real_name} = $name;
 	}
 
 	return ($name, $attributes);
