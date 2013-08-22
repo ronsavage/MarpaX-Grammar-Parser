@@ -26,7 +26,7 @@ statements
    |   |---value
    |   |---separator
    |   |---=>
-   |   |---comma
+   |   |---comma1
    |   |---action
    |   |---=>
    |   |---do_list
@@ -35,7 +35,7 @@ statements
    |   |---int
    |   |---separator
    |   |---=>
-   |   |---comma
+   |   |---comma2
    |   |---action
    |   |---=>
    |   |---do_int_list
@@ -45,7 +45,7 @@ statements
    |   |---number
    |   |---separator
    |   |---=>
-   |   |---comma
+   |   |---comma3
    |   |---action
    |   |---=>
    |   |---do_number_list
@@ -70,7 +70,7 @@ statements
    |   |---value
    |   |---separator
    |   |---=>
-   |   |---comma
+   |   |---comma4
    |   |---action
    |   |---=>
    |   |---do_list
@@ -83,7 +83,16 @@ statements
    |---digits
    |   |---~
    |   |---[\d]
-   |---comma
+   |---comma1
+   |   |---~
+   |   |---','
+   |---comma2
+   |   |---~
+   |   |---','
+   |---comma3
+   |   |---~
+   |   |---','
+   |---comma4
    |   |---~
    |   |---','
    |---:discard

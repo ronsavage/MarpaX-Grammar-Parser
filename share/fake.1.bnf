@@ -6,17 +6,17 @@ json			::= object
 object			::= '{' '}'               action => do_empty_object
 					| '{' members '}'     action => do_object
 
-members      	::= value+                separator => <comma> action => do_list
+members      	::= value+                separator => <comma1> action => do_list
 
-value			::= int                   separator => <comma> action => do_int_list
+value			::= int                   separator => <comma2> action => do_int_list
 					| object
-					| number              separator => <comma> action => do_number_list
+					| number              separator => <comma3> action => do_number_list
 					| array
 
 array			::= '[' ']'               action => do_empty_array
 					| '[' elements ']'    action => do_array
 
-elements		::= value+                separator => <comma> action => do_list
+elements		::= value+                separator => <comma4> action => do_list
 
 number			~ int
 
@@ -24,7 +24,10 @@ int				~ digits
 
 digits			~ [\d]+
 
-comma			~ ','
+comma1			~ ','
+comma2			~ ','
+comma3			~ ','
+comma4			~ ','
 
 :discard		~ whitespace
 whitespace		~ [\s]+
