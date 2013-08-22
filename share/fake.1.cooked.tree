@@ -33,6 +33,8 @@ statements
    |---value
    |   |---::=
    |   |---int
+   |   |---separator
+   |   |---=>
    |   |---comma
    |   |---action
    |   |---=>
@@ -41,6 +43,8 @@ statements
    |   |---object
    |   |---|
    |   |---number
+   |   |---separator
+   |   |---=>
    |   |---comma
    |   |---action
    |   |---=>

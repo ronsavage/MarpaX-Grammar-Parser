@@ -653,6 +653,10 @@ sub process_priority_rule
 			{
 				push @token, 'rank', '=>', $name;
 			}
+			elsif ($node -> mother -> mother -> name eq 'separator_specification')
+			{
+				push @token, 'separator', '=>';
+			}
 			elsif ($node -> mother -> name eq 'single_quoted_string')
 			{
 				push @token, $name;
