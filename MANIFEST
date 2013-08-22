@@ -25,6 +25,9 @@ scripts/pod2html.sh
 share/c.ast.bnf
 share/c.ast.cooked.tree
 share/c.ast.raw.tree
+share/fake.1.bnf
+share/fake.1.cooked.tree
+share/fake.1.raw.tree
 share/json.1.bnf
 share/json.1.cooked.tree
 share/json.1.raw.tree
