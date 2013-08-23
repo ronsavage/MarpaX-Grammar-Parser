@@ -10,13 +10,13 @@ members      	::= value+                separator => <comma1> action => do_list
 
 value			::= int                   separator => <comma2> action => do_int_list
 					| object
-					| number              separator => <comma3> action => do_number_list
+					| number
 					| array
 
 array			::= '[' ']'               action => do_empty_array
 					| '[' elements ']'    action => do_array
 
-elements		::= value+                separator => <comma4> action => do_list
+elements		::= value+
 
 number			~ int
 
@@ -26,8 +26,6 @@ digits			~ [\d]+
 
 comma1			~ ','
 comma2			~ ','
-comma3			~ ','
-comma4			~ ','
 
 :discard		~ whitespace
 whitespace		~ [\s]+
