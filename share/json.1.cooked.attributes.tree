@@ -1,0 +1,195 @@
+statements. Attributes: {}
+   |---:start. Attributes: {bracketed_name => "0", quantifier => "", real_name => ":start"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---json. Attributes: {bracketed_name => "0", quantifier => "", real_name => "json"}
+   |---json. Attributes: {bracketed_name => "0", quantifier => "", real_name => "json"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---object. Attributes: {bracketed_name => "0", quantifier => "", real_name => "object"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---array. Attributes: {bracketed_name => "0", quantifier => "", real_name => "array"}
+   |---object. Attributes: {bracketed_name => "0", quantifier => "", real_name => "object"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---'{'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'{'"}
+   |   |---'}'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'}'"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_empty_object. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_empty_object"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'{'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'{'"}
+   |   |---members. Attributes: {bracketed_name => "0", quantifier => "", real_name => "members"}
+   |   |---'}'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'}'"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_object. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_object"}
+   |---members. Attributes: {bracketed_name => "0", quantifier => "", real_name => "members"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---pair. Attributes: {bracketed_name => "0", quantifier => "+", real_name => "pair"}
+   |   |---separator. Attributes: {bracketed_name => "0", quantifier => "", real_name => "separator"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---comma. Attributes: {bracketed_name => "1", quantifier => "", real_name => "<comma>"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_list. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_list"}
+   |---pair. Attributes: {bracketed_name => "0", quantifier => "", real_name => "pair"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---string. Attributes: {bracketed_name => "0", quantifier => "", real_name => "string"}
+   |   |---':'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "':'"}
+   |   |---value. Attributes: {bracketed_name => "0", quantifier => "", real_name => "value"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_pair. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_pair"}
+   |---value. Attributes: {bracketed_name => "0", quantifier => "", real_name => "value"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---string. Attributes: {bracketed_name => "0", quantifier => "", real_name => "string"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---object. Attributes: {bracketed_name => "0", quantifier => "", real_name => "object"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---number. Attributes: {bracketed_name => "0", quantifier => "", real_name => "number"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---array. Attributes: {bracketed_name => "0", quantifier => "", real_name => "array"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'true'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'true'"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_true. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_true"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'false'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'false'"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_true. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_true"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'null'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'null'"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_null. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_null"}
+   |---array. Attributes: {bracketed_name => "0", quantifier => "", real_name => "array"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---'['. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'['"}
+   |   |---']'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "']'"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_empty_array. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_empty_array"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'['. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'['"}
+   |   |---elements. Attributes: {bracketed_name => "0", quantifier => "", real_name => "elements"}
+   |   |---']'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "']'"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_array. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_array"}
+   |---elements. Attributes: {bracketed_name => "0", quantifier => "", real_name => "elements"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---value. Attributes: {bracketed_name => "0", quantifier => "+", real_name => "value"}
+   |   |---separator. Attributes: {bracketed_name => "0", quantifier => "", real_name => "separator"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---comma. Attributes: {bracketed_name => "1", quantifier => "", real_name => "<comma>"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_list. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_list"}
+   |---number. Attributes: {bracketed_name => "0", quantifier => "", real_name => "number"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---int. Attributes: {bracketed_name => "0", quantifier => "", real_name => "int"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---int. Attributes: {bracketed_name => "0", quantifier => "", real_name => "int"}
+   |   |---frac. Attributes: {bracketed_name => "0", quantifier => "", real_name => "frac"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---int. Attributes: {bracketed_name => "0", quantifier => "", real_name => "int"}
+   |   |---exp. Attributes: {bracketed_name => "0", quantifier => "", real_name => "exp"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---int. Attributes: {bracketed_name => "0", quantifier => "", real_name => "int"}
+   |   |---frac. Attributes: {bracketed_name => "0", quantifier => "", real_name => "frac"}
+   |   |---exp. Attributes: {bracketed_name => "0", quantifier => "", real_name => "exp"}
+   |---int. Attributes: {bracketed_name => "0", quantifier => "", real_name => "int"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---digits. Attributes: {bracketed_name => "0", quantifier => "", real_name => "digits"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'-'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'-'"}
+   |   |---digits. Attributes: {bracketed_name => "0", quantifier => "", real_name => "digits"}
+   |---digits. Attributes: {bracketed_name => "0", quantifier => "", real_name => "digits"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---[\d]. Attributes: {bracketed_name => "0", quantifier => "+", real_name => "[\d]"}
+   |---frac. Attributes: {bracketed_name => "0", quantifier => "", real_name => "frac"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---'.'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'.'"}
+   |   |---digits. Attributes: {bracketed_name => "0", quantifier => "", real_name => "digits"}
+   |---exp. Attributes: {bracketed_name => "0", quantifier => "", real_name => "exp"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---e. Attributes: {bracketed_name => "0", quantifier => "", real_name => "e"}
+   |   |---digits. Attributes: {bracketed_name => "0", quantifier => "", real_name => "digits"}
+   |---e. Attributes: {bracketed_name => "0", quantifier => "", real_name => "e"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---'e'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'e'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'e+'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'e+'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'e-'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'e-'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'E'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'E'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'E+'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'E+'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'E-'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'E-'"}
+   |---string. Attributes: {bracketed_name => "0", quantifier => "", real_name => "string"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---lstring. Attributes: {bracketed_name => "0", quantifier => "", real_name => "lstring"}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---do_string. Attributes: {bracketed_name => "0", quantifier => "", real_name => "do_string"}
+   |---lstring. Attributes: {bracketed_name => "0", quantifier => "", real_name => "lstring"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---quote. Attributes: {bracketed_name => "0", quantifier => "", real_name => "quote"}
+   |   |---in_string. Attributes: {bracketed_name => "0", quantifier => "", real_name => "in_string"}
+   |   |---quote. Attributes: {bracketed_name => "0", quantifier => "", real_name => "quote"}
+   |---quote. Attributes: {bracketed_name => "0", quantifier => "", real_name => "quote"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---[\"]. Attributes: {bracketed_name => "0", quantifier => "", real_name => "[\"]"}
+   |---in_string. Attributes: {bracketed_name => "0", quantifier => "", real_name => "in_string"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---in_string_char. Attributes: {bracketed_name => "0", quantifier => "*", real_name => "in_string_char"}
+   |---in_string_char. Attributes: {bracketed_name => "0", quantifier => "", real_name => "in_string_char"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---[^"\\]. Attributes: {bracketed_name => "0", quantifier => "", real_name => "[^"\\]"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\'"}
+   |   |---'"'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'"'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\'"}
+   |   |---'b'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'b'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\'"}
+   |   |---'f'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'f'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\'"}
+   |   |---'t'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'t'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\'"}
+   |   |---'n'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'n'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\'"}
+   |   |---'r'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'r'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\'"}
+   |   |---'u'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'u'"}
+   |   |---four_hex_digits. Attributes: {bracketed_name => "0", quantifier => "", real_name => "four_hex_digits"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\'"}
+   |   |---'/'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'/'"}
+   |   |---|. Attributes: {bracketed_name => "0", quantifier => "", real_name => "|"}
+   |   |---'\\'. Attributes: {bracketed_name => "0", quantifier => "", real_name => "'\\'"}
+   |---four_hex_digits. Attributes: {bracketed_name => "0", quantifier => "", real_name => "four_hex_digits"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---hex_digit. Attributes: {bracketed_name => "0", quantifier => "", real_name => "hex_digit"}
+   |   |---hex_digit. Attributes: {bracketed_name => "0", quantifier => "", real_name => "hex_digit"}
+   |   |---hex_digit. Attributes: {bracketed_name => "0", quantifier => "", real_name => "hex_digit"}
+   |   |---hex_digit. Attributes: {bracketed_name => "0", quantifier => "", real_name => "hex_digit"}
+   |---hex_digit. Attributes: {bracketed_name => "0", quantifier => "", real_name => "hex_digit"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---[0-9a-fA-F]. Attributes: {bracketed_name => "0", quantifier => "", real_name => "[0-9a-fA-F]"}
+   |---comma. Attributes: {bracketed_name => "0", quantifier => "", real_name => "comma"}
+   |   |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+   |   |---','. Attributes: {bracketed_name => "0", quantifier => "", real_name => "','"}
+   |---:discard. Attributes: {bracketed_name => "0", quantifier => "", real_name => ":discard"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---whitespace. Attributes: {bracketed_name => "0", quantifier => "", real_name => "whitespace"}
+   |---whitespace. Attributes: {bracketed_name => "0", quantifier => "", real_name => "whitespace"}
+       |---~. Attributes: {bracketed_name => "0", quantifier => "", real_name => "~"}
+       |---[\s]. Attributes: {bracketed_name => "0", quantifier => "+", real_name => "[\s]"}
