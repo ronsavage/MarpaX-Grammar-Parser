@@ -258,7 +258,6 @@ sub compress_branch
 			$i++;
 
 			$$attributes{quantifier} = $$token[$i]{quantifier};
-			$$attributes{real_name}  .= $$token[$i]{quantifier};
 		}
 
 		$node -> add_daughter
