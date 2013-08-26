@@ -1186,6 +1186,14 @@ This is part of L<MarpaX::Languages::C::AST>, by Jean-Damien Durand. It's 1,565 
 
 The output is share/c.ast.raw.tree.
 
+=item o share/c.ast.cooked.tree
+
+This is the output from post-processing Marpa's analysis of share/c.ast.bnf.
+
+The command to generate this file is:
+
+	shell> scripts/bnf2tree.sh c.ast
+
 =item o share/c.ast.raw.tree
 
 This is the output from processing Marpa's analysis of share/c.ast.bnf. It's 56,723 lines long, which indicates
@@ -1203,6 +1211,14 @@ See L<https://gist.github.com/pstuifzand/4447349>.
 
 The output is share/json.1.raw.tree.
 
+=item o share/json.1.cooked.tree
+
+This is the output from post-processing Marpa's analysis of share/json.1.bnf.
+
+The command to generate this file is:
+
+	shell> scripts/bnf2tree.sh json.1
+
 =item o share/json.1.raw.tree
 
 This is the output from processing Marpa's analysis of share/json.1.bnf.
@@ -1216,6 +1232,14 @@ The command to generate this file is:
 It also is part of L<MarpaX::Demo::JSONParser>, written by Jeffrey Kegler as a reply to the gist above from Peter.
 
 The output is share/json.2.raw.tree.
+
+=item o share/json.2.cooked.tree
+
+This is the output from post-processing Marpa's analysis of share/json.2.bnf.
+
+The command to generate this file is:
+
+	shell> scripts/bnf2tree.sh json.2
 
 =item o share/json.2.raw.tree
 
@@ -1271,6 +1295,14 @@ It also is part of L<MarpaX::Database::Terminfo>, written by Jean-Damien Durand.
 
 The output is share/termcap.info.raw.tree.
 
+=item o share/termcap.info.cooked.tree
+
+This is the output from post-processing Marpa's analysis of share/termcap.info.bnf.
+
+The command to generate this file is:
+
+	shell> scripts/bnf2tree.sh termcap.info
+
 =item o share/termcap.info.raw.tree
 
 This is the output from processing Marpa's analysis of share/termcap.info.bnf.
@@ -1284,19 +1316,6 @@ The command to generate this file is:
 =head2 Scripts
 
 =over 4
-
-=item o scripts/find.grammars.pl
-
-After installation of the module, run it with:
-
-	shell> perl scripts/find.grammars.pl (Defaults to stringparser.bnf)
-	shell> perl scripts/find.grammars.pl c.ast.bnf
-	shell> perl scripts/find.grammars.pl json.1.bnf
-	shell> perl scripts/find.grammars.pl json.2.bnf
-	shell> perl scripts/find.grammars.pl stringparser.bnf
-	shell> perl scripts/find.grammars.pl termcap.info.bnf
-
-It will print the name of the path to given grammar file.
 
 =item o scripts/bnf2tree.pl
 
