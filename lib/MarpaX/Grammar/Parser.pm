@@ -195,39 +195,39 @@ sub compress_branch
 
 			if ($name eq 'default_rule')
 			{
-				$token = $self -> process_default_rule($index, $node);
+				$token = $self -> _process_default_rule($index, $node);
 			}
 			elsif ($name eq 'discard_rule')
 			{
-				$token = $self -> process_discard_rule($index, $node);
+				$token = $self -> _process_discard_rule($index, $node);
 			}
 			elsif ($name eq 'empty_rule')
 			{
-				$token = $self -> process_empty_rule($index, $node);
+				$token = $self -> _process_empty_rule($index, $node);
 			}
 			elsif ($name =~ /(.+)_event_declaration$/)
 			{
-				$token = $self -> process_event_declaration($index, $node, $1);
+				$token = $self -> _process_event_declaration($index, $node, $1);
 			}
 			elsif ($name eq 'lexeme_default_statement')
 			{
-				$token = $self -> process_lexeme_default($index, $node);
+				$token = $self -> _process_lexeme_default($index, $node);
 			}
 			elsif ($name eq 'lexeme_rule')
 			{
-				$token = $self -> process_lexeme_rule($index, $node);
+				$token = $self -> _process_lexeme_rule($index, $node);
 			}
 			elsif ($name eq 'priority_rule')
 			{
-				$token = $self -> process_priority_rule($index, $node);
+				$token = $self -> _process_priority_rule($index, $node);
 			}
 			elsif ($name eq 'quantified_rule')
 			{
-				$token = $self -> process_quantified_rule($index, $node);
+				$token = $self -> _process_quantified_rule($index, $node);
 			}
 			elsif ($name eq 'start_rule')
 			{
-				$token = $self -> process_start_rule($index, $node);
+				$token = $self -> _process_start_rule($index, $node);
 			}
 
 			return 1; # Keep walking.
@@ -308,7 +308,7 @@ sub log
 
 # --------------------------------------------------
 
-sub process_default_rule
+sub _process_default_rule
 {
 	my($self, $index, $a_node) = @_;
 	my(%map) =
@@ -348,11 +348,11 @@ sub process_default_rule
 
 	return [@token];
 
-} # End of process_default_rule.
+} # End of _process_default_rule.
 
 # --------------------------------------------------
 
-sub process_discard_rule
+sub _process_discard_rule
 {
 	my($self, $index, $a_node) = @_;
 
@@ -383,11 +383,11 @@ sub process_discard_rule
 
 	return [@token];
 
-} # End of process_discard_rule.
+} # End of _process_discard_rule.
 
 # --------------------------------------------------
 
-sub process_empty_rule
+sub _process_empty_rule
 {
 	my($self, $index, $a_node) = @_;
 
@@ -422,11 +422,11 @@ sub process_empty_rule
 
 	return [@token];
 
-} # End of process_empty_rule.
+} # End of _process_empty_rule.
 
 # --------------------------------------------------
 
-sub process_event_declaration
+sub _process_event_declaration
 {
 	my($self, $index, $a_node, $type) = @_;
 	my(%type) =
@@ -467,11 +467,11 @@ sub process_event_declaration
 
 	return [@token];
 
-} # End of process_event_declaration.
+} # End of _process_event_declaration.
 
 # --------------------------------------------------
 
-sub process_lexeme_default
+sub _process_lexeme_default
 {
 	my($self, $index, $a_node) = @_;
 	my(%map) =
@@ -507,11 +507,11 @@ sub process_lexeme_default
 
 	return [@token];
 
-} # End of process_lexeme_default.
+} # End of _process_lexeme_default.
 
 # --------------------------------------------------
 
-sub process_lexeme_rule
+sub _process_lexeme_rule
 {
 	my($self, $index, $a_node) = @_;
 	my(@token) = (':lexeme', '~');
@@ -554,11 +554,11 @@ sub process_lexeme_rule
 
 	return [@token];
 
-} # End of process_lexeme_rule.
+} # End of _process_lexeme_rule.
 
 # --------------------------------------------------
 
-sub process_parenthesized_list
+sub _process_parenthesized_list
 {
 	my($self, $index, $a_node, $depth_under) = @_;
 
@@ -592,11 +592,11 @@ sub process_parenthesized_list
 
 	return [@rhs];
 
-} # End of process_parenthesized_list.
+} # End of _process_parenthesized_list.
 
 # --------------------------------------------------
 
-sub process_priority_rule
+sub _process_priority_rule
 {
 	my($self, $index, $a_node) = @_;
 
@@ -647,7 +647,7 @@ sub process_priority_rule
 				$continue    = 0;
 				$depth_under = $node -> depth_under;
 
-				push @token, @{$self -> process_parenthesized_list($index, $node, $depth_under)};
+				push @token, @{$self -> _process_parenthesized_list($index, $node, $depth_under)};
 			}
 			elsif ($node -> mother -> mother -> name eq 'rank_specification')
 			{
@@ -673,11 +673,11 @@ sub process_priority_rule
 
 	return [@token];
 
-} # End of process_priority_rule.
+} # End of _process_priority_rule.
 
 # --------------------------------------------------
 
-sub process_quantified_rule
+sub _process_quantified_rule
 {
 	my($self, $index, $a_node) = @_;
 
@@ -728,11 +728,11 @@ sub process_quantified_rule
 
 	return [@token];
 
-} # End of process_quantified_rule.
+} # End of _process_quantified_rule.
 
 # --------------------------------------------------
 
-sub process_start_rule
+sub _process_start_rule
 {
 	my($self, $index, $a_node) = @_;
 
@@ -763,7 +763,7 @@ sub process_start_rule
 
 	return [@token];
 
-} # End of process_start_rule.
+} # End of _process_start_rule.
 
 # ------------------------------------------------
 
