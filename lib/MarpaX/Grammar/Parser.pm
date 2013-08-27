@@ -849,17 +849,13 @@ C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a forest using Tree::
 		raw_tree_file    => 'share/stringparser.raw.tree',
 	);
 
-	my($parser) = MarpaX::Grammar::Parser -> new(%option);
+	MarpaX::Grammar::Parser -> new(%option) -> run;
 
-	$parser -> run;
+See share/*.bnf for input files and share/*.tree for output files.
 
-	# Output is in share/stringparser.cooked.tree and share/stringparser.raw.tree.
-
-For help, run:
+For more help, run:
 
 	shell> perl -Ilib scripts/bnf2tree.pl -h
-
-See share/metag.bnf for the SLIF-DSL file which ships with L<Marpa::R2> V 2.068000.
 
 See share/*.bnf for input files and share/*.tree for output files.
 
@@ -917,7 +913,7 @@ C<new()> is called as C<< my($parser) = MarpaX::Grammar::Parser -> new(k1 => v1,
 
 It returns a new object of type C<MarpaX::Grammar::Parser>.
 
-Key-value pairs accepted in the parameter list (see corresponding methods for details
+Key-value pairs accepted in the parameter list (see also the corresponding methods
 [e.g. L</marpa_bnf_file([$bnf_file_name])>]):
 
 =over 4
@@ -1097,13 +1093,7 @@ Note: C<logger> is a parameter to new().
 
 Here, the [] indicate an optional parameter.
 
-Get or set the name of the file to read Marpa's grammar from. The whole file is slurped in as a single string.
-
-This file ships with L<Marpa::R2>. It's name is metag.bnf.
-
-A copy, as of Marpa::R2 V 2.068000, ships with C<MarpaX::Grammar::Parser>.
-
-See share/metag.bnf for a sample.
+Get or set the name of the file to read Marpa's grammar from.
 
 Note: C<marpa_bnf_file> is a parameter to new().
 
@@ -1253,7 +1243,7 @@ The command to generate this file is:
 
 =item o share/metag.bnf.
 
-This is a copy of L<Marpa::R2>'s SLIF-DSL.
+This is a copy of L<Marpa::R2>'s SLIF-DSL, as of Marpa::R2 V 2.068000.
 
 See L</marpa_bnf_file([$bnf_file_name])> above.
 
@@ -1321,11 +1311,11 @@ The command to generate this file is:
 
 =item o scripts/bnf2tree.pl
 
-This is a neat way of using the module. For help, run:
+This is a neat way of using this module. For help, run:
 
 	shell> perl -Ilib scripts/bnf2tree.pl -h
 
-Of course you are also encouraged to include this module directly in your own code.
+Of course you are also encouraged to include the module directly in your own code.
 
 =item o scripts/bnf2tree.sh
 
