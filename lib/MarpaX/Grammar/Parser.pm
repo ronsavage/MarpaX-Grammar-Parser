@@ -855,13 +855,13 @@ C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a forest using Tree::
 
 	# Output is in share/stringparser.cooked.tree and share/stringparser.raw.tree.
 
-See share/metag.bnf for the SLIF-DSL file which ships with L<Marpa::R2> V 2.066000.
-
-See share/*.bnf for input files and share/*.tree for output files.
-
-For help, run
+For help, run:
 
 	shell> perl -Ilib scripts/bnf2tree.pl -h
+
+See share/metag.bnf for the SLIF-DSL file which ships with L<Marpa::R2> V 2.068000.
+
+See share/*.bnf for input files and share/*.tree for output files.
 
 Note: Installation includes copying all files from the share/ directory, into a dir chosen by L<File::ShareDir>.
 Run scripts/find.grammars.pl to display the name of the latter dir.
@@ -877,6 +877,8 @@ containing just the original grammar (see L</cooked_tree()>).
 
 So, currently, the forest contains just 2 trees, acessible via the methods L</raw_tree()> and L</cooked_tree()>.
 The nature of these trees is discussed in the L</FAQ>.
+
+These trees are managed by L<Tree::DAG_Node>.
 
 Lastly, the major purpose of the cooked tree is to serve as input to L<MarpaX::Grammar::GraphViz2>.
 
@@ -949,10 +951,9 @@ Default: undef.
 
 =item o marpa_bnf_file aMarpaSLIF-DSLFileName
 
-Specify the name of Marpa's own SLIF-DSL file. This file ships with L<Marpa::R2>, in the meta/ directory.
-It's name is metag.bnf.
+Specify the name of Marpa's own SLIF-DSL file. This file ships with L<Marpa::R2>. It's name is metag.bnf.
 
-A copy, as of Marpa::R2 V 2.066000, ships with C<MarpaX::Grammar::Parser>. See share/metag.bnf.
+A copy, as of Marpa::R2 V 2.068000, ships with C<MarpaX::Grammar::Parser>. See share/metag.bnf.
 
 This option is mandatory.
 
@@ -1098,9 +1099,9 @@ Here, the [] indicate an optional parameter.
 
 Get or set the name of the file to read Marpa's grammar from. The whole file is slurped in as a single string.
 
-This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bnf.
+This file ships with L<Marpa::R2>. It's name is metag.bnf.
 
-A copy, as of Marpa::R2 V 2.066000, ships with L<MarpaX::Grammar::Parser>.
+A copy, as of Marpa::R2 V 2.068000, ships with C<MarpaX::Grammar::Parser>.
 
 See share/metag.bnf for a sample.
 
@@ -1491,7 +1492,7 @@ See share/stringparser.raw.tree.
 
 =head2 Why are attributes used to identify bracketed names?
 
-Because L<Graphviz|http://graphviz.org> assigns a special meaning to labels which begin with '<' and '<<'.
+Because L<dot|http://graphviz.org> assigns a special meaning to labels which begin with '<' and '<<'.
 
 =head2 How do I sort the daughters of a node?
 
