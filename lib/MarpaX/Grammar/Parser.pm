@@ -797,7 +797,7 @@ sub run
 	if ($raw_tree_file)
 	{
 		open(OUT, '>', $raw_tree_file) || die "Can't open(> $raw_tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> raw_tree -> tree2string({bind_attributes => $self -> bind_attributes})};
+		print OUT map{"$_\n"} @{$self -> raw_tree -> tree2string({no_attributes => 1 - $self -> bind_attributes})};
 		close OUT;
 	}
 
@@ -808,7 +808,7 @@ sub run
 	if ($cooked_tree_file)
 	{
 		open(OUT, '>', $cooked_tree_file) || die "Can't open(> $cooked_tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> cooked_tree -> tree2string({bind_attributes => $self -> bind_attributes})};
+		print OUT map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => 1 - $self -> bind_attributes})};
 		close OUT;
 	}
 
