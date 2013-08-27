@@ -29,11 +29,11 @@ sub process
 
 	my($parser) = MarpaX::Grammar::Parser -> new
 	(
-		logger         => '',
-		marpa_bnf_file => "$marpa_file_name",
-		no_attributes  => 1,
-		raw_tree_file  => "$tree_file_name",
-		user_bnf_file  => "$user_file_name",
+		bind_attributes => 0,
+		logger          => '',
+		marpa_bnf_file  => "$marpa_file_name",
+		raw_tree_file   => "$tree_file_name",
+		user_bnf_file   => "$user_file_name",
 	);
 
 	isa_ok($parser, 'MarpaX::Grammar::Parser', 'new() returned correct object type');
