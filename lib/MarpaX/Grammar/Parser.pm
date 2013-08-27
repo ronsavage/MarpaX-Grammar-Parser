@@ -1158,6 +1158,12 @@ Note: C<raw_tree_file> is a parameter to new().
 
 Note: The bind_attributes option/method affects the output.
 
+=head2 run()
+
+The method which does all the work.
+
+See L</Synopsis> and scripts/bnf2tree.pl for sample code.
+
 =head2 user_bnf_file([$bnf_file_name])
 
 Here, the [] indicate an optional parameter.
