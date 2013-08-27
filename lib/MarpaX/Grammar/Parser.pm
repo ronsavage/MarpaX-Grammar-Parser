@@ -20,6 +20,14 @@ use Perl6::Slurp; # For slurp().
 
 use Tree::DAG_Node;
 
+has bind_attributes =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	#isa     => 'Bool',
+	required => 0,
+);
+
 has cooked_tree =>
 (
 	default  => sub{return ''},
@@ -68,14 +76,6 @@ has minlevel =>
 	required => 0,
 );
 
-has no_attributes =>
-(
-	default  => sub{return 0},
-	is       => 'rw',
-	#isa     => 'Bool',
-	required => 0,
-);
-
 has raw_tree =>
 (
 	default  => sub{return ''},
@@ -108,8 +108,8 @@ sub BUILD
 {
 	my($self)  = @_;
 
-	die "No Marpa SLIF-DSL file provided\n" if (! $self -> marpa_bnf_file);
-	die "No user SLIF-DSL file provided\n"  if (! $self -> user_bnf_file);
+	die "No Marpa SLIF-DSL file found\n" if (! -e $self -> marpa_bnf_file);
+	die "No user SLIF-DSL file found\n"  if (! -e $self -> user_bnf_file);
 
 	if (! defined $self -> logger)
 	{
@@ -797,7 +797,7 @@ sub run
 	if ($raw_tree_file)
 	{
 		open(OUT, '>', $raw_tree_file) || die "Can't open(> $raw_tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> raw_tree -> tree2string({no_attributes => $self -> no_attributes})};
+		print OUT map{"$_\n"} @{$self -> raw_tree -> tree2string({bind_attributes => $self -> bind_attributes})};
 		close OUT;
 	}
 
@@ -808,7 +808,7 @@ sub run
 	if ($cooked_tree_file)
 	{
 		open(OUT, '>', $cooked_tree_file) || die "Can't open(> $cooked_tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => $self -> no_attributes})};
+		print OUT map{"$_\n"} @{$self -> cooked_tree -> tree2string({bind_attributes => $self -> bind_attributes})};
 		close OUT;
 	}
 
@@ -841,11 +841,12 @@ C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a forest using Tree::
 	use MarpaX::Grammar::Parser;
 
 	my(%option) =
-	(
-		cooked_tree_file => 'share/stringparser.cooked.tree', # Output.
-		marpa_bnf_file   => 'share/metag.bnf',                # Input.
-		raw_tree_file    => 'share/stringparser.raw.tree',    # Output.
-		user_bnf_file    => 'share/stringparser.bnf',         # Input.
+	(		# Inputs:
+		marpa_bnf_file   => 'share/metag.bnf',
+		user_bnf_file    => 'share/stringparser.bnf',
+			# Outputs:
+		cooked_tree_file => 'share/stringparser.cooked.tree',
+		raw_tree_file    => 'share/stringparser.raw.tree',
 	);
 
 	my($parser) = MarpaX::Grammar::Parser -> new(%option);
@@ -862,17 +863,22 @@ For help, run
 
 	shell> perl -Ilib scripts/bnf2tree.pl -h
 
+Note: Installation includes copying all files from the share/ directory, into a dir chosen by L<File::ShareDir>.
+Run scripts/find.grammars.pl to display the name of the latter dir.
+
+Note: The cooked tree can be graphed with L<MarpaX::Grammar::GraphViz2>. That module has its own
+L<demo page|http://savage.net.au/Perl-modules/html/marpax.grammar.graphviz2/index.html>.
+
 =head1 Description
 
 C<MarpaX::Grammar::Parser> uses L<Marpa::R2> to convert a user's SLIF-DSL into a tree of Marpa-style attributes,
 (see L</raw_tree()>), and then post-processes that (see L</compress_tree()>) to create another tree, this time
 containing just the original grammar (see L</cooked_tree()>).
 
-So, currently, the forest contains 2 trees.
-
+So, currently, the forest contains just 2 trees, acessible via the methods L</raw_tree()> and L</cooked_tree()>.
 The nature of these trees is discussed in the L</FAQ>.
 
-Lastly, one purpose of the cooked tree is to serve as input to L<MarpaX::Grammar::GraphViz2>.
+Lastly, the major purpose of the cooked tree is to serve as input to L<MarpaX::Grammar::GraphViz2>.
 
 =head1 Installation
 
@@ -900,6 +906,9 @@ or:
 	make test
 	make install
 
+Note: Installation includes copying all files from the share/ directory, into a dir chosen by L<File::ShareDir>.
+Run scripts/find.grammars.pl to display the name of the latter dir.
+
 =head1 Constructor and Initialization
 
 C<new()> is called as C<< my($parser) = MarpaX::Grammar::Parser -> new(k1 => v1, k2 => v2, ...) >>.
@@ -907,9 +916,15 @@ C<new()> is called as C<< my($parser) = MarpaX::Grammar::Parser -> new(k1 => v1,
 It returns a new object of type C<MarpaX::Grammar::Parser>.
 
 Key-value pairs accepted in the parameter list (see corresponding methods for details
-[e.g. marpa_bnf_file([$string])]):
+[e.g. L</marpa_bnf_file([$bnf_file_name])>]):
 
 =over 4
+
+=item o bind_attributes Boolean
+
+Include (1) or exclude (0) attributes in the tree file(s) output.
+
+Default: 0.
 
 =item o cooked_tree_file aTextFileName
 
@@ -918,6 +933,8 @@ The name of the text file to write containing the grammar as a cooked tree.
 If '', the file is not written.
 
 Default: ''.
+
+Note: The bind_attributes option/method affects the output.
 
 =item o logger aLog::HandlerObject
 
@@ -959,12 +976,6 @@ Default: 'error'.
 
 No lower levels are used.
 
-=item o no_attributes Boolean
-
-Include (0) or exclude (1) attributes in the cooked_tree_file and the raw_tree_file.
-
-Default: 0.
-
 =item o raw_tree_file aTextFileName
 
 The name of the text file to write containing the grammar as a raw tree.
@@ -972,6 +983,8 @@ The name of the text file to write containing the grammar as a raw tree.
 If '', the file is not written.
 
 Default: ''.
+
+Note: The bind_attributes option/method affects the output.
 
 =item o user_bnf_file aUserSLIF-DSLFileName
 
@@ -985,33 +998,16 @@ Default: ''.
 
 =back
 
-=head1 Installing the module
-
-Install L<MarpaX::Grammar::Parser> as you would for any C<Perl> module:
-
-Run:
-
-	cpanm MarpaX::Grammar::Parser
-
-or run:
-
-	sudo cpan MarpaX::Grammar::Parser
-
-or unpack the distro, and then either:
-
-	perl Build.PL
-	./Build
-	./Build test
-	sudo ./Build install
-
-or:
-
-	perl Makefile.PL
-	make (or dmake)
-	make test
-	make install
-
 =head1 Methods
+
+=head2 bind_attributes([$Boolean])
+
+Here, the [] indicate an optional parameter.
+
+Get or set the option which includes (1) or excludes (0) node attributes from the output C<cooked_tree_file>
+and C<raw_tree_file>.
+
+Note: C<bind_attributes> is a parameter to new().
 
 =head2 clean_name($name)
 
@@ -1025,13 +1021,17 @@ $attributes is a hashref with these keys:
 
 =item o bracketed_name => $Boolean
 
-Indicates the token's name is or is not of the form '<...>'.
+Indicates the token's name is (1) or is not (0) of the form '<...>'.
 
 =item o quantifier => $char
 
 Indicates the token is quantified. $char is one of '', '*' or '+'.
 
 If $char is '' (the empty string), the token is not quantified.
+
+=item o real_name => $string
+
+The user-specified version of the name of the token, including leading '<' and trailing '>' if any.
 
 =back
 
@@ -1043,7 +1043,7 @@ Converts 1 sub-tree of the raw tree into one sub-tree of the cooked tree.
 
 =head2 compress_tree()
 
-Called automatically by L</new()>.
+Called automatically by L</run()>.
 
 Converts the raw tree into the cooked tree, calling L</compress_branch($index, $node)> once for each
 daughter of the raw tree.
@@ -1075,6 +1075,8 @@ See share/stringparser.cooked.tree for the output of post-processing Marpa's ana
 This latter file is the grammar used in L<MarpaX::Demo::StringParser>.
 
 Note: C<cooked_tree_file> is a parameter to new().
+
+Note: The bind_attributes option/method affects the output.
 
 =head2 log($level, $s)
 
@@ -1128,15 +1130,6 @@ Note: C<minlevel> is a parameter to new().
 
 The constructor. See L</Constructor and Initialization>.
 
-=head2 no_attributes([$Boolean])
-
-Here, the [] indicate an optional parameter.
-
-Get or set the option which includes (0) or excludes (1) node attributes from being included in the output
-C<cooked_tree_file> and C<raw_tree_file>.
-
-Note: C<no_attributes> is a parameter to new().
-
 =head2 raw_tree()
 
 Returns the root node, of type L<Tree::DAG_Node>, of the raw tree of items in the user's grammar.
@@ -1163,6 +1156,8 @@ This latter file is the grammar used in L<MarpaX::Demo::StringParser>.
 
 Note: C<raw_tree_file> is a parameter to new().
 
+Note: The bind_attributes option/method affects the output.
+
 =head2 user_bnf_file([$bnf_file_name])
 
 Here, the [] indicate an optional parameter.
@@ -1184,7 +1179,7 @@ Note: C<user_bnf_file> is a parameter to new().
 
 This is part of L<MarpaX::Languages::C::AST>, by Jean-Damien Durand. It's 1,565 lines long.
 
-The output is share/c.ast.raw.tree.
+The outputs are share/c.ast.cooked.tree and share/c.ast.raw.tree.
 
 =item o share/c.ast.cooked.tree
 
@@ -1209,7 +1204,7 @@ It is part of L<MarpaX::Demo::JSONParser>, written as a gist by Peter Stuifzand.
 
 See L<https://gist.github.com/pstuifzand/4447349>.
 
-The output is share/json.1.raw.tree.
+The outputs are share/json.1.cooked.tree and share/json.1.raw.tree.
 
 =item o share/json.1.cooked.tree
 
@@ -1231,7 +1226,7 @@ The command to generate this file is:
 
 It also is part of L<MarpaX::Demo::JSONParser>, written by Jeffrey Kegler as a reply to the gist above from Peter.
 
-The output is share/json.2.raw.tree.
+The outputs are share/json.2.cooked.tree and share/json.2.raw.tree.
 
 =item o share/json.2.cooked.tree
 
@@ -1259,7 +1254,7 @@ See L</marpa_bnf_file([$bnf_file_name])> above.
 
 This is a copy of L<MarpaX::Demo::StringParser>'s SLIF-DSL.
 
-The output is share/stringparser.cooked.tree and share/stringparser.raw.tree.
+The outputs are share/stringparser.cooked.tree and share/stringparser.raw.tree.
 
 See L</user_bnf_file([$bnf_file_name])> above.
 
@@ -1291,9 +1286,9 @@ That script, metag.pl, is discussed just below, and in the L</FAQ>.
 
 =item o share/termcap.info.bnf
 
-It also is part of L<MarpaX::Database::Terminfo>, written by Jean-Damien Durand.
+It is part of L<MarpaX::Database::Terminfo>, written by Jean-Damien Durand.
 
-The output is share/termcap.info.raw.tree.
+The outputs are share/termcap.cooked.tree and share/termcap.info.raw.tree.
 
 =item o share/termcap.info.cooked.tree
 
@@ -1344,7 +1339,7 @@ It will print the name of the path to given grammar file.
 
 =item o scripts/metag.pl
 
-This is Jeffrey Kegler's code. See the first FAQ question.
+This is Jeffrey Kegler's code. See the L</FAQ> for more.
 
 =item o scripts/pod2html.sh
 
@@ -1356,8 +1351,8 @@ This lets me quickly proof-read edits to the docs.
 
 =head2 What is this SLIF-DSL thingy?
 
-Marpa's grammars are written in what we call a SLIF-DSL. Here, SLIF stands for Scanless Interface, and DSL is
-L<Domain-specific Language|https://en.wikipedia.org/wiki/Domain-specific_language>.
+Marpa's grammars are written in what we call a SLIF-DSL. Here, SLIF stands for Marpa's Scanless Interface, and DSL
+is L<Domain-specific Language|https://en.wikipedia.org/wiki/Domain-specific_language>.
 
 Many programmers will have heard of L<BNF|https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form>. Well, Marpa's
 SLIF-DSL is an extended BNF. That is, it includes special tokens which only make sense within the context of a Marpa
@@ -1375,6 +1370,9 @@ It contains Marpa's view of that grammar.
 
 The cooked tree is generated by post-processing the raw tree, to extract just the user's grammar's tokens.
 It contains the user's view of their grammar.
+
+The cooked tree can be graphed with L<MarpaX::Grammar::GraphViz2>. That module has its own
+L<demo page|http://savage.net.au/Perl-modules/html/marpax.grammar.graphviz2/index.html>.
 
 The following items explain this in more detail.
 
@@ -1420,6 +1418,10 @@ Indicates the token is quantified. $char is one of '', '*' or '+'.
 
 If $char is ' ' (the empty string), the token is not quantified.
 
+=item o real_name => $string
+
+The user-specified version of the name of the token, including leading '<' and trailing '>' if any.
+
 =back
 
 See share/stringparser.cooked.tree.
@@ -1445,8 +1447,8 @@ or a Marpa-assigned token (when the attribute 'type' is 'Marpa').
 
 Each node is the root of a subtree describing the statement.
 
-See share/stringparser.raw.attributes.tree for a tree with attributes displayed, and
-share/stringparser.raw.tree for the same tree without attributes.
+See share/stringparser.raw.attributes.tree for a tree with attributes displayed (bind_attributes => 1), and
+share/stringparser.raw.tree for the same tree without attributes (bind_attributes => 0).
 
 =back
 
@@ -1485,15 +1487,18 @@ See share/stringparser.raw.tree.
 
 Because L<Graphviz|http://graphviz.org> assigns a special meaning to labels which begin with '<' and '<<'.
 
-=head2 How do I sort the daughters of the root?
+=head2 How do I sort the daughters of a node?
 
 Here's one way, using the node names as sort keys.
 
-Choose $root as either $self -> cooked_tree or $self -> raw_tree, and then:
+As an example, choose $root as either $self -> cooked_tree or $self -> raw_tree, and then:
 
 	@daughters = sort{$a -> name cmp $b -> name} $root -> daughters;
 
 	$root -> set_daughters(@daughters);
+
+Note: Since the original order of the daughters, in both the cooked and raw trees, is significant, sorting is
+contra-indicated.
 
 =head2 Where did the basic code come from?
 

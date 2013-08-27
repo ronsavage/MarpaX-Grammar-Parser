@@ -18,13 +18,13 @@ my(%option);
 if ($option_parser -> getoptions
 (
 	\%option,
+	'bind_attributes=i',
 	'cooked_tree_file=s',
 	'help',
 	'logger=s',
 	'marpa_bnf_file=s',
 	'maxlevel=s',
 	'minlevel=s',
-	'no_attributes=i',
 	'raw_tree_file=s',
 	'user_bnf_file=s',
 ) )
@@ -53,12 +53,12 @@ bnf2tree.pl - Convert a Marpa grammar into a tree using Tree::DAG_Node.
 bnf2tree.pl [options]
 
 	Options:
+	-bind_attributes Boolean
 	-cooked_tree_file aTextFileName
 	-help
 	-logger aLog::HandlerObject
 	-maxlevel logOption1
 	-minlevel logOption2
-	-no_attributes Boolean
 	-marpa_bnf_file aMarpaSLIF-DSLFileName
 	-raw_tree_file aTextFileName
 	-user_bnf_file aUserSLIF-DSLFileName
@@ -68,6 +68,12 @@ Exit value: 0 for success, 1 for failure. Die upon error.
 =head1 OPTIONS
 
 =over 4
+
+=item o -bind_attributes Boolean
+
+Include (1) or exclude (0) attributes in the tree file(s) output.
+
+Default: 0.
 
 =item o -cooked_tree_file aTextFileName
 
@@ -120,12 +126,6 @@ See the Log::handler docs.
 Default: 'error'.
 
 No lower levels are used.
-
-=item o -no_attributes Boolean
-
-Include (0) or exclude (1) attributes in the tree_file output.
-
-Default: 0.
 
 =item o -raw_tree_file aTextFileName
 
