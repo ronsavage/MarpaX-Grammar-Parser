@@ -1,8 +1,6 @@
 use strict;
 use warnings;
 
-use Algorithm::Diff;
-
 use File::Temp;
 
 use MarpaX::Grammar::Parser;
