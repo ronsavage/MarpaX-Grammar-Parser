@@ -27,7 +27,6 @@
       },
       "runtime" : {
          "requires" : {
-            "Algorithm::Diff" : "1.1902",
             "Data::TreeDumper" : "0.4",
             "English" : "1.04",
             "File::ShareDir" : "1.03",

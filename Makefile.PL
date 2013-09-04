@@ -14,7 +14,6 @@ all_from 'lib/MarpaX/Grammar/Parser.pm';
 
 install_share;
 
-requires 'Algorithm::Diff'  => 1.1902;
 requires 'charnames'        => 0;
 requires 'Data::TreeDumper' => 0.40;
 requires 'English'          => 1.04;

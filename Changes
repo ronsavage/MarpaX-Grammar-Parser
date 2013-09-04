@@ -1,5 +1,8 @@
 Revision history for Perl extension MarpaX::Grammar::Parser.
 
+1.02  Unreleased.
+	- Remove redundant Algorithm::Diff from t/runner.t.
+
 1.01  Fri Aug 16 14:53:00 2013
 	- Explicitly test for the files marpa_bnf_file and user_bnf_file. Die if missing.
 	- Patch Data::TreeDumper::Renderer::Marpa. The first 2 daughters of each node are the start and end offsets
