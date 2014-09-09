@@ -1,4 +1,6 @@
-:default ::= action => ::array
+:default     ::= action => ::array
+
+lexeme default = latm => 1
 
 :start       ::= json
 

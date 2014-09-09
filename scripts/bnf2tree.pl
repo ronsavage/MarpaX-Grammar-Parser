@@ -103,7 +103,7 @@ This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bn
 
 A copy, as of Marpa::R2 V 2.066000, ships with L<MarpaX::Grammar::Parser>.
 
-See data/metag.bnf.
+See share/metag.bnf.
 
 This option is mandatory.
 
@@ -139,7 +139,7 @@ Default: ''.
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 
-See data/stringparser.bnf for a sample.
+See share/stringparser.bnf for a sample.
 
 This option is mandatory.
 

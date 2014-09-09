@@ -1,71 +1,73 @@
-:start			::= json
+lexeme default = latm => 1
 
-json			::= object
-					| array
+:start       ::= json
 
-object			::= '{' '}'               action => do_empty_object
-					| '{' members '}'       action => do_object
+json         ::= object
+               | array
 
-members      	::= pair+                 separator => <comma> action => do_list
+object       ::= '{' '}'               action => do_empty_object
+               | '{' members '}'       action => do_object
 
-pair			::= string ':' value      action => do_pair
+members      ::= pair+                 separator => <comma> action => do_list
 
-value			::= string
-					| object
-					| number
-					| array
-					| 'true'                action => do_true
-					| 'false'               action => do_true
-					| 'null'                action => do_null
+pair         ::= string ':' value      action => do_pair
 
-array			::= '[' ']'               action => do_empty_array
-					| '[' elements ']'      action => do_array
+value        ::= string
+               | object
+               | number
+               | array
+               | 'true'                action => do_true
+               | 'false'               action => do_true
+               | 'null'                action => do_null
 
-elements		::= value+                separator => <comma> action => do_list
+array        ::= '[' ']'               action => do_empty_array
+               | '[' elements ']'      action => do_array
 
-number			~ int
-					| int frac
-					| int exp
-					| int frac exp
+elements     ::= value+                separator => <comma> action => do_list
 
-int				~ digits
-					| '-' digits
+number         ~ int
+               | int frac
+               | int exp
+               | int frac exp
 
-digits			~ [\d]+
+int            ~ digits
+               | '-' digits
 
-frac			~ '.' digits
+digits         ~ [\d]+
 
-exp				~ e digits
+frac           ~ '.' digits
 
-e				~ 'e'
-					| 'e+'
-					| 'e-'
-					| 'E'
-					| 'E+'
-					| 'E-'
+exp            ~ e digits
 
-string			::= lstring               action => do_string
+e              ~ 'e'
+               | 'e+'
+               | 'e-'
+               | 'E'
+               | 'E+'
+               | 'E-'
 
-lstring			~ quote in_string quote
-quote			~ [\"]
+string       ::= lstring               action => do_string
 
-in_string		~ in_string_char*
+lstring        ~ quote in_string quote
+quote          ~ ["]
 
-in_string_char	~ [^"\\]
-					| '\' '"'
-					| '\' 'b'
-					| '\' 'f'
-					| '\' 't'
-					| '\' 'n'
-					| '\' 'r'
-					| '\' 'u' four_hex_digits
-					| '\' '/'
-					| '\\'
+in_string      ~ in_string_char*
 
-four_hex_digits	~ hex_digit hex_digit hex_digit hex_digit
-hex_digit		~ [0-9a-fA-F]
+in_string_char  ~ [^"\\]
+                | '\' '"'
+                | '\' 'b'
+                | '\' 'f'
+                | '\' 't'
+                | '\' 'n'
+                | '\' 'r'
+                | '\' 'u' four_hex_digits
+                | '\' '/'
+                | '\\'
 
-comma			~ ','
+four_hex_digits ~ hex_digit hex_digit hex_digit hex_digit
+hex_digit       ~ [0-9a-fA-F]
 
-:discard		~ whitespace
-whitespace		~ [\s]+
+comma          ~ ','
+
+:discard       ~ whitespace
+whitespace     ~ [\s]+

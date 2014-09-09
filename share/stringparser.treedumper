@@ -1,4 +1,4 @@
-data/stringparser.bnf [R0]
+share/stringparser.bnf [R0]
 `- REF(0x198f090) to ARRAY =  blessed in 'MarpaX::Grammar::Parser::Dummy::statements'  [OA1]
    |- 0 = 0  [S2]
    |- 1 = 1389  [S3]

@@ -1,27 +1,23 @@
 statements
-   |---:start
-   |   |---::=
-   |   |---json
+   |---lexeme default
+   |   |---=
+   |   |---action
+   |   |---=>
+   |   |---[name,value]
    |---json
    |   |---::=
-   |   |---object
+   |   |---hash
    |   |---|
    |   |---array
-   |---object
+   |---hash
    |   |---::=
-   |   |---'{'
-   |   |---'}'
+   |   |---('{')
+   |   |---hash pairs
+   |   |---('}')
    |   |---action
    |   |---=>
-   |   |---do_empty_object
-   |   |---|
-   |   |---'{'
-   |   |---members
-   |   |---'}'
-   |   |---action
-   |   |---=>
-   |   |---do_object
-   |---members
+   |   |---[name,value]
+   |---hash pairs
    |   |---::=
    |   |---pair
    |   |---separator
@@ -29,62 +25,65 @@ statements
    |   |---comma
    |   |---action
    |   |---=>
-   |   |---do_list
+   |   |---[values]
    |---pair
    |   |---::=
    |   |---string
-   |   |---':'
+   |   |---(':')
    |   |---value
    |   |---action
    |   |---=>
-   |   |---do_pair
+   |   |---[values]
    |---value
    |   |---::=
    |   |---string
    |   |---|
-   |   |---object
+   |   |---hash
    |   |---|
    |   |---number
    |   |---|
    |   |---array
    |   |---|
+   |   |---true
+   |   |---|
+   |   |---false
+   |   |---|
+   |   |---null
+   |---true
+   |   |---::=
    |   |---'true'
    |   |---action
    |   |---=>
-   |   |---do_true
-   |   |---|
+   |   |---[name]
+   |---false
+   |   |---::=
    |   |---'false'
    |   |---action
    |   |---=>
-   |   |---do_true
-   |   |---|
+   |   |---[name]
+   |---null
+   |   |---::=
    |   |---'null'
    |   |---action
    |   |---=>
-   |   |---do_null
+   |   |---[name]
    |---array
    |   |---::=
-   |   |---'['
-   |   |---']'
-   |   |---action
-   |   |---=>
-   |   |---do_empty_array
-   |   |---|
-   |   |---'['
+   |   |---('[')
    |   |---elements
-   |   |---']'
+   |   |---(']')
    |   |---action
    |   |---=>
-   |   |---do_array
+   |   |---[name,values]
    |---elements
    |   |---::=
    |   |---value
+   |   |---action
+   |   |---=>
+   |   |---[values]
    |   |---separator
    |   |---=>
    |   |---comma
-   |   |---action
-   |   |---=>
-   |   |---do_list
    |---number
    |   |---~
    |   |---int
@@ -130,60 +129,49 @@ statements
    |   |---'E-'
    |---string
    |   |---::=
-   |   |---lstring
+   |   |---(quote)
+   |   |---string contents
+   |   |---(quote)
    |   |---action
    |   |---=>
-   |   |---do_string
-   |---lstring
-   |   |---~
-   |   |---quote
-   |   |---in_string
-   |   |---quote
+   |   |---[name,values]
+   |---string contents
+   |   |---::=
+   |   |---string piece
+   |   |---action
+   |   |---=>
+   |   |---[values]
+   |---string piece
+   |   |---::=
+   |   |---easy string
+   |   |---|
+   |   |---escaped char
+   |   |---|
+   |   |---hex char
+   |---escaped char
+   |   |---::=
+   |   |---('\')
+   |   |---any char
    |---quote
    |   |---~
    |   |---["]
-   |---in_string
-   |   |---~
-   |   |---in_string_char
-   |---in_string_char
+   |---easy string
    |   |---~
    |   |---[^"\\]
-   |   |---|
-   |   |---'\'
-   |   |---'"'
-   |   |---|
-   |   |---'\'
-   |   |---'b'
-   |   |---|
-   |   |---'\'
-   |   |---'f'
-   |   |---|
-   |   |---'\'
-   |   |---'t'
-   |   |---|
-   |   |---'\'
-   |   |---'n'
-   |   |---|
-   |   |---'\'
-   |   |---'r'
-   |   |---|
+   |---hex char
+   |   |---~
    |   |---'\'
    |   |---'u'
-   |   |---four_hex_digits
-   |   |---|
-   |   |---'\'
-   |   |---'/'
-   |   |---|
-   |   |---'\\'
-   |---four_hex_digits
+   |   |---hex digit
+   |   |---hex digit
+   |   |---hex digit
+   |   |---hex digit
+   |---hex digit
    |   |---~
-   |   |---hex_digit
-   |   |---hex_digit
-   |   |---hex_digit
-   |   |---hex_digit
-   |---hex_digit
+   |   |---[0-9A-Fa-f]
+   |---any char
    |   |---~
-   |   |---[0-9a-fA-F]
+   |   |---[\d\D]
    |---comma
    |   |---~
    |   |---','
