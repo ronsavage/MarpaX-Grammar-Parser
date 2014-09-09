@@ -4,7 +4,7 @@ Revision history for Perl extension MarpaX::Grammar::Parser.
 	- Remove redundant Algorithm::Diff from t/runner.t.
 	- Switch from Perl6::Slurp to File::Slurp.
 	- Update copy of Marpa's metag.bnf.
-	- Re-generate http://savage.net.au/Ron/html/graphviz2.marpa/Marpa.Grammar.svg.
+	- Re-generate share/metag.*.tree.
 
 1.01  Fri Aug 16 14:53:00 2013
 	- Explicitly test for the files marpa_bnf_file and user_bnf_file. Die if missing.
