@@ -31,6 +31,9 @@ share/json.1.raw.tree
 share/json.2.bnf
 share/json.2.cooked.tree
 share/json.2.raw.tree
+share/json.3.bnf
+share/json.3.cooked.tree
+share/json.3.raw.tree
 share/metag.bnf
 share/stringparser.bnf
 share/stringparser.cooked.attributes.tree
