@@ -10,13 +10,13 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 use Data::TreeDumper ();               # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
+use File::Slurp; # For read_file().
+
 use Log::Handler;
 
 use Marpa::R2;
 
 use Moo;
-
-use Perl6::Slurp; # For slurp().
 
 use Tree::DAG_Node;
 
@@ -771,16 +771,24 @@ sub run
 {
 	my($self)          = @_;
 	my($package)       = 'MarpaX::Grammar::Parser::Dummy'; # This is actually included below.
-	my $marpa_bnf      = slurp $self -> marpa_bnf_file, {utf8 => 1};
+	my $marpa_bnf      = read_file($self -> marpa_bnf_file, binmode => ':utf8');
 	my($marpa_grammar) = Marpa::R2::Scanless::G -> new({bless_package => $package, source => \$marpa_bnf});
-	my $user_bnf       = slurp $self -> user_bnf_file, {utf8 => 1};
+	my $user_bnf       = read_file($self -> user_bnf_file, binmode =>':utf8');
 	my($recce)         = Marpa::R2::Scanless::R -> new({grammar => $marpa_grammar});
 
 	$recce -> read(\$user_bnf);
 
+	my($value) = $recce -> value;
+
+	die "Parse failed\n" if (! defined $value);
+
+	$value = $$value;
+
+	die "Parse failed\n" if (! defined $value);
+
 	Data::TreeDumper::DumpTree
 	(
-		${$recce -> value},
+		$value,
 		'', # No title since Data::TreeDumper::Renderer::Marpa prints nothing.
 		DISPLAY_ROOT_ADDRESS => 1,
 		NO_WRAP              => 1,
@@ -796,9 +804,9 @@ sub run
 
 	if ($raw_tree_file)
 	{
-		open(OUT, '>', $raw_tree_file) || die "Can't open(> $raw_tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> raw_tree -> tree2string({no_attributes => 1 - $self -> bind_attributes})};
-		close OUT;
+		open(my $fh, '>', $raw_tree_file) || die "Can't open(> $raw_tree_file): $!\n";
+		print $fh map{"$_\n"} @{$self -> raw_tree -> tree2string({no_attributes => 1 - $self -> bind_attributes})};
+		close $fh;
 	}
 
 	$self -> compress_tree;
@@ -807,9 +815,9 @@ sub run
 
 	if ($cooked_tree_file)
 	{
-		open(OUT, '>', $cooked_tree_file) || die "Can't open(> $cooked_tree_file): $!\n";
-		print OUT map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => 1 - $self -> bind_attributes})};
-		close OUT;
+		open(my $fh, '>', $cooked_tree_file) || die "Can't open(> $cooked_tree_file): $!\n";
+		print $fh map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => 1 - $self -> bind_attributes})};
+		close $fh;
 	}
 
 	# Return 0 for success and 1 for failure.
@@ -1503,10 +1511,6 @@ Jeffrey Kegler wrote it, and posted it on the Google Group dedicated to Marpa, o
 in the thread 'Low-hanging fruit'. I modified it slightly for a module context.
 
 The original code is shipped as scripts/metag.pl.
-
-As you can see he uses a different way of reading the files, one which avoids loading a separate module.
-I've standardized on L<Perl6::Slurp>, especially when I want utf8, and L<File::Slurp> when I want to read a
-directory. Of course I try not to use both in the same module.
 
 =head2 Why did you use Data::TreeDump?
 

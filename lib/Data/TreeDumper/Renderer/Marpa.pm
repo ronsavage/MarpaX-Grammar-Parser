@@ -53,6 +53,25 @@ sub node
 	my($element, $level, $is_terminal, $previous_level_separator, $separator, $element_name,
 		$element_value, $td_address, $address_link, $perl_size, $perl_address, $setup) = @_ ;
 
+	if (0)
+	{
+	print "element:                  $element. \n";
+	print "level:                    $level. \n";
+	print "is_terminal:              $is_terminal. \n";
+	print "previous_level_separator: $previous_level_separator. \n";
+	print "separator:                $separator. \n";
+	print "element_name:             $element_name. \n";
+	print "element_value:            $element_value. \n";
+	print "td_address:               $td_address. \n";
+	print "address_link:             $address_link. \n";
+	print "perl_size:                $perl_size. \n";
+	print "perl_address:             $perl_address. \n";
+	print "setup:                    $setup. \n";
+	}
+
+	return '' if (! $element);
+	return '' if (! $$setup{RENDERER} || ! $$setup{RENDERER}{package});
+
 	my($token);
 	my($type);
 

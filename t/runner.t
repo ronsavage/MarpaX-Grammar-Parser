@@ -1,12 +1,12 @@
 use strict;
 use warnings;
 
+use File::Slurp; # For read_file().
 use File::Temp;
 
 use MarpaX::Grammar::Parser;
 
 use Path::Tiny;   # For path().
-use Perl6::Slurp; # For slurp().
 
 use Test::More;
 
@@ -41,7 +41,7 @@ sub process
 
 	$parser -> run;
 
-	is(slurp("$orig_file_name", {utf8 => 1}), slurp("$tree_file_name", {utf8 => 1}), "$file_name: Output tree matches shipped tree");
+	is(scalar read_file("$orig_file_name", binmode => ':utf8'), scalar read_file("$tree_file_name", binmode => ':utf8'), "$file_name: Output tree matches shipped tree");
 
 } # End of process.
 
