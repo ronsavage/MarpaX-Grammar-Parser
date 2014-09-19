@@ -1,8 +1,11 @@
 package Data::TreeDumper::Renderer::Marpa;
 
-use 5.006;
 use strict;
+use utf8;
 use warnings;
+use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
+use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
+use charnames qw(:full :short);  # Unneeded in v5.16.
 
 use Tree::DAG_Node;
 
@@ -52,6 +55,7 @@ sub node
 {
 	my($element, $level, $is_terminal, $previous_level_separator, $separator, $element_name,
 		$element_value, $td_address, $address_link, $perl_size, $perl_address, $setup) = @_ ;
+	$element ||= ''; # In case it's undef.
 
 	if (0)
 	{
@@ -68,11 +72,6 @@ sub node
 		print "perl_address:             $perl_address. \n";
 		print "setup:                    $setup. \n";
 	}
-
-	# I have no idea why this has become necessary since V 1.01.
-
-	return '' if (! $element);
-	return '' if (! $$setup{RENDERER} || ! $$setup{RENDERER}{package});
 
 	my($token);
 	my($type);
