@@ -14,7 +14,7 @@ all_from 'lib/MarpaX/Grammar/Parser.pm';
 
 install_share;
 
-repository 'https://github.com/ronsavage/MarpaX-Grammar-Parser'
+repository 'https://github.com/ronsavage/MarpaX-Grammar-Parser';
 
 requires 'charnames'        => 0;
 requires 'Data::TreeDumper' => 0.40;
