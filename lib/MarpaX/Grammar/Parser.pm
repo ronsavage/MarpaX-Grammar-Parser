@@ -1555,6 +1555,10 @@ The file Changes was converted into Changelog.ini by L<Module::Metadata::Changes
 
 Version numbers < 1.00 represent development versions. From 1.00 up, they are production versions.
 
+=head1 Repository
+
+L<https://github.com/ronsavage/MarpaX-Grammar-Parser>
+
 =head1 Support
 
 Email the author, or log a bug on RT:
