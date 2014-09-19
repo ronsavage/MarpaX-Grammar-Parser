@@ -1,4 +1,9 @@
 statements
+   |---:default
+   |   |---::=
+   |   |---action
+   |   |---=>
+   |   |---::first
    |---lexeme default
    |   |---=
    |   |---action
