@@ -100,7 +100,7 @@ has user_bnf_file =>
 	required => 0,
 );
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 # ------------------------------------------------
 
