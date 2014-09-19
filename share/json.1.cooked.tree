@@ -1,4 +1,6 @@
 statements
+   |---lexeme default
+   |   |---=
    |---:start
    |   |---::=
    |   |---json

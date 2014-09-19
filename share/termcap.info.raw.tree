@@ -1,8 +1,11 @@
 statements
+   |---0
    |---5573
    |---statement
+   |   |---0
    |   |---31
    |   |---default_rule
+   |       |---0
    |       |---31
    |       |---:default
    |       |---op_declare_bnf
@@ -86,6 +89,8 @@ statements
    |       |   |---*
    |       |---adverb_list
    |           |---67
+   |           |---0
+   |           |---
    |---statement
    |   |---67
    |   |---2663
@@ -1836,6 +1841,8 @@ statements
    |       |   |---*
    |       |---adverb_list
    |           |---2832
+   |           |---0
+   |           |---
    |---statement
    |   |---2832
    |   |---18
@@ -1883,6 +1890,8 @@ statements
    |                   |               |---[^']
    |                   |---adverb_list
    |                       |---2930
+   |                       |---0
+   |                       |---
    |---statement
    |   |---2930
    |   |---29
@@ -1952,6 +1961,8 @@ statements
    |                   |                       |---_ALLOWED_BS
    |                   |---adverb_list
    |                       |---2988
+   |                       |---0
+   |                       |---
    |---statement
    |   |---2988
    |   |---19
@@ -1988,6 +1999,8 @@ statements
    |       |   |---+
    |       |---adverb_list
    |           |---3008
+   |           |---0
+   |           |---
    |---statement
    |   |---3008
    |   |---18
@@ -2035,6 +2048,8 @@ statements
    |                   |               |---[\d]
    |                   |---adverb_list
    |                       |---3027
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3027
    |   |---19
@@ -2082,6 +2097,8 @@ statements
    |                   |               |---[a-z]
    |                   |---adverb_list
    |                       |---3047
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3047
    |   |---19
@@ -2129,6 +2146,8 @@ statements
    |                   |               |---[A-Z]
    |                   |---adverb_list
    |                       |---3067
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3067
    |   |---17
@@ -2173,6 +2192,8 @@ statements
    |                   |           |---'%'
    |                   |---adverb_list
    |                       |---3085
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3085
    |   |---31
@@ -2242,6 +2263,8 @@ statements
    |                   |                       |---_PERCENT
    |                   |---adverb_list
    |                       |---3117
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3117
    |   |---17
@@ -2286,6 +2309,8 @@ statements
    |                   |           |---'c'
    |                   |---adverb_list
    |                       |---3135
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3135
    |   |---25
@@ -2355,6 +2380,8 @@ statements
    |                   |                       |---_C
    |                   |---adverb_list
    |                       |---3207
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3207
    |   |---17
@@ -2399,6 +2426,8 @@ statements
    |                   |           |---':'
    |                   |---adverb_list
    |                       |---3225
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3225
    |   |---17
@@ -2443,6 +2472,8 @@ statements
    |                   |           |---'.'
    |                   |---adverb_list
    |                       |---3243
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3243
    |   |---20
@@ -2490,6 +2521,8 @@ statements
    |                   |               |---[-+# ]
    |                   |---adverb_list
    |                       |---3264
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3264
    |   |---50
@@ -2559,6 +2592,8 @@ statements
    |               |   |                       |---__FLAGS
    |               |   |---adverb_list
    |               |       |---3305
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---3307
    |                   |---7
@@ -2583,6 +2618,8 @@ statements
    |                   |                       |---__FLAGS
    |                   |---adverb_list
    |                       |---3315
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3315
    |   |---21
@@ -2630,6 +2667,8 @@ statements
    |                   |               |---[doxXs]
    |                   |---adverb_list
    |                       |---3337
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3337
    |   |---121
@@ -2699,6 +2738,8 @@ statements
    |               |   |                       |---_FORMAT
    |               |   |---adverb_list
    |               |       |---3380
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |               |   |---3382
    |               |   |---24
@@ -2755,6 +2796,8 @@ statements
    |               |   |                       |---_FORMAT
    |               |   |---adverb_list
    |               |       |---3419
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---3421
    |                   |---37
@@ -2843,6 +2886,8 @@ statements
    |                   |                       |---_FORMAT
    |                   |---adverb_list
    |                       |---3459
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3459
    |   |---142
@@ -2928,6 +2973,8 @@ statements
    |               |   |                       |---_FORMAT
    |               |   |---adverb_list
    |               |       |---3509
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |               |   |---3511
    |               |   |---31
@@ -3000,6 +3047,8 @@ statements
    |               |   |                       |---_FORMAT
    |               |   |---adverb_list
    |               |       |---3555
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---3557
    |                   |---44
@@ -3104,6 +3153,8 @@ statements
    |                   |                       |---_FORMAT
    |                   |---adverb_list
    |                       |---3602
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3602
    |   |---25
@@ -3164,6 +3215,8 @@ statements
    |                   |                       |---_DIGIT
    |                   |---adverb_list
    |                       |---3628
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3628
    |   |---25
@@ -3224,6 +3277,8 @@ statements
    |                   |                       |---_LCHAR
    |                   |---adverb_list
    |                       |---3654
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3654
    |   |---25
@@ -3284,6 +3339,8 @@ statements
    |                   |                       |---_LCHAR
    |                   |---adverb_list
    |                       |---3680
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3680
    |   |---25
@@ -3344,6 +3401,8 @@ statements
    |                   |                       |---_UCHAR
    |                   |---adverb_list
    |                       |---3706
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3706
    |   |---25
@@ -3404,6 +3463,8 @@ statements
    |                   |                       |---_UCHAR
    |                   |---adverb_list
    |                       |---3732
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3732
    |   |---18
@@ -3448,6 +3509,8 @@ statements
    |                   |           |---'ls'
    |                   |---adverb_list
    |                       |---3751
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3751
    |   |---17
@@ -3495,6 +3558,8 @@ statements
    |                   |               |---[']
    |                   |---adverb_list
    |                       |---3769
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3769
    |   |---40
@@ -3587,6 +3652,8 @@ statements
    |                   |                       |---_SQUOTE
    |                   |---adverb_list
    |                       |---3810
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3810
    |   |---17
@@ -3631,6 +3698,8 @@ statements
    |                   |           |---'{'
    |                   |---adverb_list
    |                       |---3828
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3828
    |   |---17
@@ -3675,6 +3744,8 @@ statements
    |                   |           |---'}'
    |                   |---adverb_list
    |                       |---3846
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3846
    |   |---46
@@ -3776,6 +3847,8 @@ statements
    |                   |                       |---_RCURLY
    |                   |---adverb_list
    |                       |---3893
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3893
    |   |---17
@@ -3820,6 +3893,8 @@ statements
    |                   |           |---'+'
    |                   |---adverb_list
    |                       |---3911
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3911
    |   |---28
@@ -3889,6 +3964,8 @@ statements
    |                   |                       |---_PLUS
    |                   |---adverb_list
    |                       |---3940
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3940
    |   |---17
@@ -3933,6 +4010,8 @@ statements
    |                   |           |---'-'
    |                   |---adverb_list
    |                       |---3958
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3958
    |   |---29
@@ -4002,6 +4081,8 @@ statements
    |                   |                       |---_MINUS
    |                   |---adverb_list
    |                       |---3988
+   |                       |---0
+   |                       |---
    |---statement
    |   |---3988
    |   |---17
@@ -4046,6 +4127,8 @@ statements
    |                   |           |---'*'
    |                   |---adverb_list
    |                       |---4006
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4006
    |   |---28
@@ -4115,6 +4198,8 @@ statements
    |                   |                       |---_STAR
    |                   |---adverb_list
    |                       |---4035
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4035
    |   |---17
@@ -4159,6 +4244,8 @@ statements
    |                   |           |---'/'
    |                   |---adverb_list
    |                       |---4053
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4053
    |   |---27
@@ -4228,6 +4315,8 @@ statements
    |                   |                       |---_DIV
    |                   |---adverb_list
    |                       |---4081
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4081
    |   |---17
@@ -4272,6 +4361,8 @@ statements
    |                   |           |---'m'
    |                   |---adverb_list
    |                       |---4099
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4099
    |   |---27
@@ -4341,6 +4432,8 @@ statements
    |                   |                       |---_MOD
    |                   |---adverb_list
    |                       |---4127
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4127
    |   |---17
@@ -4385,6 +4478,8 @@ statements
    |                   |           |---'&'
    |                   |---adverb_list
    |                       |---4145
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4145
    |   |---30
@@ -4454,6 +4549,8 @@ statements
    |                   |                       |---_BITAND
    |                   |---adverb_list
    |                       |---4176
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4176
    |   |---17
@@ -4498,6 +4595,8 @@ statements
    |                   |           |---'|'
    |                   |---adverb_list
    |                       |---4194
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4194
    |   |---29
@@ -4567,6 +4666,8 @@ statements
    |                   |                       |---_BITOR
    |                   |---adverb_list
    |                       |---4224
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4224
    |   |---17
@@ -4611,6 +4712,8 @@ statements
    |                   |           |---'^'
    |                   |---adverb_list
    |                       |---4242
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4242
    |   |---30
@@ -4680,6 +4783,8 @@ statements
    |                   |                       |---_BITXOR
    |                   |---adverb_list
    |                       |---4273
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4273
    |   |---17
@@ -4724,6 +4829,8 @@ statements
    |                   |           |---'='
    |                   |---adverb_list
    |                       |---4291
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4291
    |   |---29
@@ -4793,6 +4900,8 @@ statements
    |                   |                       |---_EQUAL
    |                   |---adverb_list
    |                       |---4321
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4321
    |   |---17
@@ -4837,6 +4946,8 @@ statements
    |                   |           |---'>'
    |                   |---adverb_list
    |                       |---4339
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4339
    |   |---31
@@ -4906,6 +5017,8 @@ statements
    |                   |                       |---_GREATER
    |                   |---adverb_list
    |                       |---4371
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4371
    |   |---17
@@ -4950,6 +5063,8 @@ statements
    |                   |           |---'<'
    |                   |---adverb_list
    |                       |---4389
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4389
    |   |---29
@@ -5019,6 +5134,8 @@ statements
    |                   |                       |---_LOWER
    |                   |---adverb_list
    |                       |---4419
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4419
    |   |---17
@@ -5063,6 +5180,8 @@ statements
    |                   |           |---'A'
    |                   |---adverb_list
    |                       |---4437
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4437
    |   |---27
@@ -5132,6 +5251,8 @@ statements
    |                   |                       |---_AND
    |                   |---adverb_list
    |                       |---4465
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4465
    |   |---17
@@ -5176,6 +5297,8 @@ statements
    |                   |           |---'O'
    |                   |---adverb_list
    |                       |---4483
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4483
    |   |---26
@@ -5245,6 +5368,8 @@ statements
    |                   |                       |---_OR
    |                   |---adverb_list
    |                       |---4510
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4510
    |   |---17
@@ -5289,6 +5414,8 @@ statements
    |                   |           |---'!'
    |                   |---adverb_list
    |                       |---4528
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4528
    |   |---27
@@ -5358,6 +5485,8 @@ statements
    |                   |                       |---_NOT
    |                   |---adverb_list
    |                       |---4556
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4556
    |   |---17
@@ -5402,6 +5531,8 @@ statements
    |                   |           |---'~'
    |                   |---adverb_list
    |                       |---4574
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4574
    |   |---34
@@ -5471,6 +5602,8 @@ statements
    |                   |                       |---_COMPLEMENT
    |                   |---adverb_list
    |                       |---4609
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4609
    |   |---17
@@ -5515,6 +5648,8 @@ statements
    |                   |           |---'i'
    |                   |---adverb_list
    |                       |---4627
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4627
    |   |---30
@@ -5584,6 +5719,8 @@ statements
    |                   |                       |---_ADDONE
    |                   |---adverb_list
    |                       |---4658
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4658
    |   |---17
@@ -5628,6 +5765,8 @@ statements
    |                   |           |---'?'
    |                   |---adverb_list
    |                       |---4676
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4676
    |   |---26
@@ -5697,6 +5836,8 @@ statements
    |                   |                       |---_IF
    |                   |---adverb_list
    |                       |---4703
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4703
    |   |---17
@@ -5741,6 +5882,8 @@ statements
    |                   |           |---'t'
    |                   |---adverb_list
    |                       |---4721
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4721
    |   |---28
@@ -5810,6 +5953,8 @@ statements
    |                   |                       |---_THEN
    |                   |---adverb_list
    |                       |---4750
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4750
    |   |---17
@@ -5854,6 +5999,8 @@ statements
    |                   |           |---'e'
    |                   |---adverb_list
    |                       |---4768
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4768
    |   |---28
@@ -5923,6 +6070,8 @@ statements
    |                   |                       |---_ELSE
    |                   |---adverb_list
    |                       |---4797
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4797
    |   |---17
@@ -5967,6 +6116,8 @@ statements
    |                   |           |---';'
    |                   |---adverb_list
    |                       |---4815
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4815
    |   |---29
@@ -6036,6 +6187,8 @@ statements
    |                   |                       |---_ENDIF
    |                   |---adverb_list
    |                       |---4845
+   |                       |---0
+   |                       |---
    |---statement
    |   |---4845
    |   |---17
@@ -6080,6 +6233,8 @@ statements
    |                   |           |---','
    |                   |---adverb_list
    |                       |---5224
+   |                       |---0
+   |                       |---
    |---statement
    |   |---5224
    |   |---18
@@ -6133,6 +6288,8 @@ statements
    |                   |                       |---_EOF
    |                   |---adverb_list
    |                       |---5244
+   |                       |---0
+   |                       |---
    |---statement
    |   |---5244
    |   |---17
@@ -6177,6 +6334,8 @@ statements
    |                   |           |---'^'
    |                   |---adverb_list
    |                       |---5262
+   |                       |---0
+   |                       |---
    |---statement
    |   |---5262
    |   |---17
@@ -6221,6 +6380,8 @@ statements
    |                   |           |---'\'
    |                   |---adverb_list
    |                       |---5280
+   |                       |---0
+   |                       |---
    |---statement
    |   |---5280
    |   |---31
@@ -6268,6 +6429,8 @@ statements
    |                   |               |---[abEeflnrst^\,:0]
    |                   |---adverb_list
    |                       |---5312
+   |                       |---0
+   |                       |---
    |---statement
    |   |---5312
    |   |---34
@@ -6353,6 +6516,8 @@ statements
    |                   |                       |---_DIGIT
    |                   |---adverb_list
    |                       |---5347
+   |                       |---0
+   |                       |---
    |---statement
    |   |---5347
    |   |---27
@@ -6400,6 +6565,8 @@ statements
    |                   |               |---[@A-Z[\]^_ ?]
    |                   |---adverb_list
    |                       |---5375
+   |                       |---0
+   |                       |---
    |---statement
    |   |---5375
    |   |---74
@@ -6469,6 +6636,8 @@ statements
    |               |   |                       |---_C0_AND_DEL
    |               |   |---adverb_list
    |               |       |---5432
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---5434
    |                   |---15
@@ -6509,6 +6678,8 @@ statements
    |                   |                       |---_ALLOWED_BS
    |                   |---adverb_list
    |                       |---5450
+   |                       |---0
+   |                       |---
    |---statement
    |   |---5450
    |   |---104
@@ -6556,6 +6727,8 @@ statements
    |                   |               |---[\p{MarpaX::Database::Terminfo::Grammar::CharacterClasses::InIsPrintExceptComma}]
    |                   |---adverb_list
    |                       |---5555
+   |                       |---0
+   |                       |---
    |---statement
        |---5555
        |---18
@@ -6609,3 +6782,5 @@ statements
                        |                       |---_EOF
                        |---adverb_list
                            |---5574
+                           |---0
+                           |---

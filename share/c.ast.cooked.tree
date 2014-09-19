@@ -1,4 +1,12 @@
 statements
+   |---:default
+   |   |---::=
+   |   |---action
+   |   |---=>
+   |   |---[values]
+   |   |---bless
+   |   |---=>
+   |   |---::lhs
    |---lexeme default
    |   |---=
    |   |---action
@@ -962,6 +970,9 @@ statements
    |---parameterDeclaration
    |   |---::=
    |   |---parameterDeclarationCheck
+   |   |---rank
+   |   |---=>
+   |   |---0
    |   |---|
    |   |---declarationSpecifiers
    |   |---abstractDeclarator
@@ -1011,6 +1022,9 @@ statements
    |   |---gccAttributeAny
    |   |---abstractDeclarator
    |   |---RPAREN
+   |   |---rank
+   |   |---=>
+   |   |---0
    |   |---|
    |   |---LBRACKET
    |   |---RBRACKET
@@ -4096,6 +4110,9 @@ statements
    |---gccAttributeInnerParameter
    |   |---::=
    |   |---IDENTIFIER
+   |   |---rank
+   |   |---=>
+   |   |---0
    |   |---|
    |   |---IDENTIFIER
    |   |---COMMA

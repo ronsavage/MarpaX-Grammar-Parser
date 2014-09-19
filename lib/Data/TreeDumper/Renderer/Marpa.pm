@@ -55,7 +55,7 @@ sub node
 {
 	my($element, $level, $is_terminal, $previous_level_separator, $separator, $element_name,
 		$element_value, $td_address, $address_link, $perl_size, $perl_address, $setup) = @_ ;
-	$element ||= ''; # In case it's undef.
+	$element = '' if (! defined $element); # In case it's undef.
 
 	if (0)
 	{

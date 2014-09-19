@@ -1,8 +1,11 @@
 statements
+   |---0
    |---1389
    |---statement
+   |   |---0
    |   |---34
    |   |---default_rule
+   |       |---0
    |       |---34
    |       |---:default
    |       |---op_declare_bnf
@@ -167,6 +170,8 @@ statements
    |               |   |                       |---node_definition
    |               |   |---adverb_list
    |               |       |---200
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---202
    |                   |---15
@@ -191,6 +196,8 @@ statements
    |                   |                       |---edge_definition
    |                   |---adverb_list
    |                       |---232
+   |                       |---0
+   |                       |---
    |---statement
    |   |---232
    |   |---77
@@ -244,6 +251,8 @@ statements
    |               |   |                       |---node_statement
    |               |   |---adverb_list
    |               |       |---276
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---278
    |                   |---31
@@ -284,6 +293,8 @@ statements
    |                   |                       |---graph_definition
    |                   |---adverb_list
    |                       |---311
+   |                       |---0
+   |                       |---
    |---statement
    |   |---311
    |   |---115
@@ -337,6 +348,8 @@ statements
    |               |   |                       |---node_name
    |               |   |---adverb_list
    |               |       |---349
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |               |   |---351
    |               |   |---30
@@ -377,6 +390,8 @@ statements
    |               |   |                       |---attribute_definition
    |               |   |---adverb_list
    |               |       |---389
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---391
    |                   |---35
@@ -433,6 +448,8 @@ statements
    |                   |                       |---node_statement
    |                   |---adverb_list
    |                       |---428
+   |                       |---0
+   |                       |---
    |---statement
    |   |---428
    |   |---36
@@ -502,6 +519,8 @@ statements
    |                   |                       |---end_node
    |                   |---adverb_list
    |                       |---466
+   |                       |---0
+   |                       |---
    |---statement
    |   |---466
    |   |---62
@@ -591,6 +610,8 @@ statements
    |                   |           |---'['
    |                   |---adverb_list
    |                       |---550
+   |                       |---0
+   |                       |---
    |---statement
    |   |---550
    |   |---22
@@ -609,6 +630,8 @@ statements
    |       |           |---end_node
    |       |---adverb_list
    |           |---573
+   |           |---0
+   |           |---
    |---statement
    |   |---573
    |   |---17
@@ -653,6 +676,8 @@ statements
    |                   |           |---']'
    |                   |---adverb_list
    |                       |---606
+   |                       |---0
+   |                       |---
    |---statement
    |   |---606
    |   |---77
@@ -706,6 +731,8 @@ statements
    |               |   |                       |---edge_statement
    |               |   |---adverb_list
    |               |       |---650
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---652
    |                   |---31
@@ -746,6 +773,8 @@ statements
    |                   |                       |---graph_definition
    |                   |---adverb_list
    |                       |---685
+   |                       |---0
+   |                       |---
    |---statement
    |   |---685
    |   |---115
@@ -799,6 +828,8 @@ statements
    |               |   |                       |---edge_name
    |               |   |---adverb_list
    |               |       |---723
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |               |   |---725
    |               |   |---30
@@ -839,6 +870,8 @@ statements
    |               |   |                       |---attribute_definition
    |               |   |---adverb_list
    |               |       |---763
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---765
    |                   |---35
@@ -895,6 +928,8 @@ statements
    |                   |                       |---edge_statement
    |                   |---adverb_list
    |                       |---802
+   |                       |---0
+   |                       |---
    |---statement
    |   |---802
    |   |---55
@@ -948,6 +983,8 @@ statements
    |               |   |                       |---directed_edge
    |               |   |---adverb_list
    |               |       |---840
+   |               |       |---0
+   |               |       |---
    |               |---alternative
    |                   |---842
    |                   |---15
@@ -972,6 +1009,8 @@ statements
    |                   |                       |---undirected_edge
    |                   |---adverb_list
    |                       |---859
+   |                       |---0
+   |                       |---
    |---statement
    |   |---859
    |   |---68
@@ -1061,6 +1100,8 @@ statements
    |                   |           |---'->'
    |                   |---adverb_list
    |                       |---952
+   |                       |---0
+   |                       |---
    |---statement
    |   |---952
    |   |---71
@@ -1150,6 +1191,8 @@ statements
    |                   |           |---'--'
    |                   |---adverb_list
    |                       |---1070
+   |                       |---0
+   |                       |---
    |---statement
    |   |---1070
    |   |---45
@@ -1192,6 +1235,8 @@ statements
    |       |   |---*
    |       |---adverb_list
    |           |---1117
+   |           |---0
+   |           |---
    |---statement
    |   |---1117
    |   |---56
@@ -1261,6 +1306,8 @@ statements
    |                   |                       |---end_attributes
    |                   |---adverb_list
    |                       |---1175
+   |                       |---0
+   |                       |---
    |---statement
    |   |---1175
    |   |---73
@@ -1350,6 +1397,8 @@ statements
    |                   |           |---'{'
    |                   |---adverb_list
    |                       |---1274
+   |                       |---0
+   |                       |---
    |---statement
    |   |---1274
    |   |---28
@@ -1368,6 +1417,8 @@ statements
    |       |           |---end_attributes
    |       |---adverb_list
    |           |---1303
+   |           |---0
+   |           |---
    |---statement
    |   |---1303
    |   |---22
@@ -1412,6 +1463,8 @@ statements
    |                   |           |---'}'
    |                   |---adverb_list
    |                       |---1343
+   |                       |---0
+   |                       |---
    |---statement
    |   |---1343
    |   |---24
@@ -1467,3 +1520,5 @@ statements
            |   |---+
            |---adverb_list
                |---1390
+               |---0
+               |---

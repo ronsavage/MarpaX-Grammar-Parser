@@ -1,4 +1,9 @@
 statements. Attributes: {}
+   |---:default. Attributes: {bracketed_name => "0", quantifier => "", real_name => ":default"}
+   |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
+   |   |---action. Attributes: {bracketed_name => "0", quantifier => "", real_name => "action"}
+   |   |---=>. Attributes: {bracketed_name => "0", quantifier => "", real_name => "=>"}
+   |   |---[values]. Attributes: {bracketed_name => "0", quantifier => "", real_name => "[values]"}
    |---:start. Attributes: {bracketed_name => "0", quantifier => "", real_name => ":start"}
    |   |---::=. Attributes: {bracketed_name => "0", quantifier => "", real_name => "::="}
    |   |---graph_grammar. Attributes: {bracketed_name => "0", quantifier => "", real_name => "graph_grammar"}

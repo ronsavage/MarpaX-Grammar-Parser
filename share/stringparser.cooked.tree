@@ -1,4 +1,9 @@
 statements
+   |---:default
+   |   |---::=
+   |   |---action
+   |   |---=>
+   |   |---[values]
    |---:start
    |   |---::=
    |   |---graph_grammar
