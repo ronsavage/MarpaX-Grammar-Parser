@@ -1,5 +1,9 @@
 Revision history for Perl extension MarpaX::Grammar::Parser.
 
+1.04  Mon Oct  6 15:32:00 2014
+	- Bump the required version of Marpa::R2 from V 2.066000 to V 2.096000. This is necessary since the forgiving
+		and latm tokens were introduced after V 2.066000, and I was starting to get CPAN tester failures.
+
 1.03  Fri Sep 19 11:40:00 2014
 	- Handle new Marpa output (from when it dumps its own grammar).
 	- Update Build.PL and Makefile.PL about this module being on github.
