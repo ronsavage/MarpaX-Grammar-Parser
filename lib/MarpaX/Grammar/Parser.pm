@@ -203,21 +203,9 @@ sub compress_branch
 			{
 				$token = $self -> _process_discard_rule($index, $node);
 			}
-			elsif ($name eq 'empty_rule')
-			{
-				$token = $self -> _process_empty_rule($index, $node);
-			}
-			elsif ($name =~ /(.+)_event_declaration$/)
-			{
-				$token = $self -> _process_event_declaration($index, $node, $1);
-			}
 			elsif ($name eq 'lexeme_default_statement')
 			{
 				$token = $self -> _process_lexeme_default($index, $node);
-			}
-			elsif ($name eq 'lexeme_rule')
-			{
-				$token = $self -> _process_lexeme_rule($index, $node);
 			}
 			elsif ($name eq 'priority_rule')
 			{
@@ -389,90 +377,6 @@ sub _process_discard_rule
 
 # --------------------------------------------------
 
-sub _process_empty_rule
-{
-	my($self, $index, $a_node) = @_;
-
-	my($name);
-	my(@token);
-
-	$a_node -> walk_down
-	({
-		callback => sub
-		{
-			my($node, $option) = @_;
-			$name = $node -> name;
-
-			# Skip the first 2 daughters, which hold offsets for the
-			# start and end of the token within the input stream.
-
-			return 1 if ($node -> my_daughter_index < 2);
-
-			if ($node -> mother -> name =~ /op_declare_+/)
-			{
-				push @token, $name;
-			}
-			elsif ($node -> mother -> mother -> name eq 'symbol_name')
-			{
-				push @token, {$node -> mother -> name => $name};
-			}
-
-			return 1; # Keep walking.
-		},
-		_depth => 0,
-	});
-
-	return [@token];
-
-} # End of _process_empty_rule.
-
-# --------------------------------------------------
-
-sub _process_event_declaration
-{
-	my($self, $index, $a_node, $type) = @_;
-	my(%type) =
-	(
-		completion => 'completed',
-		nulled     => 'nulled',
-		prediction => 'predicted',
-	);
-
-	my($name);
-	my(@token);
-
-	$a_node -> walk_down
-	({
-		callback => sub
-		{
-			my($node, $option) = @_;
-			$name = $node -> name;
-
-			# Skip the first 2 daughters, which hold offsets for the
-			# start and end of the token within the input stream.
-
-			return 1 if ($node -> my_daughter_index < 2);
-
-			if ($node -> mother -> mother -> name eq 'event_name')
-			{
-				push @token, 'event', $name, '=', $type{$type};
-			}
-			elsif ($node -> mother -> mother -> name eq 'symbol_name')
-			{
-				push @token, {$node -> mother -> name => $name};
-			}
-
-			return 1; # Keep walking.
-		},
-		_depth => 0,
-	});
-
-	return [@token];
-
-} # End of _process_event_declaration.
-
-# --------------------------------------------------
-
 sub _process_lexeme_default
 {
 	my($self, $index, $a_node) = @_;
@@ -510,53 +414,6 @@ sub _process_lexeme_default
 	return [@token];
 
 } # End of _process_lexeme_default.
-
-# --------------------------------------------------
-
-sub _process_lexeme_rule
-{
-	my($self, $index, $a_node) = @_;
-	my(@token) = (':lexeme', '~');
-
-	my($name);
-
-	$a_node -> walk_down
-	({
-		callback => sub
-		{
-			my($node, $option) = @_;
-			$name = $node -> name;
-
-			# Skip the first 2 daughters, which hold offsets for the
-			# start and end of the token within the input stream.
-
-			return 1 if ($node -> my_daughter_index < 2);
-
-			if ($node -> mother -> mother -> name eq 'event_name')
-			{
-				push @token, 'event', '=>', $name;
-			}
-			elsif ($node -> mother -> mother -> name eq 'pause_specification')
-			{
-				push @token, 'pause', '=>', $name;
-			}
-			elsif ($node -> mother -> mother -> name eq 'priority_specification')
-			{
-				push @token, 'priority', '=>', $name;
-			}
-			elsif ($node -> mother -> mother -> name eq 'symbol_name')
-			{
-				push @token, {$node -> mother -> name => $name};
-			}
-
-			return 1; # Keep walking.
-		},
-		_depth => 0,
-	});
-
-	return [@token];
-
-} # End of _process_lexeme_rule.
 
 # --------------------------------------------------
 

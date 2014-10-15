@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use MarpaX::Grammar::Parser;
+use MarpaX::Grammar::Parser::Utils;
 
 use Getopt::Long;
 
@@ -31,9 +32,13 @@ if ($option_parser -> getoptions
 {
 	pod2usage(1) if ($option{'help'});
 
+	my($parser) = MarpaX::Grammar::Parser -> new(%option);
+	my($exit)   = $parser -> run;
+	$exit       = MarpaX::Grammar::Parser::Utils -> new -> run(raw_tree => $parser -> raw_tree);
+
 	# Return 0 for success and 1 for failure.
 
-	exit MarpaX::Grammar::Parser -> new(%option) -> run;
+	exit $exit;
 }
 else
 {
@@ -46,11 +51,11 @@ __END__
 
 =head1 NAME
 
-bnf2tree.pl - Convert a Marpa grammar into a tree using Tree::DAG_Node.
+tree.dump.pl - Help analyze the output of parsing metag.bnf.
 
 =head1 SYNOPSIS
 
-bnf2tree.pl [options]
+tree.dump.pl [options]
 
 	Options:
 	-bind_attributes Boolean
