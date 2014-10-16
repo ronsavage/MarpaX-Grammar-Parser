@@ -140,7 +140,7 @@ sub report
 {
 	my($self) = @_;
 
-	return $self -> formatter(0, $self -> statements);
+	$self -> formatter(0, $self -> statements);
 
 } # End of report.
 
@@ -248,31 +248,139 @@ C<MarpaX::Grammar::Parser>.
 
 =head1 Constructor and Initialization
 
-=head2 Calling new()
-
-C<new()> is called as C<< my($obj) = MarpaX::Grammar::Parser::Utils -> new() >>.
+C<new()> is called as C<< my($parser) = MarpaX::Grammar::Parser::Utils -> new(k1 => v1, k2 => v2, ...) >>.
 
 It returns a new object of type C<MarpaX::Grammar::Parser::Utils>.
 
-=head1 Methods
-
-=head2 run(%params)
-
-Prints a hashref version of the L<Tree::DAG_Node> object created by getting Marpa to parse a grammar.
-
-This tree is output from L<MarpaX::Grammar::Parser>'s C<run()> method.
-
-Keys in %params:
+Key-value pairs accepted in the parameter list (see also the corresponding methods
+[e.g. L</maxlevel(['info'])>]):
 
 =over 4
 
-=item o raw_tree
+=item o logger aLog::HandlerObject
 
-The value for this key is the raw tree built when L<MarpaX::Grammar::Parser>'s C<run()> method is called.
+By default, an object of type L<Log::Handler> is created which prints to STDOUT..
+
+See C<maxlevel> and C<minlevel> below.
+
+Set C<logger> to '' (the empty string) to stop a logger being created.
+
+Default: undef.
+
+=item o maxlevel $level
+
+This option is only used if this module creates an object of type L<Log::Handler>.
+
+See L<Log::Handler::Levels>.
+
+Default: 'notice'. A typical choice is 'info' or 'debug'.
+
+=item o minlevel $level
+
+This option affects L<Log::Handler> object.
+
+See the L<Log::Handler::Levels> docs.
+
+Default: 'error'.
+
+No lower levels are used.
+
+=item o raw_tree => $tree
+
+This option is mandatory. The value supplied for $tree must be an object of type L<Tree::DAG_Node>,
+as created by L<MarpaX::Grammar::Parser>.
 
 See scripts/tree.dump.pl.
 
 =back
+
+=head1 Methods
+
+=head2 formatter($depth, $hashref)
+
+Formats the given hashref, with $depth (starting from 0) used to indent the output.
+
+Outputs using calls to L</log($level, $s)>.
+
+When you call L</report()>, this invokes a call to C<< $self -> formatter(0, $self -> formatter) >>.
+
+End users would normally never call this method, and not override. Just call L</report()>.
+
+=head2 log($level, $s)
+
+Calls $self -> logger -> log($level => $s) if ($self -> logger).
+
+=head2 logger([$logger_object])
+
+Here, the [] indicate an optional parameter.
+
+Get or set the logger object.
+
+To disable logging, just set logger to the empty string.
+
+Note: C<logger> is a parameter to new().
+
+=head2 marpa_bnf_file([$bnf_file_name])
+
+Here, the [] indicate an optional parameter.
+
+Get or set the name of the file to read Marpa's grammar from.
+
+Note: C<marpa_bnf_file> is a parameter to new().
+
+=head2 maxlevel([$$level])
+
+Here, the [] indicate an optional parameter.
+
+Get or set the value used by the logger object.
+
+This option is only used if an object of type L<Log::Handler> is created. See L<Log::Handler::Levels>.
+
+Note: C<maxlevel> is a parameter to new().
+
+=head2 minlevel([$$level])
+
+Here, the [] indicate an optional parameter.
+
+Get or set the value used by the logger object.
+
+This option is only used if an object of type L<Log::Handler> is created. See L<Log::Handler::Levels>.
+
+Note: C<minlevel> is a parameter to new().
+
+=head2 new()
+
+The constructor. See L</Constructor and Initialization>.
+
+=head2 report()
+
+Just calls C<< $self -> formatter(0, $self -> formatter) >>, which in turn uses the logger provided
+in the call to L</new()>.
+
+=head2 raw_tree()
+
+Returns the object of type L<Tree::DAG_Node> provided during the call to L</new()>.
+
+=head2 run()
+
+Constructs a hashref version of the L<Tree::DAG_Node> object created by getting Marpa to parse a grammar.
+
+This tree is output after calling L<MarpaX::Grammar::Parser>'s C<run()> method.
+
+=head2 statements()
+
+Returns a hashref describing the grammar provided in the raw_tree parameter to L</new()>.
+
+Only meaningful after L</run()> has been called.
+
+The keys in the hashref are the types of statements found in the grammar, and the values for those keys
+are either '1' to indicate the key exists, or a hashref.
+
+The latter hashref's keys are all the sub-types of statements found in the grammar, for the given
+statement.
+
+The pattern of keys pointing to either '1' or a hashref is repeated to whatever depth is required to
+represent the tree.
 
 =head1 FAQ
 

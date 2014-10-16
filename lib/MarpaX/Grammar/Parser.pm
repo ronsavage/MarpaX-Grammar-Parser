@@ -824,15 +824,15 @@ This option is mandatory.
 
 Default: ''.
 
-=item o maxlevel logOption1
+=item o maxlevel $level
 
-This option affects L<Log::Handler> objects.
+This option is only used if this module creates an object of type L<Log::Handler>.
 
-See the L<Log::Handler::Levels> docs.
+See L<Log::Handler::Levels>.
 
-Default: 'info'.
+Default: 'notice'. A typical choice is 'info' or 'debug'.
 
-=item o minlevel logOption2
+=item o minlevel $level
 
 This option affects L<Log::Handler> object.
 
@@ -966,7 +966,7 @@ Get or set the name of the file to read Marpa's grammar from.
 
 Note: C<marpa_bnf_file> is a parameter to new().
 
-=head2 maxlevel([$string])
+=head2 maxlevel([$$level])
 
 Here, the [] indicate an optional parameter.
 
@@ -976,7 +976,7 @@ This option is only used if an object of type L<Log::Handler> is created. See L<
 
 Note: C<maxlevel> is a parameter to new().
 
-=head2 minlevel([$string])
+=head2 minlevel([$$level])
 
 Here, the [] indicate an optional parameter.
 
