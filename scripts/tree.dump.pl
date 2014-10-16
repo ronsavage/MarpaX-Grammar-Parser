@@ -19,13 +19,8 @@ my(%option);
 if ($option_parser -> getoptions
 (
 	\%option,
-	'bind_attributes=i',
-	'cooked_tree_file=s',
 	'help',
-	'logger=s',
 	'marpa_bnf_file=s',
-	'maxlevel=s',
-	'minlevel=s',
 	'raw_tree_file=s',
 	'user_bnf_file=s',
 ) )
@@ -51,22 +46,24 @@ __END__
 
 =head1 NAME
 
-tree.dump.pl - Help analyze the output of parsing metag.bnf.
+tree.dump.pl - Print, as a hash, the raw tree built by calling L<MarpaX::Grammar::Parser>'s C<run()> method.
 
 =head1 SYNOPSIS
+
+This program prints its own interpretation of the raw tree.
+
+Since the tree is of type L<Tree::DAG_Node>, you can also use that module's methods, such as
+C<tree2string()>, to do the printing.
+
+The raw tree, as output by Marpa, can also be written to a file with the -raw_tree_file option.
 
 tree.dump.pl [options]
 
 	Options:
-	-bind_attributes Boolean
-	-cooked_tree_file aTextFileName
 	-help
-	-logger aLog::HandlerObject
-	-maxlevel logOption1
-	-minlevel logOption2
-	-marpa_bnf_file aMarpaSLIF-DSLFileName
+	-marpa_bnf_file aMarpaBNFFileName
 	-raw_tree_file aTextFileName
-	-user_bnf_file aUserSLIF-DSLFileName
+	-user_bnf_file aUserBNFFileName
 
 Exit value: 0 for success, 1 for failure. Die upon error.
 
@@ -74,31 +71,9 @@ Exit value: 0 for success, 1 for failure. Die upon error.
 
 =over 4
 
-=item o -bind_attributes Boolean
-
-Include (1) or exclude (0) attributes in the tree file(s) output.
-
-Default: 0.
-
-=item o -cooked_tree_file aTextFileName
-
-The name of the text file to write containing the grammar as a cooked tree.
-
-If '', the file is not written.
-
-Default: ''.
-
 =item o -help
 
 Print help and exit.
-
-=item o -logger aLog::HandlerObject
-
-By default, an object is created which prints to STDOUT.
-
-Set this to '' to stop logging.
-
-Default: undef.
 
 =item o -marpa_bnf_file aMarpaSLIF-DSLFileName
 
@@ -108,31 +83,17 @@ This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bn
 
 See share/metag.bnf.
 
+This option is passed to MarpaX::Grammar::Parser, but is not used by MarpaX::Grammar::Parser::Utils.
+
 This option is mandatory.
 
 Default: ''.
 
-=item o -maxlevel logOption1
-
-This option affects Log::Handler.
-
-See the Log::handler docs.
-
-Default: 'info'.
-
-=item o -minlevel logOption2
-
-This option affects Log::Handler.
-
-See the Log::handler docs.
-
-Default: 'error'.
-
-No lower levels are used.
-
 =item o -raw_tree_file aTextFileName
 
-The name of the text file to write containing the grammar as a raw tree.
+The name of the text file to write containing the grammar as a raw Marpa-style tree.
+
+This option is passed to MarpaX::Grammar::Parser, but is not used by MarpaX::Grammar::Parser::Utils.
 
 If '', the file is not written.
 
@@ -143,6 +104,8 @@ Default: ''.
 Specify the name of the file containing your Marpa::R2-style grammar.
 
 See share/stringparser.bnf for a sample.
+
+This option is passed to MarpaX::Grammar::Parser, but is not used by MarpaX::Grammar::Parser::Utils.
 
 This option is mandatory.
 

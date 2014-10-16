@@ -34,10 +34,7 @@ sub report
 
 	for my $key (sort keys %$hashref)
 	{
-		$indent = '    ' x $depth;
-
-		# Quote non-words.
-
+		$indent     = '    ' x $depth;
 		$pretty_key = ($key =~ /^\w+$/) || ($key =~ /^\'/) ? $key : "'$key'";
 		$key_pad    = ' ' x ($max_key_length - length($key) + 1);
 		$key_pad    = ' ' if ($ref_present);
@@ -143,19 +140,22 @@ sub run
 
 =head1 NAME
 
-L<MarpaX::Grammar::Parser::Utils> - Helps analyze the output of parsing metag.bnf
+C<MarpaX::Grammar::Parser::Utils> - Print, as a hash, the raw tree built by calling L<MarpaX::Grammar::Parser>'s C<run()> method
 
 =head1 Synopsis
 
-This module is only for use by the author of C<MarpaX::Grammar::Parser>.
+	scripts/tree.dump.pl -m share/metag.bnf -r share/stringparser.raw.tree -u share/stringparser.bnf > stringparser.log
 
 See scripts/tree.dump.pl.
 
 =head1 Description
 
-Help analyze the output of parsing metag.bnf.
+This module prints its own interpretation of the raw tree.
 
-It is not expected that end-users would ever need to use this module.
+The raw tree, as output by Marpa, can also be written to a file with the -raw_tree_file option.
+
+This output is used to help me ensure all the cases output by L<Marpa::R2> are accounted for in
+C<MarpaX::Grammar::Parser>.
 
 =head1 Constructor and Initialization
 
@@ -167,9 +167,32 @@ It returns a new object of type C<MarpaX::Grammar::Parser::Utils>.
 
 =head1 Methods
 
-=head2 print_tree()
+=head2 run(%params)
 
-Prints bits and pieces of a L<Tree::DAG_Node> tree.
+Prints a hashref version of the L<Tree::DAG_Node> object created by getting Marpa to parse a grammar.
+
+This tree is output from L<MarpaX::Grammar::Parser>'s C<run()> method.
+
+Keys in %params:
+
+=over 4
+
+=item o raw_tree
+
+The value for this key is the raw tree built when L<MarpaX::Grammar::Parser>'s C<run()> method is called.
+
+See scripts/tree.dump.pl.
+
+=back
+
+=head1 FAQ
+
+See also L<MarpaX::Grammar::Parser/FAQ>.
+
+=head2 Why did you write your own dumping code?
+
+I tried these fine modules: L<Data::Dumper>, L<Data::Dumper::Concise> (which is what I normally use), and
+L<Data::Dump::Streamer>. Between them they have every option you'd want, but not the ones I<I> wanted.
 
 =head1 Version Numbers
 
