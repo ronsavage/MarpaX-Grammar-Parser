@@ -27,9 +27,14 @@ if ($option_parser -> getoptions
 {
 	pod2usage(1) if ($option{'help'});
 
-	my($parser) = MarpaX::Grammar::Parser -> new(%option);
-	my($exit)   = $parser -> run;
-	$exit       = MarpaX::Grammar::Parser::Utils -> new -> run(raw_tree => $parser -> raw_tree);
+	my($parser)    = MarpaX::Grammar::Parser -> new(%option);
+	my($exit)      = $parser -> run;
+	my($formatter) = MarpaX::Grammar::Parser::Utils -> new
+						(
+							logger   => $parser -> logger,
+							raw_tree => $parser -> raw_tree,
+						);
+	$exit          = $formatter -> run;
 
 	# Return 0 for success and 1 for failure.
 

@@ -20,11 +20,13 @@ use Moo;
 
 use Tree::DAG_Node;
 
+use Types::Standard qw/Any Bool Str/;
+
 has bind_attributes =>
 (
 	default  => sub{return 0},
 	is       => 'rw',
-	#isa     => 'Bool',
+	isa      => Bool,
 	required => 0,
 );
 
@@ -32,7 +34,7 @@ has cooked_tree =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-	#isa     => 'Tree::DAG_Node',
+	isa      => Any,
 	required => 0,
 );
 
@@ -40,7 +42,7 @@ has cooked_tree_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-	#isa     => 'Str',
+	isa      => Str,
 	required => 0,
 );
 
@@ -48,7 +50,7 @@ has logger =>
 (
 	default  => sub{return undef},
 	is       => 'rw',
-#	isa      => 'Str',
+	isa      => Any,
 	required => 0,
 );
 
@@ -56,7 +58,7 @@ has marpa_bnf_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-	#isa     => 'Str',
+	isa      => Str,
 	required => 0,
 );
 
@@ -64,7 +66,7 @@ has maxlevel =>
 (
 	default  => sub{return 'info'},
 	is       => 'rw',
-#	isa      => 'Str',
+	isa      => Str,
 	required => 0,
 );
 
@@ -72,7 +74,7 @@ has minlevel =>
 (
 	default  => sub{return 'error'},
 	is       => 'rw',
-#	isa      => 'Str',
+	isa      => Str,
 	required => 0,
 );
 
@@ -80,7 +82,7 @@ has raw_tree =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-	#isa     => 'Tree::DAG_Node',
+	isa      => Any,
 	required => 0,
 );
 
@@ -88,7 +90,7 @@ has raw_tree_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-	#isa     => 'Str',
+	isa      => Str,
 	required => 0,
 );
 
@@ -96,7 +98,7 @@ has user_bnf_file =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-	#isa     => 'Str',
+	isa      => Str,
 	required => 0,
 );
 

@@ -13,11 +13,77 @@ use Moo;
 
 use Path::Tiny;   # For path().
 
+use Types::Standard qw/Any HashRef Str/;
+
+has logger =>
+(
+	default  => sub{return undef},
+	is       => 'rw',
+	isa      => Any,
+	required => 0,
+);
+
+has maxlevel =>
+(
+	default  => sub{return 'info'},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
+has minlevel =>
+(
+	default  => sub{return 'error'},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
+has raw_tree =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	isa      => Any,
+	required => 1,
+);
+
+has statements =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	isa      => HashRef,
+	required => 0,
+);
+
 our $VERSION = '1.04';
 
 # ------------------------------------------------
 
-sub report
+sub BUILD
+{
+	my($self)  = @_;
+
+	die "No raw_tree provided\n" if (! $self -> raw_tree);
+
+	if (! defined $self -> logger)
+	{
+		$self -> logger(Log::Handler -> new);
+		$self -> logger -> add
+		(
+			screen =>
+			{
+				maxlevel       => $self -> maxlevel,
+				message_layout => '%m',
+				minlevel       => $self -> minlevel,
+			}
+		);
+	}
+
+} # End of BUILD.
+
+# ------------------------------------------------
+
+sub formatter
 {
 	my($self, $depth, $hashref) = @_;
 	my(@keys)           = keys %$hashref;
@@ -31,6 +97,7 @@ sub report
 	my($indent);
 	my($key_pad);
 	my($pretty_key);
+	my($line);
 
 	for my $key (sort keys %$hashref)
 	{
@@ -38,22 +105,42 @@ sub report
 		$pretty_key = ($key =~ /^\w+$/) || ($key =~ /^\'/) ? $key : "'$key'";
 		$key_pad    = ' ' x ($max_key_length - length($key) + 1);
 		$key_pad    = ' ' if ($ref_present);
-
-		print "$indent$pretty_key$key_pad=> ";
+		$line       = "$indent$pretty_key$key_pad=>";
 
 		if (ref $$hashref{$key})
 		{
-			print "\n$indent\{\n";
+			$self -> log(notice => $line);
+			$self -> log(notice => "$indent\{");
 
-			$self -> report($depth + 1, $$hashref{$key});
+			$self -> formatter($depth + 1, $$hashref{$key});
 
-			print "$indent},\n";
+			$self -> log(notice => "$indent},");
 		}
 		else
 		{
-			print "$$hashref{$key},\n";
+			$self -> log(notice => "$line $$hashref{$key},");
 		}
 	}
+
+} # End of formatter.
+
+# --------------------------------------------------
+
+sub log
+{
+	my($self, $level, $s) = @_;
+
+	$self -> logger -> log($level => $s) if ($self -> logger);
+
+} # End of log.
+
+# ------------------------------------------------
+
+sub report
+{
+	my($self) = @_;
+
+	return $self -> formatter(0, $self -> statements);
 
 } # End of report.
 
@@ -61,12 +148,12 @@ sub report
 
 sub run
 {
-	my($self, %params) = @_;
+	my($self) = @_;
 
 	my($name, @name);
 	my(@stack);
 
-	$params{raw_tree} -> walk_down
+	$self -> raw_tree -> walk_down
 	({
 		callback => sub
 		{
@@ -126,7 +213,9 @@ sub run
 		}
 	}
 
-	$self -> report(0, \%statements);
+	$self -> statements($statements{statement});
+
+	# Return 0 for success and 1 for failure.
 
 	return 0;
 
