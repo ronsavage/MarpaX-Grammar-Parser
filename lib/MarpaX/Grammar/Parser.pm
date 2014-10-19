@@ -1123,7 +1123,8 @@ The outputs are share/stringparser.cooked.tree and share/stringparser.raw.tree.
 
 This is the output of running:
 
-	shell> perl scripts/metag.pl share/metag.bnf share/stringparser.bnf > share/stringparser.treedumper
+	shell> perl scripts/metag.pl share/metag.bnf share/stringparser.bnf > \
+		share/stringparser.treedumper
 
 That script, metag.pl, is discussed just below, and in the L</FAQ>.
 
@@ -1141,9 +1142,11 @@ The outputs are share/termcap.info.cooked.tree and share/termcap.info.raw.tree.
 
 =head2 Scripts
 
+These scripts are all in the scripts/ directory.
+
 =over 4
 
-=item o scripts/bnf2tree.pl
+=item o bnf2tree.pl
 
 This is a neat way of using this module. For help, run:
 
@@ -1151,30 +1154,44 @@ This is a neat way of using this module. For help, run:
 
 Of course you are also encouraged to include the module directly in your own code.
 
-=item o scripts/bnf2tree.sh
+=item o bnf2tree.sh
 
 This is a quick way for me to run bnf2tree.pl.
 
-=item o scripts/find.grammars.pl
+=item o find.grammars.pl
 
-This prints the path to a grammar file. After installation of the module, run it with:
+This prints the path to a grammar file. After installation of the module, run it with any of these
+	parameters:
 
 	shell> perl scripts/find.grammars.pl (Defaults to json.1.bnf)
 	shell> perl scripts/find.grammars.pl c.ast.bnf
 	shell> perl scripts/find.grammars.pl json.1.bnf
 	shell> perl scripts/find.grammars.pl json.2.bnf
+	shell> perl scripts/find.grammars.pl json.3.bnf
 	shell> perl scripts/find.grammars.pl stringparser.bnf
 	shell> perl scripts/find.grammars.pl termcap.inf.bnf
 
 It will print the name of the path to given grammar file.
 
-=item o scripts/metag.pl
+=item o metag.pl
 
 This is Jeffrey Kegler's code. See the L</FAQ> for more.
 
-=item o scripts/pod2html.sh
+=item o pod2html.sh
 
 This lets me quickly proof-read edits to the docs.
+
+=item o tree.dump.pl
+
+Calls bnf2tree.pl effectively, by running MarpaX::Grammar::Parser, and then runs
+MarpaX::Grammar::Parser::Utils.
+
+By default, the hashref output from the latter is not printed.
+
+share/metag.hashref was created by:
+
+	scripts/tree.dump.pl -mar share/metag.bnf -u share/metag.bnf -r share/metag.raw.tree \
+		-max info > share/metag.hashref
 
 =back
 
