@@ -112,8 +112,8 @@ sub BUILD
 {
 	my($self)  = @_;
 
-	die "No Marpa SLIF-DSL file found\n" if (! -e $self -> marpa_bnf_file);
-	die "No user SLIF-DSL file found\n"  if (! -e $self -> user_bnf_file);
+	die "No Marpa BNF file found\n" if (! -e $self -> marpa_bnf_file);
+	die "No user BNF file found\n"  if (! -e $self -> user_bnf_file);
 
 	if (! defined $self -> logger)
 	{
@@ -734,7 +734,7 @@ L<demo page|http://savage.net.au/Perl-modules/html/marpax.grammar.graphviz2/inde
 
 =head1 Description
 
-C<MarpaX::Grammar::Parser> uses L<Marpa::R2> to convert a user's BNF (SLIF-DSL) into a tree of
+C<MarpaX::Grammar::Parser> uses L<Marpa::R2> to convert a user's BNF into a tree of
 Marpa-style attributes, (see L</raw_tree()>), and then post-processes that (see L</compress_tree()>)
 to create another tree, this time containing just the original grammar (see L</cooked_tree()>).
 
@@ -805,12 +805,10 @@ Set C<logger> to '' (the empty string) to stop a logger being created.
 
 Default: undef.
 
-=item o marpa_bnf_file => aMarpaSLIF-DSLFileName
+=item o marpa_bnf_file => aMarpaBNFFileName
 
-Specify the name of Marpa's own SLIF-DSL file. This file ships with L<Marpa::R2>. It's name is
-metag.bnf.
-
-A copy ships with this distro. See share/metag.bnf.
+Specify the name of Marpa's own BNF file. This file ships with L<Marpa::R2>. It's name is
+metag.bnf. A copy ships with this distro. See share/metag.bnf.
 
 This option is mandatory.
 
@@ -846,7 +844,7 @@ Default: ''.
 
 Note: The bind_attributes option/method affects the output.
 
-=item o user_bnf_file => aUserSLIF-DSLFileName
+=item o user_bnf_file => aUserBNFFileName
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 
@@ -915,7 +913,7 @@ Output is the tree returned by L</cooked_tree()>.
 Returns the root node, of type L<Tree::DAG_Node>, of the cooked tree of items in the user's grammar.
 
 By cooked tree, I mean as post-processed from the raw tree so as to include just the original user's
-SLIF-DSL tokens.
+BNF tokens.
 
 The cooked tree is optionally written to the file name given by
 L</cooked_tree_file([$output_file_name])>.
@@ -1027,7 +1025,7 @@ See L</Synopsis> and scripts/bnf2tree.pl for sample code.
 
 Here, the [] indicate an optional parameter.
 
-Get or set the name of the file to read the user's grammar's SLIF-DSL from. The whole file is
+Get or set the name of the file to read the user's grammar's BNF from. The whole file is
 slurped in as a single string.
 
 See share/stringparser.bnf for a sample. It is the grammar used in L<MarpaX::Demo::StringParser>.
@@ -1069,28 +1067,20 @@ It is part of L<MarpaX::Demo::JSONParser>, written as a gist by Peter Stuifzand.
 
 See L<https://gist.github.com/pstuifzand/4447349>.
 
+The command to process this file is:
+
+	shell> scripts/bnf2tree.sh json.1
+
 The outputs are share/json.1.cooked.tree and share/json.1.raw.tree.
-
-=item o share/json.1.cooked.tree
-
-This is the output from post-processing Marpa's analysis of share/json.1.bnf.
-
-The command to generate this file is:
-
-	shell> scripts/bnf2tree.sh json.1
-
-=item o share/json.1.raw.tree
-
-This is the output from processing Marpa's analysis of share/json.1.bnf.
-
-The command to generate this file is:
-
-	shell> scripts/bnf2tree.sh json.1
 
 =item o share/json.2.bnf
 
 It also is part of L<MarpaX::Demo::JSONParser>, written by Jeffrey Kegler as a reply to the gist
 above from Peter.
+
+The command to process this file is:
+
+	shell> scripts/bnf2tree.sh json.2
 
 The outputs are share/json.2.cooked.tree and share/json.2.raw.tree.
 
@@ -1098,39 +1088,36 @@ The outputs are share/json.2.cooked.tree and share/json.2.raw.tree.
 
 The is yet another JSON grammar written by Jeffrey Kegler.
 
+The command to process this file is:
+
+	shell> scripts/bnf2tree.sh json.3
+
 The outputs are share/json.3.cooked.tree and share/json.3.raw.tree.
 
 =item o share/metag.bnf.
 
-This is a copy of L<Marpa::R2>'s SLIF-DSL.
+This is a copy of L<Marpa::R2>'s BNF. That is, it's the file which Marpa uses to validate both
+itself and any user's BNF file.
 
 See L</marpa_bnf_file([$bnf_file_name])> above.
 
+The command to process this file is:
+
+	shell> scripts/bnf2tree.sh metag
+
+The outputs are share/metag.cooked.tree and share/metag.raw.tree.
+
 =item o share/stringparser.bnf.
 
-This is a copy of L<MarpaX::Demo::StringParser>'s SLIF-DSL.
-
-The outputs are share/stringparser.cooked.tree and share/stringparser.raw.tree.
+This is a copy of L<MarpaX::Demo::StringParser>'s BNF.
 
 See L</user_bnf_file([$bnf_file_name])> above.
 
-=item o share/stringparser.cooked.tree
-
-This is the output from post-processing Marpa's analysis of share/stringparser.bnf.
-
-The command to generate this file is:
+The command to process this file is:
 
 	shell> scripts/bnf2tree.sh stringparser
 
-=item o share/stringparser.raw.tree
-
-This is the output from processing Marpa's analysis of share/stringparser.bnf.
-
-The command to generate this file is:
-
-	shell> scripts/bnf2tree.sh stringparser
-
-See also the next item.
+The outputs are share/stringparser.cooked.tree and share/stringparser.raw.tree.
 
 =item o share/stringparser.treedumper
 
@@ -1144,23 +1131,11 @@ That script, metag.pl, is discussed just below, and in the L</FAQ>.
 
 It is part of L<MarpaX::Database::Terminfo>, written by Jean-Damien Durand.
 
-The outputs are share/termcap.cooked.tree and share/termcap.info.raw.tree.
-
-=item o share/termcap.info.cooked.tree
-
-This is the output from post-processing Marpa's analysis of share/termcap.info.bnf.
-
-The command to generate this file is:
+The command to process this file is:
 
 	shell> scripts/bnf2tree.sh termcap.info
 
-=item o share/termcap.info.raw.tree
-
-This is the output from processing Marpa's analysis of share/termcap.info.bnf.
-
-The command to generate this file is:
-
-	shell> scripts/bnf2tree.sh termcap.info
+The outputs are share/termcap.info.cooked.tree and share/termcap.info.raw.tree.
 
 =back
 
@@ -1205,7 +1180,7 @@ This lets me quickly proof-read edits to the docs.
 
 =head1 FAQ
 
-=head2 What is this SLIF-DSL thingy?
+=head2 What is this BNF (SLIF-DSL) thingy?
 
 Marpa's grammars are written in what we call a SLIF-DSL. Here, SLIF stands for Marpa's Scanless
 Interface, and DSL is

@@ -84,11 +84,11 @@ Exit value: 0 for success, 1 for failure. Die upon error.
 
 Print help and exit.
 
-=item o -marpa_bnf_file aMarpaSLIF-DSLFileName
+=item o -marpa_bnf_file aMarpaBNFFileName
 
-Specify the name of Marpa's own SLIF-DSL file.
+Specify the name of Marpa's own BNF file.
 
-This file ships with L<Marpa::R2>, in the meta/ directory. It's name is metag.bnf.
+This file ships with L<Marpa::R2>'s file as share/metag.bnf.
 
 See share/metag.bnf.
 
@@ -126,7 +126,7 @@ If '', the file is not written.
 
 Default: ''.
 
-=item o -user_bnf_file aUserSLIF-DSLFileName
+=item o -user_bnf_file aUserBNFFileName
 
 Specify the name of the file containing your Marpa::R2-style grammar.
 

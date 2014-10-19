@@ -214,6 +214,7 @@ sub run
 	}
 
 	$self -> statements($statements{statement});
+	$self -> report; # This prints nothing by default.
 
 	# Return 0 for success and 1 for failure.
 
