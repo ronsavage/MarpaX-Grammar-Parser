@@ -104,7 +104,9 @@ This option affects Log::Handler.
 
 See the Log::handler docs.
 
-Default: 'info'.
+Nothing is printed by default. Set C<maxlevel> to 'info' to get the hashref printed on STDOUT.
+
+Default: 'notice'.
 
 =item o -minlevel logOption2
 

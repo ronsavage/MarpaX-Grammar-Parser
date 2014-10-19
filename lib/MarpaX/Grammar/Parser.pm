@@ -1183,7 +1183,7 @@ This lets me quickly proof-read edits to the docs.
 
 =item o tree.dump.pl
 
-Calls bnf2tree.pl effectively, by running MarpaX::Grammar::Parser, and then runs
+Calls bnf2tree.pl (effectively) by running MarpaX::Grammar::Parser, and then runs
 MarpaX::Grammar::Parser::Utils.
 
 By default, the hashref output from the latter is not printed.
@@ -1192,6 +1192,8 @@ share/metag.hashref was created by:
 
 	scripts/tree.dump.pl -mar share/metag.bnf -u share/metag.bnf -r share/metag.raw.tree \
 		-max info > share/metag.hashref
+
+Likewise for share/stringparser.hashref.
 
 =back
 

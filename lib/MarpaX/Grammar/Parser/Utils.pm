@@ -279,7 +279,7 @@ This option is only used if this module creates an object of type L<Log::Handler
 
 See L<Log::Handler::Levels>.
 
-Nothing is printed by default. See C<maxlevel> to 'info' to get the hashref printed on STDOUT.
+Nothing is printed by default. Set C<maxlevel> to 'info' to get the hashref printed on STDOUT.
 
 Default: 'notice'.
 

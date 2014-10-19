@@ -113,7 +113,9 @@ This option affects Log::Handler.
 
 See the Log::handler docs.
 
-Default: 'info'.
+Nothing is printed by default.
+
+Default: 'notice'.
 
 =item o -minlevel logOption2
 
