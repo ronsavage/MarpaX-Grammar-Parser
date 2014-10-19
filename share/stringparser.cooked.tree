@@ -4,15 +4,14 @@ statements
    |   |---action
    |   |---=>
    |   |---[values]
-   |---:start
+   |---lexeme default
+   |   |---=
+   |---start
    |   |---::=
    |   |---graph_grammar
    |---graph_grammar
    |   |---::=
    |   |---graph_definition
-   |   |---action
-   |   |---=>
-   |   |---graph
    |---graph_definition
    |   |---::=
    |   |---node_definition
@@ -26,36 +25,22 @@ statements
    |   |---graph_definition
    |---node_statement
    |   |---::=
-   |   |---node_name
+   |   |---node_name_token
    |   |---|
-   |   |---node_name
+   |   |---node_name_token
    |   |---attribute_definition
    |   |---|
    |   |---node_statement
    |   |---(',')
    |   |---node_statement
-   |---node_name
+   |---node_name_token
    |   |---::=
    |   |---start_node
    |   |---end_node
-   |---:lexeme
-   |   |---~
+   |   |---|
    |   |---start_node
-   |   |---pause
-   |   |---=>
-   |   |---before
-   |   |---event
-   |   |---=>
-   |   |---start_node
-   |---start_node
-   |   |---~
-   |   |---'['
-   |---:lexeme
-   |   |---~
+   |   |---node_name
    |   |---end_node
-   |---end_node
-   |   |---~
-   |   |---']'
    |---edge_definition
    |   |---::=
    |   |---edge_statement
@@ -77,55 +62,73 @@ statements
    |   |---directed_edge
    |   |---|
    |   |---undirected_edge
-   |---:lexeme
-   |   |---~
-   |   |---directed_edge
-   |   |---pause
-   |   |---=>
-   |   |---before
-   |   |---event
-   |   |---=>
-   |   |---directed_edge
-   |---directed_edge
-   |   |---~
-   |   |---'->'
-   |---:lexeme
-   |   |---~
-   |   |---undirected_edge
-   |   |---pause
-   |   |---=>
-   |   |---before
-   |   |---event
-   |   |---=>
-   |   |---undirected_edge
-   |---undirected_edge
-   |   |---~
-   |   |---'--'
    |---attribute_definition
    |   |---::=
    |   |---attribute_statement
    |---attribute_statement
    |   |---::=
    |   |---start_attributes
+   |   |---string_token_set
    |   |---end_attributes
-   |---:lexeme
+   |---string_token_set
+   |   |---::=
+   |   |---string_token_pair
+   |---string_token_pair
+   |   |---::=
+   |   |---literal_label
+   |   |---|
+   |   |---attribute_name
+   |   |---(':')
+   |   |---attribute_value
+   |---
+   |---attribute_name
    |   |---~
-   |   |---start_attributes
-   |   |---pause
-   |   |---=>
-   |   |---before
-   |   |---event
-   |   |---=>
-   |   |---start_attributes
-   |---start_attributes
+   |   |---string_char_set
+   |---
+   |---attribute_value
    |   |---~
-   |   |---'{'
-   |---:lexeme
+   |   |---string_char_set
+   |---
+   |---directed_edge
    |   |---~
-   |   |---end_attributes
+   |   |---'->'
+   |---
    |---end_attributes
    |   |---~
    |   |---'}'
+   |---
+   |---end_node
+   |   |---~
+   |   |---']'
+   |---escaped_char
+   |   |---~
+   |   |---'\'
+   |   |---[[:print:]]
+   |---
+   |---literal_label
+   |   |---~
+   |   |---'label'
+   |---
+   |---node_name
+   |   |---~
+   |   |---string_char_set
+   |---
+   |---start_attributes
+   |   |---~
+   |   |---'{'
+   |---
+   |---start_node
+   |   |---~
+   |   |---'['
+   |---string_char_set
+   |   |---~
+   |   |---escaped_char
+   |   |---|
+   |   |---[^;:}\]]
+   |---
+   |---undirected_edge
+   |   |---~
+   |   |---'--'
    |---:discard
    |   |---=>
    |   |---whitespace

@@ -21,6 +21,8 @@ if ($option_parser -> getoptions
 	\%option,
 	'help',
 	'marpa_bnf_file=s',
+	'maxlevel=s',
+	'minlevel=s',
 	'raw_tree_file=s',
 	'user_bnf_file=s',
 ) )
@@ -67,6 +69,8 @@ tree.dump.pl [options]
 	Options:
 	-help
 	-marpa_bnf_file aMarpaBNFFileName
+	-maxlevel logOption1
+	-minlevel logOption2
 	-raw_tree_file aTextFileName
 	-user_bnf_file aUserBNFFileName
 
@@ -93,6 +97,24 @@ This option is passed to MarpaX::Grammar::Parser, but is not used by MarpaX::Gra
 This option is mandatory.
 
 Default: ''.
+
+=item o -maxlevel logOption1
+
+This option affects Log::Handler.
+
+See the Log::handler docs.
+
+Default: 'info'.
+
+=item o -minlevel logOption2
+
+This option affects Log::Handler.
+
+See the Log::handler docs.
+
+Default: 'error'.
+
+No lower levels are used.
 
 =item o -raw_tree_file aTextFileName
 

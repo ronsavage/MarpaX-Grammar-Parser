@@ -25,7 +25,7 @@ has logger =>
 
 has maxlevel =>
 (
-	default  => sub{return 'info'},
+	default  => sub{return 'notice'},
 	is       => 'rw',
 	isa      => Str,
 	required => 0,
@@ -109,16 +109,16 @@ sub formatter
 
 		if (ref $$hashref{$key})
 		{
-			$self -> log(notice => $line);
-			$self -> log(notice => "$indent\{");
+			$self -> log(info => $line);
+			$self -> log(info => "$indent\{");
 
 			$self -> formatter($depth + 1, $$hashref{$key});
 
-			$self -> log(notice => "$indent},");
+			$self -> log(info => "$indent},");
 		}
 		else
 		{
-			$self -> log(notice => "$line $$hashref{$key},");
+			$self -> log(info => "$line $$hashref{$key},");
 		}
 	}
 
@@ -229,26 +229,31 @@ sub run
 
 =head1 NAME
 
-C<MarpaX::Grammar::Parser::Utils> - Print, as a hash, the raw tree built by calling L<MarpaX::Grammar::Parser>'s C<run()> method
+C<MarpaX::Grammar::Parser::Utils> - Print, as a hash, the raw tree built by calling MarpaX::Grammar::Parser's run() method
 
 =head1 Synopsis
 
-	scripts/tree.dump.pl -m share/metag.bnf -r share/stringparser.raw.tree -u share/stringparser.bnf > stringparser.log
+	scripts/tree.dump.pl -marpa share/metag.bnf -r share/stringparser.raw.tree -u share/stringparser.bnf
 
-See scripts/tree.dump.pl.
+Nothing is printed by default. See C<maxlevel> to 'info' to get the hashref printed on STDOUT.
+
+For more help, run:
+
+	scripts/tree.dump.pl -h
 
 =head1 Description
 
 This module prints its own interpretation of the raw tree.
 
-The raw tree, as output by Marpa, can also be written to a file with the -raw_tree_file option.
+The raw tree, as output by L<Marpa::R2> and stored in a L<Tree::DAG_Node> object, can also be
+written to a file with the -raw_tree_file option.
 
-This output is used to help me ensure all the cases output by L<Marpa::R2> are accounted for in
-C<MarpaX::Grammar::Parser>.
+This output is used to help me ensure all the cases output by Marpa are accounted for in
+L<MarpaX::Grammar::Parser>.
 
 =head1 Constructor and Initialization
 
-C<new()> is called as C<< my($parser) = MarpaX::Grammar::Parser::Utils -> new(k1 => v1, k2 => v2, ...) >>.
+Call L</new()>: C<< my($util) = MarpaX::Grammar::Parser::Utils -> new(k1 => v1, ...) >>.
 
 It returns a new object of type C<MarpaX::Grammar::Parser::Utils>.
 
@@ -257,9 +262,9 @@ Key-value pairs accepted in the parameter list (see also the corresponding metho
 
 =over 4
 
-=item o logger aLog::HandlerObject
+=item o logger => a-Log::Handler-Object
 
-By default, an object of type L<Log::Handler> is created which prints to STDOUT..
+By default, an object of type L<Log::Handler> is created which prints to STDOUT.
 
 See C<maxlevel> and C<minlevel> below.
 
@@ -267,19 +272,21 @@ Set C<logger> to '' (the empty string) to stop a logger being created.
 
 Default: undef.
 
-=item o maxlevel $level
+=item o maxlevel => $level
 
 This option is only used if this module creates an object of type L<Log::Handler>.
 
 See L<Log::Handler::Levels>.
 
-Default: 'notice'. A typical choice is 'info' or 'debug'.
+Nothing is printed by default. See C<maxlevel> to 'info' to get the hashref printed on STDOUT.
 
-=item o minlevel $level
+Default: 'notice'.
+
+=item o minlevel => $level
 
 This option affects L<Log::Handler> object.
 
-See the L<Log::Handler::Levels> docs.
+See L<Log::Handler::Levels>.
 
 Default: 'error'.
 
@@ -302,9 +309,9 @@ Formats the given hashref, with $depth (starting from 0) used to indent the outp
 
 Outputs using calls to L</log($level, $s)>.
 
-When you call L</report()>, this invokes a call to C<< $self -> formatter(0, $self -> formatter) >>.
+When you call L</report()>, it calls to C<< $self -> formatter(0, $self -> statements) >>.
 
-End users would normally never call this method, and not override. Just call L</report()>.
+End users would normally never call this method, and not override it. Just call L</report()>.
 
 =head2 log($level, $s)
 
@@ -320,31 +327,27 @@ To disable logging, just set logger to the empty string.
 
 Note: C<logger> is a parameter to new().
 
-=head2 marpa_bnf_file([$bnf_file_name])
-
-Here, the [] indicate an optional parameter.
-
-Get or set the name of the file to read Marpa's grammar from.
-
-Note: C<marpa_bnf_file> is a parameter to new().
-
-=head2 maxlevel([$$level])
+=head2 maxlevel([$level])
 
 Here, the [] indicate an optional parameter.
 
 Get or set the value used by the logger object.
 
-This option is only used if an object of type L<Log::Handler> is created. See L<Log::Handler::Levels>.
+This option is only used if an object of type L<Log::Handler> is created.
+
+See L<Log::Handler::Levels>.
 
 Note: C<maxlevel> is a parameter to new().
 
-=head2 minlevel([$$level])
+=head2 minlevel([$level])
 
 Here, the [] indicate an optional parameter.
 
 Get or set the value used by the logger object.
 
-This option is only used if an object of type L<Log::Handler> is created. See L<Log::Handler::Levels>.
+This option is only used if an object of type L<Log::Handler> is created.
+
+See L<Log::Handler::Levels>.
 
 Note: C<minlevel> is a parameter to new().
 
@@ -354,8 +357,8 @@ The constructor. See L</Constructor and Initialization>.
 
 =head2 report()
 
-Just calls C<< $self -> formatter(0, $self -> formatter) >>, which in turn uses the logger provided
-in the call to L</new()>.
+Just calls C<< $self -> formatter(0, $self -> statements) >>, which in turn uses the logger
+provided in the call to L</new()>.
 
 =head2 raw_tree()
 
@@ -363,9 +366,12 @@ Returns the object of type L<Tree::DAG_Node> provided during the call to L</new(
 
 =head2 run()
 
-Constructs a hashref version of the L<Tree::DAG_Node> object created by getting Marpa to parse a grammar.
+Constructs a hashref version of the L<Tree::DAG_Node> object created by getting Marpa to parse
+a grammar.
 
 This tree is output after calling L<MarpaX::Grammar::Parser>'s C<run()> method.
+
+See L</statements()>.
 
 =head2 statements()
 
@@ -373,14 +379,14 @@ Returns a hashref describing the grammar provided in the raw_tree parameter to L
 
 Only meaningful after L</run()> has been called.
 
-The keys in the hashref are the types of statements found in the grammar, and the values for those keys
-are either '1' to indicate the key exists, or a hashref.
+The keys in the hashref are the types of statements found in the grammar, and the values for those
+keys are either '1' to indicate the key exists, or a hashref.
 
 The latter hashref's keys are all the sub-types of statements found in the grammar, for the given
 statement.
 
-The pattern of keys pointing to either '1' or a hashref is repeated to whatever depth is required to
-represent the tree.
+The pattern of keys pointing to either '1' or a hashref, is repeated to whatever depth is required
+to represent the tree.
 
 =head1 FAQ
 
@@ -388,8 +394,9 @@ See also L<MarpaX::Grammar::Parser/FAQ>.
 
 =head2 Why did you write your own dumping code?
 
-I tried these fine modules: L<Data::Dumper>, L<Data::Dumper::Concise> (which is what I normally use), and
-L<Data::Dump::Streamer>. Between them they have every option you'd want, but not the ones I<I> wanted.
+I tried these fine modules: L<Data::Dumper>, L<Data::Dumper::Concise> (which is what I normally
+use), and L<Data::Dump::Streamer>. Between them they have every option you'd want, but not the
+ones I<I> wanted.
 
 =head1 Version Numbers
 
@@ -409,7 +416,9 @@ L<https://rt.cpan.org/Public/Dist/Display.html?Name=MarpaX::Grammar::Parser>.
 
 L<MarpaX::Grammar::Parser> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2013.
 
-Home page: L<http://savage.net.au/index.html>.
+Marpa's homepage: L<http://savage.net.au/Marpa.html>.
+
+Homepage: L<http://savage.net.au/index.html>.
 
 =head1 Copyright
 
