@@ -25,6 +25,7 @@ if ($option_parser -> getoptions
 	'marpa_bnf_file=s',
 	'maxlevel=s',
 	'minlevel=s',
+	'output_hashref=i',
 	'raw_tree_file=s',
 	'user_bnf_file=s',
 ) )
@@ -33,7 +34,16 @@ if ($option_parser -> getoptions
 
 	# Return 0 for success and 1 for failure.
 
-	exit MarpaX::Grammar::Parser -> new(%option) -> run;
+	my($parser)    = MarpaX::Grammar::Parser -> new(%option);
+	my($exit)      = $parser -> run;
+	my($formatter) = MarpaX::Grammar::Parser::Utils -> new
+						(
+							logger   => $parser -> logger,
+							raw_tree => $parser -> raw_tree,
+						);
+	$exit          = $formatter -> run;
+
+	exit $exit;
 }
 else
 {
@@ -57,9 +67,10 @@ bnf2tree.pl [options]
 	-cooked_tree_file aTextFileName
 	-help
 	-logger aLog::HandlerObject
+	-marpa_bnf_file aMarpaBNFFileName
 	-maxlevel logOption1
 	-minlevel logOption2
-	-marpa_bnf_file aMarpaBNFFileName
+	-output_hashref Boolean
 	-raw_tree_file aTextFileName
 	-user_bnf_file aUserBNFFileName
 
@@ -126,6 +137,14 @@ See the Log::handler docs.
 Default: 'error'.
 
 No lower levels are used.
+
+=item o -output_hashref Boolean
+
+Log (1) or skip (0) the hashref version of the cooked tree.
+
+Note: This needs -maxlevel elevated from its default value of 'notice' to 'info', to do anything.
+
+Default: 0.
 
 =item o -raw_tree_file aTextFileName
 

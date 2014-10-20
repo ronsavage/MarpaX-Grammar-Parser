@@ -12,6 +12,8 @@ use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
 use File::Slurp; # For read_file().
 
+use List::AllUtils qw/any max/;
+
 use Log::Handler;
 
 use Marpa::R2;
@@ -20,7 +22,7 @@ use Moo;
 
 use Tree::DAG_Node;
 
-use Types::Standard qw/Any Bool Str/;
+use Types::Standard qw/Any Bool HashRef Str/;
 
 has bind_attributes =>
 (
@@ -78,6 +80,14 @@ has minlevel =>
 	required => 0,
 );
 
+has output_hashref =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Bool,
+	required => 0,
+);
+
 has raw_tree =>
 (
 	default  => sub{return ''},
@@ -91,6 +101,14 @@ has raw_tree_file =>
 	default  => sub{return ''},
 	is       => 'rw',
 	isa      => Str,
+	required => 0,
+);
+
+has statements =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -147,6 +165,79 @@ sub BUILD
 	);
 
 } # End of BUILD.
+
+# ------------------------------------------------
+
+sub build_hashref
+{
+	my($self) = @_;
+
+	my($name, @name);
+	my(@stack);
+
+	$self -> raw_tree -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			@name = ();
+			$name = $node -> name;
+
+			return 1 if ( (length($name) == 0) || ($name =~ /^\d+$/) );
+
+			while ($node -> is_root == 0)
+			{
+				push @name, $name;
+
+				$node = $node -> mother;
+				$name = $node -> name;
+			}
+
+			push @stack, join('|', reverse @name) if ($#name >= 0);
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	@stack     = sort @stack;
+	my($count) = 0;
+
+	my($ref);
+	my(%statements);
+
+	for my $i (0 .. $#stack)
+	{
+		@name = split(/\|/, $stack[$i]);
+
+		# Skip all but 1 elements in stack which just say 'statement'.
+
+		if ($#name == 0)
+		{
+			next if (++$count > 1);
+		}
+
+		$ref            = \%statements;
+		$$ref{$name[0]} = {} if (! $$ref{$name[0]});
+
+		for my $j (1 .. $#name)
+		{
+			if ($j < $#name)
+			{
+				$ref             = $$ref{$name[$j - 1]};
+				$$ref{$name[$j]} = {} if (! $$ref{$name[$j]});
+			}
+			else
+			{
+				$$ref{$name[$j - 1]}            = {} if (! ref $$ref{$name[$j - 1]});
+				$$ref{$name[$j - 1]}{$name[$j]} = 1;
+			}
+		}
+	}
+
+	$self -> statements($statements{statement});
+
+} # End of build_hashref.
 
 # --------------------------------------------------
 
@@ -287,6 +378,106 @@ sub compress_tree
 	}
 
 } # End of compress_tree.
+
+# --------------------------------------------------
+
+sub _fabricate_start_rule
+{
+	my($self) = @_;
+
+	# Add a start_rule sub-tree to the cooked tree.
+
+	my($start_rule) = Tree::DAG_Node -> new({name => 'start'});
+
+	$start_rule -> add_daughter(Tree::DAG_Node -> new({name => '::='}) );
+	$start_rule -> add_daughter(Tree::DAG_Node -> new({name => 'XXX'}) );
+	$self -> cooked_tree -> add_daughter_left($start_rule);
+
+} # End of _fabricate_start_rule.
+
+# --------------------------------------------------
+
+sub _find_start_rule
+{
+	my($self)  = @_;
+	my($start) = '';
+
+	my($name);
+
+	$self -> raw_tree -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
+
+			# Skip any rules which are not the start rule.
+
+			return 1 if ( ($$option{_depth} != 2) || ($node -> mother -> name ne 'statement') );
+
+			$name = $node -> name;
+
+			return 1 if ($name ne 'start_rule');
+
+			# Got it!
+
+			$start = $name;
+
+			return 0; # Stop walking.
+		},
+		_depth => 0,
+	});
+
+	return $start;
+
+} # End of _find_start_rule.
+
+# ------------------------------------------------
+
+sub format_hashref
+{
+	my($self, $depth, $hashref) = @_;
+	my(@keys)           = keys %$hashref;
+	my($max_key_length) = max map{length} @keys;
+
+	# If any key points to a hashref, do not try to line up the '=>' vertically,
+	# because the dump of the hashref will make the padding useless.
+
+	my($ref_present) = any {ref $$hashref{$_} } @keys; # $#refs >= 0 ? 1 : 0;
+
+	my($indent);
+	my($key_pad);
+	my($pretty_key);
+	my($line);
+
+	for my $key (sort keys %$hashref)
+	{
+		$indent     = '    ' x $depth;
+		$pretty_key = ($key =~ /^\w+$/) || ($key =~ /^\'/) ? $key : "'$key'";
+		$key_pad    = ' ' x ($max_key_length - length($key) + 1);
+		$key_pad    = ' ' if ($ref_present);
+		$line       = "$indent$pretty_key$key_pad=>";
+
+		if (ref $$hashref{$key})
+		{
+			$self -> log(info => $line);
+			$self -> log(info => "$indent\{");
+
+			$self -> formatter($depth + 1, $$hashref{$key});
+
+			$self -> log(info => "$indent},");
+		}
+		else
+		{
+			$self -> log(info => "$line $$hashref{$key},");
+		}
+	}
+
+} # End of format_hashref.
 
 # --------------------------------------------------
 
@@ -628,6 +819,16 @@ sub _process_start_rule
 
 # ------------------------------------------------
 
+sub report_hashref
+{
+	my($self) = @_;
+
+	$self -> format_hashref(0, $self -> statements);
+
+} # End of report_hashref.
+
+# ------------------------------------------------
+
 sub run
 {
 	my($self)          = @_;
@@ -671,6 +872,16 @@ sub run
 	}
 
 	$self -> compress_tree;
+
+	if ($self -> _find_start_rule eq '')
+	{
+		$self -> _fabricate_start_rule;
+	}
+
+	if ($self -> output_hashref)
+	{
+		$self -> report_hashref;
+	}
 
 	my($cooked_tree_file) = $self -> cooked_tree_file;
 
@@ -834,6 +1045,14 @@ Default: 'error'.
 
 No lower levels are used.
 
+=item o -output_hashref Boolean
+
+Log (1) or skip (0) the hashref version of the cooked tree.
+
+Note: This needs -maxlevel elevated from its default value of 'notice' to 'info', to do anything.
+
+Default: 0.
+
 =item o raw_tree_file => aTextFileName
 
 The name of the text file to write containing the grammar as a raw tree.
@@ -939,6 +1158,17 @@ Note: C<cooked_tree_file> is a parameter to new().
 
 Note: The bind_attributes option/method affects the output.
 
+=head2 format_hashref($depth, $hashref)
+
+Formats the given hashref, with $depth (starting from 0) used to indent the output.
+
+Outputs using calls to L</log($level, $s)>.
+
+When you call L</report_hashref()>, it calls
+C<< $self -> format_hashref(0, $self -> statements) >>.
+
+End users would normally never call this method, nor override it. Just call L</report_hashref()>.
+
 =head2 log($level, $s)
 
 Calls $self -> logger -> log($level => $s) if ($self -> logger).
@@ -987,6 +1217,19 @@ Note: C<minlevel> is a parameter to new().
 
 The constructor. See L</Constructor and Initialization>.
 
+=head2 output_hashref([$Boolean])
+
+Here, the [] indicate an optional parameter.
+
+Get or set the option which includes (1) or excludes (0) a hashref version of the grammar from the
+output to the log.
+
+This hashref can be output by calling L</new()> as C<< new(max => 'info', output_hashref => 1) >>.
+
+See also L</statements()>.
+
+Note: C<output_hashref> is a parameter to new().
+
 =head2 raw_tree()
 
 Returns the root node, of type L<Tree::DAG_Node>, of the raw tree of items in the user's grammar.
@@ -1015,11 +1258,31 @@ Note: C<raw_tree_file> is a parameter to new().
 
 Note: The bind_attributes option/method affects the output.
 
+=head2 report_hashref()
+
+Just calls C<< $self -> format_hashref(0, $self -> statements) >>, which in turn uses the logger
+provided in the call to L</new()>.
+
 =head2 run()
 
 The method which does all the work.
 
 See L</Synopsis> and scripts/bnf2tree.pl for sample code.
+
+=head2 statements()
+
+Returns a hashref describing the grammar provided in the user_bnf_file parameter to L</new()>.
+
+The keys in the hashref are the types of statements found in the grammar, and the values for those
+keys are either '1' to indicate the key exists, or a hashref.
+
+The latter hashref's keys are all the sub-types of statements found in the grammar, for the given
+statement.
+
+The pattern of keys pointing to either '1' or a hashref, is repeated to whatever depth is required
+to represent the tree.
+
+See also L</output_hashref()>.
 
 =head2 user_bnf_file([$bnf_file_name])
 
@@ -1107,6 +1370,13 @@ The command to process this file is:
 
 The outputs are share/metag.cooked.tree and share/metag.raw.tree.
 
+=item o share/metag.hashref
+
+Created by:
+
+	scripts/bnf2tree.pl -mar share/metag.bnf -u share/metag.bnf -r share/metag.raw.tree \
+		-max info > share/metag.hashref
+
 =item o share/stringparser.bnf.
 
 This is a copy of L<MarpaX::Demo::StringParser>'s BNF.
@@ -1118,6 +1388,13 @@ The command to process this file is:
 	shell> scripts/bnf2tree.sh stringparser
 
 The outputs are share/stringparser.cooked.tree and share/stringparser.raw.tree.
+
+=item o share/stringparser.hashref
+
+Created by:
+
+	scripts/bnf2tree.pl -mar share/stringparser.bnf -u share/stringparser.bnf \
+		-r share/stringparser.raw.tree -max info > share/stringparser.hashref
 
 =item o share/stringparser.treedumper
 
@@ -1180,20 +1457,6 @@ This is Jeffrey Kegler's code. See the L</FAQ> for more.
 =item o pod2html.sh
 
 This lets me quickly proof-read edits to the docs.
-
-=item o tree.dump.pl
-
-Calls bnf2tree.pl (effectively) by running MarpaX::Grammar::Parser, and then runs
-MarpaX::Grammar::Parser::Utils.
-
-By default, the hashref output from the latter is not printed.
-
-share/metag.hashref was created by:
-
-	scripts/tree.dump.pl -mar share/metag.bnf -u share/metag.bnf -r share/metag.raw.tree \
-		-max info > share/metag.hashref
-
-Likewise for share/stringparser.hashref.
 
 =back
 
