@@ -15,6 +15,9 @@ statements
    |   |---bless
    |   |---=>
    |   |---::name
+   |   |---latm
+   |   |---=>
+   |   |---1
    |---:start
    |   |---::=
    |   |---statements

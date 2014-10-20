@@ -2,7 +2,7 @@
 
 lexeme default			=  latm => 1		# Longest Acceptable Token Match.
 
-#:start					::= graph_grammar
+:start					::= graph_grammar
 
 graph_grammar			::= graph_definition
 

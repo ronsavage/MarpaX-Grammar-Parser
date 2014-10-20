@@ -48,6 +48,14 @@ has cooked_tree_file =>
 	required => 0,
 );
 
+has first_rule =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
 has logger =>
 (
 	default  => sub{return undef},
@@ -175,13 +183,13 @@ sub build_hashref
 	my($name, @name);
 	my(@stack);
 
-	$self -> raw_tree -> walk_down
+	$self -> cooked_tree -> walk_down
 	({
 		callback => sub
 		{
 			my($node, $option) = @_;
 			@name = ();
-			$name = $node -> name;
+			$name = $node -> name || '';
 
 			return 1 if ( (length($name) == 0) || ($name =~ /^\d+$/) );
 
@@ -235,9 +243,55 @@ sub build_hashref
 		}
 	}
 
+	if (! defined $statements{statement})
+	{
+		$self -> log(info => 'About to die');
+	}
+
 	$self -> statements($statements{statement});
 
 } # End of build_hashref.
+
+# --------------------------------------------------
+
+sub _check_start_rule
+{
+	my($self)  = @_;
+	my($start) = '';
+
+	my($name);
+
+	$self -> raw_tree -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
+
+			# Skip any rules which are not the start rule.
+
+			return 1 if ( ($$option{_depth} != 2) || ($node -> mother -> name ne 'statement') );
+
+			$name = $node -> name;
+
+			return 1 if ($name ne 'start_rule');
+
+			# Got it!
+
+			$start = $name;
+
+			return 0; # Stop walking.
+		},
+		_depth => 0,
+	});
+
+	return $start;
+
+} # End of _check_start_rule.
 
 # --------------------------------------------------
 
@@ -299,6 +353,10 @@ sub compress_branch
 			elsif ($name eq 'lexeme_default_statement')
 			{
 				$token = $self -> _process_lexeme_default($index, $node);
+			}
+			elsif ($name eq 'lexeme_rule')
+			{
+				$token = $self -> _process_lexeme_rule($index, $node);
 			}
 			elsif ($name eq 'priority_rule')
 			{
@@ -390,7 +448,7 @@ sub _fabricate_start_rule
 	my($start_rule) = Tree::DAG_Node -> new({name => 'start'});
 
 	$start_rule -> add_daughter(Tree::DAG_Node -> new({name => '::='}) );
-	$start_rule -> add_daughter(Tree::DAG_Node -> new({name => 'XXX'}) );
+	$start_rule -> add_daughter(Tree::DAG_Node -> new({name => $self -> first_rule}) );
 	$self -> cooked_tree -> add_daughter_left($start_rule);
 
 } # End of _fabricate_start_rule.
@@ -399,40 +457,20 @@ sub _fabricate_start_rule
 
 sub _find_start_rule
 {
-	my($self)  = @_;
-	my($start) = '';
+	my($self, $user_bnf) = @_;
 
-	my($name);
+	for my $line (split(/\n/, $user_bnf) )
+	{
+		# We assume the rules all start (at least) on 1 line.
+		# The \w+ will ignore :default, :start, etc.
 
-	$self -> raw_tree -> walk_down
-	({
-		callback => sub
+		if ($line =~ /^\s*(\w+)\s*::=\s*<?[\w]+>?$/)
 		{
-			my($node, $option) = @_;
+			$self -> first_rule($1);
 
-			# Skip the first 2 daughters, which hold offsets for the
-			# start and end of the token within the input stream.
-
-			return 1 if ($node -> my_daughter_index < 2);
-
-			# Skip any rules which are not the start rule.
-
-			return 1 if ( ($$option{_depth} != 2) || ($node -> mother -> name ne 'statement') );
-
-			$name = $node -> name;
-
-			return 1 if ($name ne 'start_rule');
-
-			# Got it!
-
-			$start = $name;
-
-			return 0; # Stop walking.
-		},
-		_depth => 0,
-	});
-
-	return $start;
+			last;
+		}
+	}
 
 } # End of _find_start_rule.
 
@@ -466,9 +504,7 @@ sub format_hashref
 		{
 			$self -> log(info => $line);
 			$self -> log(info => "$indent\{");
-
-			$self -> formatter($depth + 1, $$hashref{$key});
-
+			$self -> format_hashref($depth + 1, $$hashref{$key});
 			$self -> log(info => "$indent},");
 		}
 		else
@@ -575,8 +611,9 @@ sub _process_lexeme_default
 	my($self, $index, $a_node) = @_;
 	my(%map) =
 	(
-		action   => 'action',
-		blessing => 'bless',
+		action             => 'action',
+		blessing           => 'bless',
+		latm_specification => 'latm',
 	);
 	my(@token) = ('lexeme default', '=');
 
@@ -598,6 +635,10 @@ sub _process_lexeme_default
 			{
 				push @token, $map{$1}, '=>', $name;
 			}
+			elsif ($node -> mother -> mother -> name eq 'latm_specification')
+			{
+				push @token, $map{latm_specification}, '=>', $name;
+			}
 
 			return 1; # Keep walking.
 		},
@@ -607,6 +648,51 @@ sub _process_lexeme_default
 	return [@token];
 
 } # End of _process_lexeme_default.
+
+# --------------------------------------------------
+
+sub _process_lexeme_rule
+{
+	my($self, $index, $a_node) = @_;
+	my(%map) =
+	(
+		event_name             => 'event',
+		pause_specification    => 'pause',
+		priority_specification => 'priority',
+	);
+	my(@token) = (':lexeme', '~');
+
+	my($name);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
+
+			if ($node -> mother -> mother -> name =~ /(event_name|pause_specification|priority_specification)/)
+			{
+				push @token, $map{$1}, '=>', $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	return [@token];
+
+} # End of _process_lexeme_rule.
 
 # --------------------------------------------------
 
@@ -825,6 +911,10 @@ sub report_hashref
 
 	$self -> format_hashref(0, $self -> statements);
 
+	# Return 0 for success and 1 for failure.
+
+	return 0;
+
 } # End of report_hashref.
 
 # ------------------------------------------------
@@ -838,6 +928,7 @@ sub run
 	my $user_bnf       = read_file($self -> user_bnf_file, binmode =>':utf8');
 	my($recce)         = Marpa::R2::Scanless::R -> new({grammar => $marpa_grammar});
 
+	$self -> _find_start_rule($user_bnf);
 	$recce -> read(\$user_bnf);
 
 	my($value) = $recce -> value;
@@ -873,13 +964,14 @@ sub run
 
 	$self -> compress_tree;
 
-	if ($self -> _find_start_rule eq '')
+	if ($self -> _check_start_rule eq '')
 	{
 		$self -> _fabricate_start_rule;
 	}
 
 	if ($self -> output_hashref)
 	{
+		$self -> build_hashref;
 		$self -> report_hashref;
 	}
 
@@ -1157,6 +1249,14 @@ Note: C<cooked_tree_file> is a parameter to new().
 
 Note: The bind_attributes option/method affects the output.
 
+=head2 first_rule()
+
+Returns the first G1-level rule in the user's gramamr. This is used to fabricate a start rule if
+'start_rule' is not found in the cooked tree. This new node is not in the raw tree, but only in
+the cooked tree, and hence in the hashref.
+
+The presence of a start rule helps L<MarpaX::Grammar::GraphViz2> generate the grammar's image.
+
 =head2 format_hashref($depth, $hashref)
 
 Formats the given hashref, with $depth (starting from 0) used to indent the output.
@@ -1262,11 +1362,15 @@ Note: The bind_attributes option/method affects the output.
 Just calls C<< $self -> format_hashref(0, $self -> statements) >>, which in turn uses the logger
 provided in the call to L</new()>.
 
+report_hashref() returns 0 for success and 1 for failure.
+
 =head2 run()
 
 The method which does all the work.
 
 See L</Synopsis> and scripts/bnf2tree.pl for sample code.
+
+run() returns 0 for success and 1 for failure.
 
 =head2 statements()
 

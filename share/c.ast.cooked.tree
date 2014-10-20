@@ -12,6 +12,9 @@ statements
    |   |---action
    |   |---=>
    |   |---[start,length,value]
+   |   |---latm
+   |   |---=>
+   |   |---1
    |---:start
    |   |---::=
    |   |---translationUnit
@@ -1421,23 +1424,48 @@ statements
    |---WS_many
    |   |---~
    |   |---WS
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<AUTO>
+   |   |---priority
+   |   |---=>
+   |   |----1
    |---AUTO
    |   |---~
    |   |---'auto'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<BREAK>
+   |   |---priority
+   |   |---=>
+   |   |----2
    |---BREAK
    |   |---~
    |   |---'break'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<CASE>
+   |   |---priority
+   |   |---=>
+   |   |----3
    |---CASE
    |   |---~
    |   |---'case'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<CHAR>
+   |   |---priority
+   |   |---=>
+   |   |----4
    |---CHAR
    |   |---~
    |   |---'char'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<CONST>
+   |   |---priority
+   |   |---=>
+   |   |----5
    |---CONST
    |   |---~
    |   |---'const'
@@ -1450,51 +1478,111 @@ statements
    |---CONST
    |   |---~
    |   |---'__const__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<CONTINUE>
+   |   |---priority
+   |   |---=>
+   |   |----6
    |---CONTINUE
    |   |---~
    |   |---'continue'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<DEFAULT>
+   |   |---priority
+   |   |---=>
+   |   |----7
    |---DEFAULT
    |   |---~
    |   |---'default'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<DO>
+   |   |---priority
+   |   |---=>
+   |   |----8
    |---DO
    |   |---~
    |   |---'do'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<DOUBLE>
+   |   |---priority
+   |   |---=>
+   |   |----9
    |---DOUBLE
    |   |---~
    |   |---'double'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<ELSE>
+   |   |---priority
+   |   |---=>
+   |   |----10
    |---ELSE
    |   |---~
    |   |---'else'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<ENUM>
+   |   |---priority
+   |   |---=>
+   |   |----11
    |---ENUM
    |   |---~
    |   |---'enum'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<EXTERN>
+   |   |---priority
+   |   |---=>
+   |   |----12
    |---EXTERN
    |   |---~
    |   |---'extern'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<FLOAT>
+   |   |---priority
+   |   |---=>
+   |   |----13
    |---FLOAT
    |   |---~
    |   |---'float'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<FOR>
+   |   |---priority
+   |   |---=>
+   |   |----14
    |---FOR
    |   |---~
    |   |---'for'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GOTO>
+   |   |---priority
+   |   |---=>
+   |   |----15
    |---GOTO
    |   |---~
    |   |---'goto'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<IF>
+   |   |---priority
+   |   |---=>
+   |   |----16
    |---IF
    |   |---~
    |   |---'if'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<INLINE>
+   |   |---priority
+   |   |---=>
+   |   |----17
    |---INLINE
    |   |---~
    |   |---'inline'
@@ -1510,19 +1598,39 @@ statements
    |---INLINE
    |   |---~
    |   |---'__forceinline'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<INT>
+   |   |---priority
+   |   |---=>
+   |   |----18
    |---INT
    |   |---~
    |   |---'int'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LONG>
+   |   |---priority
+   |   |---=>
+   |   |----19
    |---LONG
    |   |---~
    |   |---'long'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<REGISTER>
+   |   |---priority
+   |   |---=>
+   |   |----20
    |---REGISTER
    |   |---~
    |   |---'register'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<RESTRICT>
+   |   |---priority
+   |   |---=>
+   |   |----21
    |---RESTRICT
    |   |---~
    |   |---'restrict'
@@ -1535,15 +1643,30 @@ statements
    |---RESTRICT
    |   |---~
    |   |---'__restrict__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<RETURN>
+   |   |---priority
+   |   |---=>
+   |   |----22
    |---RETURN
    |   |---~
    |   |---'return'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<SHORT>
+   |   |---priority
+   |   |---=>
+   |   |----23
    |---SHORT
    |   |---~
    |   |---'short'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<SIGNED>
+   |   |---priority
+   |   |---=>
+   |   |----24
    |---SIGNED
    |   |---~
    |   |---'signed'
@@ -1553,31 +1676,66 @@ statements
    |---SIGNED
    |   |---~
    |   |---'__signed__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<SIZEOF>
+   |   |---priority
+   |   |---=>
+   |   |----25
    |---SIZEOF
    |   |---~
    |   |---'sizeof'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<STATIC>
+   |   |---priority
+   |   |---=>
+   |   |----26
    |---STATIC
    |   |---~
    |   |---'static'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<STRUCT>
+   |   |---priority
+   |   |---=>
+   |   |----27
    |---STRUCT
    |   |---~
    |   |---'struct'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<SWITCH>
+   |   |---priority
+   |   |---=>
+   |   |----28
    |---SWITCH
    |   |---~
    |   |---'switch'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<TYPEDEF>
+   |   |---priority
+   |   |---=>
+   |   |----29
    |---TYPEDEF
    |   |---~
    |   |---'typedef'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<UNION>
+   |   |---priority
+   |   |---=>
+   |   |----30
    |---UNION
    |   |---~
    |   |---'union'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<UNSIGNED>
+   |   |---priority
+   |   |---=>
+   |   |----31
    |---UNSIGNED
    |   |---~
    |   |---'unsigned'
@@ -1587,11 +1745,21 @@ statements
    |---UNSIGNED
    |   |---~
    |   |---'__unsigned__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<VOID>
+   |   |---priority
+   |   |---=>
+   |   |----32
    |---VOID
    |   |---~
    |   |---'void'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<VOLATILE>
+   |   |---priority
+   |   |---=>
+   |   |----33
    |---VOLATILE
    |   |---~
    |   |---'volatile'
@@ -1604,31 +1772,66 @@ statements
    |---VOLATILE
    |   |---~
    |   |---'__volatile__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<WHILE>
+   |   |---priority
+   |   |---=>
+   |   |----34
    |---WHILE
    |   |---~
    |   |---'while'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<ALIGNAS>
+   |   |---priority
+   |   |---=>
+   |   |----35
    |---ALIGNAS
    |   |---~
    |   |---'_Alignas'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<ALIGNOF>
+   |   |---priority
+   |   |---=>
+   |   |----36
    |---ALIGNOF
    |   |---~
    |   |---'_Alignof'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<ATOMIC>
+   |   |---priority
+   |   |---=>
+   |   |----37
    |---ATOMIC
    |   |---~
    |   |---'_Atomic'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<BOOL>
+   |   |---priority
+   |   |---=>
+   |   |----38
    |---BOOL
    |   |---~
    |   |---'_Bool'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LABEL>
+   |   |---priority
+   |   |---=>
+   |   |----38
    |---LABEL
    |   |---~
    |   |---'__label__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<COMPLEX>
+   |   |---priority
+   |   |---=>
+   |   |----39
    |---COMPLEX
    |   |---~
    |   |---'_Complex'
@@ -1638,37 +1841,87 @@ statements
    |---COMPLEX
    |   |---~
    |   |---'__complex__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GENERIC>
+   |   |---priority
+   |   |---=>
+   |   |----40
    |---GENERIC
    |   |---~
    |   |---'_Generic'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<IMAGINARY>
+   |   |---priority
+   |   |---=>
+   |   |----41
    |---IMAGINARY
    |   |---~
    |   |---'_Imaginary'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<NORETURN>
+   |   |---priority
+   |   |---=>
+   |   |----42
    |---NORETURN
    |   |---~
    |   |---'_Noreturn'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<STATIC_ASSERT>
+   |   |---priority
+   |   |---=>
+   |   |----43
    |---STATIC_ASSERT
    |   |---~
    |   |---'_Static_assert'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<THREAD_LOCAL>
+   |   |---priority
+   |   |---=>
+   |   |----44
    |---THREAD_LOCAL
    |   |---~
    |   |---'_Thread_local'
    |---THREAD_LOCAL
    |   |---~
    |   |---'__thread'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<FUNC_NAME>
+   |   |---priority
+   |   |---=>
+   |   |----45
    |---FUNC_NAME
    |   |---~
    |   |---'__func__'
-   |---
-   |---
-   |---
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<TYPEDEF_NAME>
+   |   |---priority
+   |   |---=>
+   |   |----100
+   |---:lexeme
+   |   |---~
+   |   |---<ENUMERATION_CONSTANT>
+   |   |---priority
+   |   |---=>
+   |   |----100
+   |---:lexeme
+   |   |---~
+   |   |---<IDENTIFIER>
+   |   |---priority
+   |   |---=>
+   |   |----100
+   |---:lexeme
+   |   |---~
+   |   |---<IDENTIFIER_UNAMBIGUOUS>
+   |   |---priority
+   |   |---=>
+   |   |----100
    |---_IDENTIFIER
    |   |---~
    |   |---L
@@ -1685,7 +1938,12 @@ statements
    |---IDENTIFIER_UNAMBIGUOUS
    |   |---~
    |   |---_IDENTIFIER
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<I_CONSTANT>
+   |   |---priority
+   |   |---=>
+   |   |----101
    |---I_CONSTANT
    |   |---~
    |   |---HP
@@ -1708,7 +1966,12 @@ statements
    |   |---QUOTE
    |   |---I_CONSTANT_INSIDE_many
    |   |---QUOTE
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<F_CONSTANT>
+   |   |---priority
+   |   |---=>
+   |   |----102
    |---F_CONSTANT
    |   |---~
    |   |---D_many
@@ -1743,7 +2006,12 @@ statements
    |   |---'.'
    |   |---P
    |   |---FS_maybe
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<STRING_LITERAL_UNIT>
+   |   |---priority
+   |   |---=>
+   |   |----103
    |---STRING_LITERAL_INSIDE
    |   |---~
    |   |---[^"\\\n]
@@ -1760,95 +2028,210 @@ statements
    |   |---STRING_LITERAL_INSIDE_any
    |   |---'"'
    |   |---WS_any
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<ELLIPSIS>
+   |   |---priority
+   |   |---=>
+   |   |----104
    |---ELLIPSIS
    |   |---~
    |   |---'...'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<RIGHT_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----105
    |---RIGHT_ASSIGN
    |   |---~
    |   |---'>>='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LEFT_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----106
    |---LEFT_ASSIGN
    |   |---~
    |   |---'<<='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<ADD_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----107
    |---ADD_ASSIGN
    |   |---~
    |   |---'+='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<SUB_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----108
    |---SUB_ASSIGN
    |   |---~
    |   |---'-='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MUL_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----109
    |---MUL_ASSIGN
    |   |---~
    |   |---'*='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<DIV_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----110
    |---DIV_ASSIGN
    |   |---~
    |   |---'/='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MOD_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----111
    |---MOD_ASSIGN
    |   |---~
    |   |---'%='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<AND_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----112
    |---AND_ASSIGN
    |   |---~
    |   |---'&='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<XOR_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----113
    |---XOR_ASSIGN
    |   |---~
    |   |---'^='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<OR_ASSIGN>
+   |   |---priority
+   |   |---=>
+   |   |----114
    |---OR_ASSIGN
    |   |---~
    |   |---'|='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<RIGHT_OP>
+   |   |---priority
+   |   |---=>
+   |   |----115
    |---RIGHT_OP
    |   |---~
    |   |---'>>'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LEFT_OP>
+   |   |---priority
+   |   |---=>
+   |   |----116
    |---LEFT_OP
    |   |---~
    |   |---'<<'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<INC_OP>
+   |   |---priority
+   |   |---=>
+   |   |----117
    |---INC_OP
    |   |---~
    |   |---'++'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<DEC_OP>
+   |   |---priority
+   |   |---=>
+   |   |----118
    |---DEC_OP
    |   |---~
    |   |---'--'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<PTR_OP>
+   |   |---priority
+   |   |---=>
+   |   |----119
    |---PTR_OP
    |   |---~
    |   |---'->'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<AND_OP>
+   |   |---priority
+   |   |---=>
+   |   |----120
    |---AND_OP
    |   |---~
    |   |---'&&'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<OR_OP>
+   |   |---priority
+   |   |---=>
+   |   |----121
    |---OR_OP
    |   |---~
    |   |---'||'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LE_OP>
+   |   |---priority
+   |   |---=>
+   |   |----122
    |---LE_OP
    |   |---~
    |   |---'<='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GE_OP>
+   |   |---priority
+   |   |---=>
+   |   |----123
    |---GE_OP
    |   |---~
    |   |---'>='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<EQ_OP>
+   |   |---priority
+   |   |---=>
+   |   |----124
    |---EQ_OP
    |   |---~
    |   |---'=='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<NE_OP>
+   |   |---priority
+   |   |---=>
+   |   |----125
    |---NE_OP
    |   |---~
    |   |---'!='
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<SEMICOLON>
+   |   |---priority
+   |   |---=>
+   |   |----126
    |---SEMICOLON
    |   |---~
    |   |---';'
@@ -1857,9 +2240,24 @@ statements
    |   |---'{'
    |   |---|
    |   |---'<%'
-   |---
-   |---
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LCURLY>
+   |   |---priority
+   |   |---=>
+   |   |----127
+   |---:lexeme
+   |   |---~
+   |   |---<LCURLY_SCOPE>
+   |   |---priority
+   |   |---=>
+   |   |----127
+   |---:lexeme
+   |   |---~
+   |   |---<LCURLY_REENTERSCOPE>
+   |   |---priority
+   |   |---=>
+   |   |----127
    |---LCURLY
    |   |---~
    |   |---_LCURLY
@@ -1874,31 +2272,66 @@ statements
    |   |---'}'
    |   |---|
    |   |---'%>'
-   |---
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<RCURLY>
+   |   |---priority
+   |   |---=>
+   |   |----128
+   |---:lexeme
+   |   |---~
+   |   |---<RCURLY_SCOPE>
+   |   |---priority
+   |   |---=>
+   |   |----128
    |---RCURLY
    |   |---~
    |   |---_RCURLY
    |---RCURLY_SCOPE
    |   |---~
    |   |---_RCURLY
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<COMMA>
+   |   |---priority
+   |   |---=>
+   |   |----129
    |---COMMA
    |   |---~
    |   |---','
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<COLON>
+   |   |---priority
+   |   |---=>
+   |   |----130
    |---COLON
    |   |---~
    |   |---':'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<EQUAL>
+   |   |---priority
+   |   |---=>
+   |   |----131
    |---EQUAL
    |   |---~
    |   |---'='
    |---_LPAREN
    |   |---~
    |   |---'('
-   |---
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LPAREN>
+   |   |---priority
+   |   |---=>
+   |   |----132
+   |---:lexeme
+   |   |---~
+   |   |---<LPAREN_SCOPE>
+   |   |---priority
+   |   |---=>
+   |   |----132
    |---LPAREN
    |   |---~
    |   |---_LPAREN
@@ -1908,79 +2341,169 @@ statements
    |---_RPAREN
    |   |---~
    |   |---')'
-   |---
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<RPAREN>
+   |   |---priority
+   |   |---=>
+   |   |----133
+   |---:lexeme
+   |   |---~
+   |   |---<RPAREN_SCOPE>
+   |   |---priority
+   |   |---=>
+   |   |----133
    |---RPAREN
    |   |---~
    |   |---_RPAREN
    |---RPAREN_SCOPE
    |   |---~
    |   |---_RPAREN
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LBRACKET>
+   |   |---priority
+   |   |---=>
+   |   |----134
    |---LBRACKET
    |   |---~
    |   |---'['
    |   |---|
    |   |---'<:'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<RBRACKET>
+   |   |---priority
+   |   |---=>
+   |   |----135
    |---RBRACKET
    |   |---~
    |   |---']'
    |   |---|
    |   |---':>'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<DOT>
+   |   |---priority
+   |   |---=>
+   |   |----136
    |---DOT
    |   |---~
    |   |---'.'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<AMPERSAND>
+   |   |---priority
+   |   |---=>
+   |   |----137
    |---AMPERSAND
    |   |---~
    |   |---'&'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<EXCLAMATION>
+   |   |---priority
+   |   |---=>
+   |   |----138
    |---EXCLAMATION
    |   |---~
    |   |---'!'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<TILDE>
+   |   |---priority
+   |   |---=>
+   |   |----139
    |---TILDE
    |   |---~
    |   |---'~'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<HYPHEN>
+   |   |---priority
+   |   |---=>
+   |   |----140
    |---HYPHEN
    |   |---~
    |   |---'-'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<PLUS>
+   |   |---priority
+   |   |---=>
+   |   |----141
    |---PLUS
    |   |---~
    |   |---'+'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<STAR>
+   |   |---priority
+   |   |---=>
+   |   |----142
    |---STAR
    |   |---~
    |   |---'*'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<SLASH>
+   |   |---priority
+   |   |---=>
+   |   |----143
    |---SLASH
    |   |---~
    |   |---'/'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<PERCENT>
+   |   |---priority
+   |   |---=>
+   |   |----144
    |---PERCENT
    |   |---~
    |   |---'%'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<LESS_THAN>
+   |   |---priority
+   |   |---=>
+   |   |----145
    |---LESS_THAN
    |   |---~
    |   |---'<'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GREATER_THAN>
+   |   |---priority
+   |   |---=>
+   |   |----146
    |---GREATER_THAN
    |   |---~
    |   |---'>'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<CARET>
+   |   |---priority
+   |   |---=>
+   |   |----147
    |---CARET
    |   |---~
    |   |---'^'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<VERTICAL_BAR>
+   |   |---priority
+   |   |---=>
+   |   |----148
    |---VERTICAL_BAR
    |   |---~
    |   |---'|'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<QUESTION_MARK>
+   |   |---priority
+   |   |---=>
+   |   |----149
    |---QUESTION_MARK
    |   |---~
    |   |---'?'
@@ -2064,8 +2587,18 @@ statements
    |---:discard
    |   |---=>
    |   |---ANYTHING_ELSE
-   |---
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GCC_ASM>
+   |   |---priority
+   |   |---=>
+   |   |----60
+   |---:lexeme
+   |   |---~
+   |   |---<ANY_ASM>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---_ASM
    |   |---~
    |   |---'asm__'
@@ -2087,7 +2620,12 @@ statements
    |---ASM_OPAQUE
    |   |---~
    |   |---[^\s\S]
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GCC_EXTENSION>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---GCC_EXTENSION
    |   |---~
    |   |---'extension__'
@@ -2097,19 +2635,39 @@ statements
    |---GCC_EXTENSION
    |   |---~
    |   |---'__extension__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GCC_BUILTIN_VA_START>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---GCC_BUILTIN_VA_START
    |   |---~
    |   |---'__builtin_va_start'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GCC_BUILTIN_VA_END>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---GCC_BUILTIN_VA_END
    |   |---~
    |   |---'__builtin_va_end'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GCC_BUILTIN_VA_ARG>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---GCC_BUILTIN_VA_ARG
    |   |---~
    |   |---'__builtin_va_arg'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GCC_TYPEOF>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---GCC_TYPEOF
    |   |---~
    |   |---'typeof'
@@ -2119,11 +2677,21 @@ statements
    |---GCC_TYPEOF
    |   |---~
    |   |---'__typeof__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GCC_BUILTIN_OFFSETOF>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---GCC_BUILTIN_OFFSETOF
    |   |---~
    |   |---'__builtin_offsetof'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<GCC_BUILTIN_VA_LIST>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---GCC_BUILTIN_VA_LIST
    |   |---~
    |   |---'__builtin_va_list'
@@ -2139,59 +2707,129 @@ statements
    |---GCC_ALIGNOF
    |   |---~
    |   |---'alignof'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_FASTCALL>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_FASTCALL
    |   |---~
    |   |---'__fastcall'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_THISCALL>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_THISCALL
    |   |---~
    |   |---'__thiscall'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_BASED>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_BASED
    |   |---~
    |   |---'__based'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_CDECL>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_CDECL
    |   |---~
    |   |---'__cdecl'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_CLRCALL>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_CLRCALL
    |   |---~
    |   |---'__clrcall'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS___C_ASSERT__>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS___C_ASSERT__
    |   |---~
    |   |---'__C_ASSERT__'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_STDCALL>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_STDCALL
    |   |---~
    |   |---'__stdcall'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_INT8>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_INT8
    |   |---~
    |   |---'__int8'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_INT16>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_INT16
    |   |---~
    |   |---'__int16'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_INT32>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_INT32
    |   |---~
    |   |---'__int32'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_INT64>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_INT64
    |   |---~
    |   |---'__int64'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_W64>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_W64
    |   |---~
    |   |---'__w64'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_PTR32>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_PTR32
    |   |---~
    |   |---'__ptr32'
-   |---
+   |---:lexeme
+   |   |---~
+   |   |---<MSVS_PTR64>
+   |   |---priority
+   |   |---=>
+   |   |----60
    |---MSVS_PTR64
    |   |---~
    |   |---'__ptr64'

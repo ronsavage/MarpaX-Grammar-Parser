@@ -34,14 +34,11 @@ if ($option_parser -> getoptions
 
 	# Return 0 for success and 1 for failure.
 
-	my($parser)    = MarpaX::Grammar::Parser -> new(%option);
-	my($exit)      = $parser -> run;
-	my($formatter) = MarpaX::Grammar::Parser::Utils -> new
-						(
-							logger   => $parser -> logger,
-							raw_tree => $parser -> raw_tree,
-						);
-	$exit          = $formatter -> run;
+	my($parser) = MarpaX::Grammar::Parser -> new(%option);
+	my($exit)   = $parser -> run;
+	$exit       = $parser -> report_hashref if ($exit == 0);
+
+	# Return 0 for success and 1 for failure.
 
 	exit $exit;
 }
