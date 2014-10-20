@@ -938,7 +938,7 @@ For more help, run:
 See share/*.bnf for input files and share/*.tree for output files.
 
 Installation includes copying all files from the share/ directory, into a dir chosen by
-L<File::ShareDir>. Run scripts/find.grammars.pl to display the name of the dir.
+L<File::ShareDir>. Run scripts/find.grammars.pl to display the name of that dir.
 
 The cooked tree can be graphed with L<MarpaX::Grammar::GraphViz2>. That module has its own
 L<demo page|http://savage.net.au/Perl-modules/html/marpax.grammar.graphviz2/index.html>.
@@ -1018,8 +1018,7 @@ Default: undef.
 
 =item o marpa_bnf_file => aMarpaBNFFileName
 
-Specify the name of Marpa's own BNF file. This file ships with L<Marpa::R2>. It's name is
-metag.bnf. A copy ships with this distro. See share/metag.bnf.
+Specify the name of Marpa's own BNF file. This distro ships it as share/metag.bnf.
 
 This option is mandatory.
 
@@ -1037,7 +1036,7 @@ Default: 'notice'.
 
 =item o minlevel => $level
 
-This option affects L<Log::Handler> object.
+This option affects L<Log::Handler> objects.
 
 See the L<Log::Handler::Levels> docs.
 
@@ -1045,7 +1044,7 @@ Default: 'error'.
 
 No lower levels are used.
 
-=item o -output_hashref Boolean
+=item o output_hashref Boolean
 
 Log (1) or skip (0) the hashref version of the cooked tree.
 
@@ -1273,14 +1272,7 @@ See L</Synopsis> and scripts/bnf2tree.pl for sample code.
 
 Returns a hashref describing the grammar provided in the user_bnf_file parameter to L</new()>.
 
-The keys in the hashref are the types of statements found in the grammar, and the values for those
-keys are either '1' to indicate the key exists, or a hashref.
-
-The latter hashref's keys are all the sub-types of statements found in the grammar, for the given
-statement.
-
-The pattern of keys pointing to either '1' or a hashref, is repeated to whatever depth is required
-to represent the tree.
+The L</FAQ> discusses the format of this hashref.
 
 See also L</output_hashref()>.
 
@@ -1313,7 +1305,7 @@ This is the output from post-processing Marpa's analysis of share/c.ast.bnf.
 
 The command to generate this file is:
 
-	shell> scripts/bnf2tree.sh c.ast
+	scripts/bnf2tree.sh c.ast
 
 =item o share/c.ast.raw.tree
 
@@ -1322,7 +1314,7 @@ which indicates the complexity of Jean-Damien's grammar for C.
 
 The command to generate this file is:
 
-	shell> scripts/bnf2tree.sh c.ast
+	scripts/bnf2tree.sh c.ast
 
 =item o share/json.1.bnf
 
@@ -1332,7 +1324,7 @@ See L<https://gist.github.com/pstuifzand/4447349>.
 
 The command to process this file is:
 
-	shell> scripts/bnf2tree.sh json.1
+	scripts/bnf2tree.sh json.1
 
 The outputs are share/json.1.cooked.tree and share/json.1.raw.tree.
 
@@ -1343,7 +1335,7 @@ above from Peter.
 
 The command to process this file is:
 
-	shell> scripts/bnf2tree.sh json.2
+	scripts/bnf2tree.sh json.2
 
 The outputs are share/json.2.cooked.tree and share/json.2.raw.tree.
 
@@ -1353,20 +1345,20 @@ The is yet another JSON grammar written by Jeffrey Kegler.
 
 The command to process this file is:
 
-	shell> scripts/bnf2tree.sh json.3
+	scripts/bnf2tree.sh json.3
 
 The outputs are share/json.3.cooked.tree and share/json.3.raw.tree.
 
 =item o share/metag.bnf.
 
 This is a copy of L<Marpa::R2>'s BNF. That is, it's the file which Marpa uses to validate both
-itself and any user's BNF file.
+its own metag.bnf (self-reflexively), and any user's BNF file.
 
 See L</marpa_bnf_file([$bnf_file_name])> above.
 
 The command to process this file is:
 
-	shell> scripts/bnf2tree.sh metag
+	scripts/bnf2tree.sh metag
 
 The outputs are share/metag.cooked.tree and share/metag.raw.tree.
 
@@ -1385,7 +1377,7 @@ See L</user_bnf_file([$bnf_file_name])> above.
 
 The command to process this file is:
 
-	shell> scripts/bnf2tree.sh stringparser
+	scripts/bnf2tree.sh stringparser
 
 The outputs are share/stringparser.cooked.tree and share/stringparser.raw.tree.
 
@@ -1400,7 +1392,7 @@ Created by:
 
 This is the output of running:
 
-	shell> perl scripts/metag.pl share/metag.bnf share/stringparser.bnf > \
+	scripts/metag.pl share/metag.bnf share/stringparser.bnf > \
 		share/stringparser.treedumper
 
 That script, metag.pl, is discussed just below, and in the L</FAQ>.
@@ -1411,7 +1403,7 @@ It is part of L<MarpaX::Database::Terminfo>, written by Jean-Damien Durand.
 
 The command to process this file is:
 
-	shell> scripts/bnf2tree.sh termcap.info
+	scripts/bnf2tree.sh termcap.info
 
 The outputs are share/termcap.info.cooked.tree and share/termcap.info.raw.tree.
 
@@ -1427,7 +1419,7 @@ These scripts are all in the scripts/ directory.
 
 This is a neat way of using this module. For help, run:
 
-	shell> perl -Ilib scripts/bnf2tree.pl -h
+	scripts/bnf2tree.pl -h
 
 Of course you are also encouraged to include the module directly in your own code.
 
@@ -1440,13 +1432,13 @@ This is a quick way for me to run bnf2tree.pl.
 This prints the path to a grammar file. After installation of the module, run it with any of these
 	parameters:
 
-	shell> perl scripts/find.grammars.pl (Defaults to json.1.bnf)
-	shell> perl scripts/find.grammars.pl c.ast.bnf
-	shell> perl scripts/find.grammars.pl json.1.bnf
-	shell> perl scripts/find.grammars.pl json.2.bnf
-	shell> perl scripts/find.grammars.pl json.3.bnf
-	shell> perl scripts/find.grammars.pl stringparser.bnf
-	shell> perl scripts/find.grammars.pl termcap.inf.bnf
+	scripts/find.grammars.pl (Defaults to json.1.bnf)
+	scripts/find.grammars.pl c.ast.bnf
+	scripts/find.grammars.pl json.1.bnf
+	scripts/find.grammars.pl json.2.bnf
+	scripts/find.grammars.pl json.3.bnf
+	scripts/find.grammars.pl stringparser.bnf
+	scripts/find.grammars.pl termcap.inf.bnf
 
 It will print the name of the path to given grammar file.
 
@@ -1601,6 +1593,25 @@ See share/stringparser.raw.tree.
 Because L<dot|http://graphviz.org> assigns a special meaning to labels which begin with '<' and
 '<<'.
 
+=head2 What is the format of the hashref of the cooked tree?
+
+The keys in the hashref are the types of statements found in the grammar, and the values for those
+keys are either '1' to indicate the key exists, or a hashref.
+
+The latter hashref's keys are all the sub-types of statements found in the grammar, for the given
+statement.
+
+The pattern of keys pointing to either '1' or a hashref, is repeated to whatever depth is required
+to represent the tree.
+
+See share/*.hashref for sample output. Instructions for producing this output are detailed under
+L</Data Files>.
+
+=head2 Why did you write your own formatter for the output hashref?
+
+I tried some fine modules (L<Data::Dumper>, L<Data::Dumper::Concise> and L<Data::Dump::Streamer>),
+but even though they may have every option you want, they don't have the options I<I> want.
+
 =head2 How do I sort the daughters of a node?
 
 Here's one way, using the node names as sort keys.
@@ -1613,11 +1624,6 @@ As an example, choose $root as either $self -> cooked_tree or $self -> raw_tree,
 
 Note: Since the original order of the daughters, in both the cooked and raw trees, is significant,
 sorting is contra-indicated.
-
-=head2 Why did you write your own formatter for the output hashref?
-
-I tried some fine modules (L<Data::Dumper>, L<Data::Dumper::Concise> and L<Data::Dump::Streamer>),
-but even though they may have every option you want, they don't have the options I<I> want.
 
 =head2 Where did the basic code come from?
 
