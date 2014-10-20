@@ -112,8 +112,6 @@ Specify the name of Marpa's own BNF file.
 
 This file ships with L<Marpa::R2>'s file as share/metag.bnf.
 
-See share/metag.bnf.
-
 This option is mandatory.
 
 Default: ''.
@@ -122,7 +120,7 @@ Default: ''.
 
 This option affects Log::Handler.
 
-See the Log::handler docs.
+See the L<Log::Handler> docs.
 
 Nothing is printed by default.
 
@@ -132,7 +130,7 @@ Default: 'notice'.
 
 This option affects Log::Handler.
 
-See the Log::handler docs.
+See the L<Log::Handler> docs.
 
 Default: 'error'.
 

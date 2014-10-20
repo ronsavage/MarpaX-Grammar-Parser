@@ -1614,6 +1614,11 @@ As an example, choose $root as either $self -> cooked_tree or $self -> raw_tree,
 Note: Since the original order of the daughters, in both the cooked and raw trees, is significant,
 sorting is contra-indicated.
 
+=head2 Why did you write your own formatter for the output hashref?
+
+I tried some fine modules (L<Data::Dumper>, L<Data::Dumper::Concise> and L<Data::Dump::Streamer>),
+but even though they may have every option you want, they don't have the options I<I> want.
+
 =head2 Where did the basic code come from?
 
 Jeffrey Kegler wrote it, and posted it on the Google Group dedicated to Marpa, on 2013-07-22,
