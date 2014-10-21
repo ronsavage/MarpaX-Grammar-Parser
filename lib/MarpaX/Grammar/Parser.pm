@@ -7,6 +7,7 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
+use Data::Dumper::Concise;             # For Dumper().
 use Data::TreeDumper ();               # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
@@ -130,7 +131,7 @@ has user_bnf_file =>
 
 # Warning: There's another $VERSION in package MarpaX::Grammar::Parser::Dummy below.
 
-our $VERSION = '1.04';
+our $VERSION = '1.05';
 
 # ------------------------------------------------
 
@@ -176,22 +177,23 @@ sub BUILD
 
 # ------------------------------------------------
 
-sub build_hashref
+sub _build_hashref
 {
 	my($self) = @_;
 
 	my($name, @name);
 	my(@stack);
 
-	$self -> cooked_tree -> walk_down
+	$self -> raw_tree -> walk_down
 	({
 		callback => sub
 		{
 			my($node, $option) = @_;
-			@name = ();
-			$name = $node -> name || '';
+			$name = $node -> name;
 
 			return 1 if ( (length($name) == 0) || ($name =~ /^\d+$/) );
+
+			@name = ();
 
 			while ($node -> is_root == 0)
 			{
@@ -208,23 +210,14 @@ sub build_hashref
 		_depth => 0,
 	});
 
-	@stack     = sort @stack;
-	my($count) = 0;
+	@stack = sort @stack;
 
 	my($ref);
 	my(%statements);
 
 	for my $i (0 .. $#stack)
 	{
-		@name = split(/\|/, $stack[$i]);
-
-		# Skip all but 1 elements in stack which just say 'statement'.
-
-		if ($#name == 0)
-		{
-			next if (++$count > 1);
-		}
-
+		@name           = split(/\|/, $stack[$i]);
 		$ref            = \%statements;
 		$$ref{$name[0]} = {} if (! $$ref{$name[0]});
 
@@ -233,7 +226,7 @@ sub build_hashref
 			if ($j < $#name)
 			{
 				$ref             = $$ref{$name[$j - 1]};
-				$$ref{$name[$j]} = {} if (! $$ref{$name[$j]});
+				$$ref{$name[$j]} = {} if (! ref $$ref{$name[$j]});
 			}
 			else
 			{
@@ -243,14 +236,9 @@ sub build_hashref
 		}
 	}
 
-	if (! defined $statements{statement})
-	{
-		$self -> log(info => 'About to die');
-	}
-
 	$self -> statements($statements{statement});
 
-} # End of build_hashref.
+} # End of _build_hashref.
 
 # --------------------------------------------------
 
@@ -503,6 +491,7 @@ sub format_hashref
 
 	my($ref_present) = any {ref $$hashref{$_} } @keys; # $#refs >= 0 ? 1 : 0;
 
+	my($adjust_indent);
 	my($indent);
 	my($key_pad);
 	my($pretty_key);
@@ -510,11 +499,22 @@ sub format_hashref
 
 	for my $key (sort keys %$hashref)
 	{
-		$indent     = '    ' x $depth;
-		$pretty_key = ($key =~ /^\w+$/) || ($key =~ /^\'/) ? $key : "'$key'";
-		$key_pad    = ' ' x ($max_key_length - length($key) + 1);
-		$key_pad    = ' ' if ($ref_present);
-		$line       = "$indent$pretty_key$key_pad=>";
+		$indent  = '    ' x $depth;
+		$key_pad = ' ' x ($max_key_length - length($key) + 1);
+
+		# Quote keys which are not word and do not already have quotes.
+
+		if ( ($key =~ /^\w+$/) || ($key =~ /^\'/) )
+		{
+			$pretty_key = $key;
+		}
+		else
+		{
+			$pretty_key = "'$key'";
+		}
+
+		$key_pad = ' ' if ($ref_present);
+		$line    = "$indent$pretty_key$key_pad=>";
 
 		if (ref $$hashref{$key})
 		{
@@ -1144,7 +1144,7 @@ sub run
 
 	if ($self -> output_hashref)
 	{
-		$self -> build_hashref;
+		$self -> _build_hashref;
 		$self -> report_hashref;
 	}
 
@@ -1311,7 +1311,7 @@ No lower levels are used.
 
 =item o output_hashref Boolean
 
-Log (1) or skip (0) the hashref version of the cooked tree.
+Log (1) or skip (0) the hashref version of the raw tree.
 
 Note: This needs -maxlevel elevated from its default value of 'notice' to 'info', to do anything.
 
@@ -1426,7 +1426,7 @@ Note: The bind_attributes option/method affects the output.
 
 Returns the first G1-level rule in the user's gramamr. This is used to fabricate a start rule if
 'start_rule' is not found in the cooked tree. This new node is not in the raw tree, but only in
-the cooked tree, and hence in the hashref.
+the cooked tree, and hence in the hashref version of the cooked tree.
 
 The presence of a start rule helps L<MarpaX::Grammar::GraphViz2> generate the grammar's image.
 
@@ -1493,8 +1493,7 @@ The constructor. See L</Constructor and Initialization>.
 
 Here, the [] indicate an optional parameter.
 
-Get or set the option which includes (1) or excludes (0) a hashref version of the grammar from the
-output to the log.
+Get or set the option to log (1) or exclude (0) a hashref version of the raw tree.
 
 This hashref can be output by calling L</new()> as C<< new(max => 'info', output_hashref => 1) >>.
 
@@ -1532,10 +1531,14 @@ Note: The bind_attributes option/method affects the output.
 
 =head2 report_hashref()
 
-Just calls C<< $self -> format_hashref(0, $self -> statements) >>, which in turn uses the logger
-provided in the call to L</new()>.
+Outputs the hashref version of the raw tree to the logger.
 
-report_hashref() returns 0 for success and 1 for failure.
+It does this by calling C<< $self -> format_hashref(0, $self -> statements) >>, which in turn uses
+the logger provided in the call to L</new()>.
+
+See L</format_hashref($depth, $hashref)>.
+
+C<report_hashref()> returns 0 for success and 1 for failure.
 
 =head2 run()
 

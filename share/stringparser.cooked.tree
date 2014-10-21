@@ -1,4 +1,7 @@
 statements
+   |--- start
+   |   |--- ::=
+   |   |--- graph_grammar
    |--- :default
    |   |--- ::=
    |   |--- action
@@ -9,9 +12,6 @@ statements
    |   |--- latm
    |   |--- =>
    |   |--- 1
-   |--- :start
-   |   |--- ::=
-   |   |--- graph_grammar
    |--- graph_grammar
    |   |--- ::=
    |   |--- graph_definition
