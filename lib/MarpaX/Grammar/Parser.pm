@@ -342,13 +342,21 @@ sub compress_branch
 			my($node, $option) = @_;
 			$name = $node -> name;
 
-			if ($name eq 'default_rule')
+			if ($name eq 'completion_event_declaration')
+			{
+				$token = $self -> _process_completion_event_rule($index, $node);
+			}
+			elsif ($name eq 'default_rule')
 			{
 				$token = $self -> _process_default_rule($index, $node);
 			}
 			elsif ($name eq 'discard_rule')
 			{
 				$token = $self -> _process_discard_rule($index, $node);
+			}
+			elsif ($name eq 'empty_rule')
+			{
+				$token = $self -> _process_empty_rule($index, $node);
 			}
 			elsif ($name eq 'lexeme_default_statement')
 			{
@@ -357,6 +365,14 @@ sub compress_branch
 			elsif ($name eq 'lexeme_rule')
 			{
 				$token = $self -> _process_lexeme_rule($index, $node);
+			}
+			elsif ($name eq 'nulled_event_declaration')
+			{
+				$token = $self -> _process_nulled_event_rule($index, $node);
+			}
+			elsif ($name eq 'prediction_event_declaration')
+			{
+				$token = $self -> _process_predicted_event_rule($index, $node);
 			}
 			elsif ($name eq 'priority_rule')
 			{
@@ -527,6 +543,45 @@ sub log
 
 # --------------------------------------------------
 
+sub _process_completion_event_rule
+{
+	my($self, $index, $a_node) = @_;
+
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
+
+			if ($node -> mother -> mother -> name eq 'event_name')
+			{
+				push @token, 'event', $name, '=', 'completed';
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	return [@token];
+
+} # End of _process_completion_event_rule.
+
+# --------------------------------------------------
+
 sub _process_default_rule
 {
 	my($self, $index, $a_node) = @_;
@@ -592,7 +647,7 @@ sub _process_discard_rule
 
 			if ($node -> mother -> mother -> name eq 'symbol_name')
 			{
-				push @token, ':discard', '=>', {$node -> mother -> name => $name};
+				push @token, ':discard', '~', {$node -> mother -> name => $name};
 			}
 
 			return 1; # Keep walking.
@@ -606,6 +661,45 @@ sub _process_discard_rule
 
 # --------------------------------------------------
 
+sub _process_empty_rule
+{
+	my($self, $index, $a_node) = @_;
+
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
+
+			if ($node -> mother -> name =~ /op_declare_+/)
+			{
+				push @token, $name;
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	return [@token];
+
+} # End of _process_empty_rule.
+
+# --------------------------------------------------
+
 sub _process_lexeme_default
 {
 	my($self, $index, $a_node) = @_;
@@ -613,6 +707,7 @@ sub _process_lexeme_default
 	(
 		action             => 'action',
 		blessing           => 'bless',
+		forgiving          => 'latm',
 		latm_specification => 'latm',
 	);
 	my(@token) = ('lexeme default', '=');
@@ -696,6 +791,45 @@ sub _process_lexeme_rule
 
 # --------------------------------------------------
 
+sub _process_nulled_event_rule
+{
+	my($self, $index, $a_node) = @_;
+
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
+
+			if ($node -> mother -> mother -> name eq 'event_name')
+			{
+				push @token, 'event', $name, '=', 'nulled';
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	return [@token];
+
+} # End of _process_nulled_event_rule.
+
+# --------------------------------------------------
+
 sub _process_parenthesized_list
 {
 	my($self, $index, $a_node, $depth_under) = @_;
@@ -734,11 +868,54 @@ sub _process_parenthesized_list
 
 # --------------------------------------------------
 
-sub _process_priority_rule
+sub _process_predicted_event_rule
 {
 	my($self, $index, $a_node) = @_;
 
-	my($alternative_count) = 0;
+	my($name);
+	my(@token);
+
+	$a_node -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			# Skip the first 2 daughters, which hold offsets for the
+			# start and end of the token within the input stream.
+
+			return 1 if ($node -> my_daughter_index < 2);
+
+			if ($node -> mother -> mother -> name eq 'event_name')
+			{
+				push @token, 'event', $name, '=', 'predicted';
+			}
+			elsif ($node -> mother -> mother -> name eq 'symbol_name')
+			{
+				push @token, $name;
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	return [@token];
+
+} # End of _process_predicted_event_rule.
+
+# --------------------------------------------------
+
+sub _process_priority_rule
+{
+	my($self, $index, $a_node) = @_;
+	my($alternative_count)     = 0;
+	my(%map)                   =
+	(
+		action   => 'action',
+		blessing => 'bless',
+	);
 
 	my($continue);
 	my($depth_under);
@@ -758,19 +935,15 @@ sub _process_priority_rule
 
 			return 1 if ($node -> my_daughter_index < 2);
 
-			if ($node -> mother -> mother -> name eq 'action_name')
+			if ($node -> mother -> mother -> name =~ /(action|blessing)_name/)
 			{
-				push @token, 'action', '=>', $name;
+				push @token, $map{$1}, '=>', $name;
 			}
 			elsif ($name eq 'alternative')
 			{
 				$alternative_count++;
 
 				push @token, '|' if ($alternative_count > 1);
-			}
-			elsif ($node -> mother -> mother -> name eq 'blessing_name')
-			{
-				push @token, 'bless', '=>', $name;
 			}
 			elsif ($node -> mother -> name eq 'character_class')
 			{
@@ -791,7 +964,7 @@ sub _process_priority_rule
 			{
 				push @token, 'rank', '=>', $name;
 			}
-			elsif ($node -> mother -> mother -> name eq 'separator_specification')
+			elsif ($node eq 'separator_specification')
 			{
 				push @token, 'separator', '=>';
 			}
