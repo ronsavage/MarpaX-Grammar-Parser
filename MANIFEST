@@ -36,9 +36,13 @@ share/json.3.bnf
 share/json.3.cooked.tree
 share/json.3.raw.tree
 share/metag.bnf
+share/metag.cooked.tree
+share/metag.hashref
+share/metag.raw.tree
 share/stringparser.bnf
 share/stringparser.cooked.attributes.tree
 share/stringparser.cooked.tree
+share/stringparser.hashref
 share/stringparser.raw.attributes.tree
 share/stringparser.raw.tree
 share/stringparser.treedumper
