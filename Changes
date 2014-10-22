@@ -1,5 +1,9 @@
 Revision history for Perl extension MarpaX::Grammar::Parser.
 
+1.07  Unreleased
+	- Clean up search for first rule (in case there is no :start rule).
+	- Clean up visual breaks, which should have all be 50 chars long.
+
 1.06  Wed Oct 22 13:37:00 2014
 	- Oops. Forgot to run homegrown validate.build.make.pl to cross-check pre-reqs.
 		Added List::AllUtils and Types::Standard.
