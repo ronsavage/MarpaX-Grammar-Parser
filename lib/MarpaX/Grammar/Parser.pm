@@ -239,7 +239,7 @@ sub _build_hashref
 
 } # End of _build_hashref.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _check_start_rule
 {
@@ -280,7 +280,7 @@ sub _check_start_rule
 
 } # End of _check_start_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub clean_name
 {
@@ -313,7 +313,7 @@ sub clean_name
 
 } # End of clean_name.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub compress_branch
 {
@@ -416,7 +416,7 @@ sub compress_branch
 
 } # End of compress_branch.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub compress_tree
 {
@@ -440,7 +440,7 @@ sub compress_tree
 
 } # End of compress_tree.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _fabricate_start_rule
 {
@@ -456,7 +456,7 @@ sub _fabricate_start_rule
 
 } # End of _fabricate_start_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _find_start_rule
 {
@@ -530,7 +530,7 @@ sub format_hashref
 
 } # End of format_hashref.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub log
 {
@@ -540,7 +540,7 @@ sub log
 
 } # End of log.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_completion_event_rule
 {
@@ -579,7 +579,7 @@ sub _process_completion_event_rule
 
 } # End of _process_completion_event_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_default_rule
 {
@@ -623,7 +623,7 @@ sub _process_default_rule
 
 } # End of _process_default_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_discard_rule
 {
@@ -658,7 +658,7 @@ sub _process_discard_rule
 
 } # End of _process_discard_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_empty_rule
 {
@@ -697,7 +697,7 @@ sub _process_empty_rule
 
 } # End of _process_empty_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_lexeme_default
 {
@@ -743,7 +743,7 @@ sub _process_lexeme_default
 
 } # End of _process_lexeme_default.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_lexeme_rule
 {
@@ -788,7 +788,7 @@ sub _process_lexeme_rule
 
 } # End of _process_lexeme_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_nulled_event_rule
 {
@@ -827,7 +827,7 @@ sub _process_nulled_event_rule
 
 } # End of _process_nulled_event_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_parenthesized_list
 {
@@ -865,7 +865,7 @@ sub _process_parenthesized_list
 
 } # End of _process_parenthesized_list.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_predicted_event_rule
 {
@@ -904,7 +904,7 @@ sub _process_predicted_event_rule
 
 } # End of _process_predicted_event_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_priority_rule
 {
@@ -985,7 +985,7 @@ sub _process_priority_rule
 
 } # End of _process_priority_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_quantified_rule
 {
@@ -1040,7 +1040,7 @@ sub _process_quantified_rule
 
 } # End of _process_quantified_rule.
 
-# --------------------------------------------------
+# ------------------------------------------------
 
 sub _process_start_rule
 {
