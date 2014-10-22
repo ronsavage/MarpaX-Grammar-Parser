@@ -448,7 +448,7 @@ sub _fabricate_start_rule
 
 	# Add a start_rule sub-tree to the cooked tree.
 
-	my($start_rule) = Tree::DAG_Node -> new({name => 'start'});
+	my($start_rule) = Tree::DAG_Node -> new({name => ':start'});
 
 	$start_rule -> add_daughter(Tree::DAG_Node -> new({name => '::='}) );
 	$start_rule -> add_daughter(Tree::DAG_Node -> new({name => $self -> first_rule}) );
@@ -458,16 +458,15 @@ sub _fabricate_start_rule
 
 # ------------------------------------------------
 
-sub _find_start_rule
+sub _find_first_rule
 {
 	my($self, $user_bnf) = @_;
 
 	for my $line (split(/\n/, $user_bnf) )
 	{
-		# We assume the rules all start (at least) on 1 line.
-		# The \w+ will ignore :default, :start, etc.
+		# Assume the rule name and the '::=' are on the same line.
 
-		if ($line =~ /^\s*(\w+)\s*::=\s*<?[\w]+>?$/)
+		if ($line =~ /^\s*(<?\w+>?)\s*::=/)
 		{
 			$self -> first_rule($1);
 
@@ -475,7 +474,7 @@ sub _find_start_rule
 		}
 	}
 
-} # End of _find_start_rule.
+} # End of _find_first_rule.
 
 # ------------------------------------------------
 
@@ -1100,7 +1099,7 @@ sub run
 	my $user_bnf       = read_file($self -> user_bnf_file, binmode =>':utf8');
 	my($recce)         = Marpa::R2::Scanless::R -> new({grammar => $marpa_grammar});
 
-	$self -> _find_start_rule($user_bnf);
+	$self -> _find_first_rule($user_bnf);
 	$recce -> read(\$user_bnf);
 
 	my($value) = $recce -> value;
