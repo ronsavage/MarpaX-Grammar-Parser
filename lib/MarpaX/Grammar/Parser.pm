@@ -7,7 +7,6 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
-use Data::Dumper::Concise;             # For Dumper().
 use Data::TreeDumper ();               # For DumpTree().
 use Data::TreeDumper::Renderer::Marpa; # Used by DumpTree().
 
@@ -131,7 +130,7 @@ has user_bnf_file =>
 
 # Warning: There's another $VERSION in package MarpaX::Grammar::Parser::Dummy below.
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 
 # ------------------------------------------------
 

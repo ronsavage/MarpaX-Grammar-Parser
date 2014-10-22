@@ -1,6 +1,10 @@
 Revision history for Perl extension MarpaX::Grammar::Parser.
 
-1.05  Sun Oct 21 17:45:00 2014
+1.06  Wed Oct 22 13:37:00 2014
+	- Oops. Forgot to run homegrown validate.build.make.pl to cross-check pre-reqs.
+		Added List::AllUtils and Types::Standard.
+
+1.05  Sun Oct 19 17:45:00 2014
 	- Update BNF from Marpa (share/metag.bnf).
 	- Update BNF from MarpaX::Languages::C::AST (share/c.ast.bnf).
 	- Update BNF from MarpaX::Demo::StringParser.
