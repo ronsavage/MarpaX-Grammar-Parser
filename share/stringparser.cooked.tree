@@ -1,5 +1,5 @@
 statements
-   |--- start
+   |--- :start
    |   |--- ::=
    |   |--- graph_grammar
    |--- :default
