@@ -14,7 +14,7 @@ my($previous_level) = - 1;
 my($current_node);
 my(%node_per_level);
 
-our $VERSION = '1.08';
+our $VERSION = '1.09';
 
 #-------------------------------------------------
 
