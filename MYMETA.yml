@@ -25,7 +25,7 @@ provides:
     file: lib/MarpaX/Grammar/Parser.pm
     version: '1.01'
 requires:
-  Data::TreeDumper: '0.4'
+  Data::RenderAsTree: '1.01'
   English: '1.04'
   File::ShareDir: '1.03'
   File::Slurp: '9999.19'
