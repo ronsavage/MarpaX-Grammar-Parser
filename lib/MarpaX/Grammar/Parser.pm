@@ -246,7 +246,17 @@ sub compress_tree
 			}
 			elsif ($statement)
 			{
-				if ($statement eq 'latm_specification')
+				if ($statement eq 'discard_rule')
+				{
+					$self -> _add_daughter(':discard');
+					$self -> _add_daughter('~');
+				}
+				elsif ($statement eq 'event_specification')
+				{
+					$self -> _add_daughter('event');
+					$self -> _add_daughter('=>');
+				}
+				elsif ($statement eq 'latm_specification')
 				{
 					$self -> _add_daughter('latm');
 					$self -> _add_daughter('=>');
@@ -255,6 +265,21 @@ sub compress_tree
 				{
 					$self -> _add_daughter('lexeme default');
 					$self -> _add_daughter('=');
+				}
+				elsif ($statement eq 'lexeme_rule')
+				{
+					$self -> _add_daughter(':lexeme');
+					$self -> _add_daughter('~');
+				}
+				elsif ($statement eq 'pause_specification')
+				{
+					$self -> _add_daughter('pause');
+					$self -> _add_daughter('=>');
+				}
+				elsif ($statement eq 'priority_specification')
+				{
+					$self -> _add_daughter('priority');
+					$self -> _add_daughter('=>');
 				}
 				elsif ($statement eq 'start_rule')
 				{
