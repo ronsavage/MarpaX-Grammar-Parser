@@ -225,6 +225,7 @@ sub compress_tree
 {
 	my($self) = @_;
 
+	my($alternative_count);
 	my($daughter, @daughters);
 	my($name, @name);
 	my($statement);
@@ -239,14 +240,22 @@ sub compress_tree
 			$name      = $node -> name;
 			$statement = ($name =~ /Class = .+::(.+?)\s/) ? $1 : '';
 
-			if ($statement eq 'statement')
+			if ($statement)
 			{
-				$self -> node_stack -> pop;
-				$self -> node_stack -> push($self -> _add_daughter($statement) );
-			}
-			elsif ($statement)
-			{
-				if ($statement eq 'discard_rule')
+				if ($statement eq 'action_name')
+				{
+					$self -> _add_daughter('action');
+					$self -> _add_daughter('=>');
+				}
+				elsif ($statement eq 'alternatives')
+				{
+					$alternative_count = 0;
+				}
+				elsif ($statement eq 'alternative')
+				{
+					$alternative_count++;
+				}
+				elsif ($statement eq 'discard_rule')
 				{
 					$self -> _add_daughter(':discard');
 					$self -> _add_daughter('~');
@@ -281,22 +290,59 @@ sub compress_tree
 					$self -> _add_daughter('priority');
 					$self -> _add_daughter('=>');
 				}
+				elsif ($statement eq 'rhs')
+				{
+					$self -> _add_daughter('|') if ($alternative_count > 1);
+				}
 				elsif ($statement eq 'start_rule')
 				{
 					$self -> _add_daughter(':start');
+					$self -> _add_daughter('::=');
+				}
+				elsif ($statement eq 'statement')
+				{
+					# Discard previous statement (or Dummy) from top of stack.
+
+					$node = $self -> node_stack -> pop;
+					$self -> node_stack -> push($self -> _add_daughter($statement) );
+
+					if ($node -> name ne 'Dummy')
+					{
+						@daughters = $node -> daughters;
+						$name      = join(' ', map{$_ -> name} @daughters);
+
+						$node -> add_daughters_left(Tree::DAG_Node -> new({name => $name}) );
+					}
 				}
 			}
 			elsif ($node -> my_daughter_index == 2)
 			{
+				# Split things like:
+				# o '2 = graph_definition [SCALAR 186]'.
+				# o '2 = ::= [SCALAR 195]'.
+
 				@name = split(/\s+/, $name);
 
-				$self -> _add_daughter($name[2]);
+				if ($name[2] ne 'undef')
+				{
+					$self -> _add_daughter($name[2]);
+				}
 			}
 
 			return 1; # Keep walking.
 		},
 		_depth => 0,
 	});
+
+	my($node) = $self -> node_stack -> pop;
+
+	if ($node -> name ne 'Dummy')
+	{
+		@daughters = $node -> daughters;
+		$name      = join(' ', map{$_ -> name} @daughters);
+
+		$node -> add_daughters_left(Tree::DAG_Node -> new({name => $name}) );
+	}
 
 } # End of compress_tree.
 
@@ -353,8 +399,6 @@ sub run
 
 	$self -> compress_tree;
 
-	#TODO.
-
 	my($cooked_tree_file) = $self -> cooked_tree_file;
 
 	if ($cooked_tree_file)
@@ -365,6 +409,8 @@ sub run
 	}
 
 	return 0;
+
+	#TODO.
 
 	if ($self -> _check_start_rule eq '')
 	{
