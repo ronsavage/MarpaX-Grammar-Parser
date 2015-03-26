@@ -348,6 +348,86 @@ sub compress_tree
 
 # ------------------------------------------------
 
+sub _fabricate_start_rule
+{
+	my($self)       = @_;
+	my($first_rule) = '';
+
+	my(@daughters);
+	my($name);
+
+	$self -> cooked_tree -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			@daughters = $node -> daughters;
+
+			return if ($#daughters < 0);
+
+			$name = $daughters[0] -> name;
+
+			if (! $first_rule && (substr($name, 0, 1) ne ':') && ($name =~ /::=/) )
+			{
+				$first_rule = $node;
+
+				return 0; # Stop walking.
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	die "Unable to determine which rule is the first\n" if (! $first_rule);
+
+	@daughters = $first_rule -> daughters;
+	$name      = $daughters[1] -> name;
+	my($node)  = Tree::DAG_Node -> new({name => 'statement'});
+
+	$self -> cooked_tree -> add_daughter_left($node);
+
+	for my $new_name (":start ::= $name", ':start', '::=', $name)
+	{
+		$node -> add_daughter(Tree::DAG_Node -> new({name => $new_name}) );
+	}
+
+} # End of _fabricate_start_rule.
+
+# ------------------------------------------------
+
+sub _find_start_rule
+{
+	my($self)  = @_;
+	my($found) = 'No';
+
+	my($name);
+
+	$self -> cooked_tree -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+			$name = $node -> name;
+
+			if ($name eq ':start')
+			{
+				$found = 'Yes';
+
+				return 0; # Stop walking.
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	return $found;
+
+} # End of _find_start_rule.
+
+# ------------------------------------------------
+
 sub log
 {
 	my($self, $level, $s) = @_;
@@ -399,6 +479,11 @@ sub run
 
 	$self -> compress_tree;
 
+	if ($self -> _find_start_rule eq 'No')
+	{
+		$self -> _fabricate_start_rule;
+	}
+
 	my($cooked_tree_file) = $self -> cooked_tree_file;
 
 	if ($cooked_tree_file)
@@ -406,15 +491,6 @@ sub run
 		open(my $fh, '>', $cooked_tree_file) || die "Can't open(> $cooked_tree_file): $!\n";
 		print $fh map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => 1 - $self -> bind_attributes})};
 		close $fh;
-	}
-
-	return 0;
-
-	#TODO.
-
-	if ($self -> _check_start_rule eq '')
-	{
-		$self -> _fabricate_start_rule;
 	}
 
 =pod
