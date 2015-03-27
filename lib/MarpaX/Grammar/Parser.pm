@@ -493,19 +493,6 @@ sub run
 		close $fh;
 	}
 
-=pod
-
-	my($cooked_tree_file) = $self -> cooked_tree_file;
-
-	if ($cooked_tree_file)
-	{
-		open(my $fh, '>', $cooked_tree_file) || die "Can't open(> $cooked_tree_file): $!\n";
-		print $fh map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => 1 - $self -> bind_attributes})};
-		close $fh;
-	}
-
-=cut
-
 	# Return 0 for success and 1 for failure.
 
 	return 0;

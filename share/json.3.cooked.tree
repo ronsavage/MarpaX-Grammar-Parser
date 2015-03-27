@@ -1,13 +1,19 @@
-statements
-    |--- :start
+Statements
+    |--- statement
+    |    |--- :start ::= json
+    |    |--- :start
     |    |--- ::=
     |    |--- json
-    |--- :default
+    |--- statement
+    |    |--- :default ::= action => ::first
+    |    |--- :default
     |    |--- ::=
     |    |--- action
     |    |--- =>
     |    |--- ::first
-    |--- lexeme default
+    |--- statement
+    |    |--- lexeme default = latm => 1 action => [name,value]
+    |    |--- lexeme default
     |    |--- =
     |    |--- latm
     |    |--- =>
@@ -15,37 +21,46 @@ statements
     |    |--- action
     |    |--- =>
     |    |--- [name,value]
-    |--- json
+    |--- statement
+    |    |--- json ::= hash | array
+    |    |--- json
     |    |--- ::=
     |    |--- hash
     |    |--- |
     |    |--- array
-    |--- hash
+    |--- statement
+    |    |--- hash ::= '{' <hash '}' action => [name,value]
+    |    |--- hash
     |    |--- ::=
-    |    |--- ('{')
-    |    |--- hash pairs
-    |    |--- ('}')
+    |    |--- '{'
+    |    |--- <hash
+    |    |--- '}'
     |    |--- action
     |    |--- =>
     |    |--- [name,value]
-    |--- hash pairs
+    |--- statement
+    |    |--- <hash ::= pair * <comma> action => [values]
+    |    |--- <hash
     |    |--- ::=
     |    |--- pair
-    |    |--- separator
-    |    |--- =>
-    |    |--- comma
+    |    |--- *
+    |    |--- <comma>
     |    |--- action
     |    |--- =>
     |    |--- [values]
-    |--- pair
+    |--- statement
+    |    |--- pair ::= string ':' value action => [values]
+    |    |--- pair
     |    |--- ::=
     |    |--- string
-    |    |--- (':')
+    |    |--- ':'
     |    |--- value
     |    |--- action
     |    |--- =>
     |    |--- [values]
-    |--- value
+    |--- statement
+    |    |--- value ::= string | hash | number | array | true | false | null
+    |    |--- value
     |    |--- ::=
     |    |--- string
     |    |--- |
@@ -60,42 +75,53 @@ statements
     |    |--- false
     |    |--- |
     |    |--- null
-    |--- true
+    |--- statement
+    |    |--- true ::= 'true' action => [name]
+    |    |--- true
     |    |--- ::=
     |    |--- 'true'
     |    |--- action
     |    |--- =>
     |    |--- [name]
-    |--- false
+    |--- statement
+    |    |--- false ::= 'false' action => [name]
+    |    |--- false
     |    |--- ::=
     |    |--- 'false'
     |    |--- action
     |    |--- =>
     |    |--- [name]
-    |--- null
+    |--- statement
+    |    |--- null ::= 'null' action => [name]
+    |    |--- null
     |    |--- ::=
     |    |--- 'null'
     |    |--- action
     |    |--- =>
     |    |--- [name]
-    |--- array
+    |--- statement
+    |    |--- array ::= '[' elements ']' action => [name,values]
+    |    |--- array
     |    |--- ::=
-    |    |--- ('[')
+    |    |--- '['
     |    |--- elements
-    |    |--- (']')
+    |    |--- ']'
     |    |--- action
     |    |--- =>
     |    |--- [name,values]
-    |--- elements
+    |--- statement
+    |    |--- elements ::= value * action => [values] <comma>
+    |    |--- elements
     |    |--- ::=
     |    |--- value
+    |    |--- *
     |    |--- action
     |    |--- =>
     |    |--- [values]
-    |    |--- separator
-    |    |--- =>
-    |    |--- comma
-    |--- number
+    |    |--- <comma>
+    |--- statement
+    |    |--- number ~ int | int frac | int exp | int frac exp
+    |    |--- number
     |    |--- ~
     |    |--- int
     |    |--- |
@@ -108,24 +134,35 @@ statements
     |    |--- int
     |    |--- frac
     |    |--- exp
-    |--- int
+    |--- statement
+    |    |--- int ~ digits | '-' digits
+    |    |--- int
     |    |--- ~
     |    |--- digits
     |    |--- |
     |    |--- '-'
     |    |--- digits
-    |--- digits
+    |--- statement
+    |    |--- digits ~ [\d] +
+    |    |--- digits
     |    |--- ~
     |    |--- [\d]
-    |--- frac
+    |    |--- +
+    |--- statement
+    |    |--- frac ~ '.' digits
+    |    |--- frac
     |    |--- ~
     |    |--- '.'
     |    |--- digits
-    |--- exp
+    |--- statement
+    |    |--- exp ~ e digits
+    |    |--- exp
     |    |--- ~
     |    |--- e
     |    |--- digits
-    |--- e
+    |--- statement
+    |    |--- e ~ 'e' | 'e+' | 'e-' | 'E' | 'E+' | 'E-'
+    |    |--- e
     |    |--- ~
     |    |--- 'e'
     |    |--- |
@@ -138,57 +175,84 @@ statements
     |    |--- 'E+'
     |    |--- |
     |    |--- 'E-'
-    |--- string
+    |--- statement
+    |    |--- string ::= quote <string quote action => [name,values]
+    |    |--- string
     |    |--- ::=
-    |    |--- (quote)
-    |    |--- string contents
-    |    |--- (quote)
+    |    |--- quote
+    |    |--- <string
+    |    |--- quote
     |    |--- action
     |    |--- =>
     |    |--- [name,values]
-    |--- string contents
+    |--- statement
+    |    |--- <string ::= <string * action => [values]
+    |    |--- <string
     |    |--- ::=
-    |    |--- string piece
+    |    |--- <string
+    |    |--- *
     |    |--- action
     |    |--- =>
     |    |--- [values]
-    |--- string piece
+    |--- statement
+    |    |--- <string ::= <easy | <escaped | <hex
+    |    |--- <string
     |    |--- ::=
-    |    |--- easy string
+    |    |--- <easy
     |    |--- |
-    |    |--- escaped char
+    |    |--- <escaped
     |    |--- |
-    |    |--- hex char
-    |--- escaped char
+    |    |--- <hex
+    |--- statement
+    |    |--- <escaped ::= '\' <any
+    |    |--- <escaped
     |    |--- ::=
-    |    |--- ('\')
-    |    |--- any char
-    |--- quote
+    |    |--- '\'
+    |    |--- <any
+    |--- statement
+    |    |--- quote ~ ["]
+    |    |--- quote
     |    |--- ~
     |    |--- ["]
-    |--- easy string
+    |--- statement
+    |    |--- <easy ~ [^"\\] *
+    |    |--- <easy
     |    |--- ~
     |    |--- [^"\\]
-    |--- hex char
+    |    |--- *
+    |--- statement
+    |    |--- <hex ~ '\' 'u' <hex <hex <hex <hex
+    |    |--- <hex
     |    |--- ~
     |    |--- '\'
     |    |--- 'u'
-    |    |--- hex digit
-    |    |--- hex digit
-    |    |--- hex digit
-    |    |--- hex digit
-    |--- hex digit
+    |    |--- <hex
+    |    |--- <hex
+    |    |--- <hex
+    |    |--- <hex
+    |--- statement
+    |    |--- <hex ~ [0-9A-Fa-f]
+    |    |--- <hex
     |    |--- ~
     |    |--- [0-9A-Fa-f]
-    |--- any char
+    |--- statement
+    |    |--- <any ~ [\d\D]
+    |    |--- <any
     |    |--- ~
     |    |--- [\d\D]
-    |--- comma
+    |--- statement
+    |    |--- comma ~ ','
+    |    |--- comma
     |    |--- ~
     |    |--- ','
-    |--- :discard
+    |--- statement
+    |    |--- :discard ~ whitespace
+    |    |--- :discard
     |    |--- ~
     |    |--- whitespace
-    |--- whitespace
+    |--- statement
+         |--- whitespace ~ [\s] +
+         |--- whitespace
          |--- ~
          |--- [\s]
+         |--- +

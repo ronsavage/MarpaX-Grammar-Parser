@@ -1,32 +1,46 @@
-statements
-    |--- :start
-    |    |--- ::=
-    |    |--- graph_grammar
-    |--- :default
+Statements
+    |--- statement
+    |    |--- :default ::= action => [values]
+    |    |--- :default
     |    |--- ::=
     |    |--- action
     |    |--- =>
     |    |--- [values]
-    |--- lexeme default
+    |--- statement
+    |    |--- lexeme default = latm => 1
+    |    |--- lexeme default
     |    |--- =
     |    |--- latm
     |    |--- =>
     |    |--- 1
-    |--- graph_grammar
+    |--- statement
+    |    |--- :start ::= graph_grammar
+    |    |--- :start
+    |    |--- ::=
+    |    |--- graph_grammar
+    |--- statement
+    |    |--- graph_grammar ::= graph_definition
+    |    |--- graph_grammar
     |    |--- ::=
     |    |--- graph_definition
-    |--- graph_definition
+    |--- statement
+    |    |--- graph_definition ::= node_definition | edge_definition
+    |    |--- graph_definition
     |    |--- ::=
     |    |--- node_definition
     |    |--- |
     |    |--- edge_definition
-    |--- node_definition
+    |--- statement
+    |    |--- node_definition ::= node_statement | node_statement graph_definition
+    |    |--- node_definition
     |    |--- ::=
     |    |--- node_statement
     |    |--- |
     |    |--- node_statement
     |    |--- graph_definition
-    |--- node_statement
+    |--- statement
+    |    |--- node_statement ::= node_name_token | node_name_token attribute_definition | node_statement ',' node_statement
+    |    |--- node_statement
     |    |--- ::=
     |    |--- node_name_token
     |    |--- |
@@ -34,9 +48,11 @@ statements
     |    |--- attribute_definition
     |    |--- |
     |    |--- node_statement
-    |    |--- (',')
+    |    |--- ','
     |    |--- node_statement
-    |--- node_name_token
+    |--- statement
+    |    |--- node_name_token ::= start_node end_node | start_node node_name end_node
+    |    |--- node_name_token
     |    |--- ::=
     |    |--- start_node
     |    |--- end_node
@@ -44,13 +60,17 @@ statements
     |    |--- start_node
     |    |--- node_name
     |    |--- end_node
-    |--- edge_definition
+    |--- statement
+    |    |--- edge_definition ::= edge_statement | edge_statement graph_definition
+    |    |--- edge_definition
     |    |--- ::=
     |    |--- edge_statement
     |    |--- |
     |    |--- edge_statement
     |    |--- graph_definition
-    |--- edge_statement
+    |--- statement
+    |    |--- edge_statement ::= edge_name | edge_name attribute_definition | edge_statement ',' edge_statement
+    |    |--- edge_statement
     |    |--- ::=
     |    |--- edge_name
     |    |--- |
@@ -58,32 +78,46 @@ statements
     |    |--- attribute_definition
     |    |--- |
     |    |--- edge_statement
-    |    |--- (',')
+    |    |--- ','
     |    |--- edge_statement
-    |--- edge_name
+    |--- statement
+    |    |--- edge_name ::= directed_edge | undirected_edge
+    |    |--- edge_name
     |    |--- ::=
     |    |--- directed_edge
     |    |--- |
     |    |--- undirected_edge
-    |--- attribute_definition
+    |--- statement
+    |    |--- attribute_definition ::= attribute_statement +
+    |    |--- attribute_definition
     |    |--- ::=
     |    |--- attribute_statement
-    |--- attribute_statement
+    |    |--- +
+    |--- statement
+    |    |--- attribute_statement ::= start_attributes string_token_set end_attributes
+    |    |--- attribute_statement
     |    |--- ::=
     |    |--- start_attributes
     |    |--- string_token_set
     |    |--- end_attributes
-    |--- string_token_set
+    |--- statement
+    |    |--- string_token_set ::= string_token_pair +
+    |    |--- string_token_set
     |    |--- ::=
     |    |--- string_token_pair
-    |--- string_token_pair
+    |    |--- +
+    |--- statement
+    |    |--- string_token_pair ::= literal_label | attribute_name ':' attribute_value
+    |    |--- string_token_pair
     |    |--- ::=
     |    |--- literal_label
     |    |--- |
     |    |--- attribute_name
-    |    |--- (':')
+    |    |--- ':'
     |    |--- attribute_value
-    |--- :lexeme
+    |--- statement
+    |    |--- :lexeme ~ attribute_name pause => before event => attribute_name
+    |    |--- :lexeme
     |    |--- ~
     |    |--- attribute_name
     |    |--- pause
@@ -92,10 +126,15 @@ statements
     |    |--- event
     |    |--- =>
     |    |--- attribute_name
-    |--- attribute_name
+    |--- statement
+    |    |--- attribute_name ~ string_char_set +
+    |    |--- attribute_name
     |    |--- ~
     |    |--- string_char_set
-    |--- :lexeme
+    |    |--- +
+    |--- statement
+    |    |--- :lexeme ~ attribute_value pause => before event => attribute_value
+    |    |--- :lexeme
     |    |--- ~
     |    |--- attribute_value
     |    |--- pause
@@ -104,10 +143,15 @@ statements
     |    |--- event
     |    |--- =>
     |    |--- attribute_value
-    |--- attribute_value
+    |--- statement
+    |    |--- attribute_value ~ string_char_set +
+    |    |--- attribute_value
     |    |--- ~
     |    |--- string_char_set
-    |--- :lexeme
+    |    |--- +
+    |--- statement
+    |    |--- :lexeme ~ directed_edge pause => before event => directed_edge priority => 2
+    |    |--- :lexeme
     |    |--- ~
     |    |--- directed_edge
     |    |--- pause
@@ -119,10 +163,14 @@ statements
     |    |--- priority
     |    |--- =>
     |    |--- 2
-    |--- directed_edge
+    |--- statement
+    |    |--- directed_edge ~ '->'
+    |    |--- directed_edge
     |    |--- ~
     |    |--- '->'
-    |--- :lexeme
+    |--- statement
+    |    |--- :lexeme ~ end_attributes pause => before event => end_attributes priority => 1
+    |    |--- :lexeme
     |    |--- ~
     |    |--- end_attributes
     |    |--- pause
@@ -134,10 +182,14 @@ statements
     |    |--- priority
     |    |--- =>
     |    |--- 1
-    |--- end_attributes
+    |--- statement
+    |    |--- end_attributes ~ '}'
+    |    |--- end_attributes
     |    |--- ~
     |    |--- '}'
-    |--- :lexeme
+    |--- statement
+    |    |--- :lexeme ~ end_node pause => before event => end_node priority => 1
+    |    |--- :lexeme
     |    |--- ~
     |    |--- end_node
     |    |--- pause
@@ -149,14 +201,20 @@ statements
     |    |--- priority
     |    |--- =>
     |    |--- 1
-    |--- end_node
+    |--- statement
+    |    |--- end_node ~ ']'
+    |    |--- end_node
     |    |--- ~
     |    |--- ']'
-    |--- escaped_char
+    |--- statement
+    |    |--- escaped_char ~ '\' [[:print:]]
+    |    |--- escaped_char
     |    |--- ~
     |    |--- '\'
     |    |--- [[:print:]]
-    |--- :lexeme
+    |--- statement
+    |    |--- :lexeme ~ literal_label pause => before event => literal_label priority => 1
+    |    |--- :lexeme
     |    |--- ~
     |    |--- literal_label
     |    |--- pause
@@ -168,10 +226,14 @@ statements
     |    |--- priority
     |    |--- =>
     |    |--- 1
-    |--- literal_label
+    |--- statement
+    |    |--- literal_label ~ 'label'
+    |    |--- literal_label
     |    |--- ~
     |    |--- 'label'
-    |--- :lexeme
+    |--- statement
+    |    |--- :lexeme ~ node_name pause => before event => node_name
+    |    |--- :lexeme
     |    |--- ~
     |    |--- node_name
     |    |--- pause
@@ -180,10 +242,15 @@ statements
     |    |--- event
     |    |--- =>
     |    |--- node_name
-    |--- node_name
+    |--- statement
+    |    |--- node_name ~ string_char_set +
+    |    |--- node_name
     |    |--- ~
     |    |--- string_char_set
-    |--- :lexeme
+    |    |--- +
+    |--- statement
+    |    |--- :lexeme ~ start_attributes pause => before event => start_attributes
+    |    |--- :lexeme
     |    |--- ~
     |    |--- start_attributes
     |    |--- pause
@@ -192,10 +259,14 @@ statements
     |    |--- event
     |    |--- =>
     |    |--- start_attributes
-    |--- start_attributes
+    |--- statement
+    |    |--- start_attributes ~ '{'
+    |    |--- start_attributes
     |    |--- ~
     |    |--- '{'
-    |--- :lexeme
+    |--- statement
+    |    |--- :lexeme ~ start_node pause => before event => start_node
+    |    |--- :lexeme
     |    |--- ~
     |    |--- start_node
     |    |--- pause
@@ -204,15 +275,21 @@ statements
     |    |--- event
     |    |--- =>
     |    |--- start_node
-    |--- start_node
+    |--- statement
+    |    |--- start_node ~ '['
+    |    |--- start_node
     |    |--- ~
     |    |--- '['
-    |--- string_char_set
+    |--- statement
+    |    |--- string_char_set ~ escaped_char | [^;:}\]]
+    |    |--- string_char_set
     |    |--- ~
     |    |--- escaped_char
     |    |--- |
     |    |--- [^;:}\]]
-    |--- :lexeme
+    |--- statement
+    |    |--- :lexeme ~ undirected_edge pause => before event => undirected_edge priority => 2
+    |    |--- :lexeme
     |    |--- ~
     |    |--- undirected_edge
     |    |--- pause
@@ -224,12 +301,19 @@ statements
     |    |--- priority
     |    |--- =>
     |    |--- 2
-    |--- undirected_edge
+    |--- statement
+    |    |--- undirected_edge ~ '--'
+    |    |--- undirected_edge
     |    |--- ~
     |    |--- '--'
-    |--- :discard
+    |--- statement
+    |    |--- :discard ~ whitespace
+    |    |--- :discard
     |    |--- ~
     |    |--- whitespace
-    |--- whitespace
+    |--- statement
+         |--- whitespace ~ [\s] +
+         |--- whitespace
          |--- ~
          |--- [\s]
+         |--- +
