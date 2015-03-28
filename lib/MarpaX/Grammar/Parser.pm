@@ -934,13 +934,6 @@ The command to process this file is:
 
 The outputs are share/metag.cooked.tree and share/metag.raw.tree.
 
-=item o share/metag.hashref
-
-Created by:
-
-	scripts/bnf2tree.pl -mar share/metag.bnf -u share/metag.bnf -r share/metag.raw.tree \
-		-max info > share/metag.hashref
-
 =item o share/stringparser.bnf.
 
 This is a copy of L<MarpaX::Demo::StringParser>'s BNF.
@@ -952,22 +945,6 @@ The command to process this file is:
 	scripts/bnf2tree.sh stringparser
 
 The outputs are share/stringparser.cooked.tree and share/stringparser.raw.tree.
-
-=item o share/stringparser.hashref
-
-Created by:
-
-	scripts/bnf2tree.pl -mar share/stringparser.bnf -u share/stringparser.bnf \
-		-r share/stringparser.raw.tree -max info > share/stringparser.hashref
-
-=item o share/stringparser.treedumper
-
-This is the output of running:
-
-	scripts/metag.pl share/metag.bnf share/stringparser.bnf > \
-		share/stringparser.treedumper
-
-That script, metag.pl, is discussed just below, and in the L</FAQ>.
 
 =item o share/termcap.info.bnf
 
@@ -1151,9 +1128,6 @@ C<$class_name> is a constant provided by this module, and is 'MarpaX::Grammar::P
 
 The technique used to generate this file is discussed above, under L</Data Files>.
 
-Note: The file share/stringparser.treedumper shows some class names, but they are currently I<not>
-stored in the tree returned by the method L</raw_tree()>.
-
 =back
 
 =back
@@ -1164,25 +1138,6 @@ See share/stringparser.raw.tree.
 
 Because L<dot|http://graphviz.org> assigns a special meaning to labels which begin with '<' and
 '<<'.
-
-=head2 What is the format of the hashref of the cooked tree?
-
-The keys in the hashref are the types of statements found in the grammar, and the values for those
-keys are either '1' to indicate the key exists, or a hashref.
-
-The latter hashref's keys are all the sub-types of statements found in the grammar, for the given
-statement.
-
-The pattern of keys pointing to either '1' or a hashref, is repeated to whatever depth is required
-to represent the tree.
-
-See share/*.hashref for sample output. Instructions for producing this output are detailed under
-L</Data Files>.
-
-=head2 Why did you write your own formatter for the output hashref?
-
-I tried some fine modules (L<Data::Dumper>, L<Data::Dumper::Concise> and L<Data::Dump::Streamer>),
-but even though they may have every option you want, they don't have the options I<I> want.
 
 =head2 How do I sort the daughters of a node?
 
@@ -1204,10 +1159,11 @@ in the thread 'Low-hanging fruit'. I modified it slightly for a module context.
 
 The original code is shipped as scripts/metag.pl.
 
-=head2 Why did you use Data::TreeDump?
+=head2 Why did you use Data::RenderAsTree?
 
 It offered the output which was most easily parsed of the modules I tested.
-The others were L<Data::Dumper>, L<Data::TreeDraw>, L<Data::TreeDumper> and L<Data::Printer>.
+The others were L<Data::TreeDump>, L<Data::Dumper>, L<Data::TreeDraw>, L<Data::TreeDumper>
+and L<Data::Printer>.
 
 =head2 Where is Marpa's Homepage?
 
@@ -1238,7 +1194,7 @@ L<MarpaX::Grammar::GraphViz2>.
 
 L<MarpaX::Languages::C::AST>.
 
-L<Data::TreeDumper>.
+L<Data::RenderAsTree>.
 
 L<Log::Handler>.
 

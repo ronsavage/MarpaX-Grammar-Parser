@@ -60,7 +60,6 @@ bnf2tree.pl [options]
 	-marpa_bnf_file aMarpaBNFFileName
 	-maxlevel logOption1
 	-minlevel logOption2
-	-output_hashref Boolean
 	-raw_tree_file aTextFileName
 	-user_bnf_file aUserBNFFileName
 

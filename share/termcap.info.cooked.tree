@@ -280,10 +280,10 @@ Statements
     |    |--- ~
     |    |--- '.'
     |--- statement
-    |    |--- __FLAGS ~ [-+#
+    |    |--- __FLAGS ~ [-+# ]
     |    |--- __FLAGS
     |    |--- ~
-    |    |--- [-+#
+    |    |--- [-+# ]
     |--- statement
     |    |--- _FLAGS ~ _COLON __FLAGS | __FLAGS
     |    |--- _FLAGS
@@ -651,10 +651,10 @@ Statements
     |    |--- _DIGIT
     |    |--- _DIGIT
     |--- statement
-    |    |--- _C0_AND_DEL ~ [@A-Z[\]^_
+    |    |--- _C0_AND_DEL ~ [@A-Z[\]^_ ?]
     |    |--- _C0_AND_DEL
     |    |--- ~
-    |    |--- [@A-Z[\]^_
+    |    |--- [@A-Z[\]^_ ?]
     |--- statement
     |    |--- ESCAPED_CHARACTER ~ _CARET _C0_AND_DEL | _BS _ALLOWED_BS
     |    |--- ESCAPED_CHARACTER
