@@ -1,11 +1,13 @@
 Statements
     |--- statement
-    |    |--- :default ::= action => [values] ::lhs
+    |    |--- :default ::= action => [values] bless => ::lhs
     |    |--- :default
     |    |--- ::=
     |    |--- action
     |    |--- =>
     |    |--- [values]
+    |    |--- bless
+    |    |--- =>
     |    |--- ::lhs
     |--- statement
     |    |--- lexeme default = action => [start,length,value] latm => 1
@@ -1795,10 +1797,10 @@ Statements
     |    |--- BS
     |    |--- ES_AFTERBS
     |--- statement
-    |    |--- WS ~ [
+    |    |--- WS ~ [ \t\v\n\f]
     |    |--- WS
     |    |--- ~
-    |    |--- [
+    |    |--- [ \t\v\n\f]
     |--- statement
     |    |--- WS_any ~ WS *
     |    |--- WS_any
@@ -3368,38 +3370,38 @@ Statements
     |    |--- ~
     |    |--- '?'
     |--- statement
-    |    |--- <C ~ '/*' <comment '*/'
-    |    |--- <C
+    |    |--- <C style comment> ~ '/*' <comment interior> '*/'
+    |    |--- <C style comment>
     |    |--- ~
     |    |--- '/*'
-    |    |--- <comment
+    |    |--- <comment interior>
     |    |--- '*/'
     |--- statement
-    |    |--- <comment ~ <optional <optional <optional
-    |    |--- <comment
+    |    |--- <comment interior> ~ <optional non stars> <optional star prefixed segments> <optional pre final stars>
+    |    |--- <comment interior>
     |    |--- ~
-    |    |--- <optional
-    |    |--- <optional
-    |    |--- <optional
+    |    |--- <optional non stars>
+    |    |--- <optional star prefixed segments>
+    |    |--- <optional pre final stars>
     |--- statement
-    |    |--- <optional ~ [^*] *
-    |    |--- <optional
+    |    |--- <optional non stars> ~ [^*] *
+    |    |--- <optional non stars>
     |    |--- ~
     |    |--- [^*]
     |    |--- *
     |--- statement
-    |    |--- <optional ~ <star *
-    |    |--- <optional
+    |    |--- <optional star prefixed segments> ~ <star prefixed segment> *
+    |    |--- <optional star prefixed segments>
     |    |--- ~
-    |    |--- <star
+    |    |--- <star prefixed segment>
     |    |--- *
     |--- statement
-    |    |--- <star ~ <stars> [^/*] <optional
-    |    |--- <star
+    |    |--- <star prefixed segment> ~ <stars> [^/*] <optional star free text>
+    |    |--- <star prefixed segment>
     |    |--- ~
     |    |--- <stars>
     |    |--- [^/*]
-    |    |--- <optional
+    |    |--- <optional star free text>
     |--- statement
     |    |--- <stars> ~ [*] +
     |    |--- <stars>
@@ -3407,46 +3409,46 @@ Statements
     |    |--- [*]
     |    |--- +
     |--- statement
-    |    |--- <optional ~ [^*] *
-    |    |--- <optional
+    |    |--- <optional star free text> ~ [^*] *
+    |    |--- <optional star free text>
     |    |--- ~
     |    |--- [^*]
     |    |--- *
     |--- statement
-    |    |--- <optional ~ [*] *
-    |    |--- <optional
+    |    |--- <optional pre final stars> ~ [*] *
+    |    |--- <optional pre final stars>
     |    |--- ~
     |    |--- [*]
     |    |--- *
     |--- statement
-    |    |--- <Cplusplus ~ '//' <Cplusplus
-    |    |--- <Cplusplus
+    |    |--- <Cplusplus style comment> ~ '//' <Cplusplus comment interior>
+    |    |--- <Cplusplus style comment>
     |    |--- ~
     |    |--- '//'
-    |    |--- <Cplusplus
+    |    |--- <Cplusplus comment interior>
     |--- statement
-    |    |--- <Cplusplus ~ [^\n] *
-    |    |--- <Cplusplus
+    |    |--- <Cplusplus comment interior> ~ [^\n] *
+    |    |--- <Cplusplus comment interior>
     |    |--- ~
     |    |--- [^\n]
     |    |--- *
     |--- statement
-    |    |--- <MSVS ~ '[source_annotation_attribute'
-    |    |--- <MSVS
+    |    |--- <MSVS annotation directive start> ~ '[source_annotation_attribute'
+    |    |--- <MSVS annotation directive start>
     |    |--- ~
     |    |--- '[source_annotation_attribute'
     |--- statement
-    |    |--- <MSVS ~ [^\n] *
-    |    |--- <MSVS
+    |    |--- <MSVS annotation directive interior single line> ~ [^\n] *
+    |    |--- <MSVS annotation directive interior single line>
     |    |--- ~
     |    |--- [^\n]
     |    |--- *
     |--- statement
-    |    |--- <MSVS ~ <MSVS <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS annotation directive> ~ <MSVS annotation directive start> <MSVS annotation directive interior single line>
+    |    |--- <MSVS annotation directive>
     |    |--- ~
-    |    |--- <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS annotation directive start>
+    |    |--- <MSVS annotation directive interior single line>
     |--- statement
     |    |--- QUOTE ~ [']
     |    |--- QUOTE
@@ -3479,20 +3481,20 @@ Statements
     |    |--- ~
     |    |--- [.]
     |--- statement
-    |    |--- :discard ~ <Cplusplus
+    |    |--- :discard ~ <Cplusplus style comment>
     |    |--- :discard
     |    |--- ~
-    |    |--- <Cplusplus
+    |    |--- <Cplusplus style comment>
     |--- statement
-    |    |--- :discard ~ <C
+    |    |--- :discard ~ <C style comment>
     |    |--- :discard
     |    |--- ~
-    |    |--- <C
+    |    |--- <C style comment>
     |--- statement
-    |    |--- :discard ~ <MSVS
+    |    |--- :discard ~ <MSVS annotation directive>
     |    |--- :discard
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS annotation directive>
     |--- statement
     |    |--- :discard ~ WS_many
     |    |--- :discard
@@ -4121,50 +4123,50 @@ Statements
     |    |--- ANY_ASM
     |    |--- ASM_OPAQUE
     |--- statement
-    |    |--- <Cpp ~ '#'
-    |    |--- <Cpp
+    |    |--- <Cpp style directive start> ~ '#'
+    |    |--- <Cpp style directive start>
     |    |--- ~
     |    |--- '#'
     |--- statement
-    |    |--- <Cpp ~ [^\n] *
-    |    |--- <Cpp
+    |    |--- <Cpp style directive interior single line> ~ [^\n] *
+    |    |--- <Cpp style directive interior single line>
     |    |--- ~
     |    |--- [^\n]
     |    |--- *
     |--- statement
-    |    |--- <Cpp ~ <Cpp <Cpp
-    |    |--- <Cpp
+    |    |--- <Cpp style directive> ~ <Cpp style directive start> <Cpp style directive interior single line>
+    |    |--- <Cpp style directive>
     |    |--- ~
-    |    |--- <Cpp
-    |    |--- <Cpp
+    |    |--- <Cpp style directive start>
+    |    |--- <Cpp style directive interior single line>
     |--- statement
-    |    |--- :discard ~ <Cpp
+    |    |--- :discard ~ <Cpp style directive>
     |    |--- :discard
     |    |--- ~
-    |    |--- <Cpp
+    |    |--- <Cpp style directive>
     |--- statement
-    |    |--- <G0 ~ WS_any _IDENTIFIER WS_any
-    |    |--- <G0
+    |    |--- <G0 identifier> ~ WS_any _IDENTIFIER WS_any
+    |    |--- <G0 identifier>
     |    |--- ~
     |    |--- WS_any
     |    |--- _IDENTIFIER
     |    |--- WS_any
     |--- statement
-    |    |--- <_G0 ~ [\d] +
-    |    |--- <_G0
+    |    |--- <_G0 number> ~ [\d] +
+    |    |--- <_G0 number>
     |    |--- ~
     |    |--- [\d]
     |    |--- +
     |--- statement
-    |    |--- <G0 ~ WS_any <_G0 WS_any
-    |    |--- <G0
+    |    |--- <G0 number> ~ WS_any <_G0 number> WS_any
+    |    |--- <G0 number>
     |    |--- ~
     |    |--- WS_any
-    |    |--- <_G0
+    |    |--- <_G0 number>
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '"' STRING_LITERAL_INSIDE_any '"' WS_any
-    |    |--- <G0
+    |    |--- <G0 string unit> ~ WS_any '"' STRING_LITERAL_INSIDE_any '"' WS_any
+    |    |--- <G0 string unit>
     |    |--- ~
     |    |--- WS_any
     |    |--- '"'
@@ -4172,29 +4174,29 @@ Statements
     |    |--- '"'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ <G0 +
-    |    |--- <G0
+    |    |--- <G0 string> ~ <G0 string unit> +
+    |    |--- <G0 string>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string unit>
     |    |--- +
     |--- statement
-    |    |--- <_G0 ~ [\w] +
-    |    |--- <_G0
+    |    |--- <_G0 word> ~ [\w] +
+    |    |--- <_G0 word>
     |    |--- ~
     |    |--- [\w]
     |    |--- +
     |--- statement
-    |    |--- <G0 ~ WS_any <_G0 WS_any
-    |    |--- <G0
+    |    |--- <G0 word> ~ WS_any <_G0 word> WS_any
+    |    |--- <G0 word>
     |    |--- ~
     |    |--- WS_any
-    |    |--- <_G0
+    |    |--- <_G0 word>
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ <G0 +
-    |    |--- <G0
+    |    |--- <G0 words> ~ <G0 word> +
+    |    |--- <G0 words>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 word>
     |    |--- +
     |--- statement
     |    |--- STRING_LITERAL_INSIDE2 ~ [^<>\\\n]
@@ -4213,8 +4215,8 @@ Statements
     |    |--- STRING_LITERAL_INSIDE2
     |    |--- *
     |--- statement
-    |    |--- <G0 ~ WS_any '<' STRING_LITERAL_INSIDE2_any '>' WS_any
-    |    |--- <G0
+    |    |--- <G0 string unit 2> ~ WS_any '<' STRING_LITERAL_INSIDE2_any '>' WS_any
+    |    |--- <G0 string unit 2>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<'
@@ -4222,321 +4224,321 @@ Statements
     |    |--- '>'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ <G0
-    |    |--- <G0
+    |    |--- <G0 string 2> ~ <G0 string unit 2>
+    |    |--- <G0 string 2>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string unit 2>
     |--- statement
-    |    |--- <G0 ~ WS_any '*=' WS_any
-    |    |--- <G0
+    |    |--- <G0 mul assign> ~ WS_any '*=' WS_any
+    |    |--- <G0 mul assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '*='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '/=' WS_any
-    |    |--- <G0
+    |    |--- <G0 div assign> ~ WS_any '/=' WS_any
+    |    |--- <G0 div assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '/='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '%=' WS_any
-    |    |--- <G0
+    |    |--- <G0 mod assign> ~ WS_any '%=' WS_any
+    |    |--- <G0 mod assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '%='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '+=' WS_any
-    |    |--- <G0
+    |    |--- <G0 add assign> ~ WS_any '+=' WS_any
+    |    |--- <G0 add assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '+='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '-=' WS_any
-    |    |--- <G0
+    |    |--- <G0 sub assign> ~ WS_any '-=' WS_any
+    |    |--- <G0 sub assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '-='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '<<=' WS_any
-    |    |--- <G0
+    |    |--- <G0 left assign> ~ WS_any '<<=' WS_any
+    |    |--- <G0 left assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<<='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '>>=' WS_any
-    |    |--- <G0
+    |    |--- <G0 right assign> ~ WS_any '>>=' WS_any
+    |    |--- <G0 right assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '>>='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '&=' WS_any
-    |    |--- <G0
+    |    |--- <G0 and assign> ~ WS_any '&=' WS_any
+    |    |--- <G0 and assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '&='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '^=' WS_any
-    |    |--- <G0
+    |    |--- <G0 xor assign> ~ WS_any '^=' WS_any
+    |    |--- <G0 xor assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '^='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '|=' WS_any
-    |    |--- <G0
+    |    |--- <G0 or assign> ~ WS_any '|=' WS_any
+    |    |--- <G0 or assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '|='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '||' WS_any
-    |    |--- <G0
+    |    |--- <G0 or op> ~ WS_any '||' WS_any
+    |    |--- <G0 or op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '||'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '&&' WS_any
-    |    |--- <G0
+    |    |--- <G0 and op> ~ WS_any '&&' WS_any
+    |    |--- <G0 and op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '&&'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '|' WS_any
-    |    |--- <G0
+    |    |--- <G0 vertical bar> ~ WS_any '|' WS_any
+    |    |--- <G0 vertical bar>
     |    |--- ~
     |    |--- WS_any
     |    |--- '|'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '^' WS_any
-    |    |--- <G0
+    |    |--- <G0 caret> ~ WS_any '^' WS_any
+    |    |--- <G0 caret>
     |    |--- ~
     |    |--- WS_any
     |    |--- '^'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '&' WS_any
-    |    |--- <G0
+    |    |--- <G0 ampersand> ~ WS_any '&' WS_any
+    |    |--- <G0 ampersand>
     |    |--- ~
     |    |--- WS_any
     |    |--- '&'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '==' WS_any
-    |    |--- <G0
+    |    |--- <G0 eq op> ~ WS_any '==' WS_any
+    |    |--- <G0 eq op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '=='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '!=' WS_any
-    |    |--- <G0
+    |    |--- <G0 ne op> ~ WS_any '!=' WS_any
+    |    |--- <G0 ne op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '!='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '<' WS_any
-    |    |--- <G0
+    |    |--- <G0 less than> ~ WS_any '<' WS_any
+    |    |--- <G0 less than>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '>' WS_any
-    |    |--- <G0
+    |    |--- <G0 greater than> ~ WS_any '>' WS_any
+    |    |--- <G0 greater than>
     |    |--- ~
     |    |--- WS_any
     |    |--- '>'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '<=' WS_any
-    |    |--- <G0
+    |    |--- <G0 le op> ~ WS_any '<=' WS_any
+    |    |--- <G0 le op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '>=' WS_any
-    |    |--- <G0
+    |    |--- <G0 ge op> ~ WS_any '>=' WS_any
+    |    |--- <G0 ge op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '>='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '<<' WS_any
-    |    |--- <G0
+    |    |--- <G0 left op> ~ WS_any '<<' WS_any
+    |    |--- <G0 left op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<<'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '>>' WS_any
-    |    |--- <G0
+    |    |--- <G0 right op> ~ WS_any '>>' WS_any
+    |    |--- <G0 right op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '>>'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '+' WS_any
-    |    |--- <G0
+    |    |--- <G0 plus> ~ WS_any '+' WS_any
+    |    |--- <G0 plus>
     |    |--- ~
     |    |--- WS_any
     |    |--- '+'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '-' WS_any
-    |    |--- <G0
+    |    |--- <G0 hyphen> ~ WS_any '-' WS_any
+    |    |--- <G0 hyphen>
     |    |--- ~
     |    |--- WS_any
     |    |--- '-'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '*' WS_any
-    |    |--- <G0
+    |    |--- <G0 star> ~ WS_any '*' WS_any
+    |    |--- <G0 star>
     |    |--- ~
     |    |--- WS_any
     |    |--- '*'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '/' WS_any
-    |    |--- <G0
+    |    |--- <G0 slash> ~ WS_any '/' WS_any
+    |    |--- <G0 slash>
     |    |--- ~
     |    |--- WS_any
     |    |--- '/'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '%' WS_any
-    |    |--- <G0
+    |    |--- <G0 percent> ~ WS_any '%' WS_any
+    |    |--- <G0 percent>
     |    |--- ~
     |    |--- WS_any
     |    |--- '%'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '(' WS_any
-    |    |--- <G0
+    |    |--- <G0 lparen> ~ WS_any '(' WS_any
+    |    |--- <G0 lparen>
     |    |--- ~
     |    |--- WS_any
     |    |--- '('
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any ')' WS_any
-    |    |--- <G0
+    |    |--- <G0 rparen> ~ WS_any ')' WS_any
+    |    |--- <G0 rparen>
     |    |--- ~
     |    |--- WS_any
     |    |--- ')'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '{' WS_any
-    |    |--- <G0
+    |    |--- <G0 lcurly> ~ WS_any '{' WS_any
+    |    |--- <G0 lcurly>
     |    |--- ~
     |    |--- WS_any
     |    |--- '{'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '}' WS_any
-    |    |--- <G0
+    |    |--- <G0 rcurly> ~ WS_any '}' WS_any
+    |    |--- <G0 rcurly>
     |    |--- ~
     |    |--- WS_any
     |    |--- '}'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '[' WS_any
-    |    |--- <G0
+    |    |--- <G0 lbracket> ~ WS_any '[' WS_any
+    |    |--- <G0 lbracket>
     |    |--- ~
     |    |--- WS_any
     |    |--- '['
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any ']' WS_any
-    |    |--- <G0
+    |    |--- <G0 rbracket> ~ WS_any ']' WS_any
+    |    |--- <G0 rbracket>
     |    |--- ~
     |    |--- WS_any
     |    |--- ']'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '++' WS_any
-    |    |--- <G0
+    |    |--- <G0 inc op> ~ WS_any '++' WS_any
+    |    |--- <G0 inc op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '++'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '--' WS_any
-    |    |--- <G0
+    |    |--- <G0 dec op> ~ WS_any '--' WS_any
+    |    |--- <G0 dec op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '--'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '->' WS_any
-    |    |--- <G0
+    |    |--- <G0 ptr op> ~ WS_any '->' WS_any
+    |    |--- <G0 ptr op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '->'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '.' WS_any
-    |    |--- <G0
+    |    |--- <G0 dot> ~ WS_any '.' WS_any
+    |    |--- <G0 dot>
     |    |--- ~
     |    |--- WS_any
     |    |--- '.'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '!' WS_any
-    |    |--- <G0
+    |    |--- <G0 exclamation> ~ WS_any '!' WS_any
+    |    |--- <G0 exclamation>
     |    |--- ~
     |    |--- WS_any
     |    |--- '!'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '~' WS_any
-    |    |--- <G0
+    |    |--- <G0 tilde> ~ WS_any '~' WS_any
+    |    |--- <G0 tilde>
     |    |--- ~
     |    |--- WS_any
     |    |--- '~'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '_Generic' WS_any
-    |    |--- <G0
+    |    |--- <G0 generic> ~ WS_any '_Generic' WS_any
+    |    |--- <G0 generic>
     |    |--- ~
     |    |--- WS_any
     |    |--- '_Generic'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any 'default' WS_any
-    |    |--- <G0
+    |    |--- <G0 default> ~ WS_any 'default' WS_any
+    |    |--- <G0 default>
     |    |--- ~
     |    |--- WS_any
     |    |--- 'default'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '...' WS_any
-    |    |--- <G0
+    |    |--- <G0 ellipsis> ~ WS_any '...' WS_any
+    |    |--- <G0 ellipsis>
     |    |--- ~
     |    |--- WS_any
     |    |--- '...'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any 'sizeof' WS_any
-    |    |--- <G0
+    |    |--- <G0 sizeof> ~ WS_any 'sizeof' WS_any
+    |    |--- <G0 sizeof>
     |    |--- ~
     |    |--- WS_any
     |    |--- 'sizeof'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '_Alignof' WS_any | WS_any '__alignof__' WS_any | WS_any 'alignof__' WS_any | WS_any '__alignof' WS_any | WS_any 'alignof' WS_any
-    |    |--- <G0
+    |    |--- <G0 alignof> ~ WS_any '_Alignof' WS_any | WS_any '__alignof__' WS_any | WS_any 'alignof__' WS_any | WS_any '__alignof' WS_any | WS_any 'alignof' WS_any
+    |    |--- <G0 alignof>
     |    |--- ~
     |    |--- WS_any
     |    |--- '_Alignof'
@@ -4558,43 +4560,43 @@ Statements
     |    |--- 'alignof'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any ',' WS_any
-    |    |--- <G0
+    |    |--- <G0 comma> ~ WS_any ',' WS_any
+    |    |--- <G0 comma>
     |    |--- ~
     |    |--- WS_any
     |    |--- ','
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '=' WS_any
-    |    |--- <G0
+    |    |--- <G0 equal> ~ WS_any '=' WS_any
+    |    |--- <G0 equal>
     |    |--- ~
     |    |--- WS_any
     |    |--- '='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any ':' WS_any
-    |    |--- <G0
+    |    |--- <G0 colon> ~ WS_any ':' WS_any
+    |    |--- <G0 colon>
     |    |--- ~
     |    |--- WS_any
     |    |--- ':'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any ';' WS_any
-    |    |--- <G0
+    |    |--- <G0 semicolon> ~ WS_any ';' WS_any
+    |    |--- <G0 semicolon>
     |    |--- ~
     |    |--- WS_any
     |    |--- ';'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ WS_any '?' WS_any
-    |    |--- <G0
+    |    |--- <G0 question mark> ~ WS_any '?' WS_any
+    |    |--- <G0 question mark>
     |    |--- ~
     |    |--- WS_any
     |    |--- '?'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ~ HP H_many IS_maybe | BP B_many IS_maybe | NZ D_any IS_maybe | '0' O_any IS_maybe | CP_maybe QUOTE I_CONSTANT_INSIDE_many QUOTE
-    |    |--- <G0
+    |    |--- <G0 I_CONSTANT> ~ HP H_many IS_maybe | BP B_many IS_maybe | NZ D_any IS_maybe | '0' O_any IS_maybe | CP_maybe QUOTE I_CONSTANT_INSIDE_many QUOTE
+    |    |--- <G0 I_CONSTANT>
     |    |--- ~
     |    |--- HP
     |    |--- H_many
@@ -4617,8 +4619,8 @@ Statements
     |    |--- I_CONSTANT_INSIDE_many
     |    |--- QUOTE
     |--- statement
-    |    |--- <G0 ~ D_many E FS_maybe | D_any '.' D_many E_maybe FS_maybe | D_many '.' E_maybe FS_maybe | HP H_many P FS_maybe | HP H_any '.' H_many P FS_maybe | HP H_many '.' P FS_maybe
-    |    |--- <G0
+    |    |--- <G0 F_CONSTANT> ~ D_many E FS_maybe | D_any '.' D_many E_maybe FS_maybe | D_many '.' E_maybe FS_maybe | HP H_many P FS_maybe | HP H_any '.' H_many P FS_maybe | HP H_many '.' P FS_maybe
+    |    |--- <G0 F_CONSTANT>
     |    |--- ~
     |    |--- D_many
     |    |--- E
@@ -4653,173 +4655,173 @@ Statements
     |    |--- P
     |    |--- FS_maybe
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 | <G0
-    |    |--- <G0
+    |    |--- <G0 constant> ~ <G0 I_CONSTANT> | <G0 F_CONSTANT> | <G0 identifier>
+    |    |--- <G0 constant>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 I_CONSTANT>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 F_CONSTANT>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ '__pragma' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma> ~ '__pragma' <G0 lparen> <MSVS pragma directive> <G0 rparen>
+    |    |--- <MSVS pragma>
     |    |--- ~
     |    |--- '__pragma'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive> ~ <MSVS pragma directive alloc_text> | <MSVS pragma directive auto_inline> | <MSVS pragma directive common seg> | <MSVS pragma directive check_stack> | <MSVS pragma directive comment> | <MSVS pragma directive component> | <MSVS pragma directive conform> | <MSVS pragma directive deprecated> | <MSVS pragma directive detect_mismatch> | <MSVS pragma directive fenv_access> | <MSVS pragma directive float_control> | <MSVS pragma directive fp_contract> | <MSVS pragma directive function> | <MSVS pragma directive hdrstop> | <MSVS pragma directive include_alias> | <MSVS pragma directive inline_depth> | <MSVS pragma directive inline_recursion> | <MSVS pragma directive intrinsic> | <MSVS pragma directive loop> | <MSVS pragma directive make_public> | <MSVS pragma directive managed> | <MSVS pragma directive unmanaged> | <MSVS pragma directive message> | <MSVS pragma directive once> | <MSVS pragma directive optimize> | <MSVS pragma directive pack> | <MSVS pragma directive pointers_to_members> | <MSVS pragma directive pop_macro> | <MSVS pragma directive push_macro> | <MSVS pragma directive region> | <MSVS pragma directive endregion> | <MSVS pragma directive runtime_checks> | <MSVS pragma directive section> | <MSVS pragma directive setlocale> | <MSVS pragma directive strict_gs_check> | <MSVS pragma directive vtordisp> | <MSVS pragma directive warning>
+    |    |--- <MSVS pragma directive>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive alloc_text>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive auto_inline>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive check_stack>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive comment>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive deprecated>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive detect_mismatch>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive fenv_access>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive float_control>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive fp_contract>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive function>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive hdrstop>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive include_alias>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive inline_depth>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive inline_recursion>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive intrinsic>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive loop>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive make_public>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive managed>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive unmanaged>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive message>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive once>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive optimize>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pointers_to_members>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pop_macro>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive push_macro>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive region>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive endregion>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive runtime_checks>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive section>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive setlocale>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive strict_gs_check>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive vtordisp>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning>
     |--- statement
-    |    |--- <MSVS ~ 'alloc_text' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive alloc_text> ~ 'alloc_text' <G0 lparen> <MSVS pragma directive alloc_text interior> <G0 rparen>
+    |    |--- <MSVS pragma directive alloc_text>
     |    |--- ~
     |    |--- 'alloc_text'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive alloc_text interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive alloc_text interior> ~ <G0 string> | <MSVS pragma directive alloc_text interior> <G0 comma> <MSVS pragma directive alloc_text identifier list>
+    |    |--- <MSVS pragma directive alloc_text interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive alloc_text interior>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive alloc_text identifier list>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <MSVS <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive alloc_text identifier list> ~ <G0 identifier> | <MSVS pragma directive alloc_text identifier list> <G0 comma> <G0 identifier>
+    |    |--- <MSVS pragma directive alloc_text identifier list>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive alloc_text identifier list>
+    |    |--- <G0 comma>
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ 'auto_inline' <G0 <G0 | 'auto_inline' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive auto_inline> ~ 'auto_inline' <G0 lparen> <G0 rparen> | 'auto_inline' <G0 lparen> <MSVS pragma directive auto_inline interior> <G0 rparen>
+    |    |--- <MSVS pragma directive auto_inline>
     |    |--- ~
     |    |--- 'auto_inline'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'auto_inline'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive auto_inline interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive auto_inline interior> ~ 'on' | 'off'
+    |    |--- <MSVS pragma directive auto_inline interior>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ 'warning' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning> ~ 'warning' <G0 lparen> <MSVS pragma directive warning interior> <G0 rparen>
+    |    |--- <MSVS pragma directive warning>
     |    |--- ~
     |    |--- 'warning'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive warning interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS | <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior> ~ <MSVS pragma directive warning interior specifier list> | <MSVS pragma directive warning interior push> | <MSVS pragma directive warning interior pop>
+    |    |--- <MSVS pragma directive warning interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier list>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior push>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior pop>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier list> ~ <MSVS pragma directive warning interior specifier> | <MSVS pragma directive warning interior specifier list> <G0 semicolon> <MSVS pragma directive warning interior specifier>
+    |    |--- <MSVS pragma directive warning interior specifier list>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier list>
+    |    |--- <G0 semicolon>
+    |    |--- <MSVS pragma directive warning interior specifier>
     |--- statement
-    |    |--- <MSVS ~ '1' | '2' | '3' | '4' | 'default' | 'disable' | 'error' | 'once' | 'suppress'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier keyword> ~ '1' | '2' | '3' | '4' | 'default' | 'disable' | 'error' | 'once' | 'suppress'
+    |    |--- <MSVS pragma directive warning interior specifier keyword>
     |    |--- ~
     |    |--- '1'
     |    |--- |
@@ -4839,88 +4841,88 @@ Statements
     |    |--- |
     |    |--- 'suppress'
     |--- statement
-    |    |--- <MSVS ~ <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier> ~ <MSVS pragma directive warning interior specifier keyword> <G0 colon> <MSVS pragma directive warning interior specifier number list>
+    |    |--- <MSVS pragma directive warning interior specifier>
     |    |--- ~
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier keyword>
+    |    |--- <G0 colon>
+    |    |--- <MSVS pragma directive warning interior specifier number list>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <MSVS WS_many <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier number list> ~ <G0 number> | <MSVS pragma directive warning interior specifier number list> WS_many <G0 number>
+    |    |--- <MSVS pragma directive warning interior specifier number list>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 number>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior specifier number list>
     |    |--- WS_many
-    |    |--- <G0
+    |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS ~ 'push' | 'push' <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior push> ~ 'push' | 'push' <G0 comma> <G0 number>
+    |    |--- <MSVS pragma directive warning interior push>
     |    |--- ~
     |    |--- 'push'
     |    |--- |
     |    |--- 'push'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 comma>
+    |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS ~ 'pop'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive warning interior pop> ~ 'pop'
+    |    |--- <MSVS pragma directive warning interior pop>
     |    |--- ~
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS ~ 'push' | 'pop'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg push or pop> ~ 'push' | 'pop'
+    |    |--- <MSVS pragma directive common seg push or pop>
     |    |--- ~
     |    |--- 'push'
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS <G0 <G0 | <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg interior 1> ~ <MSVS pragma directive common seg push or pop> | <MSVS pragma directive common seg push or pop> <G0 comma> <G0 identifier> | <G0 identifier>
+    |    |--- <MSVS pragma directive common seg interior 1>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg push or pop>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive common seg push or pop>
+    |    |--- <G0 comma>
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg interior 2> ~ <G0 string> | <G0 string> <G0 comma> <G0 string>
+    |    |--- <MSVS pragma directive common seg interior 2>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 string>
+    |    |--- <G0 comma>
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS | <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg interior> ~ <MSVS pragma directive common seg interior 1> | <MSVS pragma directive common seg interior 2> | <MSVS pragma directive common seg interior 1> <G0 comma> <MSVS pragma directive common seg interior 2>
+    |    |--- <MSVS pragma directive common seg interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg interior 1>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg interior 2>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg interior 1>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive common seg interior 2>
     |--- statement
-    |    |--- <MSVS ~ <MSVS <G0 <G0 | <MSVS <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg> ~ <MSVS pragma directive common seg keyword> <G0 lparen> <G0 rparen> | <MSVS pragma directive common seg keyword> <G0 lparen> <MSVS pragma directive common seg interior> <G0 rparen>
+    |    |--- <MSVS pragma directive common seg>
     |    |--- ~
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive common seg keyword>
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <MSVS pragma directive common seg keyword>
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive common seg interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'bss_seg' | 'code_seg' | 'const_seg' | 'data_seg'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive common seg keyword> ~ 'bss_seg' | 'code_seg' | 'const_seg' | 'data_seg'
+    |    |--- <MSVS pragma directive common seg keyword>
     |    |--- ~
     |    |--- 'bss_seg'
     |    |--- |
@@ -4930,8 +4932,8 @@ Statements
     |    |--- |
     |    |--- 'data_seg'
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off' | '+' | '-'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive check_stack interior> ~ 'on' | 'off' | '+' | '-'
+    |    |--- <MSVS pragma directive check_stack interior>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
@@ -4941,20 +4943,20 @@ Statements
     |    |--- |
     |    |--- '-'
     |--- statement
-    |    |--- <MSVS ~ 'check_stack' <G0 <G0 | 'check_stack' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive check_stack> ~ 'check_stack' <G0 lparen> <G0 rparen> | 'check_stack' <G0 lparen> <MSVS pragma directive check_stack interior> <G0 rparen>
+    |    |--- <MSVS pragma directive check_stack>
     |    |--- ~
     |    |--- 'check_stack'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'check_stack'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive check_stack interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'compiler' | 'exestr' | 'lib' | 'linker' | 'user'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive comment interior type> ~ 'compiler' | 'exestr' | 'lib' | 'linker' | 'user'
+    |    |--- <MSVS pragma directive comment interior type>
     |    |--- ~
     |    |--- 'compiler'
     |    |--- |
@@ -4966,184 +4968,184 @@ Statements
     |    |--- |
     |    |--- 'user'
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive comment interior> ~ <MSVS pragma directive comment interior type> | <MSVS pragma directive comment interior type> <G0 comma> <G0 string>
+    |    |--- <MSVS pragma directive comment interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive comment interior type>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive comment interior type>
+    |    |--- <G0 comma>
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ 'comment' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive comment> ~ 'comment' <G0 lparen> <MSVS pragma directive comment interior> <G0 rparen>
+    |    |--- <MSVS pragma directive comment>
     |    |--- ~
     |    |--- 'comment'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive comment interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior name> ~ <G0 identifier> | <G0 string>
+    |    |--- <MSVS pragma directive component interior name>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior browser on off> ~ 'on' | 'off'
+    |    |--- <MSVS pragma directive component interior browser on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ 'browser' <G0 <MSVS | 'browser' <G0 <MSVS <G0 'references' | 'browser' <G0 <MSVS <G0 'references' <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior browser> ~ 'browser' <G0 comma> <MSVS pragma directive component interior browser on off> | 'browser' <G0 comma> <MSVS pragma directive component interior browser on off> <G0 comma> 'references' | 'browser' <G0 comma> <MSVS pragma directive component interior browser on off> <G0 comma> 'references' <G0 comma> <MSVS pragma directive component interior name>
+    |    |--- <MSVS pragma directive component interior browser>
     |    |--- ~
     |    |--- 'browser'
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive component interior browser on off>
     |    |--- |
     |    |--- 'browser'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive component interior browser on off>
+    |    |--- <G0 comma>
     |    |--- 'references'
     |    |--- |
     |    |--- 'browser'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive component interior browser on off>
+    |    |--- <G0 comma>
     |    |--- 'references'
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive component interior name>
     |--- statement
-    |    |--- <MSVS ~ 'minrebuild' <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior minrebuild> ~ 'minrebuild' <G0 comma> <MSVS pragma directive component interior browser on off>
+    |    |--- <MSVS pragma directive component interior minrebuild>
     |    |--- ~
     |    |--- 'minrebuild'
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive component interior browser on off>
     |--- statement
-    |    |--- <MSVS ~ 'mintypeinfo' <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior mintypeinfo> ~ 'mintypeinfo' <G0 comma> <MSVS pragma directive component interior browser on off>
+    |    |--- <MSVS pragma directive component interior mintypeinfo>
     |    |--- ~
     |    |--- 'mintypeinfo'
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive component interior browser on off>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS | <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior> ~ <MSVS pragma directive component interior browser> | <MSVS pragma directive component interior minrebuild> | <MSVS pragma directive component interior mintypeinfo>
+    |    |--- <MSVS pragma directive component interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior browser>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior minrebuild>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component interior mintypeinfo>
     |--- statement
-    |    |--- <MSVS ~ 'component' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive component> ~ 'component' <G0 lparen> <MSVS pragma directive component interior> <G0 rparen>
+    |    |--- <MSVS pragma directive component>
     |    |--- ~
     |    |--- 'component'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive component interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'forScope'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior name> ~ 'forScope'
+    |    |--- <MSVS pragma directive conform interior name>
     |    |--- ~
     |    |--- 'forScope'
     |--- statement
-    |    |--- <MSVS ~ 'show'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior show> ~ 'show'
+    |    |--- <MSVS pragma directive conform interior show>
     |    |--- ~
     |    |--- 'show'
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior on off> ~ 'on' | 'off'
+    |    |--- <MSVS pragma directive conform interior on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ 'push' | 'pop'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior push pop> ~ 'push' | 'pop'
+    |    |--- <MSVS pragma directive conform interior push pop>
     |    |--- ~
     |    |--- 'push'
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior> ~ <MSVS pragma directive conform interior name> | <MSVS pragma directive conform interior name> <G0 comma> <MSVS pragma directive conform interior optional>
+    |    |--- <MSVS pragma directive conform interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior name>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior name>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive conform interior optional>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS | <MSVS | <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior optional unit> ~ <MSVS pragma directive conform interior show> | <MSVS pragma directive conform interior on off> | <MSVS pragma directive conform interior push pop> | <G0 identifier>
+    |    |--- <MSVS pragma directive conform interior optional unit>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior show>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior on off>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior push pop>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior optional> ~ <MSVS pragma directive conform interior optional unit> | <MSVS pragma directive conform interior optional> <G0 comma> <MSVS pragma directive conform interior optional unit>
+    |    |--- <MSVS pragma directive conform interior optional>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior optional unit>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform interior optional>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive conform interior optional unit>
     |--- statement
-    |    |--- <MSVS ~ 'conform' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive conform> ~ 'conform' <G0 lparen> <MSVS pragma directive conform interior> <G0 rparen>
+    |    |--- <MSVS pragma directive conform>
     |    |--- ~
     |    |--- 'conform'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive conform interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <MSVS <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive deprecated interior> ~ <G0 identifier> | <MSVS pragma directive deprecated interior> <G0 comma> <G0 identifier>
+    |    |--- <MSVS pragma directive deprecated interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive deprecated interior>
+    |    |--- <G0 comma>
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ 'deprecated' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive deprecated> ~ 'deprecated' <G0 lparen> <MSVS pragma directive deprecated interior> <G0 rparen>
+    |    |--- <MSVS pragma directive deprecated>
     |    |--- ~
     |    |--- 'deprecated'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive deprecated interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive detect_mismatch interior> ~ <G0 string> <G0 comma> <G0 string>
+    |    |--- <MSVS pragma directive detect_mismatch interior>
     |    |--- ~
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 string>
+    |    |--- <G0 comma>
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ 'detect_mismatch' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive detect_mismatch> ~ 'detect_mismatch' <G0 lparen> <MSVS pragma directive detect_mismatch interior> <G0 rparen>
+    |    |--- <MSVS pragma directive detect_mismatch>
     |    |--- ~
     |    |--- 'detect_mismatch'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive detect_mismatch interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'ON' | 'off' | 'OFF'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive fenv_access interior> ~ 'on' | 'ON' | 'off' | 'OFF'
+    |    |--- <MSVS pragma directive fenv_access interior>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
@@ -5153,44 +5155,44 @@ Statements
     |    |--- |
     |    |--- 'OFF'
     |--- statement
-    |    |--- <MSVS ~ 'fenv_access' | 'fenv_access' <G0 <G0 | 'fenv_access' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive fenv_access> ~ 'fenv_access' | 'fenv_access' <G0 lparen> <G0 rparen> | 'fenv_access' <G0 lparen> <MSVS pragma directive fenv_access interior> <G0 rparen>
+    |    |--- <MSVS pragma directive fenv_access>
     |    |--- ~
     |    |--- 'fenv_access'
     |    |--- |
     |    |--- 'fenv_access'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'fenv_access'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive fenv_access interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'precise' | 'except'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive float_control interior value> ~ 'precise' | 'except'
+    |    |--- <MSVS pragma directive float_control interior value>
     |    |--- ~
     |    |--- 'precise'
     |    |--- |
     |    |--- 'except'
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive float_control interior setting> ~ 'on' | 'off'
+    |    |--- <MSVS pragma directive float_control interior setting>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ <MSVS <G0 <MSVS | <MSVS <G0 <MSVS WS_any 'push' | 'push' | 'pop'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive float_control interior> ~ <MSVS pragma directive float_control interior value> <G0 comma> <MSVS pragma directive float_control interior setting> | <MSVS pragma directive float_control interior value> <G0 comma> <MSVS pragma directive float_control interior setting> WS_any 'push' | 'push' | 'pop'
+    |    |--- <MSVS pragma directive float_control interior>
     |    |--- ~
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive float_control interior value>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive float_control interior setting>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive float_control interior value>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive float_control interior setting>
     |    |--- WS_any
     |    |--- 'push'
     |    |--- |
@@ -5198,16 +5200,16 @@ Statements
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS ~ 'float_control' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive float_control> ~ 'float_control' <G0 lparen> <MSVS pragma directive float_control interior> <G0 rparen>
+    |    |--- <MSVS pragma directive float_control>
     |    |--- ~
     |    |--- 'float_control'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive float_control interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'ON' | 'off' | 'OFF'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive fp_contract interior> ~ 'on' | 'ON' | 'off' | 'OFF'
+    |    |--- <MSVS pragma directive fp_contract interior>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
@@ -5217,312 +5219,312 @@ Statements
     |    |--- |
     |    |--- 'OFF'
     |--- statement
-    |    |--- <MSVS ~ 'fp_contract' | 'fp_contract' <G0 <G0 | 'fp_contract' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive fp_contract> ~ 'fp_contract' | 'fp_contract' <G0 lparen> <G0 rparen> | 'fp_contract' <G0 lparen> <MSVS pragma directive fp_contract interior> <G0 rparen>
+    |    |--- <MSVS pragma directive fp_contract>
     |    |--- ~
     |    |--- 'fp_contract'
     |    |--- |
     |    |--- 'fp_contract'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'fp_contract'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive fp_contract interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <MSVS <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive function interior> ~ <G0 identifier> | <MSVS pragma directive function interior> <G0 comma> <G0 identifier>
+    |    |--- <MSVS pragma directive function interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive function interior>
+    |    |--- <G0 comma>
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ 'function' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive function> ~ 'function' <G0 lparen> <MSVS pragma directive function interior> <G0 rparen>
+    |    |--- <MSVS pragma directive function>
     |    |--- ~
     |    |--- 'function'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive function interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive hdrstop interior> ~ <G0 string>
+    |    |--- <MSVS pragma directive hdrstop interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ 'hdrstop' | 'hdrstop' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive hdrstop> ~ 'hdrstop' | 'hdrstop' <G0 lparen> <MSVS pragma directive hdrstop interior> <G0 rparen>
+    |    |--- <MSVS pragma directive hdrstop>
     |    |--- ~
     |    |--- 'hdrstop'
     |    |--- |
     |    |--- 'hdrstop'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive hdrstop interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0 <G0 <G0 | <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive include_alias interior> ~ <G0 string> <G0 comma> <G0 string> | <G0 string 2> <G0 comma> <G0 string 2>
+    |    |--- <MSVS pragma directive include_alias interior>
     |    |--- ~
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 string>
+    |    |--- <G0 comma>
+    |    |--- <G0 string>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 string 2>
+    |    |--- <G0 comma>
+    |    |--- <G0 string 2>
     |--- statement
-    |    |--- <MSVS ~ 'include_alias' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive include_alias> ~ 'include_alias' <G0 lparen> <MSVS pragma directive include_alias interior> <G0 rparen>
+    |    |--- <MSVS pragma directive include_alias>
     |    |--- ~
     |    |--- 'include_alias'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive include_alias interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive inline_depth interior> ~ <G0 number>
+    |    |--- <MSVS pragma directive inline_depth interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS ~ 'inline_depth' <G0 <G0 | 'inline_depth' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive inline_depth> ~ 'inline_depth' <G0 lparen> <G0 rparen> | 'inline_depth' <G0 lparen> <MSVS pragma directive inline_depth interior> <G0 rparen>
+    |    |--- <MSVS pragma directive inline_depth>
     |    |--- ~
     |    |--- 'inline_depth'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'inline_depth'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive inline_depth interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive inline_recursion interior> ~ 'on' | 'off'
+    |    |--- <MSVS pragma directive inline_recursion interior>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ 'inline_recursion' <G0 <G0 | 'inline_recursion' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive inline_recursion> ~ 'inline_recursion' <G0 lparen> <G0 rparen> | 'inline_recursion' <G0 lparen> <MSVS pragma directive inline_recursion interior> <G0 rparen>
+    |    |--- <MSVS pragma directive inline_recursion>
     |    |--- ~
     |    |--- 'inline_recursion'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'inline_recursion'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive inline_recursion interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <MSVS <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive intrinsic interior> ~ <G0 identifier> | <MSVS pragma directive intrinsic interior> <G0 comma> <G0 identifier>
+    |    |--- <MSVS pragma directive intrinsic interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive intrinsic interior>
+    |    |--- <G0 comma>
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ 'intrinsic' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive intrinsic> ~ 'intrinsic' <G0 lparen> <MSVS pragma directive intrinsic interior> <G0 rparen>
+    |    |--- <MSVS pragma directive intrinsic>
     |    |--- ~
     |    |--- 'intrinsic'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive intrinsic interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'hint_parallel' <G0 <G0 <G0 | 'no_vector' | 'ivdep'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive loop interior> ~ 'hint_parallel' <G0 lparen> <G0 number> <G0 rparen> | 'no_vector' | 'ivdep'
+    |    |--- <MSVS pragma directive loop interior>
     |    |--- ~
     |    |--- 'hint_parallel'
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 number>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'no_vector'
     |    |--- |
     |    |--- 'ivdep'
     |--- statement
-    |    |--- <MSVS ~ 'loop' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive loop> ~ 'loop' <G0 lparen> <MSVS pragma directive loop interior> <G0 rparen>
+    |    |--- <MSVS pragma directive loop>
     |    |--- ~
     |    |--- 'loop'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive loop interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive make_public interior> ~ <G0 identifier>
+    |    |--- <MSVS pragma directive make_public interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ 'make_public' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive make_public> ~ 'make_public' <G0 lparen> <MSVS pragma directive make_public interior> <G0 rparen>
+    |    |--- <MSVS pragma directive make_public>
     |    |--- ~
     |    |--- 'make_public'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive make_public interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive managed interior on off> ~ 'on' | 'off'
+    |    |--- <MSVS pragma directive managed interior on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ 'push' <G0 <MSVS | <MSVS | 'pop'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive managed interior> ~ 'push' <G0 comma> <MSVS pragma directive managed interior on off> | <MSVS pragma directive managed interior on off> | 'pop'
+    |    |--- <MSVS pragma directive managed interior>
     |    |--- ~
     |    |--- 'push'
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive managed interior on off>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive managed interior on off>
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS ~ 'managed' | 'managed' <G0 <G0 | 'managed' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive managed> ~ 'managed' | 'managed' <G0 lparen> <G0 rparen> | 'managed' <G0 lparen> <MSVS pragma directive managed interior> <G0 rparen>
+    |    |--- <MSVS pragma directive managed>
     |    |--- ~
     |    |--- 'managed'
     |    |--- |
     |    |--- 'managed'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'managed'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive managed interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'unmanaged' | 'unmanaged' <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive unmanaged> ~ 'unmanaged' | 'unmanaged' <G0 lparen> <G0 rparen>
+    |    |--- <MSVS pragma directive unmanaged>
     |    |--- ~
     |    |--- 'unmanaged'
     |    |--- |
     |    |--- 'unmanaged'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive message interior> ~ <G0 string>
+    |    |--- <MSVS pragma directive message interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ 'message' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive message> ~ 'message' <G0 lparen> <MSVS pragma directive message interior> <G0 rparen>
+    |    |--- <MSVS pragma directive message>
     |    |--- ~
     |    |--- 'message'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive message interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'once' | 'once' <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive once> ~ 'once' | 'once' <G0 lparen> <G0 rparen>
+    |    |--- <MSVS pragma directive once>
     |    |--- ~
     |    |--- 'once'
     |    |--- |
     |    |--- 'once'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive optimize interior optimizationList> ~ <G0 string>
+    |    |--- <MSVS pragma directive optimize interior optimizationList>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive optimize interior on off> ~ 'on' | 'off'
+    |    |--- <MSVS pragma directive optimize interior on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive optimize interior> ~ <MSVS pragma directive optimize interior optimizationList> <G0 comma> <MSVS pragma directive optimize interior on off>
+    |    |--- <MSVS pragma directive optimize interior>
     |    |--- ~
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive optimize interior optimizationList>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive optimize interior on off>
     |--- statement
-    |    |--- <MSVS ~ 'optimize' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive optimize> ~ 'optimize' <G0 lparen> <MSVS pragma directive optimize interior> <G0 rparen>
+    |    |--- <MSVS pragma directive optimize>
     |    |--- ~
     |    |--- 'optimize'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive optimize interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'show'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior show> ~ 'show'
+    |    |--- <MSVS pragma directive pack interior show>
     |    |--- ~
     |    |--- 'show'
     |--- statement
-    |    |--- <MSVS ~ <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior 1> ~ <MSVS pragma directive pack interior show>
+    |    |--- <MSVS pragma directive pack interior 1>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior show>
     |--- statement
-    |    |--- <MSVS ~ 'push' | 'pop'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior push pop> ~ 'push' | 'pop'
+    |    |--- <MSVS pragma directive pack interior push pop>
     |    |--- ~
     |    |--- 'push'
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <G0 | <MSVS <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior 21> ~ <MSVS pragma directive pack interior push pop> | <G0 identifier> | <MSVS pragma directive pack interior push pop> <G0 comma> <G0 identifier>
+    |    |--- <MSVS pragma directive pack interior 21>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior push pop>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive pack interior push pop>
+    |    |--- <G0 comma>
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <MSVS <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior 2> ~ <G0 number> | <MSVS pragma directive pack interior 21> <G0 comma> <G0 number>
+    |    |--- <MSVS pragma directive pack interior 2>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 number>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS pragma directive pack interior 21>
+    |    |--- <G0 comma>
+    |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior> ~ <MSVS pragma directive pack interior 1> | <MSVS pragma directive pack interior 2>
+    |    |--- <MSVS pragma directive pack interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior 1>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack interior 2>
     |--- statement
-    |    |--- <MSVS ~ 'pack' <G0 <G0 | 'pack' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pack> ~ 'pack' <G0 lparen> <G0 rparen> | 'pack' <G0 lparen> <MSVS pragma directive pack interior> <G0 rparen>
+    |    |--- <MSVS pragma directive pack>
     |    |--- ~
     |    |--- 'pack'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'pack'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive pack interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'full_generality' | 'best_case'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pointers_to_members interior pointer declaration> ~ 'full_generality' | 'best_case'
+    |    |--- <MSVS pragma directive pointers_to_members interior pointer declaration>
     |    |--- ~
     |    |--- 'full_generality'
     |    |--- |
     |    |--- 'best_case'
     |--- statement
-    |    |--- <MSVS ~ 'single_inheritance' | 'multiple_inheritance' | 'virtual_inheritance'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pointers_to_members interior most general representation> ~ 'single_inheritance' | 'multiple_inheritance' | 'virtual_inheritance'
+    |    |--- <MSVS pragma directive pointers_to_members interior most general representation>
     |    |--- ~
     |    |--- 'single_inheritance'
     |    |--- |
@@ -5530,106 +5532,106 @@ Statements
     |    |--- |
     |    |--- 'virtual_inheritance'
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pointers_to_members interior> ~ <MSVS pragma directive pointers_to_members interior pointer declaration> | <MSVS pragma directive pointers_to_members interior pointer declaration> <G0 comma> <MSVS pragma directive pointers_to_members interior most general representation>
+    |    |--- <MSVS pragma directive pointers_to_members interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pointers_to_members interior pointer declaration>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pointers_to_members interior pointer declaration>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive pointers_to_members interior most general representation>
     |--- statement
-    |    |--- <MSVS ~ 'pointers_to_members' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pointers_to_members> ~ 'pointers_to_members' <G0 lparen> <MSVS pragma directive pointers_to_members interior> <G0 rparen>
+    |    |--- <MSVS pragma directive pointers_to_members>
     |    |--- ~
     |    |--- 'pointers_to_members'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive pointers_to_members interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'pop_macro' <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive pop_macro> ~ 'pop_macro' <G0 lparen> <G0 string> <G0 rparen>
+    |    |--- <MSVS pragma directive pop_macro>
     |    |--- ~
     |    |--- 'pop_macro'
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 string>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'push_macro' <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive push_macro> ~ 'push_macro' <G0 lparen> <G0 string> <G0 rparen>
+    |    |--- <MSVS pragma directive push_macro>
     |    |--- ~
     |    |--- 'push_macro'
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 string>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive region interior> ~ <G0 identifier>
+    |    |--- <MSVS pragma directive region interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ 'region' | 'region' <G0 <G0 | 'region' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive region> ~ 'region' | 'region' <G0 lparen> <G0 rparen> | 'region' <G0 lparen> <MSVS pragma directive region interior> <G0 rparen>
+    |    |--- <MSVS pragma directive region>
     |    |--- ~
     |    |--- 'region'
     |    |--- |
     |    |--- 'region'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'region'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive region interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive endregion interior> ~ <G0 identifier>
+    |    |--- <MSVS pragma directive endregion interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ 'endregion' | 'endregion' <G0 <G0 | 'endregion' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive endregion> ~ 'endregion' | 'endregion' <G0 lparen> <G0 rparen> | 'endregion' <G0 lparen> <MSVS pragma directive endregion interior> <G0 rparen>
+    |    |--- <MSVS pragma directive endregion>
     |    |--- ~
     |    |--- 'endregion'
     |    |--- |
     |    |--- 'endregion'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'endregion'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive endregion interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive runtime_checks interior optimizationList> ~ <G0 string>
+    |    |--- <MSVS pragma directive runtime_checks interior optimizationList>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ 'restore' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive runtime_checks interior on off> ~ 'restore' | 'off'
+    |    |--- <MSVS pragma directive runtime_checks interior on off>
     |    |--- ~
     |    |--- 'restore'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive runtime_checks interior> ~ <MSVS pragma directive runtime_checks interior optimizationList> <G0 comma> <MSVS pragma directive runtime_checks interior on off>
+    |    |--- <MSVS pragma directive runtime_checks interior>
     |    |--- ~
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive runtime_checks interior optimizationList>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive runtime_checks interior on off>
     |--- statement
-    |    |--- <MSVS ~ 'runtime_checks' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive runtime_checks> ~ 'runtime_checks' <G0 lparen> <MSVS pragma directive runtime_checks interior> <G0 rparen>
+    |    |--- <MSVS pragma directive runtime_checks>
     |    |--- ~
     |    |--- 'runtime_checks'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive runtime_checks interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'read' | 'write' | 'execute' | 'shared' | 'nopage' | 'nocache' | 'discard' | 'remove'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive section interior attribute> ~ 'read' | 'write' | 'execute' | 'shared' | 'nopage' | 'nocache' | 'discard' | 'remove'
+    |    |--- <MSVS pragma directive section interior attribute>
     |    |--- ~
     |    |--- 'read'
     |    |--- |
@@ -5647,788 +5649,788 @@ Statements
     |    |--- |
     |    |--- 'remove'
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive section interior attribute list> ~ <MSVS pragma directive section interior attribute> | <MSVS pragma directive section interior attribute list> <G0 comma> <MSVS pragma directive section interior attribute>
+    |    |--- <MSVS pragma directive section interior attribute list>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive section interior attribute>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive section interior attribute list>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive section interior attribute>
     |--- statement
-    |    |--- <MSVS ~ <G0 | <G0 <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive section interior> ~ <G0 string> | <G0 string> <G0 comma> <MSVS pragma directive section interior attribute list>
+    |    |--- <MSVS pragma directive section interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <G0 string>
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive section interior attribute list>
     |--- statement
-    |    |--- <MSVS ~ 'section' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive section> ~ 'section' <G0 lparen> <MSVS pragma directive section interior> <G0 rparen>
+    |    |--- <MSVS pragma directive section>
     |    |--- ~
     |    |--- 'section'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive section interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive setlocale interior> ~ <G0 string>
+    |    |--- <MSVS pragma directive setlocale interior>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS ~ 'setlocale' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive setlocale> ~ 'setlocale' <G0 lparen> <MSVS pragma directive setlocale interior> <G0 rparen>
+    |    |--- <MSVS pragma directive setlocale>
     |    |--- ~
     |    |--- 'setlocale'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive setlocale interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive strict_gs_check interior on off> ~ 'on' | 'off'
+    |    |--- <MSVS pragma directive strict_gs_check interior on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS ~ <MSVS | 'push' <G0 <MSVS | 'pop'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive strict_gs_check interior> ~ <MSVS pragma directive strict_gs_check interior on off> | 'push' <G0 comma> <MSVS pragma directive strict_gs_check interior on off> | 'pop'
+    |    |--- <MSVS pragma directive strict_gs_check interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive strict_gs_check interior on off>
     |    |--- |
     |    |--- 'push'
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive strict_gs_check interior on off>
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS ~ 'strict_gs_check' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive strict_gs_check> ~ 'strict_gs_check' <G0 lparen> <MSVS pragma directive strict_gs_check interior> <G0 rparen>
+    |    |--- <MSVS pragma directive strict_gs_check>
     |    |--- ~
     |    |--- 'strict_gs_check'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive strict_gs_check interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'on' | 'off' | <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive vtordisp interior on off number> ~ 'on' | 'off' | <G0 number>
+    |    |--- <MSVS pragma directive vtordisp interior on off number>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | 'push' <G0 <MSVS | 'pop'
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive vtordisp interior> ~ <MSVS pragma directive vtordisp interior on off number> | 'push' <G0 comma> <MSVS pragma directive vtordisp interior on off number> | 'pop'
+    |    |--- <MSVS pragma directive vtordisp interior>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive vtordisp interior on off number>
     |    |--- |
     |    |--- 'push'
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <G0 comma>
+    |    |--- <MSVS pragma directive vtordisp interior on off number>
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS ~ 'vtordisp' | 'vtordisp' <G0 <G0 | 'vtordisp' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS pragma directive vtordisp> ~ 'vtordisp' | 'vtordisp' <G0 lparen> <G0 rparen> | 'vtordisp' <G0 lparen> <MSVS pragma directive vtordisp interior> <G0 rparen>
+    |    |--- <MSVS pragma directive vtordisp>
     |    |--- ~
     |    |--- 'vtordisp'
     |    |--- |
     |    |--- 'vtordisp'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'vtordisp'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS pragma directive vtordisp interior>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- :discard ~ <MSVS
+    |    |--- :discard ~ <MSVS pragma>
     |    |--- :discard
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS pragma>
     |--- statement
-    |    |--- <MSVS ~ '__declspec' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS declspec> ~ '__declspec' <G0 lparen> <MSVS declspec directive> <G0 rparen>
+    |    |--- <MSVS declspec>
     |    |--- ~
     |    |--- '__declspec'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS declspec directive>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS | <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS declspec directive> ~ <MSVS declspec align> | <MSVS declspec allocate> | <MSVS declspec appdomain> | <MSVS declspec deprecated> | <MSVS declspec dllexport> | <MSVS declspec dllimport> | <MSVS declspec jitintrinsic> | <MSVS declspec naked> | <MSVS declspec noalias> | <MSVS declspec noinline> | <MSVS declspec noreturn> | <MSVS declspec nothrow> | <MSVS declspec novtable> | <MSVS declspec process> | <MSVS declspec property> | <MSVS declspec restrict> | <MSVS declspec safebuffers> | <MSVS declspec selectany> | <MSVS declspec thread> | <MSVS declspec uuid>
+    |    |--- <MSVS declspec directive>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS declspec align>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec allocate>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec appdomain>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec deprecated>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec dllexport>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec dllimport>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec jitintrinsic>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec naked>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec noalias>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec noinline>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec noreturn>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec nothrow>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec novtable>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec process>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec property>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec restrict>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec safebuffers>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec selectany>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec thread>
     |    |--- |
-    |    |--- <MSVS
+    |    |--- <MSVS declspec uuid>
     |--- statement
-    |    |--- <MSVS ~ 'align' <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS declspec align> ~ 'align' <G0 lparen> <G0 number> <G0 rparen>
+    |    |--- <MSVS declspec align>
     |    |--- ~
     |    |--- 'align'
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 number>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'allocate' <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS declspec allocate> ~ 'allocate' <G0 lparen> <G0 string> <G0 rparen>
+    |    |--- <MSVS declspec allocate>
     |    |--- ~
     |    |--- 'allocate'
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 string>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'appdomain'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec appdomain> ~ 'appdomain'
+    |    |--- <MSVS declspec appdomain>
     |    |--- ~
     |    |--- 'appdomain'
     |--- statement
-    |    |--- <MSVS ~ 'deprecated' | 'deprecated' <G0 <G0 | 'deprecated' <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS declspec deprecated> ~ 'deprecated' | 'deprecated' <G0 lparen> <G0 rparen> | 'deprecated' <G0 lparen> <G0 string> <G0 rparen>
+    |    |--- <MSVS declspec deprecated>
     |    |--- ~
     |    |--- 'deprecated'
     |    |--- |
     |    |--- 'deprecated'
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
     |    |--- 'deprecated'
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 string>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'dllexport'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec dllexport> ~ 'dllexport'
+    |    |--- <MSVS declspec dllexport>
     |    |--- ~
     |    |--- 'dllexport'
     |--- statement
-    |    |--- <MSVS ~ 'dllimport'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec dllimport> ~ 'dllimport'
+    |    |--- <MSVS declspec dllimport>
     |    |--- ~
     |    |--- 'dllimport'
     |--- statement
-    |    |--- <MSVS ~ 'jitintrinsic'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec jitintrinsic> ~ 'jitintrinsic'
+    |    |--- <MSVS declspec jitintrinsic>
     |    |--- ~
     |    |--- 'jitintrinsic'
     |--- statement
-    |    |--- <MSVS ~ 'naked'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec naked> ~ 'naked'
+    |    |--- <MSVS declspec naked>
     |    |--- ~
     |    |--- 'naked'
     |--- statement
-    |    |--- <MSVS ~ 'noalias'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec noalias> ~ 'noalias'
+    |    |--- <MSVS declspec noalias>
     |    |--- ~
     |    |--- 'noalias'
     |--- statement
-    |    |--- <MSVS ~ 'noinline'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec noinline> ~ 'noinline'
+    |    |--- <MSVS declspec noinline>
     |    |--- ~
     |    |--- 'noinline'
     |--- statement
-    |    |--- <MSVS ~ 'noreturn'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec noreturn> ~ 'noreturn'
+    |    |--- <MSVS declspec noreturn>
     |    |--- ~
     |    |--- 'noreturn'
     |--- statement
-    |    |--- <MSVS ~ 'nothrow'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec nothrow> ~ 'nothrow'
+    |    |--- <MSVS declspec nothrow>
     |    |--- ~
     |    |--- 'nothrow'
     |--- statement
-    |    |--- <MSVS ~ 'novtable'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec novtable> ~ 'novtable'
+    |    |--- <MSVS declspec novtable>
     |    |--- ~
     |    |--- 'novtable'
     |--- statement
-    |    |--- <MSVS ~ 'process'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec process> ~ 'process'
+    |    |--- <MSVS declspec process>
     |    |--- ~
     |    |--- 'process'
     |--- statement
-    |    |--- <MSVS ~ 'get' | 'put'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec property interior get put> ~ 'get' | 'put'
+    |    |--- <MSVS declspec property interior get put>
     |    |--- ~
     |    |--- 'get'
     |    |--- |
     |    |--- 'put'
     |--- statement
-    |    |--- <MSVS ~ <MSVS <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS declspec property interior> ~ <MSVS declspec property interior get put> <G0 equal> <G0 identifier>
+    |    |--- <MSVS declspec property interior>
     |    |--- ~
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <MSVS declspec property interior get put>
+    |    |--- <G0 equal>
+    |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS ~ <MSVS | <MSVS <G0 <MSVS
-    |    |--- <MSVS
+    |    |--- <MSVS declspec property interior list> ~ <MSVS declspec property interior> | <MSVS declspec property interior list> <G0 comma> <MSVS declspec property interior>
+    |    |--- <MSVS declspec property interior list>
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS declspec property interior>
     |    |--- |
-    |    |--- <MSVS
-    |    |--- <G0
-    |    |--- <MSVS
+    |    |--- <MSVS declspec property interior list>
+    |    |--- <G0 comma>
+    |    |--- <MSVS declspec property interior>
     |--- statement
-    |    |--- <MSVS ~ 'property' <G0 <MSVS <G0
-    |    |--- <MSVS
+    |    |--- <MSVS declspec property> ~ 'property' <G0 lparen> <MSVS declspec property interior list> <G0 rparen>
+    |    |--- <MSVS declspec property>
     |    |--- ~
     |    |--- 'property'
-    |    |--- <G0
-    |    |--- <MSVS
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <MSVS declspec property interior list>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS ~ 'restrict'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec restrict> ~ 'restrict'
+    |    |--- <MSVS declspec restrict>
     |    |--- ~
     |    |--- 'restrict'
     |--- statement
-    |    |--- <MSVS ~ 'safebuffers'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec safebuffers> ~ 'safebuffers'
+    |    |--- <MSVS declspec safebuffers>
     |    |--- ~
     |    |--- 'safebuffers'
     |--- statement
-    |    |--- <MSVS ~ 'selectany'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec selectany> ~ 'selectany'
+    |    |--- <MSVS declspec selectany>
     |    |--- ~
     |    |--- 'selectany'
     |--- statement
-    |    |--- <MSVS ~ 'thread'
-    |    |--- <MSVS
+    |    |--- <MSVS declspec thread> ~ 'thread'
+    |    |--- <MSVS declspec thread>
     |    |--- ~
     |    |--- 'thread'
     |--- statement
-    |    |--- <MSVS ~ 'uuid' <G0 <G0 <G0
-    |    |--- <MSVS
+    |    |--- <MSVS declspec uuid> ~ 'uuid' <G0 lparen> <G0 string> <G0 rparen>
+    |    |--- <MSVS declspec uuid>
     |    |--- ~
     |    |--- 'uuid'
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 string>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- :discard ~ <MSVS
+    |    |--- :discard ~ <MSVS declspec>
     |    |--- :discard
     |    |--- ~
-    |    |--- <MSVS
+    |    |--- <MSVS declspec>
     |--- statement
-    |    |--- <GCC ~ '__attribute__' | '__attribute'
-    |    |--- <GCC
+    |    |--- <GCC attribute keyword> ~ '__attribute__' | '__attribute'
+    |    |--- <GCC attribute keyword>
     |    |--- ~
     |    |--- '__attribute__'
     |    |--- |
     |    |--- '__attribute'
     |--- statement
-    |    |--- <GCC ~ <GCC <G0 <G0 <G0 <G0 | <GCC <G0 <G0 <GCC <G0 <G0
-    |    |--- <GCC
+    |    |--- <GCC attribute> ~ <GCC attribute keyword> <G0 lparen> <G0 lparen> <G0 rparen> <G0 rparen> | <GCC attribute keyword> <G0 lparen> <G0 lparen> <GCC attribute list> <G0 rparen> <G0 rparen>
+    |    |--- <GCC attribute>
     |    |--- ~
-    |    |--- <GCC
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <GCC attribute keyword>
+    |    |--- <G0 lparen>
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
+    |    |--- <G0 rparen>
     |    |--- |
-    |    |--- <GCC
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <GCC
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <GCC attribute keyword>
+    |    |--- <G0 lparen>
+    |    |--- <G0 lparen>
+    |    |--- <GCC attribute list>
+    |    |--- <G0 rparen>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <GCC ~ <GCC | <GCC <G0 <GCC
-    |    |--- <GCC
+    |    |--- <GCC attribute list> ~ <GCC attribute unit> | <GCC attribute list> <G0 comma> <GCC attribute unit>
+    |    |--- <GCC attribute list>
     |    |--- ~
-    |    |--- <GCC
+    |    |--- <GCC attribute unit>
     |    |--- |
-    |    |--- <GCC
-    |    |--- <G0
-    |    |--- <GCC
+    |    |--- <GCC attribute list>
+    |    |--- <G0 comma>
+    |    |--- <GCC attribute unit>
     |--- statement
-    |    |--- <GCC ~ <G0 | <G0 <G0 <G0 | <G0 <G0 <GCC <G0
-    |    |--- <GCC
+    |    |--- <GCC attribute unit> ~ <G0 word> | <G0 word> <G0 lparen> <G0 rparen> | <G0 word> <G0 lparen> <GCC attribute parameters> <G0 rparen>
+    |    |--- <GCC attribute unit>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 word>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 word>
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <GCC
-    |    |--- <G0
+    |    |--- <G0 word>
+    |    |--- <G0 lparen>
+    |    |--- <GCC attribute parameters>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <GCC ~ <G0 | <G0 <G0 <GCC | <GCC
-    |    |--- <GCC
+    |    |--- <GCC attribute parameters> ~ <G0 identifier> | <G0 identifier> <G0 comma> <GCC attribute parameters expressions> | <GCC attribute parameters expressions>
+    |    |--- <GCC attribute parameters>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <GCC
+    |    |--- <G0 identifier>
+    |    |--- <G0 comma>
+    |    |--- <GCC attribute parameters expressions>
     |    |--- |
-    |    |--- <GCC
+    |    |--- <GCC attribute parameters expressions>
     |--- statement
-    |    |--- <GCC ~ <GCC | <GCC <G0 <GCC
-    |    |--- <GCC
+    |    |--- <GCC attribute parameters expressions> ~ <GCC attribute parameters expression> | <GCC attribute parameters expressions> <G0 comma> <GCC attribute parameters expression>
+    |    |--- <GCC attribute parameters expressions>
     |    |--- ~
-    |    |--- <GCC
+    |    |--- <GCC attribute parameters expression>
     |    |--- |
-    |    |--- <GCC
-    |    |--- <G0
-    |    |--- <GCC
+    |    |--- <GCC attribute parameters expressions>
+    |    |--- <G0 comma>
+    |    |--- <GCC attribute parameters expression>
     |--- statement
-    |    |--- <GCC ~ <G0
-    |    |--- <GCC
+    |    |--- <GCC attribute parameters expression> ~ <G0 expression>
+    |    |--- <GCC attribute parameters expression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 expression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 expression> ~ <G0 assignmentExpression> | <G0 expression> <G0 comma> <G0 assignmentExpression>
+    |    |--- <G0 expression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 assignmentExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 expression>
+    |    |--- <G0 comma>
+    |    |--- <G0 assignmentExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 assignmentExpression> ~ <G0 conditionalExpression> | <G0 unaryExpression> <G0 assignmentOperator> <G0 assignmentExpression>
+    |    |--- <G0 assignmentExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 conditionalExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 unaryExpression>
+    |    |--- <G0 assignmentOperator>
+    |    |--- <G0 assignmentExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 | <G0 | <G0 | <G0 | <G0 | <G0 | <G0 | <G0 | <G0 | <G0
-    |    |--- <G0
+    |    |--- <G0 assignmentOperator> ~ <G0 equal> | <G0 mul assign> | <G0 div assign> | <G0 mod assign> | <G0 add assign> | <G0 sub assign> | <G0 left assign> | <G0 right assign> | <G0 and assign> | <G0 xor assign> | <G0 or assign>
+    |    |--- <G0 assignmentOperator>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 equal>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 mul assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 div assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 mod assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 add assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 sub assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 left assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 right assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 and assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 xor assign>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 or assign>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 <G0 <G0 | <G0 <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 conditionalExpression> ~ <G0 logicalOrExpression> | <G0 logicalOrExpression> <G0 question mark> <G0 expression> <G0 colon> <G0 conditionalExpression> | <G0 logicalOrExpression> <G0 question mark> <G0 colon> <G0 conditionalExpression>
+    |    |--- <G0 conditionalExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 logicalOrExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 logicalOrExpression>
+    |    |--- <G0 question mark>
+    |    |--- <G0 expression>
+    |    |--- <G0 colon>
+    |    |--- <G0 conditionalExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 logicalOrExpression>
+    |    |--- <G0 question mark>
+    |    |--- <G0 colon>
+    |    |--- <G0 conditionalExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 logicalOrExpression> ~ <G0 logicalAndExpression> | <G0 logicalOrExpression> <G0 or op> <G0 logicalAndExpression>
+    |    |--- <G0 logicalOrExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 logicalAndExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 logicalOrExpression>
+    |    |--- <G0 or op>
+    |    |--- <G0 logicalAndExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 logicalAndExpression> ~ <G0 inclusiveOrExpression> | <G0 logicalAndExpression> <G0 and op> <G0 inclusiveOrExpression>
+    |    |--- <G0 logicalAndExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 inclusiveOrExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 logicalAndExpression>
+    |    |--- <G0 and op>
+    |    |--- <G0 inclusiveOrExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 inclusiveOrExpression> ~ <G0 exclusiveOrExpression> | <G0 inclusiveOrExpression> <G0 vertical bar> <G0 exclusiveOrExpression>
+    |    |--- <G0 inclusiveOrExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 exclusiveOrExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 inclusiveOrExpression>
+    |    |--- <G0 vertical bar>
+    |    |--- <G0 exclusiveOrExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 exclusiveOrExpression> ~ <G0 andExpression> | <G0 exclusiveOrExpression> <G0 caret> <G0 andExpression>
+    |    |--- <G0 exclusiveOrExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 andExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 exclusiveOrExpression>
+    |    |--- <G0 caret>
+    |    |--- <G0 andExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 andExpression> ~ <G0 equalityExpression> | <G0 andExpression> <G0 ampersand> <G0 equalityExpression>
+    |    |--- <G0 andExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 equalityExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 andExpression>
+    |    |--- <G0 ampersand>
+    |    |--- <G0 equalityExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 equalityExpression> ~ <G0 relationalExpression> | <G0 equalityExpression> <G0 eq op> <G0 relationalExpression> | <G0 equalityExpression> <G0 ne op> <G0 relationalExpression>
+    |    |--- <G0 equalityExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 relationalExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 equalityExpression>
+    |    |--- <G0 eq op>
+    |    |--- <G0 relationalExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 equalityExpression>
+    |    |--- <G0 ne op>
+    |    |--- <G0 relationalExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 | <G0 <G0 <G0 | <G0 <G0 <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 relationalExpression> ~ <G0 shiftExpression> | <G0 relationalExpression> <G0 less than> <G0 shiftExpression> | <G0 relationalExpression> <G0 greater than> <G0 shiftExpression> | <G0 relationalExpression> <G0 le op> <G0 shiftExpression> | <G0 relationalExpression> <G0 ge op> <G0 shiftExpression>
+    |    |--- <G0 relationalExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 shiftExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 relationalExpression>
+    |    |--- <G0 less than>
+    |    |--- <G0 shiftExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 relationalExpression>
+    |    |--- <G0 greater than>
+    |    |--- <G0 shiftExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 relationalExpression>
+    |    |--- <G0 le op>
+    |    |--- <G0 shiftExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 relationalExpression>
+    |    |--- <G0 ge op>
+    |    |--- <G0 shiftExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 shiftExpression> ~ <G0 additiveExpression> | <G0 shiftExpression> <G0 left op> <G0 additiveExpression> | <G0 shiftExpression> <G0 right op> <G0 additiveExpression>
+    |    |--- <G0 shiftExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 additiveExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 shiftExpression>
+    |    |--- <G0 left op>
+    |    |--- <G0 additiveExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 shiftExpression>
+    |    |--- <G0 right op>
+    |    |--- <G0 additiveExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 additiveExpression> ~ <G0 multiplicativeExpression> | <G0 additiveExpression> <G0 plus> <G0 multiplicativeExpression> | <G0 additiveExpression> <G0 hyphen> <G0 multiplicativeExpression>
+    |    |--- <G0 additiveExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 multiplicativeExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 additiveExpression>
+    |    |--- <G0 plus>
+    |    |--- <G0 multiplicativeExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 additiveExpression>
+    |    |--- <G0 hyphen>
+    |    |--- <G0 multiplicativeExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 | <G0 <G0 <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 multiplicativeExpression> ~ <G0 castExpression> | <G0 multiplicativeExpression> <G0 star> <G0 castExpression> | <G0 multiplicativeExpression> <G0 slash> <G0 castExpression> | <G0 multiplicativeExpression> <G0 percent> <G0 castExpression>
+    |    |--- <G0 multiplicativeExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 castExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 multiplicativeExpression>
+    |    |--- <G0 star>
+    |    |--- <G0 castExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 multiplicativeExpression>
+    |    |--- <G0 slash>
+    |    |--- <G0 castExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 multiplicativeExpression>
+    |    |--- <G0 percent>
+    |    |--- <G0 castExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 castExpression> ~ <G0 unaryExpression> | <G0 lparen> <G0 words> <G0 rparen> <G0 castExpression>
+    |    |--- <G0 castExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 unaryExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 words>
+    |    |--- <G0 rparen>
+    |    |--- <G0 castExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 | <G0 | <G0 | <G0 | <G0
-    |    |--- <G0
+    |    |--- <G0 unaryOperator> ~ <G0 ampersand> | <G0 star> | <G0 plus> | <G0 hyphen> | <G0 tilde> | <G0 exclamation>
+    |    |--- <G0 unaryOperator>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 ampersand>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 star>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 plus>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 hyphen>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 tilde>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 exclamation>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 | <G0 <G0 | <G0 <G0 | <G0 <G0 | <G0 <G0 <G0 <G0 | <G0 <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 unaryExpression> ~ <G0 postfixExpression> | <G0 inc op> <G0 unaryExpression> | <G0 dec op> <G0 unaryExpression> | <G0 unaryOperator> <G0 castExpression> | <G0 sizeof> <G0 unaryExpression> | <G0 sizeof> <G0 lparen> <G0 words> <G0 rparen> | <G0 alignof> <G0 lparen> <G0 words> <G0 rparen>
+    |    |--- <G0 unaryExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 postfixExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 inc op>
+    |    |--- <G0 unaryExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 dec op>
+    |    |--- <G0 unaryExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 unaryOperator>
+    |    |--- <G0 castExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 sizeof>
+    |    |--- <G0 unaryExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 sizeof>
+    |    |--- <G0 lparen>
+    |    |--- <G0 words>
+    |    |--- <G0 rparen>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 alignof>
+    |    |--- <G0 lparen>
+    |    |--- <G0 words>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 <G0 | <G0 <G0 <G0 | <G0 <G0 <G0 <G0 | <G0 <G0 <G0 | <G0 <G0 <G0 | <G0 <G0 | <G0 <G0 | <G0 <G0 <G0 <G0 <G0 <G0 | <G0 <G0 <G0 <G0 <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 postfixExpression> ~ <G0 primaryExpression> | <G0 postfixExpression> <G0 lbracket> <G0 expression> <G0 rbracket> | <G0 postfixExpression> <G0 lparen> <G0 rparen> | <G0 postfixExpression> <G0 lparen> <G0 argumentExpressionList> <G0 rparen> | <G0 postfixExpression> <G0 dot> <G0 identifier> | <G0 postfixExpression> <G0 ptr op> <G0 identifier> | <G0 postfixExpression> <G0 inc op> | <G0 postfixExpression> <G0 dec op> | <G0 lparen> <G0 words> <G0 rparen> <G0 lcurly> <G0 initializerList> <G0 rcurly> | <G0 lparen> <G0 words> <G0 rparen> <G0 lcurly> <G0 initializerList> <G0 comma> <G0 rcurly>
+    |    |--- <G0 postfixExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 primaryExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 postfixExpression>
+    |    |--- <G0 lbracket>
+    |    |--- <G0 expression>
+    |    |--- <G0 rbracket>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 postfixExpression>
+    |    |--- <G0 lparen>
+    |    |--- <G0 rparen>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 postfixExpression>
+    |    |--- <G0 lparen>
+    |    |--- <G0 argumentExpressionList>
+    |    |--- <G0 rparen>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 postfixExpression>
+    |    |--- <G0 dot>
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 postfixExpression>
+    |    |--- <G0 ptr op>
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 postfixExpression>
+    |    |--- <G0 inc op>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 postfixExpression>
+    |    |--- <G0 dec op>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 words>
+    |    |--- <G0 rparen>
+    |    |--- <G0 lcurly>
+    |    |--- <G0 initializerList>
+    |    |--- <G0 rcurly>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 words>
+    |    |--- <G0 rparen>
+    |    |--- <G0 lcurly>
+    |    |--- <G0 initializerList>
+    |    |--- <G0 comma>
+    |    |--- <G0 rcurly>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 | <G0 | <G0 <G0 <G0 | <G0
-    |    |--- <G0
+    |    |--- <G0 primaryExpression> ~ <G0 identifier> | <G0 constant> | <G0 string> | <G0 lparen> <G0 expression> <G0 rparen> | <G0 genericSelection>
+    |    |--- <G0 primaryExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 constant>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 string>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lparen>
+    |    |--- <G0 expression>
+    |    |--- <G0 rparen>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 genericSelection>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0 | <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 argumentExpressionList> ~ <G0 assignmentExpression> | <G0 argumentExpressionList> <G0 comma> <G0 assignmentExpression> | <G0 argumentExpressionList> <G0 comma>
+    |    |--- <G0 argumentExpressionList>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 assignmentExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 argumentExpressionList>
+    |    |--- <G0 comma>
+    |    |--- <G0 assignmentExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 argumentExpressionList>
+    |    |--- <G0 comma>
     |--- statement
-    |    |--- <G0 ~ <G0 <G0 <G0 <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 genericSelection> ~ <G0 generic> <G0 lparen> <G0 assignmentExpression> <G0 comma> <G0 genericAssocList> <G0 rparen>
+    |    |--- <G0 genericSelection>
     |    |--- ~
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 generic>
+    |    |--- <G0 lparen>
+    |    |--- <G0 assignmentExpression>
+    |    |--- <G0 comma>
+    |    |--- <G0 genericAssocList>
+    |    |--- <G0 rparen>
     |--- statement
-    |    |--- <G0 ~ <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 genericAssocList> ~ <G0 genericAssociation> | <G0 genericAssocList> <G0 comma> <G0 genericAssociation>
+    |    |--- <G0 genericAssocList>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 genericAssociation>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 genericAssocList>
+    |    |--- <G0 comma>
+    |    |--- <G0 genericAssociation>
     |--- statement
-    |    |--- <G0 ~ <G0 <G0 <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 genericAssociation> ~ <G0 words> <G0 colon> <G0 assignmentExpression> | <G0 default> <G0 colon> <G0 assignmentExpression>
+    |    |--- <G0 genericAssociation>
     |    |--- ~
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 words>
+    |    |--- <G0 colon>
+    |    |--- <G0 assignmentExpression>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 default>
+    |    |--- <G0 colon>
+    |    |--- <G0 assignmentExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 <G0 | <G0 | <G0 <G0 <G0 | <G0 <G0 <G0 <G0 | <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 initializerList> ~ <G0 designation> <G0 initializer> | <G0 initializer> | <G0 identifier> <G0 colon> <G0 initializer> | <G0 initializerList> <G0 comma> <G0 designation> <G0 initializer> | <G0 initializerList> <G0 comma> <G0 initializer>
+    |    |--- <G0 initializerList>
     |    |--- ~
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 designation>
+    |    |--- <G0 initializer>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 initializer>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 identifier>
+    |    |--- <G0 colon>
+    |    |--- <G0 initializer>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 initializerList>
+    |    |--- <G0 comma>
+    |    |--- <G0 designation>
+    |    |--- <G0 initializer>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 initializerList>
+    |    |--- <G0 comma>
+    |    |--- <G0 initializer>
     |--- statement
-    |    |--- <G0 ~ <G0 <G0 <G0 | <G0 <G0 <G0 <G0 | <G0
-    |    |--- <G0
+    |    |--- <G0 initializer> ~ <G0 lcurly> <G0 initializerList> <G0 rcurly> | <G0 lcurly> <G0 initializerList> <G0 comma> <G0 rcurly> | <G0 assignmentExpression>
+    |    |--- <G0 initializer>
     |    |--- ~
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lcurly>
+    |    |--- <G0 initializerList>
+    |    |--- <G0 rcurly>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lcurly>
+    |    |--- <G0 initializerList>
+    |    |--- <G0 comma>
+    |    |--- <G0 rcurly>
     |    |--- |
-    |    |--- <G0
+    |    |--- <G0 assignmentExpression>
     |--- statement
-    |    |--- <G0 ~ <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 designation> ~ <G0 designatorList> <G0 equal>
+    |    |--- <G0 designation>
     |    |--- ~
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 designatorList>
+    |    |--- <G0 equal>
     |--- statement
-    |    |--- <G0 ~ <G0 +
-    |    |--- <G0
+    |    |--- <G0 designatorList> ~ <G0 designator> +
+    |    |--- <G0 designatorList>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 designator>
     |    |--- +
     |--- statement
-    |    |--- <G0 ~ <G0 <G0 <G0 | <G0 <G0 | <G0 <G0 <G0 <G0 <G0
-    |    |--- <G0
+    |    |--- <G0 designator> ~ <G0 lbracket> <G0 constantExpression> <G0 rbracket> | <G0 dot> <G0 identifier> | <G0 lbracket> <G0 constantExpression> <G0 ellipsis> <G0 constantExpression> <G0 rbracket>
+    |    |--- <G0 designator>
     |    |--- ~
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lbracket>
+    |    |--- <G0 constantExpression>
+    |    |--- <G0 rbracket>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 dot>
+    |    |--- <G0 identifier>
     |    |--- |
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
-    |    |--- <G0
+    |    |--- <G0 lbracket>
+    |    |--- <G0 constantExpression>
+    |    |--- <G0 ellipsis>
+    |    |--- <G0 constantExpression>
+    |    |--- <G0 rbracket>
     |--- statement
-    |    |--- <G0 ~ <G0
-    |    |--- <G0
+    |    |--- <G0 constantExpression> ~ <G0 conditionalExpression>
+    |    |--- <G0 constantExpression>
     |    |--- ~
-    |    |--- <G0
+    |    |--- <G0 conditionalExpression>
     |--- statement
-         |--- :discard ~ <GCC
+         |--- :discard ~ <GCC attribute>
          |--- :discard
          |--- ~
-         |--- <GCC
+         |--- <GCC attribute>

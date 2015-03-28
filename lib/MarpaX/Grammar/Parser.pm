@@ -223,7 +223,8 @@ sub clean_name
 
 sub compress_tree
 {
-	my($self) = @_;
+	my($self)          = @_;
+	my($parenthesized) = 0;
 
 	my($alternative_count);
 	my($daughter, @daughters);
@@ -239,6 +240,15 @@ sub compress_tree
 			my($node, $option) = @_;
 			$name      = $node -> name;
 			$statement = ($name =~ /Class = .+::(.+?)\s/) ? $1 : '';
+
+			# Reset $parenthesized if the nesting depth is less than when it was set.
+
+			if ($$option{_depth} < $parenthesized)
+			{
+				$parenthesized = 0;
+
+				$self -> _add_daughter(')');
+			}
 
 			if ($statement)
 			{
@@ -289,6 +299,12 @@ sub compress_tree
 				{
 					$self -> _add_daughter('pause');
 					$self -> _add_daughter('=>');
+				}
+				elsif ($statement eq 'parenthesized_rhs_primary_list')
+				{
+					$parenthesized = $$option{_depth};
+
+					$self -> _add_daughter('(');
 				}
 				elsif ($statement eq 'priority_specification')
 				{

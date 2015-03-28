@@ -32,12 +32,16 @@ Statements
     |    |--- =>
     |    |--- ::first
     |--- statement
-    |    |--- object ::= '{' members '}' bless => hash
+    |    |--- object ::= ( '{' ) members ( '}' ) bless => hash
     |    |--- object
     |    |--- ::=
+    |    |--- (
     |    |--- '{'
+    |    |--- )
     |    |--- members
+    |    |--- (
     |    |--- '}'
+    |    |--- )
     |    |--- bless
     |    |--- =>
     |    |--- hash
@@ -51,11 +55,13 @@ Statements
     |    |--- =>
     |    |--- <comma>
     |--- statement
-    |    |--- pair ::= string ':' value
+    |    |--- pair ::= string ( ':' ) value
     |    |--- pair
     |    |--- ::=
     |    |--- string
+    |    |--- (
     |    |--- ':'
+    |    |--- )
     |    |--- value
     |--- statement
     |    |--- value ::= string action => ::first | object action => ::first | number action => ::first | array action => ::first | 'true' bless => true | 'false' bless => false | 'null' action => ::undef
@@ -96,15 +102,21 @@ Statements
     |    |--- =>
     |    |--- ::undef
     |--- statement
-    |    |--- array ::= '[' ']' | '[' elements ']' action => ::first
+    |    |--- array ::= ( '[' ']' ) | ( '[' ) elements ( ']' ) action => ::first
     |    |--- array
     |    |--- ::=
+    |    |--- (
     |    |--- '['
     |    |--- ']'
+    |    |--- )
     |    |--- |
+    |    |--- (
     |    |--- '['
+    |    |--- )
     |    |--- elements
+    |    |--- (
     |    |--- ']'
+    |    |--- )
     |    |--- action
     |    |--- =>
     |    |--- ::first

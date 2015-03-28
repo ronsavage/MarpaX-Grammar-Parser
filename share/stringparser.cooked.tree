@@ -39,7 +39,7 @@ Statements
     |    |--- node_statement
     |    |--- graph_definition
     |--- statement
-    |    |--- node_statement ::= node_name_token | node_name_token attribute_definition | node_statement ',' node_statement
+    |    |--- node_statement ::= node_name_token | node_name_token attribute_definition | node_statement ( ',' ) node_statement
     |    |--- node_statement
     |    |--- ::=
     |    |--- node_name_token
@@ -48,7 +48,9 @@ Statements
     |    |--- attribute_definition
     |    |--- |
     |    |--- node_statement
+    |    |--- (
     |    |--- ','
+    |    |--- )
     |    |--- node_statement
     |--- statement
     |    |--- node_name_token ::= start_node end_node | start_node node_name end_node
@@ -69,7 +71,7 @@ Statements
     |    |--- edge_statement
     |    |--- graph_definition
     |--- statement
-    |    |--- edge_statement ::= edge_name | edge_name attribute_definition | edge_statement ',' edge_statement
+    |    |--- edge_statement ::= edge_name | edge_name attribute_definition | edge_statement ( ',' ) edge_statement
     |    |--- edge_statement
     |    |--- ::=
     |    |--- edge_name
@@ -78,7 +80,9 @@ Statements
     |    |--- attribute_definition
     |    |--- |
     |    |--- edge_statement
+    |    |--- (
     |    |--- ','
+    |    |--- )
     |    |--- edge_statement
     |--- statement
     |    |--- edge_name ::= directed_edge | undirected_edge
@@ -107,13 +111,15 @@ Statements
     |    |--- string_token_pair
     |    |--- +
     |--- statement
-    |    |--- string_token_pair ::= literal_label | attribute_name ':' attribute_value
+    |    |--- string_token_pair ::= literal_label | attribute_name ( ':' ) attribute_value
     |    |--- string_token_pair
     |    |--- ::=
     |    |--- literal_label
     |    |--- |
     |    |--- attribute_name
+    |    |--- (
     |    |--- ':'
+    |    |--- )
     |    |--- attribute_value
     |--- statement
     |    |--- :lexeme ~ attribute_name pause => before event => attribute_name

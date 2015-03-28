@@ -29,12 +29,16 @@ Statements
     |    |--- |
     |    |--- array
     |--- statement
-    |    |--- hash ::= '{' <hash pairs> '}' action => [name,value]
+    |    |--- hash ::= ( '{' ) <hash pairs> ( '}' ) action => [name,value]
     |    |--- hash
     |    |--- ::=
+    |    |--- (
     |    |--- '{'
+    |    |--- )
     |    |--- <hash pairs>
+    |    |--- (
     |    |--- '}'
+    |    |--- )
     |    |--- action
     |    |--- =>
     |    |--- [name,value]
@@ -51,11 +55,13 @@ Statements
     |    |--- =>
     |    |--- [values]
     |--- statement
-    |    |--- pair ::= string ':' value action => [values]
+    |    |--- pair ::= string ( ':' ) value action => [values]
     |    |--- pair
     |    |--- ::=
     |    |--- string
+    |    |--- (
     |    |--- ':'
+    |    |--- )
     |    |--- value
     |    |--- action
     |    |--- =>
@@ -102,12 +108,16 @@ Statements
     |    |--- =>
     |    |--- [name]
     |--- statement
-    |    |--- array ::= '[' elements ']' action => [name,values]
+    |    |--- array ::= ( '[' ) elements ( ']' ) action => [name,values]
     |    |--- array
     |    |--- ::=
+    |    |--- (
     |    |--- '['
+    |    |--- )
     |    |--- elements
+    |    |--- (
     |    |--- ']'
+    |    |--- )
     |    |--- action
     |    |--- =>
     |    |--- [name,values]
@@ -180,12 +190,16 @@ Statements
     |    |--- |
     |    |--- 'E-'
     |--- statement
-    |    |--- string ::= quote <string contents> quote action => [name,values]
+    |    |--- string ::= ( quote ) <string contents> ( quote ) action => [name,values]
     |    |--- string
     |    |--- ::=
+    |    |--- (
     |    |--- quote
+    |    |--- )
     |    |--- <string contents>
+    |    |--- (
     |    |--- quote
+    |    |--- )
     |    |--- action
     |    |--- =>
     |    |--- [name,values]
@@ -208,10 +222,12 @@ Statements
     |    |--- |
     |    |--- <hex char>
     |--- statement
-    |    |--- <escaped char> ::= '\' <any char>
+    |    |--- <escaped char> ::= ( '\' ) <any char>
     |    |--- <escaped char>
     |    |--- ::=
+    |    |--- (
     |    |--- '\'
+    |    |--- )
     |    |--- <any char>
     |--- statement
     |    |--- quote ~ ["]
