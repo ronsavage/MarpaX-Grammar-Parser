@@ -247,13 +247,13 @@ sub compress_tree
 					$self -> _add_daughter('action');
 					$self -> _add_daughter('=>');
 				}
-				elsif ($statement eq 'alternatives')
-				{
-					$alternative_count = 0;
-				}
 				elsif ($statement eq 'alternative')
 				{
 					$alternative_count++;
+				}
+				elsif ($statement eq 'alternatives')
+				{
+					$alternative_count = 0;
 				}
 				elsif ($statement eq 'blessing')
 				{
