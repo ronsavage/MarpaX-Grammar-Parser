@@ -32,19 +32,23 @@ Statements
     |    |--- =>
     |    |--- ::first
     |--- statement
-    |    |--- object ::= '{' members '}' hash
+    |    |--- object ::= '{' members '}' bless => hash
     |    |--- object
     |    |--- ::=
     |    |--- '{'
     |    |--- members
     |    |--- '}'
+    |    |--- bless
+    |    |--- =>
     |    |--- hash
     |--- statement
-    |    |--- members ::= pair * <comma>
+    |    |--- members ::= pair * separator => <comma>
     |    |--- members
     |    |--- ::=
     |    |--- pair
     |    |--- *
+    |    |--- separator
+    |    |--- =>
     |    |--- <comma>
     |--- statement
     |    |--- pair ::= string ':' value
@@ -54,7 +58,7 @@ Statements
     |    |--- ':'
     |    |--- value
     |--- statement
-    |    |--- value ::= string action => ::first | object action => ::first | number action => ::first | array action => ::first | 'true' true | 'false' false | 'null' action => ::undef
+    |    |--- value ::= string action => ::first | object action => ::first | number action => ::first | array action => ::first | 'true' bless => true | 'false' bless => false | 'null' action => ::undef
     |    |--- value
     |    |--- ::=
     |    |--- string
@@ -78,9 +82,13 @@ Statements
     |    |--- ::first
     |    |--- |
     |    |--- 'true'
+    |    |--- bless
+    |    |--- =>
     |    |--- true
     |    |--- |
     |    |--- 'false'
+    |    |--- bless
+    |    |--- =>
     |    |--- false
     |    |--- |
     |    |--- 'null'
@@ -101,11 +109,13 @@ Statements
     |    |--- =>
     |    |--- ::first
     |--- statement
-    |    |--- elements ::= value + <comma>
+    |    |--- elements ::= value + separator => <comma>
     |    |--- elements
     |    |--- ::=
     |    |--- value
     |    |--- +
+    |    |--- separator
+    |    |--- =>
     |    |--- <comma>
     |--- statement
     |    |--- number ~ int | int frac | int exp | int frac exp
@@ -164,17 +174,19 @@ Statements
     |    |--- |
     |    |--- 'E-'
     |--- statement
-    |    |--- string ::= <string string
+    |    |--- string ::= <string lexeme> bless => string
     |    |--- string
     |    |--- ::=
-    |    |--- <string
+    |    |--- <string lexeme>
+    |    |--- bless
+    |    |--- =>
     |    |--- string
     |--- statement
-    |    |--- <string ~ quote <string quote
-    |    |--- <string
+    |    |--- <string lexeme> ~ quote <string contents> quote
+    |    |--- <string lexeme>
     |    |--- ~
     |    |--- quote
-    |    |--- <string
+    |    |--- <string contents>
     |    |--- quote
     |--- statement
     |    |--- quote ~ ["]
@@ -182,22 +194,22 @@ Statements
     |    |--- ~
     |    |--- ["]
     |--- statement
-    |    |--- <string ~ <string *
-    |    |--- <string
+    |    |--- <string contents> ~ <string char> *
+    |    |--- <string contents>
     |    |--- ~
-    |    |--- <string
+    |    |--- <string char>
     |    |--- *
     |--- statement
-    |    |--- <string ~ [^"\\] | '\' <any
-    |    |--- <string
+    |    |--- <string char> ~ [^"\\] | '\' <any char>
+    |    |--- <string char>
     |    |--- ~
     |    |--- [^"\\]
     |    |--- |
     |    |--- '\'
-    |    |--- <any
+    |    |--- <any char>
     |--- statement
-    |    |--- <any ~ [\d\D]
-    |    |--- <any
+    |    |--- <any char> ~ [\d\D]
+    |    |--- <any char>
     |    |--- ~
     |    |--- [\d\D]
     |--- statement

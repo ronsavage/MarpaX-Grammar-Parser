@@ -35,11 +35,13 @@ Statements
     |    |--- =>
     |    |--- do_object
     |--- statement
-    |    |--- members ::= pair + <comma> action => do_list
+    |    |--- members ::= pair + separator => <comma> action => do_list
     |    |--- members
     |    |--- ::=
     |    |--- pair
     |    |--- +
+    |    |--- separator
+    |    |--- =>
     |    |--- <comma>
     |    |--- action
     |    |--- =>
@@ -97,11 +99,13 @@ Statements
     |    |--- =>
     |    |--- do_array
     |--- statement
-    |    |--- elements ::= value + <comma> action => do_list
+    |    |--- elements ::= value + separator => <comma> action => do_list
     |    |--- elements
     |    |--- ::=
     |    |--- value
     |    |--- +
+    |    |--- separator
+    |    |--- =>
     |    |--- <comma>
     |    |--- action
     |    |--- =>

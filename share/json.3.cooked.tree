@@ -29,21 +29,23 @@ Statements
     |    |--- |
     |    |--- array
     |--- statement
-    |    |--- hash ::= '{' <hash '}' action => [name,value]
+    |    |--- hash ::= '{' <hash pairs> '}' action => [name,value]
     |    |--- hash
     |    |--- ::=
     |    |--- '{'
-    |    |--- <hash
+    |    |--- <hash pairs>
     |    |--- '}'
     |    |--- action
     |    |--- =>
     |    |--- [name,value]
     |--- statement
-    |    |--- <hash ::= pair * <comma> action => [values]
-    |    |--- <hash
+    |    |--- <hash pairs> ::= pair * separator => <comma> action => [values]
+    |    |--- <hash pairs>
     |    |--- ::=
     |    |--- pair
     |    |--- *
+    |    |--- separator
+    |    |--- =>
     |    |--- <comma>
     |    |--- action
     |    |--- =>
@@ -110,7 +112,7 @@ Statements
     |    |--- =>
     |    |--- [name,values]
     |--- statement
-    |    |--- elements ::= value * action => [values] <comma>
+    |    |--- elements ::= value * action => [values] separator => <comma>
     |    |--- elements
     |    |--- ::=
     |    |--- value
@@ -118,6 +120,8 @@ Statements
     |    |--- action
     |    |--- =>
     |    |--- [values]
+    |    |--- separator
+    |    |--- =>
     |    |--- <comma>
     |--- statement
     |    |--- number ~ int | int frac | int exp | int frac exp
@@ -176,68 +180,68 @@ Statements
     |    |--- |
     |    |--- 'E-'
     |--- statement
-    |    |--- string ::= quote <string quote action => [name,values]
+    |    |--- string ::= quote <string contents> quote action => [name,values]
     |    |--- string
     |    |--- ::=
     |    |--- quote
-    |    |--- <string
+    |    |--- <string contents>
     |    |--- quote
     |    |--- action
     |    |--- =>
     |    |--- [name,values]
     |--- statement
-    |    |--- <string ::= <string * action => [values]
-    |    |--- <string
+    |    |--- <string contents> ::= <string piece> * action => [values]
+    |    |--- <string contents>
     |    |--- ::=
-    |    |--- <string
+    |    |--- <string piece>
     |    |--- *
     |    |--- action
     |    |--- =>
     |    |--- [values]
     |--- statement
-    |    |--- <string ::= <easy | <escaped | <hex
-    |    |--- <string
+    |    |--- <string piece> ::= <easy string> | <escaped char> | <hex char>
+    |    |--- <string piece>
     |    |--- ::=
-    |    |--- <easy
+    |    |--- <easy string>
     |    |--- |
-    |    |--- <escaped
+    |    |--- <escaped char>
     |    |--- |
-    |    |--- <hex
+    |    |--- <hex char>
     |--- statement
-    |    |--- <escaped ::= '\' <any
-    |    |--- <escaped
+    |    |--- <escaped char> ::= '\' <any char>
+    |    |--- <escaped char>
     |    |--- ::=
     |    |--- '\'
-    |    |--- <any
+    |    |--- <any char>
     |--- statement
     |    |--- quote ~ ["]
     |    |--- quote
     |    |--- ~
     |    |--- ["]
     |--- statement
-    |    |--- <easy ~ [^"\\] *
-    |    |--- <easy
+    |    |--- <easy string> ~ [^"\\] *
+    |    |--- <easy string>
     |    |--- ~
     |    |--- [^"\\]
     |    |--- *
     |--- statement
-    |    |--- <hex ~ '\' 'u' <hex <hex <hex <hex
-    |    |--- <hex
+    |    |--- <hex char> ~ '\' 'u' <hex digit> <hex digit> <hex digit> <hex digit>
+    |    |--- <hex char>
     |    |--- ~
     |    |--- '\'
     |    |--- 'u'
-    |    |--- <hex
-    |    |--- <hex
-    |    |--- <hex
-    |    |--- <hex
+    |    |--- <hex digit>
+    |    |--- <hex digit>
+    |    |--- <hex digit>
+    |    |--- <hex digit>
     |--- statement
-    |    |--- <hex ~ [0-9A-Fa-f]
-    |    |--- <hex
+    |    |--- <hex digit> ~ [0-9A-Fa-f]
+    |    |--- <hex digit>
     |    |--- ~
     |    |--- [0-9A-Fa-f]
     |--- statement
-    |    |--- <any ~ [\d\D]
-    |    |--- <any
+    |    |--- <any char> ~ [\d\D]
+    |    |--- <any char>
     |    |--- ~
     |    |--- [\d\D]
     |--- statement

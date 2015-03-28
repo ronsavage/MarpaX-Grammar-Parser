@@ -255,6 +255,11 @@ sub compress_tree
 				{
 					$alternative_count++;
 				}
+				elsif ($statement eq 'blessing')
+				{
+					$self -> _add_daughter('bless');
+					$self -> _add_daughter('=>');
+				}
 				elsif ($statement eq 'discard_rule')
 				{
 					$self -> _add_daughter(':discard');
@@ -294,6 +299,11 @@ sub compress_tree
 				{
 					$self -> _add_daughter('|') if ($alternative_count > 1);
 				}
+				elsif ($statement eq 'separator_specification')
+				{
+					$self -> _add_daughter('separator');
+					$self -> _add_daughter('=>');
+				}
 				elsif ($statement eq 'start_rule')
 				{
 					$self -> _add_daughter(':start');
@@ -320,12 +330,17 @@ sub compress_tree
 				# Split things like:
 				# o '2 = graph_definition [SCALAR 186]'.
 				# o '2 = ::= [SCALAR 195]'.
+				# o '2 = <string lexeme> [SCALAR 2047]'.
 
 				@name = split(/\s+/, $name);
 
+				# Discard the '[$x' and '$n]'.
+
+				pop @name for 1 .. 2;
+
 				if ($name[2] ne 'undef')
 				{
-					$self -> _add_daughter($name[2]);
+					$self -> _add_daughter(join(' ', @name[2 .. $#name]) );
 				}
 			}
 
