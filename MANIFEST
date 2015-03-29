@@ -10,7 +10,6 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Share.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-lib/Data/TreeDumper/Renderer/Marpa.pm
 lib/MarpaX/Grammar/Parser.pm
 LICENSE
 Makefile.PL
@@ -37,15 +36,10 @@ share/json.3.cooked.tree
 share/json.3.raw.tree
 share/metag.bnf
 share/metag.cooked.tree
-share/metag.hashref
 share/metag.raw.tree
 share/stringparser.bnf
-share/stringparser.cooked.attributes.tree
 share/stringparser.cooked.tree
-share/stringparser.hashref
-share/stringparser.raw.attributes.tree
 share/stringparser.raw.tree
-share/stringparser.treedumper
 share/termcap.info.bnf
 share/termcap.info.cooked.tree
 share/termcap.info.raw.tree
