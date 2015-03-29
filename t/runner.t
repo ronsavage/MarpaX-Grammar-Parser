@@ -51,10 +51,11 @@ BEGIN {use_ok('MarpaX::Grammar::Parser'); }
 
 my($count) = 1;
 
-# We omit c.ast only because it takes 7 seconds to process.
-
-for (qw/json.1 json.2 stringparser termcap.info/)
+for (qw/c.ast json.1 json.2 json.3 stringparser termcap.info/)
 {
+	diag $_;
+	diag "Testing c.ast takes 7 seconds...." if ($_ eq 'c.ast');
+
 	process($_);
 
 	$count += 5;
