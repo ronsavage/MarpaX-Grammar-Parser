@@ -34,7 +34,7 @@ Statements
     |    |--- statement
     |    |--- +
     |--- statement
-    |    |--- statement ::= <start rule> | <empty rule> | <null statement> | <statement group> | <priority rule> | <quantified rule> | <discard rule> | <default rule> | <lexeme default statement> | <lexeme rule> | <completion event declaration> | <nulled event declaration> | <prediction event declaration> | <current lexer statement> | <inaccessible statement>
+    |    |--- statement ::= <start rule> | <empty rule> | <null statement> | <statement group> | <priority rule> | <quantified rule> | <discard rule> | <default rule> | <lexeme default statement> | <discard default statement> | <lexeme rule> | <completion event declaration> | <nulled event declaration> | <prediction event declaration> | <current lexer statement> | <inaccessible statement>
     |    |--- statement
     |    |--- ::=
     |    |--- <start rule>
@@ -54,6 +54,8 @@ Statements
     |    |--- <default rule>
     |    |--- |
     |    |--- <lexeme default statement>
+    |    |--- |
+    |    |--- <discard default statement>
     |    |--- |
     |    |--- <lexeme rule>
     |    |--- |
@@ -117,6 +119,16 @@ Statements
     |    |--- )
     |    |--- <adverb list>
     |--- statement
+    |    |--- <discard default statement> ::= ( 'discard' 'default' '=' ) <adverb list>
+    |    |--- <discard default statement>
+    |    |--- ::=
+    |    |--- (
+    |    |--- 'discard'
+    |    |--- 'default'
+    |    |--- '='
+    |    |--- )
+    |    |--- <adverb list>
+    |--- statement
     |    |--- <priority rule> ::= lhs <op declare> priorities
     |    |--- <priority rule>
     |    |--- ::=
@@ -140,7 +152,7 @@ Statements
     |    |--- quantifier
     |    |--- <adverb list>
     |--- statement
-    |    |--- <discard rule> ::= ( ':discard' <op declare match> ) <single symbol>
+    |    |--- <discard rule> ::= ( ':discard' <op declare match> ) <single symbol> <adverb list>
     |    |--- <discard rule>
     |    |--- ::=
     |    |--- (
@@ -148,6 +160,7 @@ Statements
     |    |--- <op declare match>
     |    |--- )
     |    |--- <single symbol>
+    |    |--- <adverb list>
     |--- statement
     |    |--- <lexeme rule> ::= ( ':lexeme' <op declare match> ) symbol <adverb list>
     |    |--- <lexeme rule>
@@ -159,39 +172,39 @@ Statements
     |    |--- symbol
     |    |--- <adverb list>
     |--- statement
-    |    |--- <completion event declaration> ::= ( 'event' ) <event name> ( '=' 'completed' ) <symbol name>
+    |    |--- <completion event declaration> ::= ( 'event' ) <event initialization> ( '=' 'completed' ) <symbol name>
     |    |--- <completion event declaration>
     |    |--- ::=
     |    |--- (
     |    |--- 'event'
     |    |--- )
-    |    |--- <event name>
+    |    |--- <event initialization>
     |    |--- (
     |    |--- '='
     |    |--- 'completed'
     |    |--- )
     |    |--- <symbol name>
     |--- statement
-    |    |--- <nulled event declaration> ::= ( 'event' ) <event name> ( '=' 'nulled' ) <symbol name>
+    |    |--- <nulled event declaration> ::= ( 'event' ) <event initialization> ( '=' 'nulled' ) <symbol name>
     |    |--- <nulled event declaration>
     |    |--- ::=
     |    |--- (
     |    |--- 'event'
     |    |--- )
-    |    |--- <event name>
+    |    |--- <event initialization>
     |    |--- (
     |    |--- '='
     |    |--- 'nulled'
     |    |--- )
     |    |--- <symbol name>
     |--- statement
-    |    |--- <prediction event declaration> ::= ( 'event' ) <event name> ( '=' 'predicted' ) <symbol name>
+    |    |--- <prediction event declaration> ::= ( 'event' ) <event initialization> ( '=' 'predicted' ) <symbol name>
     |    |--- <prediction event declaration>
     |    |--- ::=
     |    |--- (
     |    |--- 'event'
     |    |--- )
-    |    |--- <event name>
+    |    |--- <event initialization>
     |    |--- (
     |    |--- '='
     |    |--- 'predicted'
@@ -419,14 +432,39 @@ Statements
     |    |--- )
     |    |--- <before or after>
     |--- statement
-    |    |--- <event specification> ::= ( 'event' '=>' ) <event name>
+    |    |--- <event specification> ::= ( 'event' '=>' ) <event initialization>
     |    |--- <event specification>
     |    |--- ::=
     |    |--- (
     |    |--- 'event'
     |    |--- '=>'
     |    |--- )
+    |    |--- <event initialization>
+    |--- statement
+    |    |--- <event initialization> ::= <event name> <event initializer>
+    |    |--- <event initialization>
+    |    |--- ::=
     |    |--- <event name>
+    |    |--- <event initializer>
+    |--- statement
+    |    |--- <event initializer> ::= ( '=' ) <on or off>
+    |    |--- <event initializer>
+    |    |--- ::=
+    |    |--- (
+    |    |--- '='
+    |    |--- )
+    |    |--- <on or off>
+    |--- statement
+    |    |--- <on or off> ::= 'on' | 'off'
+    |    |--- <on or off>
+    |    |--- ::=
+    |    |--- 'on'
+    |    |--- |
+    |    |--- 'off'
+    |--- statement
+    |    |--- <event initializer> ::=
+    |    |--- <event initializer>
+    |    |--- ::=
     |--- statement
     |    |--- <latm specification> ::= ( 'forgiving' '=>' ) boolean
     |    |--- <latm specification>
@@ -478,12 +516,19 @@ Statements
     |    |--- |
     |    |--- <single quoted name>
     |--- statement
-    |    |--- <event name> ::= <standard name> | <single quoted name>
+    |    |--- <event name> ::= <standard name> | <single quoted name> | <reserved event name>
     |    |--- <event name>
     |    |--- ::=
     |    |--- <standard name>
     |    |--- |
     |    |--- <single quoted name>
+    |    |--- |
+    |    |--- <reserved event name>
+    |--- statement
+    |    |--- <reserved event name> ~ ':symbol'
+    |    |--- <reserved event name>
+    |    |--- ~
+    |    |--- ':symbol'
     |--- statement
     |    |--- <blessing name> ::= <standard name>
     |    |--- <blessing name>
@@ -804,12 +849,16 @@ Statements
     |    |--- [,]
     |    |--- whitespace
     |--- statement
-    |    |--- <result item descriptor> ~ 'start' | 'length' | 'name' | 'lhs' | 'symbol' | 'rule' | 'value' | 'values'
+    |    |--- <result item descriptor> ~ 'start' | 'length' | 'g1start' | 'g1length' | 'name' | 'lhs' | 'symbol' | 'rule' | 'value' | 'values'
     |    |--- <result item descriptor>
     |    |--- ~
     |    |--- 'start'
     |    |--- |
     |    |--- 'length'
+    |    |--- |
+    |    |--- 'g1start'
+    |    |--- |
+    |    |--- 'g1length'
     |    |--- |
     |    |--- 'name'
     |    |--- |
