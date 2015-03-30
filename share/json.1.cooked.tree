@@ -1,25 +1,21 @@
 Statements
     |--- statement
-    |    |--- lexeme default = latm => 1
     |    |--- lexeme default
     |    |--- =
     |    |--- latm
     |    |--- =>
     |    |--- 1
     |--- statement
-    |    |--- :start ::= json
     |    |--- :start
     |    |--- ::=
     |    |--- json
     |--- statement
-    |    |--- json ::= object | array
     |    |--- json
     |    |--- ::=
     |    |--- object
     |    |--- |
     |    |--- array
     |--- statement
-    |    |--- object ::= '{' '}' action => do_empty_object | '{' members '}' action => do_object
     |    |--- object
     |    |--- ::=
     |    |--- '{'
@@ -35,7 +31,6 @@ Statements
     |    |--- =>
     |    |--- do_object
     |--- statement
-    |    |--- members ::= pair + separator => <comma> action => do_list
     |    |--- members
     |    |--- ::=
     |    |--- pair
@@ -47,7 +42,6 @@ Statements
     |    |--- =>
     |    |--- do_list
     |--- statement
-    |    |--- pair ::= string ':' value action => do_pair
     |    |--- pair
     |    |--- ::=
     |    |--- string
@@ -57,7 +51,6 @@ Statements
     |    |--- =>
     |    |--- do_pair
     |--- statement
-    |    |--- value ::= string | object | number | array | 'true' action => do_true | 'false' action => do_true | 'null' action => do_null
     |    |--- value
     |    |--- ::=
     |    |--- string
@@ -83,7 +76,6 @@ Statements
     |    |--- =>
     |    |--- do_null
     |--- statement
-    |    |--- array ::= '[' ']' action => do_empty_array | '[' elements ']' action => do_array
     |    |--- array
     |    |--- ::=
     |    |--- '['
@@ -99,7 +91,6 @@ Statements
     |    |--- =>
     |    |--- do_array
     |--- statement
-    |    |--- elements ::= value + separator => <comma> action => do_list
     |    |--- elements
     |    |--- ::=
     |    |--- value
@@ -111,7 +102,6 @@ Statements
     |    |--- =>
     |    |--- do_list
     |--- statement
-    |    |--- number ~ int | int frac | int exp | int frac exp
     |    |--- number
     |    |--- ~
     |    |--- int
@@ -126,7 +116,6 @@ Statements
     |    |--- frac
     |    |--- exp
     |--- statement
-    |    |--- int ~ digits | '-' digits
     |    |--- int
     |    |--- ~
     |    |--- digits
@@ -134,25 +123,21 @@ Statements
     |    |--- '-'
     |    |--- digits
     |--- statement
-    |    |--- digits ~ [\d] +
     |    |--- digits
     |    |--- ~
     |    |--- [\d]
     |    |--- +
     |--- statement
-    |    |--- frac ~ '.' digits
     |    |--- frac
     |    |--- ~
     |    |--- '.'
     |    |--- digits
     |--- statement
-    |    |--- exp ~ e digits
     |    |--- exp
     |    |--- ~
     |    |--- e
     |    |--- digits
     |--- statement
-    |    |--- e ~ 'e' | 'e+' | 'e-' | 'E' | 'E+' | 'E-'
     |    |--- e
     |    |--- ~
     |    |--- 'e'
@@ -167,7 +152,6 @@ Statements
     |    |--- |
     |    |--- 'E-'
     |--- statement
-    |    |--- string ::= lstring action => do_string
     |    |--- string
     |    |--- ::=
     |    |--- lstring
@@ -175,25 +159,21 @@ Statements
     |    |--- =>
     |    |--- do_string
     |--- statement
-    |    |--- lstring ~ quote in_string quote
     |    |--- lstring
     |    |--- ~
     |    |--- quote
     |    |--- in_string
     |    |--- quote
     |--- statement
-    |    |--- quote ~ ["]
     |    |--- quote
     |    |--- ~
     |    |--- ["]
     |--- statement
-    |    |--- in_string ~ in_string_char *
     |    |--- in_string
     |    |--- ~
     |    |--- in_string_char
     |    |--- *
     |--- statement
-    |    |--- in_string_char ~ [^"\\] | '\' '"' | '\' 'b' | '\' 'f' | '\' 't' | '\' 'n' | '\' 'r' | '\' 'u' four_hex_digits | '\' '/' | '\\'
     |    |--- in_string_char
     |    |--- ~
     |    |--- [^"\\]
@@ -225,7 +205,6 @@ Statements
     |    |--- |
     |    |--- '\\'
     |--- statement
-    |    |--- four_hex_digits ~ hex_digit hex_digit hex_digit hex_digit
     |    |--- four_hex_digits
     |    |--- ~
     |    |--- hex_digit
@@ -233,22 +212,18 @@ Statements
     |    |--- hex_digit
     |    |--- hex_digit
     |--- statement
-    |    |--- hex_digit ~ [0-9a-fA-F]
     |    |--- hex_digit
     |    |--- ~
     |    |--- [0-9a-fA-F]
     |--- statement
-    |    |--- comma ~ ','
     |    |--- comma
     |    |--- ~
     |    |--- ','
     |--- statement
-    |    |--- :discard ~ whitespace
     |    |--- :discard
     |    |--- ~
     |    |--- whitespace
     |--- statement
-         |--- whitespace ~ [\s] +
          |--- whitespace
          |--- ~
          |--- [\s]

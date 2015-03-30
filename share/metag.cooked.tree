@@ -1,6 +1,5 @@
 Statements
     |--- statement
-    |    |--- :default ::= action => [start,length,values] bless => ::lhs
     |    |--- :default
     |    |--- ::=
     |    |--- action
@@ -10,7 +9,6 @@ Statements
     |    |--- =>
     |    |--- ::lhs
     |--- statement
-    |    |--- lexeme default = action => [start,length,value] bless => ::name latm => 1
     |    |--- lexeme default
     |    |--- =
     |    |--- action
@@ -23,18 +21,15 @@ Statements
     |    |--- =>
     |    |--- 1
     |--- statement
-    |    |--- :start ::= statements
     |    |--- :start
     |    |--- ::=
     |    |--- statements
     |--- statement
-    |    |--- statements ::= statement +
     |    |--- statements
     |    |--- ::=
     |    |--- statement
     |    |--- +
     |--- statement
-    |    |--- statement ::= <start rule> | <empty rule> | <null statement> | <statement group> | <priority rule> | <quantified rule> | <discard rule> | <default rule> | <lexeme default statement> | <discard default statement> | <lexeme rule> | <completion event declaration> | <nulled event declaration> | <prediction event declaration> | <current lexer statement> | <inaccessible statement>
     |    |--- statement
     |    |--- ::=
     |    |--- <start rule>
@@ -69,12 +64,10 @@ Statements
     |    |--- |
     |    |--- <inaccessible statement>
     |--- statement
-    |    |--- <null statement> ::= ';'
     |    |--- <null statement>
     |    |--- ::=
     |    |--- ';'
     |--- statement
-    |    |--- <statement group> ::= ( '{' ) statements '}'
     |    |--- <statement group>
     |    |--- ::=
     |    |--- (
@@ -83,7 +76,6 @@ Statements
     |    |--- statements
     |    |--- '}'
     |--- statement
-    |    |--- <start rule> ::= ( ':start' <op declare bnf> ) symbol
     |    |--- <start rule>
     |    |--- ::=
     |    |--- (
@@ -92,7 +84,6 @@ Statements
     |    |--- )
     |    |--- symbol
     |--- statement
-    |    |--- <start rule> ::= ( 'start' 'symbol' 'is' ) symbol
     |    |--- <start rule>
     |    |--- ::=
     |    |--- (
@@ -102,14 +93,12 @@ Statements
     |    |--- )
     |    |--- symbol
     |--- statement
-    |    |--- <default rule> ::= ':default' <op declare bnf> <adverb list>
     |    |--- <default rule>
     |    |--- ::=
     |    |--- ':default'
     |    |--- <op declare bnf>
     |    |--- <adverb list>
     |--- statement
-    |    |--- <lexeme default statement> ::= ( 'lexeme' 'default' '=' ) <adverb list>
     |    |--- <lexeme default statement>
     |    |--- ::=
     |    |--- (
@@ -119,7 +108,6 @@ Statements
     |    |--- )
     |    |--- <adverb list>
     |--- statement
-    |    |--- <discard default statement> ::= ( 'discard' 'default' '=' ) <adverb list>
     |    |--- <discard default statement>
     |    |--- ::=
     |    |--- (
@@ -129,21 +117,18 @@ Statements
     |    |--- )
     |    |--- <adverb list>
     |--- statement
-    |    |--- <priority rule> ::= lhs <op declare> priorities
     |    |--- <priority rule>
     |    |--- ::=
     |    |--- lhs
     |    |--- <op declare>
     |    |--- priorities
     |--- statement
-    |    |--- <empty rule> ::= lhs <op declare> <adverb list>
     |    |--- <empty rule>
     |    |--- ::=
     |    |--- lhs
     |    |--- <op declare>
     |    |--- <adverb list>
     |--- statement
-    |    |--- <quantified rule> ::= lhs <op declare> <single symbol> quantifier <adverb list>
     |    |--- <quantified rule>
     |    |--- ::=
     |    |--- lhs
@@ -152,7 +137,6 @@ Statements
     |    |--- quantifier
     |    |--- <adverb list>
     |--- statement
-    |    |--- <discard rule> ::= ( ':discard' <op declare match> ) <single symbol> <adverb list>
     |    |--- <discard rule>
     |    |--- ::=
     |    |--- (
@@ -162,7 +146,6 @@ Statements
     |    |--- <single symbol>
     |    |--- <adverb list>
     |--- statement
-    |    |--- <lexeme rule> ::= ( ':lexeme' <op declare match> ) symbol <adverb list>
     |    |--- <lexeme rule>
     |    |--- ::=
     |    |--- (
@@ -172,7 +155,6 @@ Statements
     |    |--- symbol
     |    |--- <adverb list>
     |--- statement
-    |    |--- <completion event declaration> ::= ( 'event' ) <event initialization> ( '=' 'completed' ) <symbol name>
     |    |--- <completion event declaration>
     |    |--- ::=
     |    |--- (
@@ -185,7 +167,6 @@ Statements
     |    |--- )
     |    |--- <symbol name>
     |--- statement
-    |    |--- <nulled event declaration> ::= ( 'event' ) <event initialization> ( '=' 'nulled' ) <symbol name>
     |    |--- <nulled event declaration>
     |    |--- ::=
     |    |--- (
@@ -198,7 +179,6 @@ Statements
     |    |--- )
     |    |--- <symbol name>
     |--- statement
-    |    |--- <prediction event declaration> ::= ( 'event' ) <event initialization> ( '=' 'predicted' ) <symbol name>
     |    |--- <prediction event declaration>
     |    |--- ::=
     |    |--- (
@@ -211,7 +191,6 @@ Statements
     |    |--- )
     |    |--- <symbol name>
     |--- statement
-    |    |--- <current lexer statement> ::= ( 'current' 'lexer' 'is' ) <lexer name>
     |    |--- <current lexer statement>
     |    |--- ::=
     |    |--- (
@@ -221,7 +200,6 @@ Statements
     |    |--- )
     |    |--- <lexer name>
     |--- statement
-    |    |--- <inaccessible statement> ::= ( 'inaccessible' 'is' ) <inaccessible treatment> ( 'by' 'default' )
     |    |--- <inaccessible statement>
     |    |--- ::=
     |    |--- (
@@ -234,7 +212,6 @@ Statements
     |    |--- 'default'
     |    |--- )
     |--- statement
-    |    |--- <inaccessible treatment> ::= 'warn' | 'ok' | 'fatal'
     |    |--- <inaccessible treatment>
     |    |--- ::=
     |    |--- 'warn'
@@ -243,14 +220,12 @@ Statements
     |    |--- |
     |    |--- 'fatal'
     |--- statement
-    |    |--- <op declare> ::= <op declare bnf> | <op declare match>
     |    |--- <op declare>
     |    |--- ::=
     |    |--- <op declare bnf>
     |    |--- |
     |    |--- <op declare match>
     |--- statement
-    |    |--- priorities ::= alternatives + separator => <op loosen> 1
     |    |--- priorities
     |    |--- ::=
     |    |--- alternatives
@@ -260,7 +235,6 @@ Statements
     |    |--- <op loosen>
     |    |--- 1
     |--- statement
-    |    |--- alternatives ::= alternative + separator => <op equal priority> 1
     |    |--- alternatives
     |    |--- ::=
     |    |--- alternative
@@ -270,24 +244,20 @@ Statements
     |    |--- <op equal priority>
     |    |--- 1
     |--- statement
-    |    |--- alternative ::= rhs <adverb list>
     |    |--- alternative
     |    |--- ::=
     |    |--- rhs
     |    |--- <adverb list>
     |--- statement
-    |    |--- <adverb list> ::= <adverb list items>
     |    |--- <adverb list>
     |    |--- ::=
     |    |--- <adverb list items>
     |--- statement
-    |    |--- <adverb list items> ::= <adverb item> *
     |    |--- <adverb list items>
     |    |--- ::=
     |    |--- <adverb item>
     |    |--- *
     |--- statement
-    |    |--- <adverb item> ::= action | <left association> | <right association> | <group association> | <separator specification> | <proper specification> | <rank specification> | <null ranking specification> | <priority specification> | <pause specification> | <event specification> | <latm specification> | blessing | naming | <null adverb>
     |    |--- <adverb item>
     |    |--- ::=
     |    |--- action
@@ -320,12 +290,10 @@ Statements
     |    |--- |
     |    |--- <null adverb>
     |--- statement
-    |    |--- <null adverb> ::= ','
     |    |--- <null adverb>
     |    |--- ::=
     |    |--- ','
     |--- statement
-    |    |--- action ::= ( 'action' '=>' ) <action name>
     |    |--- action
     |    |--- ::=
     |    |--- (
@@ -334,7 +302,6 @@ Statements
     |    |--- )
     |    |--- <action name>
     |--- statement
-    |    |--- <left association> ::= ( 'assoc' '=>' 'left' )
     |    |--- <left association>
     |    |--- ::=
     |    |--- (
@@ -343,7 +310,6 @@ Statements
     |    |--- 'left'
     |    |--- )
     |--- statement
-    |    |--- <right association> ::= ( 'assoc' '=>' 'right' )
     |    |--- <right association>
     |    |--- ::=
     |    |--- (
@@ -352,7 +318,6 @@ Statements
     |    |--- 'right'
     |    |--- )
     |--- statement
-    |    |--- <group association> ::= ( 'assoc' '=>' 'group' )
     |    |--- <group association>
     |    |--- ::=
     |    |--- (
@@ -361,7 +326,6 @@ Statements
     |    |--- 'group'
     |    |--- )
     |--- statement
-    |    |--- <separator specification> ::= ( 'separator' '=>' ) <single symbol>
     |    |--- <separator specification>
     |    |--- ::=
     |    |--- (
@@ -370,7 +334,6 @@ Statements
     |    |--- )
     |    |--- <single symbol>
     |--- statement
-    |    |--- <proper specification> ::= ( 'proper' '=>' ) boolean
     |    |--- <proper specification>
     |    |--- ::=
     |    |--- (
@@ -379,7 +342,6 @@ Statements
     |    |--- )
     |    |--- boolean
     |--- statement
-    |    |--- <rank specification> ::= ( 'rank' '=>' ) <signed integer>
     |    |--- <rank specification>
     |    |--- ::=
     |    |--- (
@@ -388,7 +350,6 @@ Statements
     |    |--- )
     |    |--- <signed integer>
     |--- statement
-    |    |--- <null ranking specification> ::= ( 'null-ranking' '=>' ) <null ranking constant>
     |    |--- <null ranking specification>
     |    |--- ::=
     |    |--- (
@@ -397,7 +358,6 @@ Statements
     |    |--- )
     |    |--- <null ranking constant>
     |--- statement
-    |    |--- <null ranking specification> ::= ( 'null' 'rank' '=>' ) <null ranking constant>
     |    |--- <null ranking specification>
     |    |--- ::=
     |    |--- (
@@ -407,14 +367,12 @@ Statements
     |    |--- )
     |    |--- <null ranking constant>
     |--- statement
-    |    |--- <null ranking constant> ::= 'low' | 'high'
     |    |--- <null ranking constant>
     |    |--- ::=
     |    |--- 'low'
     |    |--- |
     |    |--- 'high'
     |--- statement
-    |    |--- <priority specification> ::= ( 'priority' '=>' ) <signed integer>
     |    |--- <priority specification>
     |    |--- ::=
     |    |--- (
@@ -423,7 +381,6 @@ Statements
     |    |--- )
     |    |--- <signed integer>
     |--- statement
-    |    |--- <pause specification> ::= ( 'pause' '=>' ) <before or after>
     |    |--- <pause specification>
     |    |--- ::=
     |    |--- (
@@ -432,7 +389,6 @@ Statements
     |    |--- )
     |    |--- <before or after>
     |--- statement
-    |    |--- <event specification> ::= ( 'event' '=>' ) <event initialization>
     |    |--- <event specification>
     |    |--- ::=
     |    |--- (
@@ -441,13 +397,11 @@ Statements
     |    |--- )
     |    |--- <event initialization>
     |--- statement
-    |    |--- <event initialization> ::= <event name> <event initializer>
     |    |--- <event initialization>
     |    |--- ::=
     |    |--- <event name>
     |    |--- <event initializer>
     |--- statement
-    |    |--- <event initializer> ::= ( '=' ) <on or off>
     |    |--- <event initializer>
     |    |--- ::=
     |    |--- (
@@ -455,18 +409,15 @@ Statements
     |    |--- )
     |    |--- <on or off>
     |--- statement
-    |    |--- <on or off> ::= 'on' | 'off'
     |    |--- <on or off>
     |    |--- ::=
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <event initializer> ::=
     |    |--- <event initializer>
     |    |--- ::=
     |--- statement
-    |    |--- <latm specification> ::= ( 'forgiving' '=>' ) boolean
     |    |--- <latm specification>
     |    |--- ::=
     |    |--- (
@@ -475,7 +426,6 @@ Statements
     |    |--- )
     |    |--- boolean
     |--- statement
-    |    |--- <latm specification> ::= ( 'latm' '=>' ) boolean
     |    |--- <latm specification>
     |    |--- ::=
     |    |--- (
@@ -484,7 +434,6 @@ Statements
     |    |--- )
     |    |--- boolean
     |--- statement
-    |    |--- <blessing> ::= ( 'bless' '=>' ) <blessing name>
     |    |--- <blessing>
     |    |--- ::=
     |    |--- (
@@ -493,7 +442,6 @@ Statements
     |    |--- )
     |    |--- <blessing name>
     |--- statement
-    |    |--- <naming> ::= ( 'name' '=>' ) <alternative name>
     |    |--- <naming>
     |    |--- ::=
     |    |--- (
@@ -502,21 +450,18 @@ Statements
     |    |--- )
     |    |--- <alternative name>
     |--- statement
-    |    |--- <alternative name> ::= <standard name> | <single quoted name>
     |    |--- <alternative name>
     |    |--- ::=
     |    |--- <standard name>
     |    |--- |
     |    |--- <single quoted name>
     |--- statement
-    |    |--- <lexer name> ::= <standard name> | <single quoted name>
     |    |--- <lexer name>
     |    |--- ::=
     |    |--- <standard name>
     |    |--- |
     |    |--- <single quoted name>
     |--- statement
-    |    |--- <event name> ::= <standard name> | <single quoted name> | <reserved event name>
     |    |--- <event name>
     |    |--- ::=
     |    |--- <standard name>
@@ -525,48 +470,39 @@ Statements
     |    |--- |
     |    |--- <reserved event name>
     |--- statement
-    |    |--- <reserved event name> ~ ':symbol'
     |    |--- <reserved event name>
     |    |--- ~
     |    |--- ':symbol'
     |--- statement
-    |    |--- <blessing name> ::= <standard name>
     |    |--- <blessing name>
     |    |--- ::=
     |    |--- <standard name>
     |--- statement
-    |    |--- <blessing name> ::= <reserved blessing name>
     |    |--- <blessing name>
     |    |--- ::=
     |    |--- <reserved blessing name>
     |--- statement
-    |    |--- lhs ::= <symbol name>
     |    |--- lhs
     |    |--- ::=
     |    |--- <symbol name>
     |--- statement
-    |    |--- rhs ::= <rhs primary> +
     |    |--- rhs
     |    |--- ::=
     |    |--- <rhs primary>
     |    |--- +
     |--- statement
-    |    |--- <rhs primary> ::= <single symbol>
     |    |--- <rhs primary>
     |    |--- ::=
     |    |--- <single symbol>
     |--- statement
-    |    |--- <rhs primary> ::= <single quoted string>
     |    |--- <rhs primary>
     |    |--- ::=
     |    |--- <single quoted string>
     |--- statement
-    |    |--- <rhs primary> ::= <parenthesized rhs primary list>
     |    |--- <rhs primary>
     |    |--- ::=
     |    |--- <parenthesized rhs primary list>
     |--- statement
-    |    |--- <parenthesized rhs primary list> ::= ( '(' ) <rhs primary list> ( ')' )
     |    |--- <parenthesized rhs primary list>
     |    |--- ::=
     |    |--- (
@@ -577,136 +513,112 @@ Statements
     |    |--- ')'
     |    |--- )
     |--- statement
-    |    |--- <rhs primary list> ::= <rhs primary> +
     |    |--- <rhs primary list>
     |    |--- ::=
     |    |--- <rhs primary>
     |    |--- +
     |--- statement
-    |    |--- <single symbol> ::= symbol | <character class>
     |    |--- <single symbol>
     |    |--- ::=
     |    |--- symbol
     |    |--- |
     |    |--- <character class>
     |--- statement
-    |    |--- symbol ::= <symbol name>
     |    |--- symbol
     |    |--- ::=
     |    |--- <symbol name>
     |--- statement
-    |    |--- <symbol name> ::= <bare name>
     |    |--- <symbol name>
     |    |--- ::=
     |    |--- <bare name>
     |--- statement
-    |    |--- <symbol name> ::= <bracketed name>
     |    |--- <symbol name>
     |    |--- ::=
     |    |--- <bracketed name>
     |--- statement
-    |    |--- <action name> ::= <Perl name>
     |    |--- <action name>
     |    |--- ::=
     |    |--- <Perl name>
     |--- statement
-    |    |--- <action name> ::= <reserved action name>
     |    |--- <action name>
     |    |--- ::=
     |    |--- <reserved action name>
     |--- statement
-    |    |--- <action name> ::= <array descriptor>
     |    |--- <action name>
     |    |--- ::=
     |    |--- <array descriptor>
     |--- statement
-    |    |--- :discard ~ whitespace
     |    |--- :discard
     |    |--- ~
     |    |--- whitespace
     |--- statement
-    |    |--- whitespace ~ [\s] +
     |    |--- whitespace
     |    |--- ~
     |    |--- [\s]
     |    |--- +
     |--- statement
-    |    |--- :discard ~ <hash comment>
     |    |--- :discard
     |    |--- ~
     |    |--- <hash comment>
     |--- statement
-    |    |--- <hash comment> ~ <terminated hash comment> | <unterminated final hash comment>
     |    |--- <hash comment>
     |    |--- ~
     |    |--- <terminated hash comment>
     |    |--- |
     |    |--- <unterminated final hash comment>
     |--- statement
-    |    |--- <terminated hash comment> ~ '#' <hash comment body> <vertical space char>
     |    |--- <terminated hash comment>
     |    |--- ~
     |    |--- '#'
     |    |--- <hash comment body>
     |    |--- <vertical space char>
     |--- statement
-    |    |--- <unterminated final hash comment> ~ '#' <hash comment body>
     |    |--- <unterminated final hash comment>
     |    |--- ~
     |    |--- '#'
     |    |--- <hash comment body>
     |--- statement
-    |    |--- <hash comment body> ~ <hash comment char> *
     |    |--- <hash comment body>
     |    |--- ~
     |    |--- <hash comment char>
     |    |--- *
     |--- statement
-    |    |--- <vertical space char> ~ [\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
     |    |--- <vertical space char>
     |    |--- ~
     |    |--- [\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
     |--- statement
-    |    |--- <hash comment char> ~ [^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
     |    |--- <hash comment char>
     |    |--- ~
     |    |--- [^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
     |--- statement
-    |    |--- <op declare bnf> ~ '::='
     |    |--- <op declare bnf>
     |    |--- ~
     |    |--- '::='
     |--- statement
-    |    |--- <op declare match> ~ '~'
     |    |--- <op declare match>
     |    |--- ~
     |    |--- '~'
     |--- statement
-    |    |--- <op loosen> ~ '||'
     |    |--- <op loosen>
     |    |--- ~
     |    |--- '||'
     |--- statement
-    |    |--- <op equal priority> ~ '|'
     |    |--- <op equal priority>
     |    |--- ~
     |    |--- '|'
     |--- statement
-    |    |--- quantifier ::= '*' | '+'
     |    |--- quantifier
     |    |--- ::=
     |    |--- '*'
     |    |--- |
     |    |--- '+'
     |--- statement
-    |    |--- <before or after> ~ 'before' | 'after'
     |    |--- <before or after>
     |    |--- ~
     |    |--- 'before'
     |    |--- |
     |    |--- 'after'
     |--- statement
-    |    |--- <signed integer> ~ <integer> | <sign> <integer>
     |    |--- <signed integer>
     |    |--- ~
     |    |--- <integer>
@@ -714,58 +626,48 @@ Statements
     |    |--- <sign>
     |    |--- <integer>
     |--- statement
-    |    |--- <sign> ~ [+-]
     |    |--- <sign>
     |    |--- ~
     |    |--- [+-]
     |--- statement
-    |    |--- <integer> ~ [\d] +
     |    |--- <integer>
     |    |--- ~
     |    |--- [\d]
     |    |--- +
     |--- statement
-    |    |--- boolean ~ [01]
     |    |--- boolean
     |    |--- ~
     |    |--- [01]
     |--- statement
-    |    |--- <reserved action name> ~ '::' <one or more word characters>
     |    |--- <reserved action name>
     |    |--- ~
     |    |--- '::'
     |    |--- <one or more word characters>
     |--- statement
-    |    |--- <reserved blessing name> ~ '::' <one or more word characters>
     |    |--- <reserved blessing name>
     |    |--- ~
     |    |--- '::'
     |    |--- <one or more word characters>
     |--- statement
-    |    |--- <one or more word characters> ~ [\w] +
     |    |--- <one or more word characters>
     |    |--- ~
     |    |--- [\w]
     |    |--- +
     |--- statement
-    |    |--- <zero or more word characters> ~ [\w] *
     |    |--- <zero or more word characters>
     |    |--- ~
     |    |--- [\w]
     |    |--- *
     |--- statement
-    |    |--- <Perl identifier> ~ [\w] +
     |    |--- <Perl identifier>
     |    |--- ~
     |    |--- [\w]
     |    |--- +
     |--- statement
-    |    |--- <double colon> ~ '::'
     |    |--- <double colon>
     |    |--- ~
     |    |--- '::'
     |--- statement
-    |    |--- <Perl name> ~ <Perl identifier> + separator => <double colon> 1
     |    |--- <Perl name>
     |    |--- ~
     |    |--- <Perl identifier>
@@ -775,61 +677,51 @@ Statements
     |    |--- <double colon>
     |    |--- 1
     |--- statement
-    |    |--- <bare name> ~ [\w] +
     |    |--- <bare name>
     |    |--- ~
     |    |--- [\w]
     |    |--- +
     |--- statement
-    |    |--- <standard name> ~ [a-zA-Z] <zero or more word characters>
     |    |--- <standard name>
     |    |--- ~
     |    |--- [a-zA-Z]
     |    |--- <zero or more word characters>
     |--- statement
-    |    |--- <bracketed name> ~ '<' <bracketed name string> '>'
     |    |--- <bracketed name>
     |    |--- ~
     |    |--- '<'
     |    |--- <bracketed name string>
     |    |--- '>'
     |--- statement
-    |    |--- <bracketed name string> ~ [\s\w] +
     |    |--- <bracketed name string>
     |    |--- ~
     |    |--- [\s\w]
     |    |--- +
     |--- statement
-    |    |--- <array descriptor> ~ <array descriptor left bracket> <result item descriptor list> <array descriptor right bracket>
     |    |--- <array descriptor>
     |    |--- ~
     |    |--- <array descriptor left bracket>
     |    |--- <result item descriptor list>
     |    |--- <array descriptor right bracket>
     |--- statement
-    |    |--- <array descriptor left bracket> ~ '['
     |    |--- <array descriptor left bracket>
     |    |--- ~
     |    |--- '['
     |--- statement
-    |    |--- <array descriptor left bracket> ~ '[' whitespace
     |    |--- <array descriptor left bracket>
     |    |--- ~
     |    |--- '['
     |    |--- whitespace
     |--- statement
-    |    |--- <array descriptor right bracket> ~ ']'
     |    |--- <array descriptor right bracket>
     |    |--- ~
     |    |--- ']'
     |--- statement
-    |    |--- <array descriptor right bracket> ~ whitespace ']'
     |    |--- <array descriptor right bracket>
     |    |--- ~
     |    |--- whitespace
     |    |--- ']'
     |--- statement
-    |    |--- <result item descriptor list> ~ <result item descriptor> * separator => <result item descriptor separator>
     |    |--- <result item descriptor list>
     |    |--- ~
     |    |--- <result item descriptor>
@@ -838,18 +730,15 @@ Statements
     |    |--- =>
     |    |--- <result item descriptor separator>
     |--- statement
-    |    |--- <result item descriptor separator> ~ [,]
     |    |--- <result item descriptor separator>
     |    |--- ~
     |    |--- [,]
     |--- statement
-    |    |--- <result item descriptor separator> ~ [,] whitespace
     |    |--- <result item descriptor separator>
     |    |--- ~
     |    |--- [,]
     |    |--- whitespace
     |--- statement
-    |    |--- <result item descriptor> ~ 'start' | 'length' | 'g1start' | 'g1length' | 'name' | 'lhs' | 'symbol' | 'rule' | 'value' | 'values'
     |    |--- <result item descriptor>
     |    |--- ~
     |    |--- 'start'
@@ -872,7 +761,6 @@ Statements
     |    |--- |
     |    |--- 'values'
     |--- statement
-    |    |--- <single quoted string> ~ ['] <string without single quote or vertical space> ['] <character class modifiers>
     |    |--- <single quoted string>
     |    |--- ~
     |    |--- [']
@@ -880,20 +768,17 @@ Statements
     |    |--- [']
     |    |--- <character class modifiers>
     |--- statement
-    |    |--- <single quoted name> ~ ['] <string without single quote or vertical space> [']
     |    |--- <single quoted name>
     |    |--- ~
     |    |--- [']
     |    |--- <string without single quote or vertical space>
     |    |--- [']
     |--- statement
-    |    |--- <string without single quote or vertical space> ~ [^'\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}] +
     |    |--- <string without single quote or vertical space>
     |    |--- ~
     |    |--- [^'\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]
     |    |--- +
     |--- statement
-    |    |--- <character class> ~ '[' <cc elements> ']' <character class modifiers>
     |    |--- <character class>
     |    |--- ~
     |    |--- '['
@@ -901,80 +786,66 @@ Statements
     |    |--- ']'
     |    |--- <character class modifiers>
     |--- statement
-    |    |--- <cc elements> ~ <cc element> +
     |    |--- <cc elements>
     |    |--- ~
     |    |--- <cc element>
     |    |--- +
     |--- statement
-    |    |--- <cc element> ~ <safe cc character>
     |    |--- <cc element>
     |    |--- ~
     |    |--- <safe cc character>
     |--- statement
-    |    |--- <safe cc character> ~ [^\x{5d}\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]
     |    |--- <safe cc character>
     |    |--- ~
     |    |--- [^\x{5d}\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]
     |--- statement
-    |    |--- <cc element> ~ <escaped cc character>
     |    |--- <cc element>
     |    |--- ~
     |    |--- <escaped cc character>
     |--- statement
-    |    |--- <escaped cc character> ~ '\' <horizontal character>
     |    |--- <escaped cc character>
     |    |--- ~
     |    |--- '\'
     |    |--- <horizontal character>
     |--- statement
-    |    |--- <cc element> ~ <posix char class>
     |    |--- <cc element>
     |    |--- ~
     |    |--- <posix char class>
     |--- statement
-    |    |--- <cc element> ~ <negated posix char class>
     |    |--- <cc element>
     |    |--- ~
     |    |--- <negated posix char class>
     |--- statement
-    |    |--- <character class modifiers> ~ <character class modifier> *
     |    |--- <character class modifiers>
     |    |--- ~
     |    |--- <character class modifier>
     |    |--- *
     |--- statement
-    |    |--- <character class modifier> ~ ':ic'
     |    |--- <character class modifier>
     |    |--- ~
     |    |--- ':ic'
     |--- statement
-    |    |--- <character class modifier> ~ ':i'
     |    |--- <character class modifier>
     |    |--- ~
     |    |--- ':i'
     |--- statement
-    |    |--- <posix char class> ~ '[:' <posix char class name> ':]'
     |    |--- <posix char class>
     |    |--- ~
     |    |--- '[:'
     |    |--- <posix char class name>
     |    |--- ':]'
     |--- statement
-    |    |--- <negated posix char class> ~ '[:^' <posix char class name> ':]'
     |    |--- <negated posix char class>
     |    |--- ~
     |    |--- '[:^'
     |    |--- <posix char class name>
     |    |--- ':]'
     |--- statement
-    |    |--- <posix char class name> ~ [[:alnum:]] +
     |    |--- <posix char class name>
     |    |--- ~
     |    |--- [[:alnum:]]
     |    |--- +
     |--- statement
-         |--- <horizontal character> ~ [^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
          |--- <horizontal character>
          |--- ~
          |--- [^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]

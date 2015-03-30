@@ -314,15 +314,8 @@ sub compress_tree
 					# Discard previous statement (or Dummy) from top of stack.
 
 					$node = $self -> node_stack -> pop;
+
 					$self -> node_stack -> push($self -> _add_daughter($statement) );
-
-					if ($node -> name ne 'Dummy')
-					{
-						@daughters = $node -> daughters;
-						$name      = join(' ', map{$_ -> name} @daughters);
-
-						$node -> add_daughters_left(Tree::DAG_Node -> new({name => $name}) );
-					}
 				}
 			}
 			elsif ($node -> my_daughter_index == 2)
@@ -348,16 +341,6 @@ sub compress_tree
 		},
 		_depth => 0,
 	});
-
-	my($node) = $self -> node_stack -> pop;
-
-	if ($node -> name ne 'Dummy')
-	{
-		@daughters = $node -> daughters;
-		$name      = join(' ', map{$_ -> name} @daughters);
-
-		$node -> add_daughters_left(Tree::DAG_Node -> new({name => $name}) );
-	}
 
 } # End of compress_tree.
 
@@ -1000,23 +983,19 @@ Under the root (whose name is 'Statements'), there are a set of nodes:
 
 Each of these N nodes has the name 'statement', and each also has N daughter nodes of its own.
 
-Each node is the root of a subtree describing that statement (rule).
+Each statement node is the root of a subtree describing that statement (rule).
 
 These subtrees' nodes are:
 
 =over 4
 
-=item o 1 node whose name is a space-separated list of tokens from 1 rule in the user's grammar
-
-The following nodes are just those tokens, 1 per node.
-
 =item o 1 node for the left-hand side of the rule
 
 =item o 1 node for the separator between the left and right sides of the statement
 
-So, the node's name is one of: '=' '::=' or '~'.
+So, this node's name is one of: '=' '::=' or '~'.
 
-=item o 1 node per token from the right-hand side of each statement
+=item o 1 node per token from the right-hand side of the statement
 
 The node's name is the token itself.
 
@@ -1028,10 +1007,9 @@ Note: For a rule like:
 
 	array ::= ('[' ']') | ('[') elements (']') action => ::first
 
-There will be these nodes:
+The nodes will be:
 
 	    |--- statement
-	    |    |--- array ::= ( '[' ']' ) | ( '[' ) elements ( ']' ) action => ::first
 	    |    |--- array
 	    |    |--- ::=
 	    |    |--- (
@@ -1050,11 +1028,9 @@ There will be these nodes:
 	    |    |--- =>
 	    |    |--- ::first
 
-See share/stringparser.cooked.tree.
+See share/stringparser.cooked.tree, or any file share/*.cooked.tree.
 
 =head2 What are the details of the nodes in the raw tree?
-
-See share/stringparser.raw.tree while reading this section.
 
 The first few nodes are:
 
@@ -1073,9 +1049,14 @@ After this there are a set of nodes like this, one per statement:
 	|         |--- 0 = 0 [SCALAR 7]
 	|         |--- 1 = 34 [SCALAR 8]
 	|         |--- Class = MarpaX::Grammar::Parser::default_rule [BLESS 9]
+	:         :
+
+For complex statements, these node can be nested to considerable depth.
 
 This says the first statement in the BNF is at offsets 0 .. 34, and happens to be the default rule
 (':default ::= action => [values]').
+
+See share/stringparser.raw.tree, or any file share/*.raw.tree.
 
 =head2 Where did the basic code come from?
 

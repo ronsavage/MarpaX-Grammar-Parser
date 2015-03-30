@@ -1,24 +1,20 @@
 Statements
     |--- statement
-    |    |--- :default ::= action => [values]
     |    |--- :default
     |    |--- ::=
     |    |--- action
     |    |--- =>
     |    |--- [values]
     |--- statement
-    |    |--- :start ::= units
     |    |--- :start
     |    |--- ::=
     |    |--- units
     |--- statement
-    |    |--- units ::= unit *
     |    |--- units
     |    |--- ::=
     |    |--- unit
     |    |--- *
     |--- statement
-    |    |--- unit ::= ESCAPED_CHARACTER action => addEscapedCharacterToRc | INISPRINTEXCEPTCOMMA action => addCharacterToRc | PERCENT action => addPercentToRc | C action => addPrintPopToRc | PRINT action => addPrintToRc | PUSH action => addPushToRc | DYNPOP action => addDynPop | DYNPUSH action => addDynPush | STATICPOP action => addStaticPop | STATICPUSH action => addStaticPush | L action => addL | PUSHCONST action => addPushConst | PUSHINT action => addPushInt | PLUS action => addPlus | MINUS action => addMinus | STAR action => addStar | DIV action => addDiv | MOD action => addMod | BITAND action => addBitAnd | BITOR action => addBitOr | BITXOR action => addBitXor | EQUAL action => addEqual | GREATER action => addGreater | LOWER action => addLower | AND action => addLogicalAnd | OR action => addLogicalOr | NOT action => addNot | COMPLEMENT action => addComplement | ADDONE action => addOneToParams | IF units THEN units elifUnits ELSE units ENDIF action => addIfThenElse | IF units THEN units elifUnits ENDIF action => addIfThen | IF ENDIF action => ifEndif | EOF action => eof
     |    |--- unit
     |    |--- ::=
     |    |--- ESCAPED_CHARACTER
@@ -199,7 +195,6 @@ Statements
     |    |--- =>
     |    |--- eof
     |--- statement
-    |    |--- elifUnit ::= ELSE units THEN units action => elifUnit
     |    |--- elifUnit
     |    |--- ::=
     |    |--- ELSE
@@ -210,82 +205,67 @@ Statements
     |    |--- =>
     |    |--- elifUnit
     |--- statement
-    |    |--- elifUnits ::= elifUnit *
     |    |--- elifUnits
     |    |--- ::=
     |    |--- elifUnit
     |    |--- *
     |--- statement
-    |    |--- _CONST ~ [^']
     |    |--- _CONST
     |    |--- ~
     |    |--- [^']
     |--- statement
-    |    |--- _CONST ~ _BS _ALLOWED_BS
     |    |--- _CONST
     |    |--- ~
     |    |--- _BS
     |    |--- _ALLOWED_BS
     |--- statement
-    |    |--- _DIGITS ~ [\d] +
     |    |--- _DIGITS
     |    |--- ~
     |    |--- [\d]
     |    |--- +
     |--- statement
-    |    |--- _DIGIT ~ [\d]
     |    |--- _DIGIT
     |    |--- ~
     |    |--- [\d]
     |--- statement
-    |    |--- _LCHAR ~ [a-z]
     |    |--- _LCHAR
     |    |--- ~
     |    |--- [a-z]
     |--- statement
-    |    |--- _UCHAR ~ [A-Z]
     |    |--- _UCHAR
     |    |--- ~
     |    |--- [A-Z]
     |--- statement
-    |    |--- _PERCENT ~ '%'
     |    |--- _PERCENT
     |    |--- ~
     |    |--- '%'
     |--- statement
-    |    |--- PERCENT ~ _PERCENT _PERCENT
     |    |--- PERCENT
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _PERCENT
     |--- statement
-    |    |--- _C ~ 'c'
     |    |--- _C
     |    |--- ~
     |    |--- 'c'
     |--- statement
-    |    |--- C ~ _PERCENT _C
     |    |--- C
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _C
     |--- statement
-    |    |--- _COLON ~ ':'
     |    |--- _COLON
     |    |--- ~
     |    |--- ':'
     |--- statement
-    |    |--- _DOT ~ '.'
     |    |--- _DOT
     |    |--- ~
     |    |--- '.'
     |--- statement
-    |    |--- __FLAGS ~ [-+# ]
     |    |--- __FLAGS
     |    |--- ~
     |    |--- [-+# ]
     |--- statement
-    |    |--- _FLAGS ~ _COLON __FLAGS | __FLAGS
     |    |--- _FLAGS
     |    |--- ~
     |    |--- _COLON
@@ -293,12 +273,10 @@ Statements
     |    |--- |
     |    |--- __FLAGS
     |--- statement
-    |    |--- _FORMAT ~ [doxXs]
     |    |--- _FORMAT
     |    |--- ~
     |    |--- [doxXs]
     |--- statement
-    |    |--- PRINT ~ _PERCENT _FORMAT | _PERCENT _DIGITS _FORMAT | _PERCENT _DIGITS _DOT _DIGITS _FORMAT
     |    |--- PRINT
     |    |--- ~
     |    |--- _PERCENT
@@ -314,7 +292,6 @@ Statements
     |    |--- _DIGITS
     |    |--- _FORMAT
     |--- statement
-    |    |--- PRINT ~ _PERCENT _FLAGS _FORMAT | _PERCENT _FLAGS _DIGITS _FORMAT | _PERCENT _FLAGS _DIGITS _DOT _DIGITS _FORMAT
     |    |--- PRINT
     |    |--- ~
     |    |--- _PERCENT
@@ -333,47 +310,39 @@ Statements
     |    |--- _DIGITS
     |    |--- _FORMAT
     |--- statement
-    |    |--- PUSH ~ '%p' _DIGIT
     |    |--- PUSH
     |    |--- ~
     |    |--- '%p'
     |    |--- _DIGIT
     |--- statement
-    |    |--- DYNPOP ~ '%P' _LCHAR
     |    |--- DYNPOP
     |    |--- ~
     |    |--- '%P'
     |    |--- _LCHAR
     |--- statement
-    |    |--- DYNPUSH ~ '%g' _LCHAR
     |    |--- DYNPUSH
     |    |--- ~
     |    |--- '%g'
     |    |--- _LCHAR
     |--- statement
-    |    |--- STATICPOP ~ '%P' _UCHAR
     |    |--- STATICPOP
     |    |--- ~
     |    |--- '%P'
     |    |--- _UCHAR
     |--- statement
-    |    |--- STATICPUSH ~ '%g' _UCHAR
     |    |--- STATICPUSH
     |    |--- ~
     |    |--- '%g'
     |    |--- _UCHAR
     |--- statement
-    |    |--- L ~ 'ls'
     |    |--- L
     |    |--- ~
     |    |--- 'ls'
     |--- statement
-    |    |--- _SQUOTE ~ [']
     |    |--- _SQUOTE
     |    |--- ~
     |    |--- [']
     |--- statement
-    |    |--- PUSHCONST ~ '%' _SQUOTE _CONST _SQUOTE
     |    |--- PUSHCONST
     |    |--- ~
     |    |--- '%'
@@ -381,17 +350,14 @@ Statements
     |    |--- _CONST
     |    |--- _SQUOTE
     |--- statement
-    |    |--- _LCURLY ~ '{'
     |    |--- _LCURLY
     |    |--- ~
     |    |--- '{'
     |--- statement
-    |    |--- _RCURLY ~ '}'
     |    |--- _RCURLY
     |    |--- ~
     |    |--- '}'
     |--- statement
-    |    |--- PUSHINT ~ _PERCENT _LCURLY _DIGITS _RCURLY
     |    |--- PUSHINT
     |    |--- ~
     |    |--- _PERCENT
@@ -399,264 +365,216 @@ Statements
     |    |--- _DIGITS
     |    |--- _RCURLY
     |--- statement
-    |    |--- _PLUS ~ '+'
     |    |--- _PLUS
     |    |--- ~
     |    |--- '+'
     |--- statement
-    |    |--- PLUS ~ _PERCENT _PLUS
     |    |--- PLUS
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _PLUS
     |--- statement
-    |    |--- _MINUS ~ '-'
     |    |--- _MINUS
     |    |--- ~
     |    |--- '-'
     |--- statement
-    |    |--- MINUS ~ _PERCENT _MINUS
     |    |--- MINUS
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _MINUS
     |--- statement
-    |    |--- _STAR ~ '*'
     |    |--- _STAR
     |    |--- ~
     |    |--- '*'
     |--- statement
-    |    |--- STAR ~ _PERCENT _STAR
     |    |--- STAR
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _STAR
     |--- statement
-    |    |--- _DIV ~ '/'
     |    |--- _DIV
     |    |--- ~
     |    |--- '/'
     |--- statement
-    |    |--- DIV ~ _PERCENT _DIV
     |    |--- DIV
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _DIV
     |--- statement
-    |    |--- _MOD ~ 'm'
     |    |--- _MOD
     |    |--- ~
     |    |--- 'm'
     |--- statement
-    |    |--- MOD ~ _PERCENT _MOD
     |    |--- MOD
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _MOD
     |--- statement
-    |    |--- _BITAND ~ '&'
     |    |--- _BITAND
     |    |--- ~
     |    |--- '&'
     |--- statement
-    |    |--- BITAND ~ _PERCENT _BITAND
     |    |--- BITAND
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _BITAND
     |--- statement
-    |    |--- _BITOR ~ '|'
     |    |--- _BITOR
     |    |--- ~
     |    |--- '|'
     |--- statement
-    |    |--- BITOR ~ _PERCENT _BITOR
     |    |--- BITOR
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _BITOR
     |--- statement
-    |    |--- _BITXOR ~ '^'
     |    |--- _BITXOR
     |    |--- ~
     |    |--- '^'
     |--- statement
-    |    |--- BITXOR ~ _PERCENT _BITXOR
     |    |--- BITXOR
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _BITXOR
     |--- statement
-    |    |--- _EQUAL ~ '='
     |    |--- _EQUAL
     |    |--- ~
     |    |--- '='
     |--- statement
-    |    |--- EQUAL ~ _PERCENT _EQUAL
     |    |--- EQUAL
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _EQUAL
     |--- statement
-    |    |--- _GREATER ~ '>'
     |    |--- _GREATER
     |    |--- ~
     |    |--- '>'
     |--- statement
-    |    |--- GREATER ~ _PERCENT _GREATER
     |    |--- GREATER
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _GREATER
     |--- statement
-    |    |--- _LOWER ~ '<'
     |    |--- _LOWER
     |    |--- ~
     |    |--- '<'
     |--- statement
-    |    |--- LOWER ~ _PERCENT _LOWER
     |    |--- LOWER
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _LOWER
     |--- statement
-    |    |--- _AND ~ 'A'
     |    |--- _AND
     |    |--- ~
     |    |--- 'A'
     |--- statement
-    |    |--- AND ~ _PERCENT _AND
     |    |--- AND
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _AND
     |--- statement
-    |    |--- _OR ~ 'O'
     |    |--- _OR
     |    |--- ~
     |    |--- 'O'
     |--- statement
-    |    |--- OR ~ _PERCENT _OR
     |    |--- OR
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _OR
     |--- statement
-    |    |--- _NOT ~ '!'
     |    |--- _NOT
     |    |--- ~
     |    |--- '!'
     |--- statement
-    |    |--- NOT ~ _PERCENT _NOT
     |    |--- NOT
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _NOT
     |--- statement
-    |    |--- _COMPLEMENT ~ '~'
     |    |--- _COMPLEMENT
     |    |--- ~
     |    |--- '~'
     |--- statement
-    |    |--- COMPLEMENT ~ _PERCENT _COMPLEMENT
     |    |--- COMPLEMENT
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _COMPLEMENT
     |--- statement
-    |    |--- _ADDONE ~ 'i'
     |    |--- _ADDONE
     |    |--- ~
     |    |--- 'i'
     |--- statement
-    |    |--- ADDONE ~ _PERCENT _ADDONE
     |    |--- ADDONE
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _ADDONE
     |--- statement
-    |    |--- _IF ~ '?'
     |    |--- _IF
     |    |--- ~
     |    |--- '?'
     |--- statement
-    |    |--- IF ~ _PERCENT _IF
     |    |--- IF
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _IF
     |--- statement
-    |    |--- _THEN ~ 't'
     |    |--- _THEN
     |    |--- ~
     |    |--- 't'
     |--- statement
-    |    |--- THEN ~ _PERCENT _THEN
     |    |--- THEN
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _THEN
     |--- statement
-    |    |--- _ELSE ~ 'e'
     |    |--- _ELSE
     |    |--- ~
     |    |--- 'e'
     |--- statement
-    |    |--- ELSE ~ _PERCENT _ELSE
     |    |--- ELSE
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _ELSE
     |--- statement
-    |    |--- _ENDIF ~ ';'
     |    |--- _ENDIF
     |    |--- ~
     |    |--- ';'
     |--- statement
-    |    |--- ENDIF ~ _PERCENT _ENDIF
     |    |--- ENDIF
     |    |--- ~
     |    |--- _PERCENT
     |    |--- _ENDIF
     |--- statement
-    |    |--- _EOF ~ ','
     |    |--- _EOF
     |    |--- ~
     |    |--- ','
     |--- statement
-    |    |--- ENDIF ~ _EOF
     |    |--- ENDIF
     |    |--- ~
     |    |--- _EOF
     |--- statement
-    |    |--- _CARET ~ '^'
     |    |--- _CARET
     |    |--- ~
     |    |--- '^'
     |--- statement
-    |    |--- _BS ~ '\'
     |    |--- _BS
     |    |--- ~
     |    |--- '\'
     |--- statement
-    |    |--- _ALLOWED_BS ~ [abEeflnrst^\,:0]
     |    |--- _ALLOWED_BS
     |    |--- ~
     |    |--- [abEeflnrst^\,:0]
     |--- statement
-    |    |--- _ALLOWED_BS ~ _DIGIT _DIGIT _DIGIT
     |    |--- _ALLOWED_BS
     |    |--- ~
     |    |--- _DIGIT
     |    |--- _DIGIT
     |    |--- _DIGIT
     |--- statement
-    |    |--- _C0_AND_DEL ~ [@A-Z[\]^_ ?]
     |    |--- _C0_AND_DEL
     |    |--- ~
     |    |--- [@A-Z[\]^_ ?]
     |--- statement
-    |    |--- ESCAPED_CHARACTER ~ _CARET _C0_AND_DEL | _BS _ALLOWED_BS
     |    |--- ESCAPED_CHARACTER
     |    |--- ~
     |    |--- _CARET
@@ -665,12 +583,10 @@ Statements
     |    |--- _BS
     |    |--- _ALLOWED_BS
     |--- statement
-    |    |--- INISPRINTEXCEPTCOMMA ~ [\p{MarpaX::Database::Terminfo::Grammar::CharacterClasses::InIsPrintExceptComma}]
     |    |--- INISPRINTEXCEPTCOMMA
     |    |--- ~
     |    |--- [\p{MarpaX::Database::Terminfo::Grammar::CharacterClasses::InIsPrintExceptComma}]
     |--- statement
-         |--- EOF ~ _EOF
          |--- EOF
          |--- ~
          |--- _EOF

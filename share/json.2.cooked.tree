@@ -1,25 +1,21 @@
 Statements
     |--- statement
-    |    |--- :default ::= action => ::array
     |    |--- :default
     |    |--- ::=
     |    |--- action
     |    |--- =>
     |    |--- ::array
     |--- statement
-    |    |--- lexeme default = latm => 1
     |    |--- lexeme default
     |    |--- =
     |    |--- latm
     |    |--- =>
     |    |--- 1
     |--- statement
-    |    |--- :start ::= json
     |    |--- :start
     |    |--- ::=
     |    |--- json
     |--- statement
-    |    |--- json ::= object action => ::first | array action => ::first
     |    |--- json
     |    |--- ::=
     |    |--- object
@@ -32,7 +28,6 @@ Statements
     |    |--- =>
     |    |--- ::first
     |--- statement
-    |    |--- object ::= ( '{' ) members ( '}' ) bless => hash
     |    |--- object
     |    |--- ::=
     |    |--- (
@@ -46,7 +41,6 @@ Statements
     |    |--- =>
     |    |--- hash
     |--- statement
-    |    |--- members ::= pair * separator => <comma>
     |    |--- members
     |    |--- ::=
     |    |--- pair
@@ -55,7 +49,6 @@ Statements
     |    |--- =>
     |    |--- <comma>
     |--- statement
-    |    |--- pair ::= string ( ':' ) value
     |    |--- pair
     |    |--- ::=
     |    |--- string
@@ -64,7 +57,6 @@ Statements
     |    |--- )
     |    |--- value
     |--- statement
-    |    |--- value ::= string action => ::first | object action => ::first | number action => ::first | array action => ::first | 'true' bless => true | 'false' bless => false | 'null' action => ::undef
     |    |--- value
     |    |--- ::=
     |    |--- string
@@ -102,7 +94,6 @@ Statements
     |    |--- =>
     |    |--- ::undef
     |--- statement
-    |    |--- array ::= ( '[' ']' ) | ( '[' ) elements ( ']' ) action => ::first
     |    |--- array
     |    |--- ::=
     |    |--- (
@@ -121,7 +112,6 @@ Statements
     |    |--- =>
     |    |--- ::first
     |--- statement
-    |    |--- elements ::= value + separator => <comma>
     |    |--- elements
     |    |--- ::=
     |    |--- value
@@ -130,7 +120,6 @@ Statements
     |    |--- =>
     |    |--- <comma>
     |--- statement
-    |    |--- number ~ int | int frac | int exp | int frac exp
     |    |--- number
     |    |--- ~
     |    |--- int
@@ -145,7 +134,6 @@ Statements
     |    |--- frac
     |    |--- exp
     |--- statement
-    |    |--- int ~ digits | '-' digits
     |    |--- int
     |    |--- ~
     |    |--- digits
@@ -153,25 +141,21 @@ Statements
     |    |--- '-'
     |    |--- digits
     |--- statement
-    |    |--- digits ~ [\d] +
     |    |--- digits
     |    |--- ~
     |    |--- [\d]
     |    |--- +
     |--- statement
-    |    |--- frac ~ '.' digits
     |    |--- frac
     |    |--- ~
     |    |--- '.'
     |    |--- digits
     |--- statement
-    |    |--- exp ~ e digits
     |    |--- exp
     |    |--- ~
     |    |--- e
     |    |--- digits
     |--- statement
-    |    |--- e ~ 'e' | 'e+' | 'e-' | 'E' | 'E+' | 'E-'
     |    |--- e
     |    |--- ~
     |    |--- 'e'
@@ -186,7 +170,6 @@ Statements
     |    |--- |
     |    |--- 'E-'
     |--- statement
-    |    |--- string ::= <string lexeme> bless => string
     |    |--- string
     |    |--- ::=
     |    |--- <string lexeme>
@@ -194,25 +177,21 @@ Statements
     |    |--- =>
     |    |--- string
     |--- statement
-    |    |--- <string lexeme> ~ quote <string contents> quote
     |    |--- <string lexeme>
     |    |--- ~
     |    |--- quote
     |    |--- <string contents>
     |    |--- quote
     |--- statement
-    |    |--- quote ~ ["]
     |    |--- quote
     |    |--- ~
     |    |--- ["]
     |--- statement
-    |    |--- <string contents> ~ <string char> *
     |    |--- <string contents>
     |    |--- ~
     |    |--- <string char>
     |    |--- *
     |--- statement
-    |    |--- <string char> ~ [^"\\] | '\' <any char>
     |    |--- <string char>
     |    |--- ~
     |    |--- [^"\\]
@@ -220,22 +199,18 @@ Statements
     |    |--- '\'
     |    |--- <any char>
     |--- statement
-    |    |--- <any char> ~ [\d\D]
     |    |--- <any char>
     |    |--- ~
     |    |--- [\d\D]
     |--- statement
-    |    |--- comma ~ ','
     |    |--- comma
     |    |--- ~
     |    |--- ','
     |--- statement
-    |    |--- :discard ~ whitespace
     |    |--- :discard
     |    |--- ~
     |    |--- whitespace
     |--- statement
-         |--- whitespace ~ [\s] +
          |--- whitespace
          |--- ~
          |--- [\s]

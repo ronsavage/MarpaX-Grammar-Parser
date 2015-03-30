@@ -271,7 +271,6 @@ Statements
     |    |--- ~
     |    |--- whitespace
     |--- statement
-         |--- whitespace ~ [\s] +
          |--- whitespace
          |--- ~
          |--- [\s]

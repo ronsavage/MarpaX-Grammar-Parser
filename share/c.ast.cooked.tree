@@ -1,6 +1,5 @@
 Statements
     |--- statement
-    |    |--- :default ::= action => [values] bless => ::lhs
     |    |--- :default
     |    |--- ::=
     |    |--- action
@@ -10,7 +9,6 @@ Statements
     |    |--- =>
     |    |--- ::lhs
     |--- statement
-    |    |--- lexeme default = action => [start,length,value] latm => 1
     |    |--- lexeme default
     |    |--- =
     |    |--- action
@@ -20,12 +18,10 @@ Statements
     |    |--- =>
     |    |--- 1
     |--- statement
-    |    |--- :start ::= translationUnit
     |    |--- :start
     |    |--- ::=
     |    |--- translationUnit
     |--- statement
-    |    |--- primaryExpression ::= IDENTIFIER | constant | string | LPAREN expression RPAREN | genericSelection | gccStatementExpression
     |    |--- primaryExpression
     |    |--- ::=
     |    |--- IDENTIFIER
@@ -42,7 +38,6 @@ Statements
     |    |--- |
     |    |--- gccStatementExpression
     |--- statement
-    |    |--- constant ::= I_CONSTANT | F_CONSTANT | ENUMERATION_CONSTANT
     |    |--- constant
     |    |--- ::=
     |    |--- I_CONSTANT
@@ -51,34 +46,28 @@ Statements
     |    |--- |
     |    |--- ENUMERATION_CONSTANT
     |--- statement
-    |    |--- 'enumerationConstantIdentifier$' <enumerationConstantIdentifier>
     |    |--- 'enumerationConstantIdentifier$'
     |    |--- <enumerationConstantIdentifier>
     |--- statement
-    |    |--- enumerationConstantIdentifier ::= IDENTIFIER_UNAMBIGUOUS
     |    |--- enumerationConstantIdentifier
     |    |--- ::=
     |    |--- IDENTIFIER_UNAMBIGUOUS
     |--- statement
-    |    |--- enumerationConstant ::= enumerationConstantIdentifier
     |    |--- enumerationConstant
     |    |--- ::=
     |    |--- enumerationConstantIdentifier
     |--- statement
-    |    |--- stringLiteral ::= STRING_LITERAL_UNIT +
     |    |--- stringLiteral
     |    |--- ::=
     |    |--- STRING_LITERAL_UNIT
     |    |--- +
     |--- statement
-    |    |--- string ::= stringLiteral | FUNC_NAME
     |    |--- string
     |    |--- ::=
     |    |--- stringLiteral
     |    |--- |
     |    |--- FUNC_NAME
     |--- statement
-    |    |--- genericSelection ::= GENERIC LPAREN assignmentExpression COMMA genericAssocList RPAREN
     |    |--- genericSelection
     |    |--- ::=
     |    |--- GENERIC
@@ -88,7 +77,6 @@ Statements
     |    |--- genericAssocList
     |    |--- RPAREN
     |--- statement
-    |    |--- genericAssocList ::= genericAssociation | genericAssocList COMMA genericAssociation
     |    |--- genericAssocList
     |    |--- ::=
     |    |--- genericAssociation
@@ -97,7 +85,6 @@ Statements
     |    |--- COMMA
     |    |--- genericAssociation
     |--- statement
-    |    |--- genericAssociation ::= typeName COLON assignmentExpression | DEFAULT COLON assignmentExpression
     |    |--- genericAssociation
     |    |--- ::=
     |    |--- typeName
@@ -108,7 +95,6 @@ Statements
     |    |--- COLON
     |    |--- assignmentExpression
     |--- statement
-    |    |--- postfixExpression ::= primaryExpression | postfixExpression LBRACKET expression RBRACKET | postfixExpression LPAREN RPAREN | postfixExpression LPAREN argumentExpressionList RPAREN | gccBuiltinVaStart | gccBuiltinVaEnd | gccBuiltinVaArg | gccBuiltinOffsetof | postfixExpression DOT IDENTIFIER_UNAMBIGUOUS | postfixExpression PTR_OP IDENTIFIER_UNAMBIGUOUS | postfixExpression INC_OP | postfixExpression DEC_OP | LPAREN typeName RPAREN LCURLY initializerList RCURLY | LPAREN typeName RPAREN LCURLY initializerList COMMA RCURLY
     |    |--- postfixExpression
     |    |--- ::=
     |    |--- primaryExpression
@@ -164,7 +150,6 @@ Statements
     |    |--- COMMA
     |    |--- RCURLY
     |--- statement
-    |    |--- argumentExpressionList ::= assignmentExpression | argumentExpressionList COMMA assignmentExpression | argumentExpressionList COMMA
     |    |--- argumentExpressionList
     |    |--- ::=
     |    |--- assignmentExpression
@@ -176,7 +161,6 @@ Statements
     |    |--- argumentExpressionList
     |    |--- COMMA
     |--- statement
-    |    |--- gccAlignofExpression ::= GCC_ALIGNOF unaryExpression | GCC_ALIGNOF LPAREN typeName RPAREN
     |    |--- gccAlignofExpression
     |    |--- ::=
     |    |--- GCC_ALIGNOF
@@ -187,7 +171,6 @@ Statements
     |    |--- typeName
     |    |--- RPAREN
     |--- statement
-    |    |--- unaryExpression ::= postfixExpression | gccExtension postfixExpression | INC_OP unaryExpression | DEC_OP unaryExpression | unaryOperator castExpression | SIZEOF unaryExpression | SIZEOF LPAREN typeName RPAREN | ALIGNOF LPAREN typeName RPAREN | gccAlignofExpression
     |    |--- unaryExpression
     |    |--- ::=
     |    |--- postfixExpression
@@ -219,7 +202,6 @@ Statements
     |    |--- |
     |    |--- gccAlignofExpression
     |--- statement
-    |    |--- unaryOperator ::= AMPERSAND | STAR | PLUS | HYPHEN | TILDE | EXCLAMATION
     |    |--- unaryOperator
     |    |--- ::=
     |    |--- AMPERSAND
@@ -234,7 +216,6 @@ Statements
     |    |--- |
     |    |--- EXCLAMATION
     |--- statement
-    |    |--- castExpression ::= unaryExpression | LPAREN typeName RPAREN castExpression
     |    |--- castExpression
     |    |--- ::=
     |    |--- unaryExpression
@@ -244,7 +225,6 @@ Statements
     |    |--- RPAREN
     |    |--- castExpression
     |--- statement
-    |    |--- multiplicativeExpression ::= castExpression | multiplicativeExpression STAR castExpression | multiplicativeExpression SLASH castExpression | multiplicativeExpression PERCENT castExpression
     |    |--- multiplicativeExpression
     |    |--- ::=
     |    |--- castExpression
@@ -261,7 +241,6 @@ Statements
     |    |--- PERCENT
     |    |--- castExpression
     |--- statement
-    |    |--- additiveExpression ::= multiplicativeExpression | additiveExpression PLUS multiplicativeExpression | additiveExpression HYPHEN multiplicativeExpression
     |    |--- additiveExpression
     |    |--- ::=
     |    |--- multiplicativeExpression
@@ -274,7 +253,6 @@ Statements
     |    |--- HYPHEN
     |    |--- multiplicativeExpression
     |--- statement
-    |    |--- shiftExpression ::= additiveExpression | shiftExpression LEFT_OP additiveExpression | shiftExpression RIGHT_OP additiveExpression
     |    |--- shiftExpression
     |    |--- ::=
     |    |--- additiveExpression
@@ -287,7 +265,6 @@ Statements
     |    |--- RIGHT_OP
     |    |--- additiveExpression
     |--- statement
-    |    |--- relationalExpression ::= shiftExpression | relationalExpression LESS_THAN shiftExpression | relationalExpression GREATER_THAN shiftExpression | relationalExpression LE_OP shiftExpression | relationalExpression GE_OP shiftExpression
     |    |--- relationalExpression
     |    |--- ::=
     |    |--- shiftExpression
@@ -308,7 +285,6 @@ Statements
     |    |--- GE_OP
     |    |--- shiftExpression
     |--- statement
-    |    |--- equalityExpression ::= relationalExpression | equalityExpression EQ_OP relationalExpression | equalityExpression NE_OP relationalExpression
     |    |--- equalityExpression
     |    |--- ::=
     |    |--- relationalExpression
@@ -321,7 +297,6 @@ Statements
     |    |--- NE_OP
     |    |--- relationalExpression
     |--- statement
-    |    |--- andExpression ::= equalityExpression | andExpression AMPERSAND equalityExpression
     |    |--- andExpression
     |    |--- ::=
     |    |--- equalityExpression
@@ -330,7 +305,6 @@ Statements
     |    |--- AMPERSAND
     |    |--- equalityExpression
     |--- statement
-    |    |--- exclusiveOrExpression ::= andExpression | exclusiveOrExpression CARET andExpression
     |    |--- exclusiveOrExpression
     |    |--- ::=
     |    |--- andExpression
@@ -339,7 +313,6 @@ Statements
     |    |--- CARET
     |    |--- andExpression
     |--- statement
-    |    |--- inclusiveOrExpression ::= exclusiveOrExpression | inclusiveOrExpression VERTICAL_BAR exclusiveOrExpression
     |    |--- inclusiveOrExpression
     |    |--- ::=
     |    |--- exclusiveOrExpression
@@ -348,7 +321,6 @@ Statements
     |    |--- VERTICAL_BAR
     |    |--- exclusiveOrExpression
     |--- statement
-    |    |--- logicalAndExpression ::= inclusiveOrExpression | logicalAndExpression AND_OP inclusiveOrExpression
     |    |--- logicalAndExpression
     |    |--- ::=
     |    |--- inclusiveOrExpression
@@ -357,7 +329,6 @@ Statements
     |    |--- AND_OP
     |    |--- inclusiveOrExpression
     |--- statement
-    |    |--- logicalOrExpression ::= logicalAndExpression | logicalOrExpression OR_OP logicalAndExpression
     |    |--- logicalOrExpression
     |    |--- ::=
     |    |--- logicalAndExpression
@@ -366,7 +337,6 @@ Statements
     |    |--- OR_OP
     |    |--- logicalAndExpression
     |--- statement
-    |    |--- conditionalExpression ::= logicalOrExpression | logicalOrExpression QUESTION_MARK expression COLON assignmentExpression | logicalOrExpression QUESTION_MARK COLON assignmentExpression
     |    |--- conditionalExpression
     |    |--- ::=
     |    |--- logicalOrExpression
@@ -382,7 +352,6 @@ Statements
     |    |--- COLON
     |    |--- assignmentExpression
     |--- statement
-    |    |--- assignmentExpression ::= conditionalExpression | castExpression assignmentOperator assignmentExpression
     |    |--- assignmentExpression
     |    |--- ::=
     |    |--- conditionalExpression
@@ -391,7 +360,6 @@ Statements
     |    |--- assignmentOperator
     |    |--- assignmentExpression
     |--- statement
-    |    |--- assignmentOperator ::= EQUAL | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN | ADD_ASSIGN | SUB_ASSIGN | LEFT_ASSIGN | RIGHT_ASSIGN | AND_ASSIGN | XOR_ASSIGN | OR_ASSIGN
     |    |--- assignmentOperator
     |    |--- ::=
     |    |--- EQUAL
@@ -416,7 +384,6 @@ Statements
     |    |--- |
     |    |--- OR_ASSIGN
     |--- statement
-    |    |--- expression ::= assignmentExpression | expression COMMA assignmentExpression
     |    |--- expression
     |    |--- ::=
     |    |--- assignmentExpression
@@ -425,41 +392,33 @@ Statements
     |    |--- COMMA
     |    |--- assignmentExpression
     |--- statement
-    |    |--- constantExpression ::= conditionalExpression
     |    |--- constantExpression
     |    |--- ::=
     |    |--- conditionalExpression
     |--- statement
-    |    |--- 'declarationCheckdeclarationSpecifiers$' <declarationCheckdeclarationSpecifiers>
     |    |--- 'declarationCheckdeclarationSpecifiers$'
     |    |--- <declarationCheckdeclarationSpecifiers>
     |--- statement
-    |    |--- declarationCheckdeclarationSpecifiers ::= declarationSpecifiers
     |    |--- declarationCheckdeclarationSpecifiers
     |    |--- ::=
     |    |--- declarationSpecifiers
     |--- statement
-    |    |--- 'declarationCheckinitDeclaratorList$' <declarationCheckinitDeclaratorList>
     |    |--- 'declarationCheckinitDeclaratorList$'
     |    |--- <declarationCheckinitDeclaratorList>
     |--- statement
-    |    |--- declarationCheckinitDeclaratorList ::= initDeclaratorList
     |    |--- declarationCheckinitDeclaratorList
     |    |--- ::=
     |    |--- initDeclaratorList
     |--- statement
-    |    |--- 'declarationCheck$' <declarationCheck>
     |    |--- 'declarationCheck$'
     |    |--- <declarationCheck>
     |--- statement
-    |    |--- declarationCheck ::= declarationCheckdeclarationSpecifiers declarationCheckinitDeclaratorList SEMICOLON
     |    |--- declarationCheck
     |    |--- ::=
     |    |--- declarationCheckdeclarationSpecifiers
     |    |--- declarationCheckinitDeclaratorList
     |    |--- SEMICOLON
     |--- statement
-    |    |--- declaration ::= declarationSpecifiers SEMICOLON | declarationCheck | staticAssertDeclaration
     |    |--- declaration
     |    |--- ::=
     |    |--- declarationSpecifiers
@@ -469,12 +428,10 @@ Statements
     |    |--- |
     |    |--- staticAssertDeclaration
     |--- statement
-    |    |--- gccExtension ::= GCC_EXTENSION
     |    |--- gccExtension
     |    |--- ::=
     |    |--- GCC_EXTENSION
     |--- statement
-    |    |--- declarationSpecifiers ::= declarationSpecifiers0 | declarationSpecifiers1 | declarationSpecifiers2
     |    |--- declarationSpecifiers
     |    |--- ::=
     |    |--- declarationSpecifiers0
@@ -483,7 +440,6 @@ Statements
     |    |--- |
     |    |--- declarationSpecifiers2
     |--- statement
-    |    |--- declarationSpecifiers0 ::= storageClassSpecifier | declarationSpecifiers0 storageClassSpecifier | typeQualifier | declarationSpecifiers0 typeQualifier | functionSpecifier | declarationSpecifiers0 functionSpecifier | alignmentSpecifier | declarationSpecifiers0 alignmentSpecifier | gccExtension | declarationSpecifiers0 gccExtension
     |    |--- declarationSpecifiers0
     |    |--- ::=
     |    |--- storageClassSpecifier
@@ -511,7 +467,6 @@ Statements
     |    |--- declarationSpecifiers0
     |    |--- gccExtension
     |--- statement
-    |    |--- declarationSpecifiers1 ::= typeSpecifier1 | declarationSpecifiers0 typeSpecifier1 | declarationSpecifiers1 storageClassSpecifier | declarationSpecifiers1 typeQualifier | declarationSpecifiers1 functionSpecifier | declarationSpecifiers1 alignmentSpecifier | declarationSpecifiers1 gccExtension
     |    |--- declarationSpecifiers1
     |    |--- ::=
     |    |--- typeSpecifier1
@@ -534,7 +489,6 @@ Statements
     |    |--- declarationSpecifiers1
     |    |--- gccExtension
     |--- statement
-    |    |--- declarationSpecifiers2 ::= typeSpecifier2 | declarationSpecifiers0 typeSpecifier2 | declarationSpecifiers2 typeSpecifier2 | declarationSpecifiers2 storageClassSpecifier | declarationSpecifiers2 typeQualifier | declarationSpecifiers2 functionSpecifier | declarationSpecifiers2 alignmentSpecifier | declarationSpecifiers2 gccExtension
     |    |--- declarationSpecifiers2
     |    |--- ::=
     |    |--- typeSpecifier2
@@ -560,7 +514,6 @@ Statements
     |    |--- declarationSpecifiers2
     |    |--- gccExtension
     |--- statement
-    |    |--- initDeclaratorList ::= initDeclarator | initDeclaratorList COMMA initDeclarator
     |    |--- initDeclaratorList
     |    |--- ::=
     |    |--- initDeclarator
@@ -569,7 +522,6 @@ Statements
     |    |--- COMMA
     |    |--- initDeclarator
     |--- statement
-    |    |--- initDeclarator ::= declarator EQUAL initializer | declarator
     |    |--- initDeclarator
     |    |--- ::=
     |    |--- declarator
@@ -578,16 +530,13 @@ Statements
     |    |--- |
     |    |--- declarator
     |--- statement
-    |    |--- 'storageClassSpecifierTypedef$' <storageClassSpecifierTypedef>
     |    |--- 'storageClassSpecifierTypedef$'
     |    |--- <storageClassSpecifierTypedef>
     |--- statement
-    |    |--- storageClassSpecifierTypedef ::= TYPEDEF
     |    |--- storageClassSpecifierTypedef
     |    |--- ::=
     |    |--- TYPEDEF
     |--- statement
-    |    |--- storageClassSpecifier ::= storageClassSpecifierTypedef | EXTERN | STATIC | THREAD_LOCAL | AUTO | REGISTER
     |    |--- storageClassSpecifier
     |    |--- ::=
     |    |--- storageClassSpecifierTypedef
@@ -602,7 +551,6 @@ Statements
     |    |--- |
     |    |--- REGISTER
     |--- statement
-    |    |--- typeSpecifier1 ::= VOID | FLOAT | structOrUnionSpecifier | enumSpecifier | TYPEDEF_NAME
     |    |--- typeSpecifier1
     |    |--- ::=
     |    |--- VOID
@@ -615,7 +563,6 @@ Statements
     |    |--- |
     |    |--- TYPEDEF_NAME
     |--- statement
-    |    |--- typeSpecifier2 ::= CHAR | SHORT | INT | LONG | DOUBLE | SIGNED | UNSIGNED | BOOL | LABEL | COMPLEX | IMAGINARY | atomicTypeSpecifier | msvsBuiltinType | gccBuiltinType
     |    |--- typeSpecifier2
     |    |--- ::=
     |    |--- CHAR
@@ -646,23 +593,18 @@ Statements
     |    |--- |
     |    |--- gccBuiltinType
     |--- statement
-    |    |--- 'structContextStart[]' <structContextStart>
     |    |--- 'structContextStart[]'
     |    |--- <structContextStart>
     |--- statement
-    |    |--- structContextStart ::=
     |    |--- structContextStart
     |    |--- ::=
     |--- statement
-    |    |--- 'structContextEnd[]' <structContextEnd>
     |    |--- 'structContextEnd[]'
     |    |--- <structContextEnd>
     |--- statement
-    |    |--- structContextEnd ::=
     |    |--- structContextEnd
     |    |--- ::=
     |--- statement
-    |    |--- structOrUnionSpecifier ::= structOrUnion LCURLY <structContextStart> structDeclarationList RCURLY <structContextEnd> | structOrUnion IDENTIFIER_UNAMBIGUOUS LCURLY <structContextStart> structDeclarationList RCURLY <structContextEnd> | structOrUnion IDENTIFIER_UNAMBIGUOUS
     |    |--- structOrUnionSpecifier
     |    |--- ::=
     |    |--- structOrUnion
@@ -683,20 +625,17 @@ Statements
     |    |--- structOrUnion
     |    |--- IDENTIFIER_UNAMBIGUOUS
     |--- statement
-    |    |--- structOrUnion ::= STRUCT | UNION
     |    |--- structOrUnion
     |    |--- ::=
     |    |--- STRUCT
     |    |--- |
     |    |--- UNION
     |--- statement
-    |    |--- structDeclarationList ::= structDeclaration +
     |    |--- structDeclarationList
     |    |--- ::=
     |    |--- structDeclaration
     |    |--- +
     |--- statement
-    |    |--- structDeclaration ::= specifierQualifierList SEMICOLON | specifierQualifierList structDeclaratorList SEMICOLON | SEMICOLON
     |    |--- structDeclaration
     |    |--- ::=
     |    |--- specifierQualifierList
@@ -708,7 +647,6 @@ Statements
     |    |--- |
     |    |--- SEMICOLON
     |--- statement
-    |    |--- specifierQualifierList ::= specifierQualifierList0 | specifierQualifierList1 | specifierQualifierList2
     |    |--- specifierQualifierList
     |    |--- ::=
     |    |--- specifierQualifierList0
@@ -717,7 +655,6 @@ Statements
     |    |--- |
     |    |--- specifierQualifierList2
     |--- statement
-    |    |--- specifierQualifierList0 ::= typeQualifier | specifierQualifierList0 typeQualifier | gccExtension | specifierQualifierList0 gccExtension
     |    |--- specifierQualifierList0
     |    |--- ::=
     |    |--- typeQualifier
@@ -730,7 +667,6 @@ Statements
     |    |--- specifierQualifierList0
     |    |--- gccExtension
     |--- statement
-    |    |--- specifierQualifierList1 ::= typeSpecifier1 | specifierQualifierList0 typeSpecifier1 | specifierQualifierList1 typeQualifier | specifierQualifierList1 gccExtension
     |    |--- specifierQualifierList1
     |    |--- ::=
     |    |--- typeSpecifier1
@@ -744,7 +680,6 @@ Statements
     |    |--- specifierQualifierList1
     |    |--- gccExtension
     |--- statement
-    |    |--- specifierQualifierList2 ::= typeSpecifier2 | specifierQualifierList0 typeSpecifier2 | specifierQualifierList2 typeSpecifier2 | specifierQualifierList2 typeQualifier | specifierQualifierList2 gccExtension
     |    |--- specifierQualifierList2
     |    |--- ::=
     |    |--- typeSpecifier2
@@ -761,7 +696,6 @@ Statements
     |    |--- specifierQualifierList2
     |    |--- gccExtension
     |--- statement
-    |    |--- structDeclaratorList ::= structDeclarator | structDeclaratorList COMMA structDeclarator
     |    |--- structDeclaratorList
     |    |--- ::=
     |    |--- structDeclarator
@@ -770,7 +704,6 @@ Statements
     |    |--- COMMA
     |    |--- structDeclarator
     |--- statement
-    |    |--- structDeclarator ::= COLON constantExpression | declarator COLON constantExpression | declarator
     |    |--- structDeclarator
     |    |--- ::=
     |    |--- COLON
@@ -782,7 +715,6 @@ Statements
     |    |--- |
     |    |--- declarator
     |--- statement
-    |    |--- enumSpecifier ::= ENUM LCURLY enumeratorList RCURLY | ENUM LCURLY enumeratorList COMMA RCURLY | ENUM IDENTIFIER_UNAMBIGUOUS LCURLY enumeratorList RCURLY | ENUM IDENTIFIER_UNAMBIGUOUS LCURLY enumeratorList COMMA RCURLY | ENUM IDENTIFIER_UNAMBIGUOUS
     |    |--- enumSpecifier
     |    |--- ::=
     |    |--- ENUM
@@ -812,7 +744,6 @@ Statements
     |    |--- ENUM
     |    |--- IDENTIFIER_UNAMBIGUOUS
     |--- statement
-    |    |--- enumeratorList ::= enumerator | enumeratorList COMMA enumerator
     |    |--- enumeratorList
     |    |--- ::=
     |    |--- enumerator
@@ -821,7 +752,6 @@ Statements
     |    |--- COMMA
     |    |--- enumerator
     |--- statement
-    |    |--- enumerator ::= enumerationConstant EQUAL constantExpression | enumerationConstant
     |    |--- enumerator
     |    |--- ::=
     |    |--- enumerationConstant
@@ -830,7 +760,6 @@ Statements
     |    |--- |
     |    |--- enumerationConstant
     |--- statement
-    |    |--- atomicTypeSpecifier ::= ATOMIC LPAREN typeName RPAREN
     |    |--- atomicTypeSpecifier
     |    |--- ::=
     |    |--- ATOMIC
@@ -838,7 +767,6 @@ Statements
     |    |--- typeName
     |    |--- RPAREN
     |--- statement
-    |    |--- typeQualifier ::= CONST | RESTRICT | VOLATILE | ATOMIC | MSVS_W64 | MSVS_PTR32 | MSVS_PTR64
     |    |--- typeQualifier
     |    |--- ::=
     |    |--- CONST
@@ -855,14 +783,12 @@ Statements
     |    |--- |
     |    |--- MSVS_PTR64
     |--- statement
-    |    |--- functionSpecifier ::= INLINE | NORETURN
     |    |--- functionSpecifier
     |    |--- ::=
     |    |--- INLINE
     |    |--- |
     |    |--- NORETURN
     |--- statement
-    |    |--- alignmentSpecifier ::= ALIGNAS LPAREN typeName RPAREN | ALIGNAS LPAREN constantExpression RPAREN
     |    |--- alignmentSpecifier
     |    |--- ::=
     |    |--- ALIGNAS
@@ -875,13 +801,11 @@ Statements
     |    |--- constantExpression
     |    |--- RPAREN
     |--- statement
-    |    |--- msvsAttributeAny ::= msvsAttribute *
     |    |--- msvsAttributeAny
     |    |--- ::=
     |    |--- msvsAttribute
     |    |--- *
     |--- statement
-    |    |--- declarator ::= pointer msvsAttributeAny directDeclarator | pointer msvsAttributeAny directDeclarator gccAsmExpression | msvsAttributeAny directDeclarator | msvsAttributeAny directDeclarator gccAsmExpression | MSVS___C_ASSERT__ LBRACKET expression RBRACKET
     |    |--- declarator
     |    |--- ::=
     |    |--- pointer
@@ -905,16 +829,13 @@ Statements
     |    |--- expression
     |    |--- RBRACKET
     |--- statement
-    |    |--- 'directDeclaratorIdentifier$' <directDeclaratorIdentifier>
     |    |--- 'directDeclaratorIdentifier$'
     |    |--- <directDeclaratorIdentifier>
     |--- statement
-    |    |--- directDeclaratorIdentifier ::= IDENTIFIER
     |    |--- directDeclaratorIdentifier
     |    |--- ::=
     |    |--- IDENTIFIER
     |--- statement
-    |    |--- directDeclarator ::= directDeclaratorIdentifier | LPAREN declarator RPAREN | directDeclarator LBRACKET RBRACKET | directDeclarator LBRACKET STAR RBRACKET | directDeclarator LBRACKET STATIC gccArrayTypeModifierList assignmentExpression RBRACKET | directDeclarator LBRACKET STATIC assignmentExpression RBRACKET | directDeclarator LBRACKET gccArrayTypeModifierList STAR RBRACKET | directDeclarator LBRACKET gccArrayTypeModifierList STATIC assignmentExpression RBRACKET | directDeclarator LBRACKET gccArrayTypeModifierList assignmentExpression RBRACKET | directDeclarator LBRACKET gccArrayTypeModifierList RBRACKET | directDeclarator LBRACKET assignmentExpression RBRACKET | directDeclarator LPAREN_SCOPE parameterTypeList RPAREN_SCOPE | directDeclarator LPAREN_SCOPE RPAREN_SCOPE | directDeclarator LPAREN_SCOPE identifierList RPAREN_SCOPE
     |    |--- directDeclarator
     |    |--- ::=
     |    |--- directDeclaratorIdentifier
@@ -988,18 +909,15 @@ Statements
     |    |--- identifierList
     |    |--- RPAREN_SCOPE
     |--- statement
-    |    |--- pointerQualifier ::= typeQualifier
     |    |--- pointerQualifier
     |    |--- ::=
     |    |--- typeQualifier
     |--- statement
-    |    |--- pointerQualifierList ::= pointerQualifier +
     |    |--- pointerQualifierList
     |    |--- ::=
     |    |--- pointerQualifier
     |    |--- +
     |--- statement
-    |    |--- pointer ::= msvsAttributeAny STAR pointerQualifierList pointer | msvsAttributeAny STAR pointerQualifierList | msvsAttributeAny STAR pointer | msvsAttributeAny STAR
     |    |--- pointer
     |    |--- ::=
     |    |--- msvsAttributeAny
@@ -1018,13 +936,11 @@ Statements
     |    |--- msvsAttributeAny
     |    |--- STAR
     |--- statement
-    |    |--- gccArrayTypeModifierList ::= gccArrayTypeModifier +
     |    |--- gccArrayTypeModifierList
     |    |--- ::=
     |    |--- gccArrayTypeModifier
     |    |--- +
     |--- statement
-    |    |--- parameterTypeList ::= parameterList COMMA ELLIPSIS | parameterList
     |    |--- parameterTypeList
     |    |--- ::=
     |    |--- parameterList
@@ -1033,7 +949,6 @@ Statements
     |    |--- |
     |    |--- parameterList
     |--- statement
-    |    |--- parameterList ::= parameterDeclaration | parameterList COMMA parameterDeclaration
     |    |--- parameterList
     |    |--- ::=
     |    |--- parameterDeclaration
@@ -1042,35 +957,28 @@ Statements
     |    |--- COMMA
     |    |--- parameterDeclaration
     |--- statement
-    |    |--- 'parameterDeclarationdeclarationSpecifiers$' <parameterDeclarationdeclarationSpecifiers>
     |    |--- 'parameterDeclarationdeclarationSpecifiers$'
     |    |--- <parameterDeclarationdeclarationSpecifiers>
     |--- statement
-    |    |--- parameterDeclarationdeclarationSpecifiers ::= declarationSpecifiers
     |    |--- parameterDeclarationdeclarationSpecifiers
     |    |--- ::=
     |    |--- declarationSpecifiers
     |--- statement
-    |    |--- 'parameterDeclarationCheck$' <parameterDeclarationCheck>
     |    |--- 'parameterDeclarationCheck$'
     |    |--- <parameterDeclarationCheck>
     |--- statement
-    |    |--- parameterDeclarationCheck ::= parameterDeclarationdeclarationSpecifiers parameterDeclarationCheckDeclarator
     |    |--- parameterDeclarationCheck
     |    |--- ::=
     |    |--- parameterDeclarationdeclarationSpecifiers
     |    |--- parameterDeclarationCheckDeclarator
     |--- statement
-    |    |--- 'parameterDeclarationCheckDeclarator$' <parameterDeclarationCheckDeclarator>
     |    |--- 'parameterDeclarationCheckDeclarator$'
     |    |--- <parameterDeclarationCheckDeclarator>
     |--- statement
-    |    |--- parameterDeclarationCheckDeclarator ::= declarator
     |    |--- parameterDeclarationCheckDeclarator
     |    |--- ::=
     |    |--- declarator
     |--- statement
-    |    |--- parameterDeclaration ::= parameterDeclarationCheck 0 | declarationSpecifiers abstractDeclarator -1 | declarationSpecifiers -2
     |    |--- parameterDeclaration
     |    |--- ::=
     |    |--- parameterDeclarationCheck
@@ -1083,7 +991,6 @@ Statements
     |    |--- declarationSpecifiers
     |    |--- -2
     |--- statement
-    |    |--- identifierList ::= IDENTIFIER | identifierList COMMA IDENTIFIER
     |    |--- identifierList
     |    |--- ::=
     |    |--- IDENTIFIER
@@ -1092,7 +999,6 @@ Statements
     |    |--- COMMA
     |    |--- IDENTIFIER
     |--- statement
-    |    |--- typeName ::= specifierQualifierList abstractDeclarator | specifierQualifierList
     |    |--- typeName
     |    |--- ::=
     |    |--- specifierQualifierList
@@ -1100,7 +1006,6 @@ Statements
     |    |--- |
     |    |--- specifierQualifierList
     |--- statement
-    |    |--- abstractDeclarator ::= pointer msvsAttributeAny directAbstractDeclarator | pointer msvsAttributeAny directAbstractDeclarator gccAsmExpression | pointer msvsAttributeAny | directAbstractDeclarator | directAbstractDeclarator gccAsmExpression
     |    |--- abstractDeclarator
     |    |--- ::=
     |    |--- pointer
@@ -1120,7 +1025,6 @@ Statements
     |    |--- directAbstractDeclarator
     |    |--- gccAsmExpression
     |--- statement
-    |    |--- directAbstractDeclarator ::= LPAREN abstractDeclarator RPAREN | LBRACKET RBRACKET | LBRACKET STAR RBRACKET | LBRACKET STATIC gccArrayTypeModifierList assignmentExpression RBRACKET | LBRACKET STATIC assignmentExpression RBRACKET | LBRACKET gccArrayTypeModifierList STATIC assignmentExpression RBRACKET | LBRACKET gccArrayTypeModifierList assignmentExpression RBRACKET | LBRACKET gccArrayTypeModifierList RBRACKET | LBRACKET assignmentExpression RBRACKET | directAbstractDeclarator LBRACKET RBRACKET | directAbstractDeclarator LBRACKET STAR RBRACKET | directAbstractDeclarator LBRACKET STATIC gccArrayTypeModifierList assignmentExpression RBRACKET | directAbstractDeclarator LBRACKET STATIC assignmentExpression RBRACKET | directAbstractDeclarator LBRACKET gccArrayTypeModifierList assignmentExpression RBRACKET | directAbstractDeclarator LBRACKET gccArrayTypeModifierList STATIC assignmentExpression RBRACKET | directAbstractDeclarator LBRACKET gccArrayTypeModifierList RBRACKET | directAbstractDeclarator LBRACKET assignmentExpression RBRACKET | LPAREN_SCOPE RPAREN_SCOPE | LPAREN_SCOPE parameterTypeList RPAREN_SCOPE | directAbstractDeclarator LPAREN_SCOPE RPAREN_SCOPE | directAbstractDeclarator LPAREN_SCOPE parameterTypeList RPAREN_SCOPE
     |    |--- directAbstractDeclarator
     |    |--- ::=
     |    |--- LPAREN
@@ -1225,7 +1129,6 @@ Statements
     |    |--- parameterTypeList
     |    |--- RPAREN_SCOPE
     |--- statement
-    |    |--- initializer ::= LCURLY initializerList RCURLY | LCURLY initializerList COMMA RCURLY | assignmentExpression
     |    |--- initializer
     |    |--- ::=
     |    |--- LCURLY
@@ -1239,7 +1142,6 @@ Statements
     |    |--- |
     |    |--- assignmentExpression
     |--- statement
-    |    |--- initializerList ::= designation initializer | initializer | IDENTIFIER COLON initializer | initializerList COMMA designation initializer | initializerList COMMA initializer
     |    |--- initializerList
     |    |--- ::=
     |    |--- designation
@@ -1260,19 +1162,16 @@ Statements
     |    |--- COMMA
     |    |--- initializer
     |--- statement
-    |    |--- designation ::= designatorList EQUAL
     |    |--- designation
     |    |--- ::=
     |    |--- designatorList
     |    |--- EQUAL
     |--- statement
-    |    |--- designatorList ::= designator +
     |    |--- designatorList
     |    |--- ::=
     |    |--- designator
     |    |--- +
     |--- statement
-    |    |--- designator ::= LBRACKET constantExpression RBRACKET | DOT IDENTIFIER_UNAMBIGUOUS | LBRACKET constantExpression ELLIPSIS constantExpression RBRACKET
     |    |--- designator
     |    |--- ::=
     |    |--- LBRACKET
@@ -1288,7 +1187,6 @@ Statements
     |    |--- constantExpression
     |    |--- RBRACKET
     |--- statement
-    |    |--- staticAssertDeclaration ::= STATIC_ASSERT LPAREN constantExpression COMMA stringLiteral RPAREN SEMICOLON
     |    |--- staticAssertDeclaration
     |    |--- ::=
     |    |--- STATIC_ASSERT
@@ -1299,7 +1197,6 @@ Statements
     |    |--- RPAREN
     |    |--- SEMICOLON
     |--- statement
-    |    |--- statement ::= labeledStatement | compoundStatement | expressionStatement | selectionStatement | iterationStatement | jumpStatement | opaqueAsmStatement | gccAsmStatement
     |    |--- statement
     |    |--- ::=
     |    |--- labeledStatement
@@ -1318,7 +1215,6 @@ Statements
     |    |--- |
     |    |--- gccAsmStatement
     |--- statement
-    |    |--- labeledStatement ::= IDENTIFIER COLON statement | CASE constantExpression COLON statement | DEFAULT COLON statement
     |    |--- labeledStatement
     |    |--- ::=
     |    |--- IDENTIFIER
@@ -1334,7 +1230,6 @@ Statements
     |    |--- COLON
     |    |--- statement
     |--- statement
-    |    |--- compoundStatement ::= LCURLY_SCOPE RCURLY_SCOPE | LCURLY_SCOPE blockItemList RCURLY_SCOPE
     |    |--- compoundStatement
     |    |--- ::=
     |    |--- LCURLY_SCOPE
@@ -1344,20 +1239,17 @@ Statements
     |    |--- blockItemList
     |    |--- RCURLY_SCOPE
     |--- statement
-    |    |--- blockItemList ::= blockItem +
     |    |--- blockItemList
     |    |--- ::=
     |    |--- blockItem
     |    |--- +
     |--- statement
-    |    |--- blockItem ::= declaration | statement
     |    |--- blockItem
     |    |--- ::=
     |    |--- declaration
     |    |--- |
     |    |--- statement
     |--- statement
-    |    |--- expressionStatement ::= SEMICOLON | expression SEMICOLON
     |    |--- expressionStatement
     |    |--- ::=
     |    |--- SEMICOLON
@@ -1365,7 +1257,6 @@ Statements
     |    |--- expression
     |    |--- SEMICOLON
     |--- statement
-    |    |--- selectionStatement ::= IF LPAREN expression RPAREN statement ELSE statement | IF LPAREN expression RPAREN statement 1 | SWITCH LPAREN expression RPAREN statement
     |    |--- selectionStatement
     |    |--- ::=
     |    |--- IF
@@ -1389,7 +1280,6 @@ Statements
     |    |--- RPAREN
     |    |--- statement
     |--- statement
-    |    |--- iterationStatement ::= WHILE LPAREN expression RPAREN statement | DO statement WHILE LPAREN expression RPAREN SEMICOLON | FOR LPAREN expressionStatement expressionStatement RPAREN statement | FOR LPAREN expressionStatement expressionStatement expression RPAREN statement | FOR LPAREN declaration expressionStatement RPAREN statement | FOR LPAREN declaration expressionStatement expression RPAREN statement
     |    |--- iterationStatement
     |    |--- ::=
     |    |--- WHILE
@@ -1436,7 +1326,6 @@ Statements
     |    |--- RPAREN
     |    |--- statement
     |--- statement
-    |    |--- jumpStatement ::= GOTO IDENTIFIER_UNAMBIGUOUS SEMICOLON | CONTINUE SEMICOLON | BREAK SEMICOLON | RETURN SEMICOLON | RETURN expression SEMICOLON
     |    |--- jumpStatement
     |    |--- ::=
     |    |--- GOTO
@@ -1456,28 +1345,23 @@ Statements
     |    |--- expression
     |    |--- SEMICOLON
     |--- statement
-    |    |--- 'translationUnit$' <translationUnit>
     |    |--- 'translationUnit$'
     |    |--- <translationUnit>
     |--- statement
-    |    |--- translationUnit ::= externalDeclaration +
     |    |--- translationUnit
     |    |--- ::=
     |    |--- externalDeclaration
     |    |--- +
     |--- statement
-    |    |--- '^externalDeclaration' <externalDeclaration>
     |    |--- '^externalDeclaration'
     |    |--- <externalDeclaration>
     |--- statement
-    |    |--- externalDeclaration ::= functionDefinition | declaration
     |    |--- externalDeclaration
     |    |--- ::=
     |    |--- functionDefinition
     |    |--- |
     |    |--- declaration
     |--- statement
-    |    |--- compoundStatementReenterScope ::= LCURLY_REENTERSCOPE RCURLY_SCOPE | LCURLY_REENTERSCOPE blockItemList RCURLY_SCOPE
     |    |--- compoundStatementReenterScope
     |    |--- ::=
     |    |--- LCURLY_REENTERSCOPE
@@ -1487,27 +1371,22 @@ Statements
     |    |--- blockItemList
     |    |--- RCURLY_SCOPE
     |--- statement
-    |    |--- functionDefinition ::= functionDefinitionCheck1 | functionDefinitionCheck2
     |    |--- functionDefinition
     |    |--- ::=
     |    |--- functionDefinitionCheck1
     |    |--- |
     |    |--- functionDefinitionCheck2
     |--- statement
-    |    |--- 'fileScopeDeclarator$' <fileScopeDeclarator>
     |    |--- 'fileScopeDeclarator$'
     |    |--- <fileScopeDeclarator>
     |--- statement
-    |    |--- fileScopeDeclarator ::= declarator
     |    |--- fileScopeDeclarator
     |    |--- ::=
     |    |--- declarator
     |--- statement
-    |    |--- 'functionDefinitionCheck1$' <functionDefinitionCheck1>
     |    |--- 'functionDefinitionCheck1$'
     |    |--- <functionDefinitionCheck1>
     |--- statement
-    |    |--- functionDefinitionCheck1 ::= functionDefinitionCheck1declarationSpecifiers fileScopeDeclarator functionDefinitionCheck1declarationList compoundStatementReenterScope
     |    |--- functionDefinitionCheck1
     |    |--- ::=
     |    |--- functionDefinitionCheck1declarationSpecifiers
@@ -1515,186 +1394,151 @@ Statements
     |    |--- functionDefinitionCheck1declarationList
     |    |--- compoundStatementReenterScope
     |--- statement
-    |    |--- 'functionDefinitionCheck2$' <functionDefinitionCheck2>
     |    |--- 'functionDefinitionCheck2$'
     |    |--- <functionDefinitionCheck2>
     |--- statement
-    |    |--- functionDefinitionCheck2 ::= functionDefinitionCheck2declarationSpecifiers fileScopeDeclarator compoundStatementReenterScope
     |    |--- functionDefinitionCheck2
     |    |--- ::=
     |    |--- functionDefinitionCheck2declarationSpecifiers
     |    |--- fileScopeDeclarator
     |    |--- compoundStatementReenterScope
     |--- statement
-    |    |--- 'functionDefinitionCheck1declarationSpecifiers$' <functionDefinitionCheck1declarationSpecifiers>
     |    |--- 'functionDefinitionCheck1declarationSpecifiers$'
     |    |--- <functionDefinitionCheck1declarationSpecifiers>
     |--- statement
-    |    |--- functionDefinitionCheck1declarationSpecifiers ::= declarationSpecifiers
     |    |--- functionDefinitionCheck1declarationSpecifiers
     |    |--- ::=
     |    |--- declarationSpecifiers
     |--- statement
-    |    |--- 'functionDefinitionCheck2declarationSpecifiers$' <functionDefinitionCheck2declarationSpecifiers>
     |    |--- 'functionDefinitionCheck2declarationSpecifiers$'
     |    |--- <functionDefinitionCheck2declarationSpecifiers>
     |--- statement
-    |    |--- functionDefinitionCheck2declarationSpecifiers ::= declarationSpecifiers
     |    |--- functionDefinitionCheck2declarationSpecifiers
     |    |--- ::=
     |    |--- declarationSpecifiers
     |--- statement
-    |    |--- 'functionDefinitionCheck1declarationList$' <functionDefinitionCheck1declarationList>
     |    |--- 'functionDefinitionCheck1declarationList$'
     |    |--- <functionDefinitionCheck1declarationList>
     |--- statement
-    |    |--- functionDefinitionCheck1declarationList ::= declarationList
     |    |--- functionDefinitionCheck1declarationList
     |    |--- ::=
     |    |--- declarationList
     |--- statement
-    |    |--- declarationList ::= declaration +
     |    |--- declarationList
     |    |--- ::=
     |    |--- declaration
     |    |--- +
     |--- statement
-    |    |--- O ~ [0-7]
     |    |--- O
     |    |--- ~
     |    |--- [0-7]
     |--- statement
-    |    |--- O_any ~ O *
     |    |--- O_any
     |    |--- ~
     |    |--- O
     |    |--- *
     |--- statement
-    |    |--- D ~ [0-9]
     |    |--- D
     |    |--- ~
     |    |--- [0-9]
     |--- statement
-    |    |--- D_any ~ D *
     |    |--- D_any
     |    |--- ~
     |    |--- D
     |    |--- *
     |--- statement
-    |    |--- D_many ~ D +
     |    |--- D_many
     |    |--- ~
     |    |--- D
     |    |--- +
     |--- statement
-    |    |--- NZ ~ [1-9]
     |    |--- NZ
     |    |--- ~
     |    |--- [1-9]
     |--- statement
-    |    |--- L ~ [a-zA-Z_]
     |    |--- L
     |    |--- ~
     |    |--- [a-zA-Z_]
     |--- statement
-    |    |--- A ~ [a-zA-Z_0-9]
     |    |--- A
     |    |--- ~
     |    |--- [a-zA-Z_0-9]
     |--- statement
-    |    |--- A_any ~ A *
     |    |--- A_any
     |    |--- ~
     |    |--- A
     |    |--- *
     |--- statement
-    |    |--- H ~ [a-fA-F0-9]
     |    |--- H
     |    |--- ~
     |    |--- [a-fA-F0-9]
     |--- statement
-    |    |--- H_any ~ H *
     |    |--- H_any
     |    |--- ~
     |    |--- H
     |    |--- *
     |--- statement
-    |    |--- H_many ~ H +
     |    |--- H_many
     |    |--- ~
     |    |--- H
     |    |--- +
     |--- statement
-    |    |--- HP ~ '0' [xX]
     |    |--- HP
     |    |--- ~
     |    |--- '0'
     |    |--- [xX]
     |--- statement
-    |    |--- B ~ [0-1]
     |    |--- B
     |    |--- ~
     |    |--- [0-1]
     |--- statement
-    |    |--- B_many ~ B +
     |    |--- B_many
     |    |--- ~
     |    |--- B
     |    |--- +
     |--- statement
-    |    |--- BP ~ '0' [bB]
     |    |--- BP
     |    |--- ~
     |    |--- '0'
     |    |--- [bB]
     |--- statement
-    |    |--- SIGN_maybe ~ [+-]
     |    |--- SIGN_maybe
     |    |--- ~
     |    |--- [+-]
     |--- statement
-    |    |--- SIGN_maybe ~
     |    |--- SIGN_maybe
     |    |--- ~
     |--- statement
-    |    |--- E ~ [Ee] SIGN_maybe D_many
     |    |--- E
     |    |--- ~
     |    |--- [Ee]
     |    |--- SIGN_maybe
     |    |--- D_many
     |--- statement
-    |    |--- E_maybe ~ E
     |    |--- E_maybe
     |    |--- ~
     |    |--- E
     |--- statement
-    |    |--- E_maybe ~
     |    |--- E_maybe
     |    |--- ~
     |--- statement
-    |    |--- P ~ [Pp] SIGN_maybe D_many
     |    |--- P
     |    |--- ~
     |    |--- [Pp]
     |    |--- SIGN_maybe
     |    |--- D_many
     |--- statement
-    |    |--- FS ~ [fFlL]
     |    |--- FS
     |    |--- ~
     |    |--- [fFlL]
     |--- statement
-    |    |--- FS_maybe ~ FS
     |    |--- FS_maybe
     |    |--- ~
     |    |--- FS
     |--- statement
-    |    |--- FS_maybe ~
     |    |--- FS_maybe
     |    |--- ~
     |--- statement
-    |    |--- LL ~ 'll' | 'LL' | [lL]
     |    |--- LL
     |    |--- ~
     |    |--- 'll'
@@ -1703,30 +1547,24 @@ Statements
     |    |--- |
     |    |--- [lL]
     |--- statement
-    |    |--- LL_maybe ~ LL
     |    |--- LL_maybe
     |    |--- ~
     |    |--- LL
     |--- statement
-    |    |--- LL_maybe ~
     |    |--- LL_maybe
     |    |--- ~
     |--- statement
-    |    |--- U ~ [uU]
     |    |--- U
     |    |--- ~
     |    |--- [uU]
     |--- statement
-    |    |--- U_maybe ~ U
     |    |--- U_maybe
     |    |--- ~
     |    |--- U
     |--- statement
-    |    |--- U_maybe ~
     |    |--- U_maybe
     |    |--- ~
     |--- statement
-    |    |--- IS ~ U LL_maybe | LL U_maybe
     |    |--- IS
     |    |--- ~
     |    |--- U
@@ -1735,46 +1573,37 @@ Statements
     |    |--- LL
     |    |--- U_maybe
     |--- statement
-    |    |--- IS_maybe ~ IS
     |    |--- IS_maybe
     |    |--- ~
     |    |--- IS
     |--- statement
-    |    |--- IS_maybe ~
     |    |--- IS_maybe
     |    |--- ~
     |--- statement
-    |    |--- CP ~ [uUL]
     |    |--- CP
     |    |--- ~
     |    |--- [uUL]
     |--- statement
-    |    |--- CP_maybe ~ CP
     |    |--- CP_maybe
     |    |--- ~
     |    |--- CP
     |--- statement
-    |    |--- CP_maybe ~
     |    |--- CP_maybe
     |    |--- ~
     |--- statement
-    |    |--- SP ~ 'u8' | [uUL]
     |    |--- SP
     |    |--- ~
     |    |--- 'u8'
     |    |--- |
     |    |--- [uUL]
     |--- statement
-    |    |--- SP_maybe ~ SP
     |    |--- SP_maybe
     |    |--- ~
     |    |--- SP
     |--- statement
-    |    |--- SP_maybe ~
     |    |--- SP_maybe
     |    |--- ~
     |--- statement
-    |    |--- ES_AFTERBS ~ [\'\"\?\\abfnrtv] | O | O O | O O O | 'x' H_many
     |    |--- ES_AFTERBS
     |    |--- ~
     |    |--- [\'\"\?\\abfnrtv]
@@ -1791,30 +1620,25 @@ Statements
     |    |--- 'x'
     |    |--- H_many
     |--- statement
-    |    |--- ES ~ BS ES_AFTERBS
     |    |--- ES
     |    |--- ~
     |    |--- BS
     |    |--- ES_AFTERBS
     |--- statement
-    |    |--- WS ~ [ \t\v\n\f]
     |    |--- WS
     |    |--- ~
     |    |--- [ \t\v\n\f]
     |--- statement
-    |    |--- WS_any ~ WS *
     |    |--- WS_any
     |    |--- ~
     |    |--- WS
     |    |--- *
     |--- statement
-    |    |--- WS_many ~ WS +
     |    |--- WS_many
     |    |--- ~
     |    |--- WS
     |    |--- +
     |--- statement
-    |    |--- :lexeme ~ <AUTO> priority => -1
     |    |--- :lexeme
     |    |--- ~
     |    |--- <AUTO>
@@ -1822,12 +1646,10 @@ Statements
     |    |--- =>
     |    |--- -1
     |--- statement
-    |    |--- AUTO ~ 'auto'
     |    |--- AUTO
     |    |--- ~
     |    |--- 'auto'
     |--- statement
-    |    |--- :lexeme ~ <BREAK> priority => -2
     |    |--- :lexeme
     |    |--- ~
     |    |--- <BREAK>
@@ -1835,12 +1657,10 @@ Statements
     |    |--- =>
     |    |--- -2
     |--- statement
-    |    |--- BREAK ~ 'break'
     |    |--- BREAK
     |    |--- ~
     |    |--- 'break'
     |--- statement
-    |    |--- :lexeme ~ <CASE> priority => -3
     |    |--- :lexeme
     |    |--- ~
     |    |--- <CASE>
@@ -1848,12 +1668,10 @@ Statements
     |    |--- =>
     |    |--- -3
     |--- statement
-    |    |--- CASE ~ 'case'
     |    |--- CASE
     |    |--- ~
     |    |--- 'case'
     |--- statement
-    |    |--- :lexeme ~ <CHAR> priority => -4
     |    |--- :lexeme
     |    |--- ~
     |    |--- <CHAR>
@@ -1861,12 +1679,10 @@ Statements
     |    |--- =>
     |    |--- -4
     |--- statement
-    |    |--- CHAR ~ 'char'
     |    |--- CHAR
     |    |--- ~
     |    |--- 'char'
     |--- statement
-    |    |--- :lexeme ~ <CONST> priority => -5
     |    |--- :lexeme
     |    |--- ~
     |    |--- <CONST>
@@ -1874,27 +1690,22 @@ Statements
     |    |--- =>
     |    |--- -5
     |--- statement
-    |    |--- CONST ~ 'const'
     |    |--- CONST
     |    |--- ~
     |    |--- 'const'
     |--- statement
-    |    |--- CONST ~ '__const'
     |    |--- CONST
     |    |--- ~
     |    |--- '__const'
     |--- statement
-    |    |--- CONST ~ 'const__'
     |    |--- CONST
     |    |--- ~
     |    |--- 'const__'
     |--- statement
-    |    |--- CONST ~ '__const__'
     |    |--- CONST
     |    |--- ~
     |    |--- '__const__'
     |--- statement
-    |    |--- :lexeme ~ <CONTINUE> priority => -6
     |    |--- :lexeme
     |    |--- ~
     |    |--- <CONTINUE>
@@ -1902,12 +1713,10 @@ Statements
     |    |--- =>
     |    |--- -6
     |--- statement
-    |    |--- CONTINUE ~ 'continue'
     |    |--- CONTINUE
     |    |--- ~
     |    |--- 'continue'
     |--- statement
-    |    |--- :lexeme ~ <DEFAULT> priority => -7
     |    |--- :lexeme
     |    |--- ~
     |    |--- <DEFAULT>
@@ -1915,12 +1724,10 @@ Statements
     |    |--- =>
     |    |--- -7
     |--- statement
-    |    |--- DEFAULT ~ 'default'
     |    |--- DEFAULT
     |    |--- ~
     |    |--- 'default'
     |--- statement
-    |    |--- :lexeme ~ <DO> priority => -8
     |    |--- :lexeme
     |    |--- ~
     |    |--- <DO>
@@ -1928,12 +1735,10 @@ Statements
     |    |--- =>
     |    |--- -8
     |--- statement
-    |    |--- DO ~ 'do'
     |    |--- DO
     |    |--- ~
     |    |--- 'do'
     |--- statement
-    |    |--- :lexeme ~ <DOUBLE> priority => -9
     |    |--- :lexeme
     |    |--- ~
     |    |--- <DOUBLE>
@@ -1941,12 +1746,10 @@ Statements
     |    |--- =>
     |    |--- -9
     |--- statement
-    |    |--- DOUBLE ~ 'double'
     |    |--- DOUBLE
     |    |--- ~
     |    |--- 'double'
     |--- statement
-    |    |--- :lexeme ~ <ELSE> priority => -10
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ELSE>
@@ -1954,12 +1757,10 @@ Statements
     |    |--- =>
     |    |--- -10
     |--- statement
-    |    |--- ELSE ~ 'else'
     |    |--- ELSE
     |    |--- ~
     |    |--- 'else'
     |--- statement
-    |    |--- :lexeme ~ <ENUM> priority => -11
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ENUM>
@@ -1967,12 +1768,10 @@ Statements
     |    |--- =>
     |    |--- -11
     |--- statement
-    |    |--- ENUM ~ 'enum'
     |    |--- ENUM
     |    |--- ~
     |    |--- 'enum'
     |--- statement
-    |    |--- :lexeme ~ <EXTERN> priority => -12
     |    |--- :lexeme
     |    |--- ~
     |    |--- <EXTERN>
@@ -1980,12 +1779,10 @@ Statements
     |    |--- =>
     |    |--- -12
     |--- statement
-    |    |--- EXTERN ~ 'extern'
     |    |--- EXTERN
     |    |--- ~
     |    |--- 'extern'
     |--- statement
-    |    |--- :lexeme ~ <FLOAT> priority => -13
     |    |--- :lexeme
     |    |--- ~
     |    |--- <FLOAT>
@@ -1993,12 +1790,10 @@ Statements
     |    |--- =>
     |    |--- -13
     |--- statement
-    |    |--- FLOAT ~ 'float'
     |    |--- FLOAT
     |    |--- ~
     |    |--- 'float'
     |--- statement
-    |    |--- :lexeme ~ <FOR> priority => -14
     |    |--- :lexeme
     |    |--- ~
     |    |--- <FOR>
@@ -2006,12 +1801,10 @@ Statements
     |    |--- =>
     |    |--- -14
     |--- statement
-    |    |--- FOR ~ 'for'
     |    |--- FOR
     |    |--- ~
     |    |--- 'for'
     |--- statement
-    |    |--- :lexeme ~ <GOTO> priority => -15
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GOTO>
@@ -2019,12 +1812,10 @@ Statements
     |    |--- =>
     |    |--- -15
     |--- statement
-    |    |--- GOTO ~ 'goto'
     |    |--- GOTO
     |    |--- ~
     |    |--- 'goto'
     |--- statement
-    |    |--- :lexeme ~ <IF> priority => -16
     |    |--- :lexeme
     |    |--- ~
     |    |--- <IF>
@@ -2032,12 +1823,10 @@ Statements
     |    |--- =>
     |    |--- -16
     |--- statement
-    |    |--- IF ~ 'if'
     |    |--- IF
     |    |--- ~
     |    |--- 'if'
     |--- statement
-    |    |--- :lexeme ~ <INLINE> priority => -17
     |    |--- :lexeme
     |    |--- ~
     |    |--- <INLINE>
@@ -2045,32 +1834,26 @@ Statements
     |    |--- =>
     |    |--- -17
     |--- statement
-    |    |--- INLINE ~ 'inline'
     |    |--- INLINE
     |    |--- ~
     |    |--- 'inline'
     |--- statement
-    |    |--- INLINE ~ '__inline__'
     |    |--- INLINE
     |    |--- ~
     |    |--- '__inline__'
     |--- statement
-    |    |--- INLINE ~ 'inline__'
     |    |--- INLINE
     |    |--- ~
     |    |--- 'inline__'
     |--- statement
-    |    |--- INLINE ~ '__inline'
     |    |--- INLINE
     |    |--- ~
     |    |--- '__inline'
     |--- statement
-    |    |--- INLINE ~ '__forceinline'
     |    |--- INLINE
     |    |--- ~
     |    |--- '__forceinline'
     |--- statement
-    |    |--- :lexeme ~ <INT> priority => -18
     |    |--- :lexeme
     |    |--- ~
     |    |--- <INT>
@@ -2078,12 +1861,10 @@ Statements
     |    |--- =>
     |    |--- -18
     |--- statement
-    |    |--- INT ~ 'int'
     |    |--- INT
     |    |--- ~
     |    |--- 'int'
     |--- statement
-    |    |--- :lexeme ~ <LONG> priority => -19
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LONG>
@@ -2091,12 +1872,10 @@ Statements
     |    |--- =>
     |    |--- -19
     |--- statement
-    |    |--- LONG ~ 'long'
     |    |--- LONG
     |    |--- ~
     |    |--- 'long'
     |--- statement
-    |    |--- :lexeme ~ <REGISTER> priority => -20
     |    |--- :lexeme
     |    |--- ~
     |    |--- <REGISTER>
@@ -2104,12 +1883,10 @@ Statements
     |    |--- =>
     |    |--- -20
     |--- statement
-    |    |--- REGISTER ~ 'register'
     |    |--- REGISTER
     |    |--- ~
     |    |--- 'register'
     |--- statement
-    |    |--- :lexeme ~ <RESTRICT> priority => -21
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RESTRICT>
@@ -2117,27 +1894,22 @@ Statements
     |    |--- =>
     |    |--- -21
     |--- statement
-    |    |--- RESTRICT ~ 'restrict'
     |    |--- RESTRICT
     |    |--- ~
     |    |--- 'restrict'
     |--- statement
-    |    |--- RESTRICT ~ '__restrict'
     |    |--- RESTRICT
     |    |--- ~
     |    |--- '__restrict'
     |--- statement
-    |    |--- RESTRICT ~ 'restrict__'
     |    |--- RESTRICT
     |    |--- ~
     |    |--- 'restrict__'
     |--- statement
-    |    |--- RESTRICT ~ '__restrict__'
     |    |--- RESTRICT
     |    |--- ~
     |    |--- '__restrict__'
     |--- statement
-    |    |--- :lexeme ~ <RETURN> priority => -22
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RETURN>
@@ -2145,12 +1917,10 @@ Statements
     |    |--- =>
     |    |--- -22
     |--- statement
-    |    |--- RETURN ~ 'return'
     |    |--- RETURN
     |    |--- ~
     |    |--- 'return'
     |--- statement
-    |    |--- :lexeme ~ <SHORT> priority => -23
     |    |--- :lexeme
     |    |--- ~
     |    |--- <SHORT>
@@ -2158,12 +1928,10 @@ Statements
     |    |--- =>
     |    |--- -23
     |--- statement
-    |    |--- SHORT ~ 'short'
     |    |--- SHORT
     |    |--- ~
     |    |--- 'short'
     |--- statement
-    |    |--- :lexeme ~ <SIGNED> priority => -24
     |    |--- :lexeme
     |    |--- ~
     |    |--- <SIGNED>
@@ -2171,22 +1939,18 @@ Statements
     |    |--- =>
     |    |--- -24
     |--- statement
-    |    |--- SIGNED ~ 'signed'
     |    |--- SIGNED
     |    |--- ~
     |    |--- 'signed'
     |--- statement
-    |    |--- SIGNED ~ '__signed'
     |    |--- SIGNED
     |    |--- ~
     |    |--- '__signed'
     |--- statement
-    |    |--- SIGNED ~ '__signed__'
     |    |--- SIGNED
     |    |--- ~
     |    |--- '__signed__'
     |--- statement
-    |    |--- :lexeme ~ <SIZEOF> priority => -25
     |    |--- :lexeme
     |    |--- ~
     |    |--- <SIZEOF>
@@ -2194,12 +1958,10 @@ Statements
     |    |--- =>
     |    |--- -25
     |--- statement
-    |    |--- SIZEOF ~ 'sizeof'
     |    |--- SIZEOF
     |    |--- ~
     |    |--- 'sizeof'
     |--- statement
-    |    |--- :lexeme ~ <STATIC> priority => -26
     |    |--- :lexeme
     |    |--- ~
     |    |--- <STATIC>
@@ -2207,12 +1969,10 @@ Statements
     |    |--- =>
     |    |--- -26
     |--- statement
-    |    |--- STATIC ~ 'static'
     |    |--- STATIC
     |    |--- ~
     |    |--- 'static'
     |--- statement
-    |    |--- :lexeme ~ <STRUCT> priority => -27
     |    |--- :lexeme
     |    |--- ~
     |    |--- <STRUCT>
@@ -2220,12 +1980,10 @@ Statements
     |    |--- =>
     |    |--- -27
     |--- statement
-    |    |--- STRUCT ~ 'struct'
     |    |--- STRUCT
     |    |--- ~
     |    |--- 'struct'
     |--- statement
-    |    |--- :lexeme ~ <SWITCH> priority => -28
     |    |--- :lexeme
     |    |--- ~
     |    |--- <SWITCH>
@@ -2233,12 +1991,10 @@ Statements
     |    |--- =>
     |    |--- -28
     |--- statement
-    |    |--- SWITCH ~ 'switch'
     |    |--- SWITCH
     |    |--- ~
     |    |--- 'switch'
     |--- statement
-    |    |--- :lexeme ~ <TYPEDEF> priority => -29
     |    |--- :lexeme
     |    |--- ~
     |    |--- <TYPEDEF>
@@ -2246,12 +2002,10 @@ Statements
     |    |--- =>
     |    |--- -29
     |--- statement
-    |    |--- TYPEDEF ~ 'typedef'
     |    |--- TYPEDEF
     |    |--- ~
     |    |--- 'typedef'
     |--- statement
-    |    |--- :lexeme ~ <UNION> priority => -30
     |    |--- :lexeme
     |    |--- ~
     |    |--- <UNION>
@@ -2259,12 +2013,10 @@ Statements
     |    |--- =>
     |    |--- -30
     |--- statement
-    |    |--- UNION ~ 'union'
     |    |--- UNION
     |    |--- ~
     |    |--- 'union'
     |--- statement
-    |    |--- :lexeme ~ <UNSIGNED> priority => -31
     |    |--- :lexeme
     |    |--- ~
     |    |--- <UNSIGNED>
@@ -2272,22 +2024,18 @@ Statements
     |    |--- =>
     |    |--- -31
     |--- statement
-    |    |--- UNSIGNED ~ 'unsigned'
     |    |--- UNSIGNED
     |    |--- ~
     |    |--- 'unsigned'
     |--- statement
-    |    |--- UNSIGNED ~ '__unsigned'
     |    |--- UNSIGNED
     |    |--- ~
     |    |--- '__unsigned'
     |--- statement
-    |    |--- UNSIGNED ~ '__unsigned__'
     |    |--- UNSIGNED
     |    |--- ~
     |    |--- '__unsigned__'
     |--- statement
-    |    |--- :lexeme ~ <VOID> priority => -32
     |    |--- :lexeme
     |    |--- ~
     |    |--- <VOID>
@@ -2295,12 +2043,10 @@ Statements
     |    |--- =>
     |    |--- -32
     |--- statement
-    |    |--- VOID ~ 'void'
     |    |--- VOID
     |    |--- ~
     |    |--- 'void'
     |--- statement
-    |    |--- :lexeme ~ <VOLATILE> priority => -33
     |    |--- :lexeme
     |    |--- ~
     |    |--- <VOLATILE>
@@ -2308,27 +2054,22 @@ Statements
     |    |--- =>
     |    |--- -33
     |--- statement
-    |    |--- VOLATILE ~ 'volatile'
     |    |--- VOLATILE
     |    |--- ~
     |    |--- 'volatile'
     |--- statement
-    |    |--- VOLATILE ~ '__volatile'
     |    |--- VOLATILE
     |    |--- ~
     |    |--- '__volatile'
     |--- statement
-    |    |--- VOLATILE ~ 'volatile__'
     |    |--- VOLATILE
     |    |--- ~
     |    |--- 'volatile__'
     |--- statement
-    |    |--- VOLATILE ~ '__volatile__'
     |    |--- VOLATILE
     |    |--- ~
     |    |--- '__volatile__'
     |--- statement
-    |    |--- :lexeme ~ <WHILE> priority => -34
     |    |--- :lexeme
     |    |--- ~
     |    |--- <WHILE>
@@ -2336,12 +2077,10 @@ Statements
     |    |--- =>
     |    |--- -34
     |--- statement
-    |    |--- WHILE ~ 'while'
     |    |--- WHILE
     |    |--- ~
     |    |--- 'while'
     |--- statement
-    |    |--- :lexeme ~ <ALIGNAS> priority => -35
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ALIGNAS>
@@ -2349,12 +2088,10 @@ Statements
     |    |--- =>
     |    |--- -35
     |--- statement
-    |    |--- ALIGNAS ~ '_Alignas'
     |    |--- ALIGNAS
     |    |--- ~
     |    |--- '_Alignas'
     |--- statement
-    |    |--- :lexeme ~ <ALIGNOF> priority => -36
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ALIGNOF>
@@ -2362,12 +2099,10 @@ Statements
     |    |--- =>
     |    |--- -36
     |--- statement
-    |    |--- ALIGNOF ~ '_Alignof'
     |    |--- ALIGNOF
     |    |--- ~
     |    |--- '_Alignof'
     |--- statement
-    |    |--- :lexeme ~ <ATOMIC> priority => -37
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ATOMIC>
@@ -2375,12 +2110,10 @@ Statements
     |    |--- =>
     |    |--- -37
     |--- statement
-    |    |--- ATOMIC ~ '_Atomic'
     |    |--- ATOMIC
     |    |--- ~
     |    |--- '_Atomic'
     |--- statement
-    |    |--- :lexeme ~ <BOOL> priority => -38
     |    |--- :lexeme
     |    |--- ~
     |    |--- <BOOL>
@@ -2388,12 +2121,10 @@ Statements
     |    |--- =>
     |    |--- -38
     |--- statement
-    |    |--- BOOL ~ '_Bool'
     |    |--- BOOL
     |    |--- ~
     |    |--- '_Bool'
     |--- statement
-    |    |--- :lexeme ~ <LABEL> priority => -38
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LABEL>
@@ -2401,12 +2132,10 @@ Statements
     |    |--- =>
     |    |--- -38
     |--- statement
-    |    |--- LABEL ~ '__label__'
     |    |--- LABEL
     |    |--- ~
     |    |--- '__label__'
     |--- statement
-    |    |--- :lexeme ~ <COMPLEX> priority => -39
     |    |--- :lexeme
     |    |--- ~
     |    |--- <COMPLEX>
@@ -2414,22 +2143,18 @@ Statements
     |    |--- =>
     |    |--- -39
     |--- statement
-    |    |--- COMPLEX ~ '_Complex'
     |    |--- COMPLEX
     |    |--- ~
     |    |--- '_Complex'
     |--- statement
-    |    |--- COMPLEX ~ '__complex'
     |    |--- COMPLEX
     |    |--- ~
     |    |--- '__complex'
     |--- statement
-    |    |--- COMPLEX ~ '__complex__'
     |    |--- COMPLEX
     |    |--- ~
     |    |--- '__complex__'
     |--- statement
-    |    |--- :lexeme ~ <GENERIC> priority => -40
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GENERIC>
@@ -2437,12 +2162,10 @@ Statements
     |    |--- =>
     |    |--- -40
     |--- statement
-    |    |--- GENERIC ~ '_Generic'
     |    |--- GENERIC
     |    |--- ~
     |    |--- '_Generic'
     |--- statement
-    |    |--- :lexeme ~ <IMAGINARY> priority => -41
     |    |--- :lexeme
     |    |--- ~
     |    |--- <IMAGINARY>
@@ -2450,12 +2173,10 @@ Statements
     |    |--- =>
     |    |--- -41
     |--- statement
-    |    |--- IMAGINARY ~ '_Imaginary'
     |    |--- IMAGINARY
     |    |--- ~
     |    |--- '_Imaginary'
     |--- statement
-    |    |--- :lexeme ~ <NORETURN> priority => -42
     |    |--- :lexeme
     |    |--- ~
     |    |--- <NORETURN>
@@ -2463,12 +2184,10 @@ Statements
     |    |--- =>
     |    |--- -42
     |--- statement
-    |    |--- NORETURN ~ '_Noreturn'
     |    |--- NORETURN
     |    |--- ~
     |    |--- '_Noreturn'
     |--- statement
-    |    |--- :lexeme ~ <STATIC_ASSERT> priority => -43
     |    |--- :lexeme
     |    |--- ~
     |    |--- <STATIC_ASSERT>
@@ -2476,12 +2195,10 @@ Statements
     |    |--- =>
     |    |--- -43
     |--- statement
-    |    |--- STATIC_ASSERT ~ '_Static_assert'
     |    |--- STATIC_ASSERT
     |    |--- ~
     |    |--- '_Static_assert'
     |--- statement
-    |    |--- :lexeme ~ <THREAD_LOCAL> priority => -44
     |    |--- :lexeme
     |    |--- ~
     |    |--- <THREAD_LOCAL>
@@ -2489,17 +2206,14 @@ Statements
     |    |--- =>
     |    |--- -44
     |--- statement
-    |    |--- THREAD_LOCAL ~ '_Thread_local'
     |    |--- THREAD_LOCAL
     |    |--- ~
     |    |--- '_Thread_local'
     |--- statement
-    |    |--- THREAD_LOCAL ~ '__thread'
     |    |--- THREAD_LOCAL
     |    |--- ~
     |    |--- '__thread'
     |--- statement
-    |    |--- :lexeme ~ <FUNC_NAME> priority => -45
     |    |--- :lexeme
     |    |--- ~
     |    |--- <FUNC_NAME>
@@ -2507,12 +2221,10 @@ Statements
     |    |--- =>
     |    |--- -45
     |--- statement
-    |    |--- FUNC_NAME ~ '__func__'
     |    |--- FUNC_NAME
     |    |--- ~
     |    |--- '__func__'
     |--- statement
-    |    |--- :lexeme ~ <TYPEDEF_NAME> priority => -100
     |    |--- :lexeme
     |    |--- ~
     |    |--- <TYPEDEF_NAME>
@@ -2520,7 +2232,6 @@ Statements
     |    |--- =>
     |    |--- -100
     |--- statement
-    |    |--- :lexeme ~ <ENUMERATION_CONSTANT> priority => -100
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ENUMERATION_CONSTANT>
@@ -2528,7 +2239,6 @@ Statements
     |    |--- =>
     |    |--- -100
     |--- statement
-    |    |--- :lexeme ~ <IDENTIFIER> priority => -100
     |    |--- :lexeme
     |    |--- ~
     |    |--- <IDENTIFIER>
@@ -2536,7 +2246,6 @@ Statements
     |    |--- =>
     |    |--- -100
     |--- statement
-    |    |--- :lexeme ~ <IDENTIFIER_UNAMBIGUOUS> priority => -100
     |    |--- :lexeme
     |    |--- ~
     |    |--- <IDENTIFIER_UNAMBIGUOUS>
@@ -2544,33 +2253,27 @@ Statements
     |    |--- =>
     |    |--- -100
     |--- statement
-    |    |--- _IDENTIFIER ~ L A_any
     |    |--- _IDENTIFIER
     |    |--- ~
     |    |--- L
     |    |--- A_any
     |--- statement
-    |    |--- TYPEDEF_NAME ~ _IDENTIFIER
     |    |--- TYPEDEF_NAME
     |    |--- ~
     |    |--- _IDENTIFIER
     |--- statement
-    |    |--- ENUMERATION_CONSTANT ~ _IDENTIFIER
     |    |--- ENUMERATION_CONSTANT
     |    |--- ~
     |    |--- _IDENTIFIER
     |--- statement
-    |    |--- IDENTIFIER ~ _IDENTIFIER
     |    |--- IDENTIFIER
     |    |--- ~
     |    |--- _IDENTIFIER
     |--- statement
-    |    |--- IDENTIFIER_UNAMBIGUOUS ~ _IDENTIFIER
     |    |--- IDENTIFIER_UNAMBIGUOUS
     |    |--- ~
     |    |--- _IDENTIFIER
     |--- statement
-    |    |--- :lexeme ~ <I_CONSTANT> priority => -101
     |    |--- :lexeme
     |    |--- ~
     |    |--- <I_CONSTANT>
@@ -2578,7 +2281,6 @@ Statements
     |    |--- =>
     |    |--- -101
     |--- statement
-    |    |--- I_CONSTANT ~ HP H_many IS_maybe | BP B_many IS_maybe | NZ D_any IS_maybe | '0' O_any IS_maybe | CP_maybe QUOTE I_CONSTANT_INSIDE_many QUOTE
     |    |--- I_CONSTANT
     |    |--- ~
     |    |--- HP
@@ -2602,7 +2304,6 @@ Statements
     |    |--- I_CONSTANT_INSIDE_many
     |    |--- QUOTE
     |--- statement
-    |    |--- :lexeme ~ <F_CONSTANT> priority => -102
     |    |--- :lexeme
     |    |--- ~
     |    |--- <F_CONSTANT>
@@ -2610,7 +2311,6 @@ Statements
     |    |--- =>
     |    |--- -102
     |--- statement
-    |    |--- F_CONSTANT ~ D_many E FS_maybe | D_any '.' D_many E_maybe FS_maybe | D_many '.' E_maybe FS_maybe | HP H_many P FS_maybe | HP H_any '.' H_many P FS_maybe | HP H_many '.' P FS_maybe
     |    |--- F_CONSTANT
     |    |--- ~
     |    |--- D_many
@@ -2646,7 +2346,6 @@ Statements
     |    |--- P
     |    |--- FS_maybe
     |--- statement
-    |    |--- :lexeme ~ <STRING_LITERAL_UNIT> priority => -103
     |    |--- :lexeme
     |    |--- ~
     |    |--- <STRING_LITERAL_UNIT>
@@ -2654,23 +2353,19 @@ Statements
     |    |--- =>
     |    |--- -103
     |--- statement
-    |    |--- STRING_LITERAL_INSIDE ~ [^"\\\n]
     |    |--- STRING_LITERAL_INSIDE
     |    |--- ~
     |    |--- [^"\\\n]
     |--- statement
-    |    |--- STRING_LITERAL_INSIDE ~ ES
     |    |--- STRING_LITERAL_INSIDE
     |    |--- ~
     |    |--- ES
     |--- statement
-    |    |--- STRING_LITERAL_INSIDE_any ~ STRING_LITERAL_INSIDE *
     |    |--- STRING_LITERAL_INSIDE_any
     |    |--- ~
     |    |--- STRING_LITERAL_INSIDE
     |    |--- *
     |--- statement
-    |    |--- STRING_LITERAL_UNIT ~ SP_maybe '"' STRING_LITERAL_INSIDE_any '"' WS_any
     |    |--- STRING_LITERAL_UNIT
     |    |--- ~
     |    |--- SP_maybe
@@ -2679,7 +2374,6 @@ Statements
     |    |--- '"'
     |    |--- WS_any
     |--- statement
-    |    |--- :lexeme ~ <ELLIPSIS> priority => -104
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ELLIPSIS>
@@ -2687,12 +2381,10 @@ Statements
     |    |--- =>
     |    |--- -104
     |--- statement
-    |    |--- ELLIPSIS ~ '...'
     |    |--- ELLIPSIS
     |    |--- ~
     |    |--- '...'
     |--- statement
-    |    |--- :lexeme ~ <RIGHT_ASSIGN> priority => -105
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RIGHT_ASSIGN>
@@ -2700,12 +2392,10 @@ Statements
     |    |--- =>
     |    |--- -105
     |--- statement
-    |    |--- RIGHT_ASSIGN ~ '>>='
     |    |--- RIGHT_ASSIGN
     |    |--- ~
     |    |--- '>>='
     |--- statement
-    |    |--- :lexeme ~ <LEFT_ASSIGN> priority => -106
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LEFT_ASSIGN>
@@ -2713,12 +2403,10 @@ Statements
     |    |--- =>
     |    |--- -106
     |--- statement
-    |    |--- LEFT_ASSIGN ~ '<<='
     |    |--- LEFT_ASSIGN
     |    |--- ~
     |    |--- '<<='
     |--- statement
-    |    |--- :lexeme ~ <ADD_ASSIGN> priority => -107
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ADD_ASSIGN>
@@ -2726,12 +2414,10 @@ Statements
     |    |--- =>
     |    |--- -107
     |--- statement
-    |    |--- ADD_ASSIGN ~ '+='
     |    |--- ADD_ASSIGN
     |    |--- ~
     |    |--- '+='
     |--- statement
-    |    |--- :lexeme ~ <SUB_ASSIGN> priority => -108
     |    |--- :lexeme
     |    |--- ~
     |    |--- <SUB_ASSIGN>
@@ -2739,12 +2425,10 @@ Statements
     |    |--- =>
     |    |--- -108
     |--- statement
-    |    |--- SUB_ASSIGN ~ '-='
     |    |--- SUB_ASSIGN
     |    |--- ~
     |    |--- '-='
     |--- statement
-    |    |--- :lexeme ~ <MUL_ASSIGN> priority => -109
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MUL_ASSIGN>
@@ -2752,12 +2436,10 @@ Statements
     |    |--- =>
     |    |--- -109
     |--- statement
-    |    |--- MUL_ASSIGN ~ '*='
     |    |--- MUL_ASSIGN
     |    |--- ~
     |    |--- '*='
     |--- statement
-    |    |--- :lexeme ~ <DIV_ASSIGN> priority => -110
     |    |--- :lexeme
     |    |--- ~
     |    |--- <DIV_ASSIGN>
@@ -2765,12 +2447,10 @@ Statements
     |    |--- =>
     |    |--- -110
     |--- statement
-    |    |--- DIV_ASSIGN ~ '/='
     |    |--- DIV_ASSIGN
     |    |--- ~
     |    |--- '/='
     |--- statement
-    |    |--- :lexeme ~ <MOD_ASSIGN> priority => -111
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MOD_ASSIGN>
@@ -2778,12 +2458,10 @@ Statements
     |    |--- =>
     |    |--- -111
     |--- statement
-    |    |--- MOD_ASSIGN ~ '%='
     |    |--- MOD_ASSIGN
     |    |--- ~
     |    |--- '%='
     |--- statement
-    |    |--- :lexeme ~ <AND_ASSIGN> priority => -112
     |    |--- :lexeme
     |    |--- ~
     |    |--- <AND_ASSIGN>
@@ -2791,12 +2469,10 @@ Statements
     |    |--- =>
     |    |--- -112
     |--- statement
-    |    |--- AND_ASSIGN ~ '&='
     |    |--- AND_ASSIGN
     |    |--- ~
     |    |--- '&='
     |--- statement
-    |    |--- :lexeme ~ <XOR_ASSIGN> priority => -113
     |    |--- :lexeme
     |    |--- ~
     |    |--- <XOR_ASSIGN>
@@ -2804,12 +2480,10 @@ Statements
     |    |--- =>
     |    |--- -113
     |--- statement
-    |    |--- XOR_ASSIGN ~ '^='
     |    |--- XOR_ASSIGN
     |    |--- ~
     |    |--- '^='
     |--- statement
-    |    |--- :lexeme ~ <OR_ASSIGN> priority => -114
     |    |--- :lexeme
     |    |--- ~
     |    |--- <OR_ASSIGN>
@@ -2817,12 +2491,10 @@ Statements
     |    |--- =>
     |    |--- -114
     |--- statement
-    |    |--- OR_ASSIGN ~ '|='
     |    |--- OR_ASSIGN
     |    |--- ~
     |    |--- '|='
     |--- statement
-    |    |--- :lexeme ~ <RIGHT_OP> priority => -115
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RIGHT_OP>
@@ -2830,12 +2502,10 @@ Statements
     |    |--- =>
     |    |--- -115
     |--- statement
-    |    |--- RIGHT_OP ~ '>>'
     |    |--- RIGHT_OP
     |    |--- ~
     |    |--- '>>'
     |--- statement
-    |    |--- :lexeme ~ <LEFT_OP> priority => -116
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LEFT_OP>
@@ -2843,12 +2513,10 @@ Statements
     |    |--- =>
     |    |--- -116
     |--- statement
-    |    |--- LEFT_OP ~ '<<'
     |    |--- LEFT_OP
     |    |--- ~
     |    |--- '<<'
     |--- statement
-    |    |--- :lexeme ~ <INC_OP> priority => -117
     |    |--- :lexeme
     |    |--- ~
     |    |--- <INC_OP>
@@ -2856,12 +2524,10 @@ Statements
     |    |--- =>
     |    |--- -117
     |--- statement
-    |    |--- INC_OP ~ '++'
     |    |--- INC_OP
     |    |--- ~
     |    |--- '++'
     |--- statement
-    |    |--- :lexeme ~ <DEC_OP> priority => -118
     |    |--- :lexeme
     |    |--- ~
     |    |--- <DEC_OP>
@@ -2869,12 +2535,10 @@ Statements
     |    |--- =>
     |    |--- -118
     |--- statement
-    |    |--- DEC_OP ~ '--'
     |    |--- DEC_OP
     |    |--- ~
     |    |--- '--'
     |--- statement
-    |    |--- :lexeme ~ <PTR_OP> priority => -119
     |    |--- :lexeme
     |    |--- ~
     |    |--- <PTR_OP>
@@ -2882,12 +2546,10 @@ Statements
     |    |--- =>
     |    |--- -119
     |--- statement
-    |    |--- PTR_OP ~ '->'
     |    |--- PTR_OP
     |    |--- ~
     |    |--- '->'
     |--- statement
-    |    |--- :lexeme ~ <AND_OP> priority => -120
     |    |--- :lexeme
     |    |--- ~
     |    |--- <AND_OP>
@@ -2895,12 +2557,10 @@ Statements
     |    |--- =>
     |    |--- -120
     |--- statement
-    |    |--- AND_OP ~ '&&'
     |    |--- AND_OP
     |    |--- ~
     |    |--- '&&'
     |--- statement
-    |    |--- :lexeme ~ <OR_OP> priority => -121
     |    |--- :lexeme
     |    |--- ~
     |    |--- <OR_OP>
@@ -2908,12 +2568,10 @@ Statements
     |    |--- =>
     |    |--- -121
     |--- statement
-    |    |--- OR_OP ~ '||'
     |    |--- OR_OP
     |    |--- ~
     |    |--- '||'
     |--- statement
-    |    |--- :lexeme ~ <LE_OP> priority => -122
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LE_OP>
@@ -2921,12 +2579,10 @@ Statements
     |    |--- =>
     |    |--- -122
     |--- statement
-    |    |--- LE_OP ~ '<='
     |    |--- LE_OP
     |    |--- ~
     |    |--- '<='
     |--- statement
-    |    |--- :lexeme ~ <GE_OP> priority => -123
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GE_OP>
@@ -2934,12 +2590,10 @@ Statements
     |    |--- =>
     |    |--- -123
     |--- statement
-    |    |--- GE_OP ~ '>='
     |    |--- GE_OP
     |    |--- ~
     |    |--- '>='
     |--- statement
-    |    |--- :lexeme ~ <EQ_OP> priority => -124
     |    |--- :lexeme
     |    |--- ~
     |    |--- <EQ_OP>
@@ -2947,12 +2601,10 @@ Statements
     |    |--- =>
     |    |--- -124
     |--- statement
-    |    |--- EQ_OP ~ '=='
     |    |--- EQ_OP
     |    |--- ~
     |    |--- '=='
     |--- statement
-    |    |--- :lexeme ~ <NE_OP> priority => -125
     |    |--- :lexeme
     |    |--- ~
     |    |--- <NE_OP>
@@ -2960,12 +2612,10 @@ Statements
     |    |--- =>
     |    |--- -125
     |--- statement
-    |    |--- NE_OP ~ '!='
     |    |--- NE_OP
     |    |--- ~
     |    |--- '!='
     |--- statement
-    |    |--- :lexeme ~ <SEMICOLON> priority => -126
     |    |--- :lexeme
     |    |--- ~
     |    |--- <SEMICOLON>
@@ -2973,19 +2623,16 @@ Statements
     |    |--- =>
     |    |--- -126
     |--- statement
-    |    |--- SEMICOLON ~ ';'
     |    |--- SEMICOLON
     |    |--- ~
     |    |--- ';'
     |--- statement
-    |    |--- _LCURLY ~ '{' | '<%'
     |    |--- _LCURLY
     |    |--- ~
     |    |--- '{'
     |    |--- |
     |    |--- '<%'
     |--- statement
-    |    |--- :lexeme ~ <LCURLY> priority => -127
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LCURLY>
@@ -2993,7 +2640,6 @@ Statements
     |    |--- =>
     |    |--- -127
     |--- statement
-    |    |--- :lexeme ~ <LCURLY_SCOPE> priority => -127
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LCURLY_SCOPE>
@@ -3001,7 +2647,6 @@ Statements
     |    |--- =>
     |    |--- -127
     |--- statement
-    |    |--- :lexeme ~ <LCURLY_REENTERSCOPE> priority => -127
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LCURLY_REENTERSCOPE>
@@ -3009,29 +2654,24 @@ Statements
     |    |--- =>
     |    |--- -127
     |--- statement
-    |    |--- LCURLY ~ _LCURLY
     |    |--- LCURLY
     |    |--- ~
     |    |--- _LCURLY
     |--- statement
-    |    |--- LCURLY_SCOPE ~ _LCURLY
     |    |--- LCURLY_SCOPE
     |    |--- ~
     |    |--- _LCURLY
     |--- statement
-    |    |--- LCURLY_REENTERSCOPE ~ _LCURLY
     |    |--- LCURLY_REENTERSCOPE
     |    |--- ~
     |    |--- _LCURLY
     |--- statement
-    |    |--- _RCURLY ~ '}' | '%>'
     |    |--- _RCURLY
     |    |--- ~
     |    |--- '}'
     |    |--- |
     |    |--- '%>'
     |--- statement
-    |    |--- :lexeme ~ <RCURLY> priority => -128
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RCURLY>
@@ -3039,7 +2679,6 @@ Statements
     |    |--- =>
     |    |--- -128
     |--- statement
-    |    |--- :lexeme ~ <RCURLY_SCOPE> priority => -128
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RCURLY_SCOPE>
@@ -3047,17 +2686,14 @@ Statements
     |    |--- =>
     |    |--- -128
     |--- statement
-    |    |--- RCURLY ~ _RCURLY
     |    |--- RCURLY
     |    |--- ~
     |    |--- _RCURLY
     |--- statement
-    |    |--- RCURLY_SCOPE ~ _RCURLY
     |    |--- RCURLY_SCOPE
     |    |--- ~
     |    |--- _RCURLY
     |--- statement
-    |    |--- :lexeme ~ <COMMA> priority => -129
     |    |--- :lexeme
     |    |--- ~
     |    |--- <COMMA>
@@ -3065,12 +2701,10 @@ Statements
     |    |--- =>
     |    |--- -129
     |--- statement
-    |    |--- COMMA ~ ','
     |    |--- COMMA
     |    |--- ~
     |    |--- ','
     |--- statement
-    |    |--- :lexeme ~ <COLON> priority => -130
     |    |--- :lexeme
     |    |--- ~
     |    |--- <COLON>
@@ -3078,12 +2712,10 @@ Statements
     |    |--- =>
     |    |--- -130
     |--- statement
-    |    |--- COLON ~ ':'
     |    |--- COLON
     |    |--- ~
     |    |--- ':'
     |--- statement
-    |    |--- :lexeme ~ <EQUAL> priority => -131
     |    |--- :lexeme
     |    |--- ~
     |    |--- <EQUAL>
@@ -3091,17 +2723,14 @@ Statements
     |    |--- =>
     |    |--- -131
     |--- statement
-    |    |--- EQUAL ~ '='
     |    |--- EQUAL
     |    |--- ~
     |    |--- '='
     |--- statement
-    |    |--- _LPAREN ~ '('
     |    |--- _LPAREN
     |    |--- ~
     |    |--- '('
     |--- statement
-    |    |--- :lexeme ~ <LPAREN> priority => -132
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LPAREN>
@@ -3109,7 +2738,6 @@ Statements
     |    |--- =>
     |    |--- -132
     |--- statement
-    |    |--- :lexeme ~ <LPAREN_SCOPE> priority => -132
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LPAREN_SCOPE>
@@ -3117,22 +2745,18 @@ Statements
     |    |--- =>
     |    |--- -132
     |--- statement
-    |    |--- LPAREN ~ _LPAREN
     |    |--- LPAREN
     |    |--- ~
     |    |--- _LPAREN
     |--- statement
-    |    |--- LPAREN_SCOPE ~ _LPAREN
     |    |--- LPAREN_SCOPE
     |    |--- ~
     |    |--- _LPAREN
     |--- statement
-    |    |--- _RPAREN ~ ')'
     |    |--- _RPAREN
     |    |--- ~
     |    |--- ')'
     |--- statement
-    |    |--- :lexeme ~ <RPAREN> priority => -133
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RPAREN>
@@ -3140,7 +2764,6 @@ Statements
     |    |--- =>
     |    |--- -133
     |--- statement
-    |    |--- :lexeme ~ <RPAREN_SCOPE> priority => -133
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RPAREN_SCOPE>
@@ -3148,17 +2771,14 @@ Statements
     |    |--- =>
     |    |--- -133
     |--- statement
-    |    |--- RPAREN ~ _RPAREN
     |    |--- RPAREN
     |    |--- ~
     |    |--- _RPAREN
     |--- statement
-    |    |--- RPAREN_SCOPE ~ _RPAREN
     |    |--- RPAREN_SCOPE
     |    |--- ~
     |    |--- _RPAREN
     |--- statement
-    |    |--- :lexeme ~ <LBRACKET> priority => -134
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LBRACKET>
@@ -3166,14 +2786,12 @@ Statements
     |    |--- =>
     |    |--- -134
     |--- statement
-    |    |--- LBRACKET ~ '[' | '<:'
     |    |--- LBRACKET
     |    |--- ~
     |    |--- '['
     |    |--- |
     |    |--- '<:'
     |--- statement
-    |    |--- :lexeme ~ <RBRACKET> priority => -135
     |    |--- :lexeme
     |    |--- ~
     |    |--- <RBRACKET>
@@ -3181,14 +2799,12 @@ Statements
     |    |--- =>
     |    |--- -135
     |--- statement
-    |    |--- RBRACKET ~ ']' | ':>'
     |    |--- RBRACKET
     |    |--- ~
     |    |--- ']'
     |    |--- |
     |    |--- ':>'
     |--- statement
-    |    |--- :lexeme ~ <DOT> priority => -136
     |    |--- :lexeme
     |    |--- ~
     |    |--- <DOT>
@@ -3196,12 +2812,10 @@ Statements
     |    |--- =>
     |    |--- -136
     |--- statement
-    |    |--- DOT ~ '.'
     |    |--- DOT
     |    |--- ~
     |    |--- '.'
     |--- statement
-    |    |--- :lexeme ~ <AMPERSAND> priority => -137
     |    |--- :lexeme
     |    |--- ~
     |    |--- <AMPERSAND>
@@ -3209,12 +2823,10 @@ Statements
     |    |--- =>
     |    |--- -137
     |--- statement
-    |    |--- AMPERSAND ~ '&'
     |    |--- AMPERSAND
     |    |--- ~
     |    |--- '&'
     |--- statement
-    |    |--- :lexeme ~ <EXCLAMATION> priority => -138
     |    |--- :lexeme
     |    |--- ~
     |    |--- <EXCLAMATION>
@@ -3222,12 +2834,10 @@ Statements
     |    |--- =>
     |    |--- -138
     |--- statement
-    |    |--- EXCLAMATION ~ '!'
     |    |--- EXCLAMATION
     |    |--- ~
     |    |--- '!'
     |--- statement
-    |    |--- :lexeme ~ <TILDE> priority => -139
     |    |--- :lexeme
     |    |--- ~
     |    |--- <TILDE>
@@ -3235,12 +2845,10 @@ Statements
     |    |--- =>
     |    |--- -139
     |--- statement
-    |    |--- TILDE ~ '~'
     |    |--- TILDE
     |    |--- ~
     |    |--- '~'
     |--- statement
-    |    |--- :lexeme ~ <HYPHEN> priority => -140
     |    |--- :lexeme
     |    |--- ~
     |    |--- <HYPHEN>
@@ -3248,12 +2856,10 @@ Statements
     |    |--- =>
     |    |--- -140
     |--- statement
-    |    |--- HYPHEN ~ '-'
     |    |--- HYPHEN
     |    |--- ~
     |    |--- '-'
     |--- statement
-    |    |--- :lexeme ~ <PLUS> priority => -141
     |    |--- :lexeme
     |    |--- ~
     |    |--- <PLUS>
@@ -3261,12 +2867,10 @@ Statements
     |    |--- =>
     |    |--- -141
     |--- statement
-    |    |--- PLUS ~ '+'
     |    |--- PLUS
     |    |--- ~
     |    |--- '+'
     |--- statement
-    |    |--- :lexeme ~ <STAR> priority => -142
     |    |--- :lexeme
     |    |--- ~
     |    |--- <STAR>
@@ -3274,12 +2878,10 @@ Statements
     |    |--- =>
     |    |--- -142
     |--- statement
-    |    |--- STAR ~ '*'
     |    |--- STAR
     |    |--- ~
     |    |--- '*'
     |--- statement
-    |    |--- :lexeme ~ <SLASH> priority => -143
     |    |--- :lexeme
     |    |--- ~
     |    |--- <SLASH>
@@ -3287,12 +2889,10 @@ Statements
     |    |--- =>
     |    |--- -143
     |--- statement
-    |    |--- SLASH ~ '/'
     |    |--- SLASH
     |    |--- ~
     |    |--- '/'
     |--- statement
-    |    |--- :lexeme ~ <PERCENT> priority => -144
     |    |--- :lexeme
     |    |--- ~
     |    |--- <PERCENT>
@@ -3300,12 +2900,10 @@ Statements
     |    |--- =>
     |    |--- -144
     |--- statement
-    |    |--- PERCENT ~ '%'
     |    |--- PERCENT
     |    |--- ~
     |    |--- '%'
     |--- statement
-    |    |--- :lexeme ~ <LESS_THAN> priority => -145
     |    |--- :lexeme
     |    |--- ~
     |    |--- <LESS_THAN>
@@ -3313,12 +2911,10 @@ Statements
     |    |--- =>
     |    |--- -145
     |--- statement
-    |    |--- LESS_THAN ~ '<'
     |    |--- LESS_THAN
     |    |--- ~
     |    |--- '<'
     |--- statement
-    |    |--- :lexeme ~ <GREATER_THAN> priority => -146
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GREATER_THAN>
@@ -3326,12 +2922,10 @@ Statements
     |    |--- =>
     |    |--- -146
     |--- statement
-    |    |--- GREATER_THAN ~ '>'
     |    |--- GREATER_THAN
     |    |--- ~
     |    |--- '>'
     |--- statement
-    |    |--- :lexeme ~ <CARET> priority => -147
     |    |--- :lexeme
     |    |--- ~
     |    |--- <CARET>
@@ -3339,12 +2933,10 @@ Statements
     |    |--- =>
     |    |--- -147
     |--- statement
-    |    |--- CARET ~ '^'
     |    |--- CARET
     |    |--- ~
     |    |--- '^'
     |--- statement
-    |    |--- :lexeme ~ <VERTICAL_BAR> priority => -148
     |    |--- :lexeme
     |    |--- ~
     |    |--- <VERTICAL_BAR>
@@ -3352,12 +2944,10 @@ Statements
     |    |--- =>
     |    |--- -148
     |--- statement
-    |    |--- VERTICAL_BAR ~ '|'
     |    |--- VERTICAL_BAR
     |    |--- ~
     |    |--- '|'
     |--- statement
-    |    |--- :lexeme ~ <QUESTION_MARK> priority => -149
     |    |--- :lexeme
     |    |--- ~
     |    |--- <QUESTION_MARK>
@@ -3365,148 +2955,122 @@ Statements
     |    |--- =>
     |    |--- -149
     |--- statement
-    |    |--- QUESTION_MARK ~ '?'
     |    |--- QUESTION_MARK
     |    |--- ~
     |    |--- '?'
     |--- statement
-    |    |--- <C style comment> ~ '/*' <comment interior> '*/'
     |    |--- <C style comment>
     |    |--- ~
     |    |--- '/*'
     |    |--- <comment interior>
     |    |--- '*/'
     |--- statement
-    |    |--- <comment interior> ~ <optional non stars> <optional star prefixed segments> <optional pre final stars>
     |    |--- <comment interior>
     |    |--- ~
     |    |--- <optional non stars>
     |    |--- <optional star prefixed segments>
     |    |--- <optional pre final stars>
     |--- statement
-    |    |--- <optional non stars> ~ [^*] *
     |    |--- <optional non stars>
     |    |--- ~
     |    |--- [^*]
     |    |--- *
     |--- statement
-    |    |--- <optional star prefixed segments> ~ <star prefixed segment> *
     |    |--- <optional star prefixed segments>
     |    |--- ~
     |    |--- <star prefixed segment>
     |    |--- *
     |--- statement
-    |    |--- <star prefixed segment> ~ <stars> [^/*] <optional star free text>
     |    |--- <star prefixed segment>
     |    |--- ~
     |    |--- <stars>
     |    |--- [^/*]
     |    |--- <optional star free text>
     |--- statement
-    |    |--- <stars> ~ [*] +
     |    |--- <stars>
     |    |--- ~
     |    |--- [*]
     |    |--- +
     |--- statement
-    |    |--- <optional star free text> ~ [^*] *
     |    |--- <optional star free text>
     |    |--- ~
     |    |--- [^*]
     |    |--- *
     |--- statement
-    |    |--- <optional pre final stars> ~ [*] *
     |    |--- <optional pre final stars>
     |    |--- ~
     |    |--- [*]
     |    |--- *
     |--- statement
-    |    |--- <Cplusplus style comment> ~ '//' <Cplusplus comment interior>
     |    |--- <Cplusplus style comment>
     |    |--- ~
     |    |--- '//'
     |    |--- <Cplusplus comment interior>
     |--- statement
-    |    |--- <Cplusplus comment interior> ~ [^\n] *
     |    |--- <Cplusplus comment interior>
     |    |--- ~
     |    |--- [^\n]
     |    |--- *
     |--- statement
-    |    |--- <MSVS annotation directive start> ~ '[source_annotation_attribute'
     |    |--- <MSVS annotation directive start>
     |    |--- ~
     |    |--- '[source_annotation_attribute'
     |--- statement
-    |    |--- <MSVS annotation directive interior single line> ~ [^\n] *
     |    |--- <MSVS annotation directive interior single line>
     |    |--- ~
     |    |--- [^\n]
     |    |--- *
     |--- statement
-    |    |--- <MSVS annotation directive> ~ <MSVS annotation directive start> <MSVS annotation directive interior single line>
     |    |--- <MSVS annotation directive>
     |    |--- ~
     |    |--- <MSVS annotation directive start>
     |    |--- <MSVS annotation directive interior single line>
     |--- statement
-    |    |--- QUOTE ~ [']
     |    |--- QUOTE
     |    |--- ~
     |    |--- [']
     |--- statement
-    |    |--- I_CONSTANT_INSIDE ~ [^'\\\n]
     |    |--- I_CONSTANT_INSIDE
     |    |--- ~
     |    |--- [^'\\\n]
     |--- statement
-    |    |--- I_CONSTANT_INSIDE ~ ES
     |    |--- I_CONSTANT_INSIDE
     |    |--- ~
     |    |--- ES
     |--- statement
-    |    |--- I_CONSTANT_INSIDE_many ~ I_CONSTANT_INSIDE +
     |    |--- I_CONSTANT_INSIDE_many
     |    |--- ~
     |    |--- I_CONSTANT_INSIDE
     |    |--- +
     |--- statement
-    |    |--- BS ~ '\'
     |    |--- BS
     |    |--- ~
     |    |--- '\'
     |--- statement
-    |    |--- ANYTHING_ELSE ~ [.]
     |    |--- ANYTHING_ELSE
     |    |--- ~
     |    |--- [.]
     |--- statement
-    |    |--- :discard ~ <Cplusplus style comment>
     |    |--- :discard
     |    |--- ~
     |    |--- <Cplusplus style comment>
     |--- statement
-    |    |--- :discard ~ <C style comment>
     |    |--- :discard
     |    |--- ~
     |    |--- <C style comment>
     |--- statement
-    |    |--- :discard ~ <MSVS annotation directive>
     |    |--- :discard
     |    |--- ~
     |    |--- <MSVS annotation directive>
     |--- statement
-    |    |--- :discard ~ WS_many
     |    |--- :discard
     |    |--- ~
     |    |--- WS_many
     |--- statement
-    |    |--- :discard ~ ANYTHING_ELSE
     |    |--- :discard
     |    |--- ~
     |    |--- ANYTHING_ELSE
     |--- statement
-    |    |--- :lexeme ~ <GCC_ASM> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GCC_ASM>
@@ -3514,7 +3078,6 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- :lexeme ~ <ANY_ASM> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <ANY_ASM>
@@ -3522,42 +3085,34 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- _ASM ~ 'asm__'
     |    |--- _ASM
     |    |--- ~
     |    |--- 'asm__'
     |--- statement
-    |    |--- _ASM ~ '__asm'
     |    |--- _ASM
     |    |--- ~
     |    |--- '__asm'
     |--- statement
-    |    |--- _ASM ~ '__asm__'
     |    |--- _ASM
     |    |--- ~
     |    |--- '__asm__'
     |--- statement
-    |    |--- _ASM ~ 'asm'
     |    |--- _ASM
     |    |--- ~
     |    |--- 'asm'
     |--- statement
-    |    |--- GCC_ASM ~ _ASM
     |    |--- GCC_ASM
     |    |--- ~
     |    |--- _ASM
     |--- statement
-    |    |--- ANY_ASM ~ _ASM
     |    |--- ANY_ASM
     |    |--- ~
     |    |--- _ASM
     |--- statement
-    |    |--- ASM_OPAQUE ~ [^\s\S]
     |    |--- ASM_OPAQUE
     |    |--- ~
     |    |--- [^\s\S]
     |--- statement
-    |    |--- :lexeme ~ <GCC_EXTENSION> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GCC_EXTENSION>
@@ -3565,22 +3120,18 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- GCC_EXTENSION ~ 'extension__'
     |    |--- GCC_EXTENSION
     |    |--- ~
     |    |--- 'extension__'
     |--- statement
-    |    |--- GCC_EXTENSION ~ '__extension'
     |    |--- GCC_EXTENSION
     |    |--- ~
     |    |--- '__extension'
     |--- statement
-    |    |--- GCC_EXTENSION ~ '__extension__'
     |    |--- GCC_EXTENSION
     |    |--- ~
     |    |--- '__extension__'
     |--- statement
-    |    |--- :lexeme ~ <GCC_BUILTIN_VA_START> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GCC_BUILTIN_VA_START>
@@ -3588,12 +3139,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- GCC_BUILTIN_VA_START ~ '__builtin_va_start'
     |    |--- GCC_BUILTIN_VA_START
     |    |--- ~
     |    |--- '__builtin_va_start'
     |--- statement
-    |    |--- :lexeme ~ <GCC_BUILTIN_VA_END> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GCC_BUILTIN_VA_END>
@@ -3601,12 +3150,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- GCC_BUILTIN_VA_END ~ '__builtin_va_end'
     |    |--- GCC_BUILTIN_VA_END
     |    |--- ~
     |    |--- '__builtin_va_end'
     |--- statement
-    |    |--- :lexeme ~ <GCC_BUILTIN_VA_ARG> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GCC_BUILTIN_VA_ARG>
@@ -3614,12 +3161,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- GCC_BUILTIN_VA_ARG ~ '__builtin_va_arg'
     |    |--- GCC_BUILTIN_VA_ARG
     |    |--- ~
     |    |--- '__builtin_va_arg'
     |--- statement
-    |    |--- :lexeme ~ <GCC_TYPEOF> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GCC_TYPEOF>
@@ -3627,22 +3172,18 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- GCC_TYPEOF ~ 'typeof'
     |    |--- GCC_TYPEOF
     |    |--- ~
     |    |--- 'typeof'
     |--- statement
-    |    |--- GCC_TYPEOF ~ '__typeof'
     |    |--- GCC_TYPEOF
     |    |--- ~
     |    |--- '__typeof'
     |--- statement
-    |    |--- GCC_TYPEOF ~ '__typeof__'
     |    |--- GCC_TYPEOF
     |    |--- ~
     |    |--- '__typeof__'
     |--- statement
-    |    |--- :lexeme ~ <GCC_BUILTIN_OFFSETOF> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GCC_BUILTIN_OFFSETOF>
@@ -3650,12 +3191,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- GCC_BUILTIN_OFFSETOF ~ '__builtin_offsetof'
     |    |--- GCC_BUILTIN_OFFSETOF
     |    |--- ~
     |    |--- '__builtin_offsetof'
     |--- statement
-    |    |--- :lexeme ~ <GCC_BUILTIN_VA_LIST> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <GCC_BUILTIN_VA_LIST>
@@ -3663,32 +3202,26 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- GCC_BUILTIN_VA_LIST ~ '__builtin_va_list'
     |    |--- GCC_BUILTIN_VA_LIST
     |    |--- ~
     |    |--- '__builtin_va_list'
     |--- statement
-    |    |--- GCC_ALIGNOF ~ '__alignof__'
     |    |--- GCC_ALIGNOF
     |    |--- ~
     |    |--- '__alignof__'
     |--- statement
-    |    |--- GCC_ALIGNOF ~ 'alignof__'
     |    |--- GCC_ALIGNOF
     |    |--- ~
     |    |--- 'alignof__'
     |--- statement
-    |    |--- GCC_ALIGNOF ~ '__alignof'
     |    |--- GCC_ALIGNOF
     |    |--- ~
     |    |--- '__alignof'
     |--- statement
-    |    |--- GCC_ALIGNOF ~ 'alignof'
     |    |--- GCC_ALIGNOF
     |    |--- ~
     |    |--- 'alignof'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_FASTCALL> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_FASTCALL>
@@ -3696,12 +3229,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_FASTCALL ~ '__fastcall'
     |    |--- MSVS_FASTCALL
     |    |--- ~
     |    |--- '__fastcall'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_THISCALL> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_THISCALL>
@@ -3709,12 +3240,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_THISCALL ~ '__thiscall'
     |    |--- MSVS_THISCALL
     |    |--- ~
     |    |--- '__thiscall'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_BASED> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_BASED>
@@ -3722,12 +3251,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_BASED ~ '__based'
     |    |--- MSVS_BASED
     |    |--- ~
     |    |--- '__based'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_CDECL> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_CDECL>
@@ -3735,12 +3262,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_CDECL ~ '__cdecl'
     |    |--- MSVS_CDECL
     |    |--- ~
     |    |--- '__cdecl'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_CLRCALL> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_CLRCALL>
@@ -3748,12 +3273,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_CLRCALL ~ '__clrcall'
     |    |--- MSVS_CLRCALL
     |    |--- ~
     |    |--- '__clrcall'
     |--- statement
-    |    |--- :lexeme ~ <MSVS___C_ASSERT__> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS___C_ASSERT__>
@@ -3761,12 +3284,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS___C_ASSERT__ ~ '__C_ASSERT__'
     |    |--- MSVS___C_ASSERT__
     |    |--- ~
     |    |--- '__C_ASSERT__'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_STDCALL> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_STDCALL>
@@ -3774,12 +3295,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_STDCALL ~ '__stdcall'
     |    |--- MSVS_STDCALL
     |    |--- ~
     |    |--- '__stdcall'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_INT8> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_INT8>
@@ -3787,12 +3306,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_INT8 ~ '__int8'
     |    |--- MSVS_INT8
     |    |--- ~
     |    |--- '__int8'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_INT16> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_INT16>
@@ -3800,12 +3317,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_INT16 ~ '__int16'
     |    |--- MSVS_INT16
     |    |--- ~
     |    |--- '__int16'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_INT32> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_INT32>
@@ -3813,12 +3328,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_INT32 ~ '__int32'
     |    |--- MSVS_INT32
     |    |--- ~
     |    |--- '__int32'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_INT64> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_INT64>
@@ -3826,12 +3339,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_INT64 ~ '__int64'
     |    |--- MSVS_INT64
     |    |--- ~
     |    |--- '__int64'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_W64> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_W64>
@@ -3839,12 +3350,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_W64 ~ '__w64'
     |    |--- MSVS_W64
     |    |--- ~
     |    |--- '__w64'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_PTR32> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_PTR32>
@@ -3852,12 +3361,10 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_PTR32 ~ '__ptr32'
     |    |--- MSVS_PTR32
     |    |--- ~
     |    |--- '__ptr32'
     |--- statement
-    |    |--- :lexeme ~ <MSVS_PTR64> priority => -60
     |    |--- :lexeme
     |    |--- ~
     |    |--- <MSVS_PTR64>
@@ -3865,25 +3372,21 @@ Statements
     |    |--- =>
     |    |--- -60
     |--- statement
-    |    |--- MSVS_PTR64 ~ '__ptr64'
     |    |--- MSVS_PTR64
     |    |--- ~
     |    |--- '__ptr64'
     |--- statement
-    |    |--- gccBuiltinType ::= gccTypeof | GCC_BUILTIN_VA_LIST
     |    |--- gccBuiltinType
     |    |--- ::=
     |    |--- gccTypeof
     |    |--- |
     |    |--- GCC_BUILTIN_VA_LIST
     |--- statement
-    |    |--- gccAsmStatement ::= gccAsmExpression SEMICOLON
     |    |--- gccAsmStatement
     |    |--- ::=
     |    |--- gccAsmExpression
     |    |--- SEMICOLON
     |--- statement
-    |    |--- gccAsmExpression ::= GCC_ASM LPAREN expression RPAREN | GCC_ASM LPAREN RPAREN | GCC_ASM LPAREN expression gccAsmInnerOperandList RPAREN | GCC_ASM typeQualifier LPAREN expression RPAREN | GCC_ASM typeQualifier LPAREN expression gccAsmInnerOperandList RPAREN | GCC_ASM GOTO LPAREN expression gccAsmInnerOperandList gccAsmInnerLabelList RPAREN
     |    |--- gccAsmExpression
     |    |--- ::=
     |    |--- GCC_ASM
@@ -3922,7 +3425,6 @@ Statements
     |    |--- gccAsmInnerLabelList
     |    |--- RPAREN
     |--- statement
-    |    |--- gccAsmClobberList ::= gccAsmClobber | gccAsmClobberList COMMA gccAsmClobber
     |    |--- gccAsmClobberList
     |    |--- ::=
     |    |--- gccAsmClobber
@@ -3931,7 +3433,6 @@ Statements
     |    |--- COMMA
     |    |--- gccAsmClobber
     |--- statement
-    |    |--- gccAsmOperandList ::= gccAsmOperand | gccAsmOperandList COMMA gccAsmOperand
     |    |--- gccAsmOperandList
     |    |--- ::=
     |    |--- gccAsmOperand
@@ -3940,13 +3441,11 @@ Statements
     |    |--- COMMA
     |    |--- gccAsmOperand
     |--- statement
-    |    |--- gccAsmInnerClobberList ::= COLON gccAsmClobberList
     |    |--- gccAsmInnerClobberList
     |    |--- ::=
     |    |--- COLON
     |    |--- gccAsmClobberList
     |--- statement
-    |    |--- gccAsmInnerOperandList2 ::= COLON | COLON gccAsmInnerClobberList | COLON gccAsmOperandList | COLON gccAsmOperandList gccAsmInnerClobberList
     |    |--- gccAsmInnerOperandList2
     |    |--- ::=
     |    |--- COLON
@@ -3961,7 +3460,6 @@ Statements
     |    |--- gccAsmOperandList
     |    |--- gccAsmInnerClobberList
     |--- statement
-    |    |--- gccAsmInnerOperandList ::= COLON | COLON gccAsmInnerOperandList2 | COLON gccAsmOperandList | COLON gccAsmOperandList gccAsmInnerOperandList2
     |    |--- gccAsmInnerOperandList
     |    |--- ::=
     |    |--- COLON
@@ -3976,7 +3474,6 @@ Statements
     |    |--- gccAsmOperandList
     |    |--- gccAsmInnerOperandList2
     |--- statement
-    |    |--- gccAsmInnerLabelList ::= COLON | COLON IDENTIFIER_UNAMBIGUOUS | gccAsmInnerLabelList COMMA IDENTIFIER_UNAMBIGUOUS
     |    |--- gccAsmInnerLabelList
     |    |--- ::=
     |    |--- COLON
@@ -3988,14 +3485,12 @@ Statements
     |    |--- COMMA
     |    |--- IDENTIFIER_UNAMBIGUOUS
     |--- statement
-    |    |--- gccAsmOperandPrefix ::= LBRACKET IDENTIFIER_UNAMBIGUOUS RBRACKET
     |    |--- gccAsmOperandPrefix
     |    |--- ::=
     |    |--- LBRACKET
     |    |--- IDENTIFIER_UNAMBIGUOUS
     |    |--- RBRACKET
     |--- statement
-    |    |--- gccAsmOperand ::= string LPAREN expression RPAREN | gccAsmOperandPrefix string LPAREN expression RPAREN
     |    |--- gccAsmOperand
     |    |--- ::=
     |    |--- string
@@ -4009,24 +3504,20 @@ Statements
     |    |--- expression
     |    |--- RPAREN
     |--- statement
-    |    |--- gccAsmClobber ::= string
     |    |--- gccAsmClobber
     |    |--- ::=
     |    |--- string
     |--- statement
-    |    |--- gccStatementExpression ::= LPAREN compoundStatement RPAREN
     |    |--- gccStatementExpression
     |    |--- ::=
     |    |--- LPAREN
     |    |--- compoundStatement
     |    |--- RPAREN
     |--- statement
-    |    |--- gccArrayTypeModifier ::= typeQualifier
     |    |--- gccArrayTypeModifier
     |    |--- ::=
     |    |--- typeQualifier
     |--- statement
-    |    |--- gccBuiltinVaStart ::= GCC_BUILTIN_VA_START LPAREN assignmentExpression COMMA assignmentExpression RPAREN
     |    |--- gccBuiltinVaStart
     |    |--- ::=
     |    |--- GCC_BUILTIN_VA_START
@@ -4036,7 +3527,6 @@ Statements
     |    |--- assignmentExpression
     |    |--- RPAREN
     |--- statement
-    |    |--- gccBuiltinVaEnd ::= GCC_BUILTIN_VA_END LPAREN assignmentExpression RPAREN
     |    |--- gccBuiltinVaEnd
     |    |--- ::=
     |    |--- GCC_BUILTIN_VA_END
@@ -4044,7 +3534,6 @@ Statements
     |    |--- assignmentExpression
     |    |--- RPAREN
     |--- statement
-    |    |--- gccBuiltinVaArg ::= GCC_BUILTIN_VA_ARG LPAREN assignmentExpression COMMA typeName RPAREN
     |    |--- gccBuiltinVaArg
     |    |--- ::=
     |    |--- GCC_BUILTIN_VA_ARG
@@ -4054,7 +3543,6 @@ Statements
     |    |--- typeName
     |    |--- RPAREN
     |--- statement
-    |    |--- gccTypeof ::= GCC_TYPEOF LPAREN typeName RPAREN | GCC_TYPEOF LPAREN assignmentExpression RPAREN
     |    |--- gccTypeof
     |    |--- ::=
     |    |--- GCC_TYPEOF
@@ -4067,7 +3555,6 @@ Statements
     |    |--- assignmentExpression
     |    |--- RPAREN
     |--- statement
-    |    |--- gccBuiltinOffsetof ::= GCC_BUILTIN_OFFSETOF LPAREN typeName COMMA offsetofMemberDesignator RPAREN
     |    |--- gccBuiltinOffsetof
     |    |--- ::=
     |    |--- GCC_BUILTIN_OFFSETOF
@@ -4077,7 +3564,6 @@ Statements
     |    |--- offsetofMemberDesignator
     |    |--- RPAREN
     |--- statement
-    |    |--- offsetofMemberDesignator ::= IDENTIFIER_UNAMBIGUOUS | offsetofMemberDesignator DOT IDENTIFIER_UNAMBIGUOUS | offsetofMemberDesignator LBRACKET expression RBRACKET
     |    |--- offsetofMemberDesignator
     |    |--- ::=
     |    |--- IDENTIFIER_UNAMBIGUOUS
@@ -4091,7 +3577,6 @@ Statements
     |    |--- expression
     |    |--- RBRACKET
     |--- statement
-    |    |--- msvsAttribute ::= MSVS_FASTCALL | MSVS_BASED | MSVS_CDECL | MSVS_CLRCALL | MSVS_STDCALL | MSVS_THISCALL
     |    |--- msvsAttribute
     |    |--- ::=
     |    |--- MSVS_FASTCALL
@@ -4106,7 +3591,6 @@ Statements
     |    |--- |
     |    |--- MSVS_THISCALL
     |--- statement
-    |    |--- msvsBuiltinType ::= MSVS_INT8 | MSVS_INT16 | MSVS_INT32 | MSVS_INT64
     |    |--- msvsBuiltinType
     |    |--- ::=
     |    |--- MSVS_INT8
@@ -4117,55 +3601,46 @@ Statements
     |    |--- |
     |    |--- MSVS_INT64
     |--- statement
-    |    |--- opaqueAsmStatement ::= ANY_ASM ASM_OPAQUE
     |    |--- opaqueAsmStatement
     |    |--- ::=
     |    |--- ANY_ASM
     |    |--- ASM_OPAQUE
     |--- statement
-    |    |--- <Cpp style directive start> ~ '#'
     |    |--- <Cpp style directive start>
     |    |--- ~
     |    |--- '#'
     |--- statement
-    |    |--- <Cpp style directive interior single line> ~ [^\n] *
     |    |--- <Cpp style directive interior single line>
     |    |--- ~
     |    |--- [^\n]
     |    |--- *
     |--- statement
-    |    |--- <Cpp style directive> ~ <Cpp style directive start> <Cpp style directive interior single line>
     |    |--- <Cpp style directive>
     |    |--- ~
     |    |--- <Cpp style directive start>
     |    |--- <Cpp style directive interior single line>
     |--- statement
-    |    |--- :discard ~ <Cpp style directive>
     |    |--- :discard
     |    |--- ~
     |    |--- <Cpp style directive>
     |--- statement
-    |    |--- <G0 identifier> ~ WS_any _IDENTIFIER WS_any
     |    |--- <G0 identifier>
     |    |--- ~
     |    |--- WS_any
     |    |--- _IDENTIFIER
     |    |--- WS_any
     |--- statement
-    |    |--- <_G0 number> ~ [\d] +
     |    |--- <_G0 number>
     |    |--- ~
     |    |--- [\d]
     |    |--- +
     |--- statement
-    |    |--- <G0 number> ~ WS_any <_G0 number> WS_any
     |    |--- <G0 number>
     |    |--- ~
     |    |--- WS_any
     |    |--- <_G0 number>
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 string unit> ~ WS_any '"' STRING_LITERAL_INSIDE_any '"' WS_any
     |    |--- <G0 string unit>
     |    |--- ~
     |    |--- WS_any
@@ -4174,48 +3649,40 @@ Statements
     |    |--- '"'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 string> ~ <G0 string unit> +
     |    |--- <G0 string>
     |    |--- ~
     |    |--- <G0 string unit>
     |    |--- +
     |--- statement
-    |    |--- <_G0 word> ~ [\w] +
     |    |--- <_G0 word>
     |    |--- ~
     |    |--- [\w]
     |    |--- +
     |--- statement
-    |    |--- <G0 word> ~ WS_any <_G0 word> WS_any
     |    |--- <G0 word>
     |    |--- ~
     |    |--- WS_any
     |    |--- <_G0 word>
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 words> ~ <G0 word> +
     |    |--- <G0 words>
     |    |--- ~
     |    |--- <G0 word>
     |    |--- +
     |--- statement
-    |    |--- STRING_LITERAL_INSIDE2 ~ [^<>\\\n]
     |    |--- STRING_LITERAL_INSIDE2
     |    |--- ~
     |    |--- [^<>\\\n]
     |--- statement
-    |    |--- STRING_LITERAL_INSIDE2 ~ ES
     |    |--- STRING_LITERAL_INSIDE2
     |    |--- ~
     |    |--- ES
     |--- statement
-    |    |--- STRING_LITERAL_INSIDE2_any ~ STRING_LITERAL_INSIDE2 *
     |    |--- STRING_LITERAL_INSIDE2_any
     |    |--- ~
     |    |--- STRING_LITERAL_INSIDE2
     |    |--- *
     |--- statement
-    |    |--- <G0 string unit 2> ~ WS_any '<' STRING_LITERAL_INSIDE2_any '>' WS_any
     |    |--- <G0 string unit 2>
     |    |--- ~
     |    |--- WS_any
@@ -4224,320 +3691,274 @@ Statements
     |    |--- '>'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 string 2> ~ <G0 string unit 2>
     |    |--- <G0 string 2>
     |    |--- ~
     |    |--- <G0 string unit 2>
     |--- statement
-    |    |--- <G0 mul assign> ~ WS_any '*=' WS_any
     |    |--- <G0 mul assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '*='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 div assign> ~ WS_any '/=' WS_any
     |    |--- <G0 div assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '/='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 mod assign> ~ WS_any '%=' WS_any
     |    |--- <G0 mod assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '%='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 add assign> ~ WS_any '+=' WS_any
     |    |--- <G0 add assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '+='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 sub assign> ~ WS_any '-=' WS_any
     |    |--- <G0 sub assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '-='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 left assign> ~ WS_any '<<=' WS_any
     |    |--- <G0 left assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<<='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 right assign> ~ WS_any '>>=' WS_any
     |    |--- <G0 right assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '>>='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 and assign> ~ WS_any '&=' WS_any
     |    |--- <G0 and assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '&='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 xor assign> ~ WS_any '^=' WS_any
     |    |--- <G0 xor assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '^='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 or assign> ~ WS_any '|=' WS_any
     |    |--- <G0 or assign>
     |    |--- ~
     |    |--- WS_any
     |    |--- '|='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 or op> ~ WS_any '||' WS_any
     |    |--- <G0 or op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '||'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 and op> ~ WS_any '&&' WS_any
     |    |--- <G0 and op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '&&'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 vertical bar> ~ WS_any '|' WS_any
     |    |--- <G0 vertical bar>
     |    |--- ~
     |    |--- WS_any
     |    |--- '|'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 caret> ~ WS_any '^' WS_any
     |    |--- <G0 caret>
     |    |--- ~
     |    |--- WS_any
     |    |--- '^'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ampersand> ~ WS_any '&' WS_any
     |    |--- <G0 ampersand>
     |    |--- ~
     |    |--- WS_any
     |    |--- '&'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 eq op> ~ WS_any '==' WS_any
     |    |--- <G0 eq op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '=='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ne op> ~ WS_any '!=' WS_any
     |    |--- <G0 ne op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '!='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 less than> ~ WS_any '<' WS_any
     |    |--- <G0 less than>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 greater than> ~ WS_any '>' WS_any
     |    |--- <G0 greater than>
     |    |--- ~
     |    |--- WS_any
     |    |--- '>'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 le op> ~ WS_any '<=' WS_any
     |    |--- <G0 le op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ge op> ~ WS_any '>=' WS_any
     |    |--- <G0 ge op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '>='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 left op> ~ WS_any '<<' WS_any
     |    |--- <G0 left op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '<<'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 right op> ~ WS_any '>>' WS_any
     |    |--- <G0 right op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '>>'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 plus> ~ WS_any '+' WS_any
     |    |--- <G0 plus>
     |    |--- ~
     |    |--- WS_any
     |    |--- '+'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 hyphen> ~ WS_any '-' WS_any
     |    |--- <G0 hyphen>
     |    |--- ~
     |    |--- WS_any
     |    |--- '-'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 star> ~ WS_any '*' WS_any
     |    |--- <G0 star>
     |    |--- ~
     |    |--- WS_any
     |    |--- '*'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 slash> ~ WS_any '/' WS_any
     |    |--- <G0 slash>
     |    |--- ~
     |    |--- WS_any
     |    |--- '/'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 percent> ~ WS_any '%' WS_any
     |    |--- <G0 percent>
     |    |--- ~
     |    |--- WS_any
     |    |--- '%'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 lparen> ~ WS_any '(' WS_any
     |    |--- <G0 lparen>
     |    |--- ~
     |    |--- WS_any
     |    |--- '('
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 rparen> ~ WS_any ')' WS_any
     |    |--- <G0 rparen>
     |    |--- ~
     |    |--- WS_any
     |    |--- ')'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 lcurly> ~ WS_any '{' WS_any
     |    |--- <G0 lcurly>
     |    |--- ~
     |    |--- WS_any
     |    |--- '{'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 rcurly> ~ WS_any '}' WS_any
     |    |--- <G0 rcurly>
     |    |--- ~
     |    |--- WS_any
     |    |--- '}'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 lbracket> ~ WS_any '[' WS_any
     |    |--- <G0 lbracket>
     |    |--- ~
     |    |--- WS_any
     |    |--- '['
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 rbracket> ~ WS_any ']' WS_any
     |    |--- <G0 rbracket>
     |    |--- ~
     |    |--- WS_any
     |    |--- ']'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 inc op> ~ WS_any '++' WS_any
     |    |--- <G0 inc op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '++'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 dec op> ~ WS_any '--' WS_any
     |    |--- <G0 dec op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '--'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ptr op> ~ WS_any '->' WS_any
     |    |--- <G0 ptr op>
     |    |--- ~
     |    |--- WS_any
     |    |--- '->'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 dot> ~ WS_any '.' WS_any
     |    |--- <G0 dot>
     |    |--- ~
     |    |--- WS_any
     |    |--- '.'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 exclamation> ~ WS_any '!' WS_any
     |    |--- <G0 exclamation>
     |    |--- ~
     |    |--- WS_any
     |    |--- '!'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 tilde> ~ WS_any '~' WS_any
     |    |--- <G0 tilde>
     |    |--- ~
     |    |--- WS_any
     |    |--- '~'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 generic> ~ WS_any '_Generic' WS_any
     |    |--- <G0 generic>
     |    |--- ~
     |    |--- WS_any
     |    |--- '_Generic'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 default> ~ WS_any 'default' WS_any
     |    |--- <G0 default>
     |    |--- ~
     |    |--- WS_any
     |    |--- 'default'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 ellipsis> ~ WS_any '...' WS_any
     |    |--- <G0 ellipsis>
     |    |--- ~
     |    |--- WS_any
     |    |--- '...'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 sizeof> ~ WS_any 'sizeof' WS_any
     |    |--- <G0 sizeof>
     |    |--- ~
     |    |--- WS_any
     |    |--- 'sizeof'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 alignof> ~ WS_any '_Alignof' WS_any | WS_any '__alignof__' WS_any | WS_any 'alignof__' WS_any | WS_any '__alignof' WS_any | WS_any 'alignof' WS_any
     |    |--- <G0 alignof>
     |    |--- ~
     |    |--- WS_any
@@ -4560,42 +3981,36 @@ Statements
     |    |--- 'alignof'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 comma> ~ WS_any ',' WS_any
     |    |--- <G0 comma>
     |    |--- ~
     |    |--- WS_any
     |    |--- ','
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 equal> ~ WS_any '=' WS_any
     |    |--- <G0 equal>
     |    |--- ~
     |    |--- WS_any
     |    |--- '='
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 colon> ~ WS_any ':' WS_any
     |    |--- <G0 colon>
     |    |--- ~
     |    |--- WS_any
     |    |--- ':'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 semicolon> ~ WS_any ';' WS_any
     |    |--- <G0 semicolon>
     |    |--- ~
     |    |--- WS_any
     |    |--- ';'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 question mark> ~ WS_any '?' WS_any
     |    |--- <G0 question mark>
     |    |--- ~
     |    |--- WS_any
     |    |--- '?'
     |    |--- WS_any
     |--- statement
-    |    |--- <G0 I_CONSTANT> ~ HP H_many IS_maybe | BP B_many IS_maybe | NZ D_any IS_maybe | '0' O_any IS_maybe | CP_maybe QUOTE I_CONSTANT_INSIDE_many QUOTE
     |    |--- <G0 I_CONSTANT>
     |    |--- ~
     |    |--- HP
@@ -4619,7 +4034,6 @@ Statements
     |    |--- I_CONSTANT_INSIDE_many
     |    |--- QUOTE
     |--- statement
-    |    |--- <G0 F_CONSTANT> ~ D_many E FS_maybe | D_any '.' D_many E_maybe FS_maybe | D_many '.' E_maybe FS_maybe | HP H_many P FS_maybe | HP H_any '.' H_many P FS_maybe | HP H_many '.' P FS_maybe
     |    |--- <G0 F_CONSTANT>
     |    |--- ~
     |    |--- D_many
@@ -4655,7 +4069,6 @@ Statements
     |    |--- P
     |    |--- FS_maybe
     |--- statement
-    |    |--- <G0 constant> ~ <G0 I_CONSTANT> | <G0 F_CONSTANT> | <G0 identifier>
     |    |--- <G0 constant>
     |    |--- ~
     |    |--- <G0 I_CONSTANT>
@@ -4664,7 +4077,6 @@ Statements
     |    |--- |
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma> ~ '__pragma' <G0 lparen> <MSVS pragma directive> <G0 rparen>
     |    |--- <MSVS pragma>
     |    |--- ~
     |    |--- '__pragma'
@@ -4672,7 +4084,6 @@ Statements
     |    |--- <MSVS pragma directive>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive> ~ <MSVS pragma directive alloc_text> | <MSVS pragma directive auto_inline> | <MSVS pragma directive common seg> | <MSVS pragma directive check_stack> | <MSVS pragma directive comment> | <MSVS pragma directive component> | <MSVS pragma directive conform> | <MSVS pragma directive deprecated> | <MSVS pragma directive detect_mismatch> | <MSVS pragma directive fenv_access> | <MSVS pragma directive float_control> | <MSVS pragma directive fp_contract> | <MSVS pragma directive function> | <MSVS pragma directive hdrstop> | <MSVS pragma directive include_alias> | <MSVS pragma directive inline_depth> | <MSVS pragma directive inline_recursion> | <MSVS pragma directive intrinsic> | <MSVS pragma directive loop> | <MSVS pragma directive make_public> | <MSVS pragma directive managed> | <MSVS pragma directive unmanaged> | <MSVS pragma directive message> | <MSVS pragma directive once> | <MSVS pragma directive optimize> | <MSVS pragma directive pack> | <MSVS pragma directive pointers_to_members> | <MSVS pragma directive pop_macro> | <MSVS pragma directive push_macro> | <MSVS pragma directive region> | <MSVS pragma directive endregion> | <MSVS pragma directive runtime_checks> | <MSVS pragma directive section> | <MSVS pragma directive setlocale> | <MSVS pragma directive strict_gs_check> | <MSVS pragma directive vtordisp> | <MSVS pragma directive warning>
     |    |--- <MSVS pragma directive>
     |    |--- ~
     |    |--- <MSVS pragma directive alloc_text>
@@ -4749,7 +4160,6 @@ Statements
     |    |--- |
     |    |--- <MSVS pragma directive warning>
     |--- statement
-    |    |--- <MSVS pragma directive alloc_text> ~ 'alloc_text' <G0 lparen> <MSVS pragma directive alloc_text interior> <G0 rparen>
     |    |--- <MSVS pragma directive alloc_text>
     |    |--- ~
     |    |--- 'alloc_text'
@@ -4757,7 +4167,6 @@ Statements
     |    |--- <MSVS pragma directive alloc_text interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive alloc_text interior> ~ <G0 string> | <MSVS pragma directive alloc_text interior> <G0 comma> <MSVS pragma directive alloc_text identifier list>
     |    |--- <MSVS pragma directive alloc_text interior>
     |    |--- ~
     |    |--- <G0 string>
@@ -4766,7 +4175,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive alloc_text identifier list>
     |--- statement
-    |    |--- <MSVS pragma directive alloc_text identifier list> ~ <G0 identifier> | <MSVS pragma directive alloc_text identifier list> <G0 comma> <G0 identifier>
     |    |--- <MSVS pragma directive alloc_text identifier list>
     |    |--- ~
     |    |--- <G0 identifier>
@@ -4775,7 +4183,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive auto_inline> ~ 'auto_inline' <G0 lparen> <G0 rparen> | 'auto_inline' <G0 lparen> <MSVS pragma directive auto_inline interior> <G0 rparen>
     |    |--- <MSVS pragma directive auto_inline>
     |    |--- ~
     |    |--- 'auto_inline'
@@ -4787,14 +4194,12 @@ Statements
     |    |--- <MSVS pragma directive auto_inline interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive auto_inline interior> ~ 'on' | 'off'
     |    |--- <MSVS pragma directive auto_inline interior>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive warning> ~ 'warning' <G0 lparen> <MSVS pragma directive warning interior> <G0 rparen>
     |    |--- <MSVS pragma directive warning>
     |    |--- ~
     |    |--- 'warning'
@@ -4802,7 +4207,6 @@ Statements
     |    |--- <MSVS pragma directive warning interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive warning interior> ~ <MSVS pragma directive warning interior specifier list> | <MSVS pragma directive warning interior push> | <MSVS pragma directive warning interior pop>
     |    |--- <MSVS pragma directive warning interior>
     |    |--- ~
     |    |--- <MSVS pragma directive warning interior specifier list>
@@ -4811,7 +4215,6 @@ Statements
     |    |--- |
     |    |--- <MSVS pragma directive warning interior pop>
     |--- statement
-    |    |--- <MSVS pragma directive warning interior specifier list> ~ <MSVS pragma directive warning interior specifier> | <MSVS pragma directive warning interior specifier list> <G0 semicolon> <MSVS pragma directive warning interior specifier>
     |    |--- <MSVS pragma directive warning interior specifier list>
     |    |--- ~
     |    |--- <MSVS pragma directive warning interior specifier>
@@ -4820,7 +4223,6 @@ Statements
     |    |--- <G0 semicolon>
     |    |--- <MSVS pragma directive warning interior specifier>
     |--- statement
-    |    |--- <MSVS pragma directive warning interior specifier keyword> ~ '1' | '2' | '3' | '4' | 'default' | 'disable' | 'error' | 'once' | 'suppress'
     |    |--- <MSVS pragma directive warning interior specifier keyword>
     |    |--- ~
     |    |--- '1'
@@ -4841,14 +4243,12 @@ Statements
     |    |--- |
     |    |--- 'suppress'
     |--- statement
-    |    |--- <MSVS pragma directive warning interior specifier> ~ <MSVS pragma directive warning interior specifier keyword> <G0 colon> <MSVS pragma directive warning interior specifier number list>
     |    |--- <MSVS pragma directive warning interior specifier>
     |    |--- ~
     |    |--- <MSVS pragma directive warning interior specifier keyword>
     |    |--- <G0 colon>
     |    |--- <MSVS pragma directive warning interior specifier number list>
     |--- statement
-    |    |--- <MSVS pragma directive warning interior specifier number list> ~ <G0 number> | <MSVS pragma directive warning interior specifier number list> WS_many <G0 number>
     |    |--- <MSVS pragma directive warning interior specifier number list>
     |    |--- ~
     |    |--- <G0 number>
@@ -4857,7 +4257,6 @@ Statements
     |    |--- WS_many
     |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS pragma directive warning interior push> ~ 'push' | 'push' <G0 comma> <G0 number>
     |    |--- <MSVS pragma directive warning interior push>
     |    |--- ~
     |    |--- 'push'
@@ -4866,19 +4265,16 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS pragma directive warning interior pop> ~ 'pop'
     |    |--- <MSVS pragma directive warning interior pop>
     |    |--- ~
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS pragma directive common seg push or pop> ~ 'push' | 'pop'
     |    |--- <MSVS pragma directive common seg push or pop>
     |    |--- ~
     |    |--- 'push'
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS pragma directive common seg interior 1> ~ <MSVS pragma directive common seg push or pop> | <MSVS pragma directive common seg push or pop> <G0 comma> <G0 identifier> | <G0 identifier>
     |    |--- <MSVS pragma directive common seg interior 1>
     |    |--- ~
     |    |--- <MSVS pragma directive common seg push or pop>
@@ -4889,7 +4285,6 @@ Statements
     |    |--- |
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive common seg interior 2> ~ <G0 string> | <G0 string> <G0 comma> <G0 string>
     |    |--- <MSVS pragma directive common seg interior 2>
     |    |--- ~
     |    |--- <G0 string>
@@ -4898,7 +4293,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive common seg interior> ~ <MSVS pragma directive common seg interior 1> | <MSVS pragma directive common seg interior 2> | <MSVS pragma directive common seg interior 1> <G0 comma> <MSVS pragma directive common seg interior 2>
     |    |--- <MSVS pragma directive common seg interior>
     |    |--- ~
     |    |--- <MSVS pragma directive common seg interior 1>
@@ -4909,7 +4303,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive common seg interior 2>
     |--- statement
-    |    |--- <MSVS pragma directive common seg> ~ <MSVS pragma directive common seg keyword> <G0 lparen> <G0 rparen> | <MSVS pragma directive common seg keyword> <G0 lparen> <MSVS pragma directive common seg interior> <G0 rparen>
     |    |--- <MSVS pragma directive common seg>
     |    |--- ~
     |    |--- <MSVS pragma directive common seg keyword>
@@ -4921,7 +4314,6 @@ Statements
     |    |--- <MSVS pragma directive common seg interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive common seg keyword> ~ 'bss_seg' | 'code_seg' | 'const_seg' | 'data_seg'
     |    |--- <MSVS pragma directive common seg keyword>
     |    |--- ~
     |    |--- 'bss_seg'
@@ -4932,7 +4324,6 @@ Statements
     |    |--- |
     |    |--- 'data_seg'
     |--- statement
-    |    |--- <MSVS pragma directive check_stack interior> ~ 'on' | 'off' | '+' | '-'
     |    |--- <MSVS pragma directive check_stack interior>
     |    |--- ~
     |    |--- 'on'
@@ -4943,7 +4334,6 @@ Statements
     |    |--- |
     |    |--- '-'
     |--- statement
-    |    |--- <MSVS pragma directive check_stack> ~ 'check_stack' <G0 lparen> <G0 rparen> | 'check_stack' <G0 lparen> <MSVS pragma directive check_stack interior> <G0 rparen>
     |    |--- <MSVS pragma directive check_stack>
     |    |--- ~
     |    |--- 'check_stack'
@@ -4955,7 +4345,6 @@ Statements
     |    |--- <MSVS pragma directive check_stack interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive comment interior type> ~ 'compiler' | 'exestr' | 'lib' | 'linker' | 'user'
     |    |--- <MSVS pragma directive comment interior type>
     |    |--- ~
     |    |--- 'compiler'
@@ -4968,7 +4357,6 @@ Statements
     |    |--- |
     |    |--- 'user'
     |--- statement
-    |    |--- <MSVS pragma directive comment interior> ~ <MSVS pragma directive comment interior type> | <MSVS pragma directive comment interior type> <G0 comma> <G0 string>
     |    |--- <MSVS pragma directive comment interior>
     |    |--- ~
     |    |--- <MSVS pragma directive comment interior type>
@@ -4977,7 +4365,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive comment> ~ 'comment' <G0 lparen> <MSVS pragma directive comment interior> <G0 rparen>
     |    |--- <MSVS pragma directive comment>
     |    |--- ~
     |    |--- 'comment'
@@ -4985,21 +4372,18 @@ Statements
     |    |--- <MSVS pragma directive comment interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive component interior name> ~ <G0 identifier> | <G0 string>
     |    |--- <MSVS pragma directive component interior name>
     |    |--- ~
     |    |--- <G0 identifier>
     |    |--- |
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive component interior browser on off> ~ 'on' | 'off'
     |    |--- <MSVS pragma directive component interior browser on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive component interior browser> ~ 'browser' <G0 comma> <MSVS pragma directive component interior browser on off> | 'browser' <G0 comma> <MSVS pragma directive component interior browser on off> <G0 comma> 'references' | 'browser' <G0 comma> <MSVS pragma directive component interior browser on off> <G0 comma> 'references' <G0 comma> <MSVS pragma directive component interior name>
     |    |--- <MSVS pragma directive component interior browser>
     |    |--- ~
     |    |--- 'browser'
@@ -5020,21 +4404,18 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive component interior name>
     |--- statement
-    |    |--- <MSVS pragma directive component interior minrebuild> ~ 'minrebuild' <G0 comma> <MSVS pragma directive component interior browser on off>
     |    |--- <MSVS pragma directive component interior minrebuild>
     |    |--- ~
     |    |--- 'minrebuild'
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive component interior browser on off>
     |--- statement
-    |    |--- <MSVS pragma directive component interior mintypeinfo> ~ 'mintypeinfo' <G0 comma> <MSVS pragma directive component interior browser on off>
     |    |--- <MSVS pragma directive component interior mintypeinfo>
     |    |--- ~
     |    |--- 'mintypeinfo'
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive component interior browser on off>
     |--- statement
-    |    |--- <MSVS pragma directive component interior> ~ <MSVS pragma directive component interior browser> | <MSVS pragma directive component interior minrebuild> | <MSVS pragma directive component interior mintypeinfo>
     |    |--- <MSVS pragma directive component interior>
     |    |--- ~
     |    |--- <MSVS pragma directive component interior browser>
@@ -5043,7 +4424,6 @@ Statements
     |    |--- |
     |    |--- <MSVS pragma directive component interior mintypeinfo>
     |--- statement
-    |    |--- <MSVS pragma directive component> ~ 'component' <G0 lparen> <MSVS pragma directive component interior> <G0 rparen>
     |    |--- <MSVS pragma directive component>
     |    |--- ~
     |    |--- 'component'
@@ -5051,31 +4431,26 @@ Statements
     |    |--- <MSVS pragma directive component interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive conform interior name> ~ 'forScope'
     |    |--- <MSVS pragma directive conform interior name>
     |    |--- ~
     |    |--- 'forScope'
     |--- statement
-    |    |--- <MSVS pragma directive conform interior show> ~ 'show'
     |    |--- <MSVS pragma directive conform interior show>
     |    |--- ~
     |    |--- 'show'
     |--- statement
-    |    |--- <MSVS pragma directive conform interior on off> ~ 'on' | 'off'
     |    |--- <MSVS pragma directive conform interior on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive conform interior push pop> ~ 'push' | 'pop'
     |    |--- <MSVS pragma directive conform interior push pop>
     |    |--- ~
     |    |--- 'push'
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS pragma directive conform interior> ~ <MSVS pragma directive conform interior name> | <MSVS pragma directive conform interior name> <G0 comma> <MSVS pragma directive conform interior optional>
     |    |--- <MSVS pragma directive conform interior>
     |    |--- ~
     |    |--- <MSVS pragma directive conform interior name>
@@ -5084,7 +4459,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive conform interior optional>
     |--- statement
-    |    |--- <MSVS pragma directive conform interior optional unit> ~ <MSVS pragma directive conform interior show> | <MSVS pragma directive conform interior on off> | <MSVS pragma directive conform interior push pop> | <G0 identifier>
     |    |--- <MSVS pragma directive conform interior optional unit>
     |    |--- ~
     |    |--- <MSVS pragma directive conform interior show>
@@ -5095,7 +4469,6 @@ Statements
     |    |--- |
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive conform interior optional> ~ <MSVS pragma directive conform interior optional unit> | <MSVS pragma directive conform interior optional> <G0 comma> <MSVS pragma directive conform interior optional unit>
     |    |--- <MSVS pragma directive conform interior optional>
     |    |--- ~
     |    |--- <MSVS pragma directive conform interior optional unit>
@@ -5104,7 +4477,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive conform interior optional unit>
     |--- statement
-    |    |--- <MSVS pragma directive conform> ~ 'conform' <G0 lparen> <MSVS pragma directive conform interior> <G0 rparen>
     |    |--- <MSVS pragma directive conform>
     |    |--- ~
     |    |--- 'conform'
@@ -5112,7 +4484,6 @@ Statements
     |    |--- <MSVS pragma directive conform interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive deprecated interior> ~ <G0 identifier> | <MSVS pragma directive deprecated interior> <G0 comma> <G0 identifier>
     |    |--- <MSVS pragma directive deprecated interior>
     |    |--- ~
     |    |--- <G0 identifier>
@@ -5121,7 +4492,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive deprecated> ~ 'deprecated' <G0 lparen> <MSVS pragma directive deprecated interior> <G0 rparen>
     |    |--- <MSVS pragma directive deprecated>
     |    |--- ~
     |    |--- 'deprecated'
@@ -5129,14 +4499,12 @@ Statements
     |    |--- <MSVS pragma directive deprecated interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive detect_mismatch interior> ~ <G0 string> <G0 comma> <G0 string>
     |    |--- <MSVS pragma directive detect_mismatch interior>
     |    |--- ~
     |    |--- <G0 string>
     |    |--- <G0 comma>
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive detect_mismatch> ~ 'detect_mismatch' <G0 lparen> <MSVS pragma directive detect_mismatch interior> <G0 rparen>
     |    |--- <MSVS pragma directive detect_mismatch>
     |    |--- ~
     |    |--- 'detect_mismatch'
@@ -5144,7 +4512,6 @@ Statements
     |    |--- <MSVS pragma directive detect_mismatch interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive fenv_access interior> ~ 'on' | 'ON' | 'off' | 'OFF'
     |    |--- <MSVS pragma directive fenv_access interior>
     |    |--- ~
     |    |--- 'on'
@@ -5155,7 +4522,6 @@ Statements
     |    |--- |
     |    |--- 'OFF'
     |--- statement
-    |    |--- <MSVS pragma directive fenv_access> ~ 'fenv_access' | 'fenv_access' <G0 lparen> <G0 rparen> | 'fenv_access' <G0 lparen> <MSVS pragma directive fenv_access interior> <G0 rparen>
     |    |--- <MSVS pragma directive fenv_access>
     |    |--- ~
     |    |--- 'fenv_access'
@@ -5169,21 +4535,18 @@ Statements
     |    |--- <MSVS pragma directive fenv_access interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive float_control interior value> ~ 'precise' | 'except'
     |    |--- <MSVS pragma directive float_control interior value>
     |    |--- ~
     |    |--- 'precise'
     |    |--- |
     |    |--- 'except'
     |--- statement
-    |    |--- <MSVS pragma directive float_control interior setting> ~ 'on' | 'off'
     |    |--- <MSVS pragma directive float_control interior setting>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive float_control interior> ~ <MSVS pragma directive float_control interior value> <G0 comma> <MSVS pragma directive float_control interior setting> | <MSVS pragma directive float_control interior value> <G0 comma> <MSVS pragma directive float_control interior setting> WS_any 'push' | 'push' | 'pop'
     |    |--- <MSVS pragma directive float_control interior>
     |    |--- ~
     |    |--- <MSVS pragma directive float_control interior value>
@@ -5200,7 +4563,6 @@ Statements
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS pragma directive float_control> ~ 'float_control' <G0 lparen> <MSVS pragma directive float_control interior> <G0 rparen>
     |    |--- <MSVS pragma directive float_control>
     |    |--- ~
     |    |--- 'float_control'
@@ -5208,7 +4570,6 @@ Statements
     |    |--- <MSVS pragma directive float_control interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive fp_contract interior> ~ 'on' | 'ON' | 'off' | 'OFF'
     |    |--- <MSVS pragma directive fp_contract interior>
     |    |--- ~
     |    |--- 'on'
@@ -5219,7 +4580,6 @@ Statements
     |    |--- |
     |    |--- 'OFF'
     |--- statement
-    |    |--- <MSVS pragma directive fp_contract> ~ 'fp_contract' | 'fp_contract' <G0 lparen> <G0 rparen> | 'fp_contract' <G0 lparen> <MSVS pragma directive fp_contract interior> <G0 rparen>
     |    |--- <MSVS pragma directive fp_contract>
     |    |--- ~
     |    |--- 'fp_contract'
@@ -5233,7 +4593,6 @@ Statements
     |    |--- <MSVS pragma directive fp_contract interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive function interior> ~ <G0 identifier> | <MSVS pragma directive function interior> <G0 comma> <G0 identifier>
     |    |--- <MSVS pragma directive function interior>
     |    |--- ~
     |    |--- <G0 identifier>
@@ -5242,7 +4601,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive function> ~ 'function' <G0 lparen> <MSVS pragma directive function interior> <G0 rparen>
     |    |--- <MSVS pragma directive function>
     |    |--- ~
     |    |--- 'function'
@@ -5250,12 +4608,10 @@ Statements
     |    |--- <MSVS pragma directive function interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive hdrstop interior> ~ <G0 string>
     |    |--- <MSVS pragma directive hdrstop interior>
     |    |--- ~
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive hdrstop> ~ 'hdrstop' | 'hdrstop' <G0 lparen> <MSVS pragma directive hdrstop interior> <G0 rparen>
     |    |--- <MSVS pragma directive hdrstop>
     |    |--- ~
     |    |--- 'hdrstop'
@@ -5265,7 +4621,6 @@ Statements
     |    |--- <MSVS pragma directive hdrstop interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive include_alias interior> ~ <G0 string> <G0 comma> <G0 string> | <G0 string 2> <G0 comma> <G0 string 2>
     |    |--- <MSVS pragma directive include_alias interior>
     |    |--- ~
     |    |--- <G0 string>
@@ -5276,7 +4631,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 string 2>
     |--- statement
-    |    |--- <MSVS pragma directive include_alias> ~ 'include_alias' <G0 lparen> <MSVS pragma directive include_alias interior> <G0 rparen>
     |    |--- <MSVS pragma directive include_alias>
     |    |--- ~
     |    |--- 'include_alias'
@@ -5284,12 +4638,10 @@ Statements
     |    |--- <MSVS pragma directive include_alias interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive inline_depth interior> ~ <G0 number>
     |    |--- <MSVS pragma directive inline_depth interior>
     |    |--- ~
     |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS pragma directive inline_depth> ~ 'inline_depth' <G0 lparen> <G0 rparen> | 'inline_depth' <G0 lparen> <MSVS pragma directive inline_depth interior> <G0 rparen>
     |    |--- <MSVS pragma directive inline_depth>
     |    |--- ~
     |    |--- 'inline_depth'
@@ -5301,14 +4653,12 @@ Statements
     |    |--- <MSVS pragma directive inline_depth interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive inline_recursion interior> ~ 'on' | 'off'
     |    |--- <MSVS pragma directive inline_recursion interior>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive inline_recursion> ~ 'inline_recursion' <G0 lparen> <G0 rparen> | 'inline_recursion' <G0 lparen> <MSVS pragma directive inline_recursion interior> <G0 rparen>
     |    |--- <MSVS pragma directive inline_recursion>
     |    |--- ~
     |    |--- 'inline_recursion'
@@ -5320,7 +4670,6 @@ Statements
     |    |--- <MSVS pragma directive inline_recursion interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive intrinsic interior> ~ <G0 identifier> | <MSVS pragma directive intrinsic interior> <G0 comma> <G0 identifier>
     |    |--- <MSVS pragma directive intrinsic interior>
     |    |--- ~
     |    |--- <G0 identifier>
@@ -5329,7 +4678,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive intrinsic> ~ 'intrinsic' <G0 lparen> <MSVS pragma directive intrinsic interior> <G0 rparen>
     |    |--- <MSVS pragma directive intrinsic>
     |    |--- ~
     |    |--- 'intrinsic'
@@ -5337,7 +4685,6 @@ Statements
     |    |--- <MSVS pragma directive intrinsic interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive loop interior> ~ 'hint_parallel' <G0 lparen> <G0 number> <G0 rparen> | 'no_vector' | 'ivdep'
     |    |--- <MSVS pragma directive loop interior>
     |    |--- ~
     |    |--- 'hint_parallel'
@@ -5349,7 +4696,6 @@ Statements
     |    |--- |
     |    |--- 'ivdep'
     |--- statement
-    |    |--- <MSVS pragma directive loop> ~ 'loop' <G0 lparen> <MSVS pragma directive loop interior> <G0 rparen>
     |    |--- <MSVS pragma directive loop>
     |    |--- ~
     |    |--- 'loop'
@@ -5357,12 +4703,10 @@ Statements
     |    |--- <MSVS pragma directive loop interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive make_public interior> ~ <G0 identifier>
     |    |--- <MSVS pragma directive make_public interior>
     |    |--- ~
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive make_public> ~ 'make_public' <G0 lparen> <MSVS pragma directive make_public interior> <G0 rparen>
     |    |--- <MSVS pragma directive make_public>
     |    |--- ~
     |    |--- 'make_public'
@@ -5370,14 +4714,12 @@ Statements
     |    |--- <MSVS pragma directive make_public interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive managed interior on off> ~ 'on' | 'off'
     |    |--- <MSVS pragma directive managed interior on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive managed interior> ~ 'push' <G0 comma> <MSVS pragma directive managed interior on off> | <MSVS pragma directive managed interior on off> | 'pop'
     |    |--- <MSVS pragma directive managed interior>
     |    |--- ~
     |    |--- 'push'
@@ -5388,7 +4730,6 @@ Statements
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS pragma directive managed> ~ 'managed' | 'managed' <G0 lparen> <G0 rparen> | 'managed' <G0 lparen> <MSVS pragma directive managed interior> <G0 rparen>
     |    |--- <MSVS pragma directive managed>
     |    |--- ~
     |    |--- 'managed'
@@ -5402,7 +4743,6 @@ Statements
     |    |--- <MSVS pragma directive managed interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive unmanaged> ~ 'unmanaged' | 'unmanaged' <G0 lparen> <G0 rparen>
     |    |--- <MSVS pragma directive unmanaged>
     |    |--- ~
     |    |--- 'unmanaged'
@@ -5411,12 +4751,10 @@ Statements
     |    |--- <G0 lparen>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive message interior> ~ <G0 string>
     |    |--- <MSVS pragma directive message interior>
     |    |--- ~
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive message> ~ 'message' <G0 lparen> <MSVS pragma directive message interior> <G0 rparen>
     |    |--- <MSVS pragma directive message>
     |    |--- ~
     |    |--- 'message'
@@ -5424,7 +4762,6 @@ Statements
     |    |--- <MSVS pragma directive message interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive once> ~ 'once' | 'once' <G0 lparen> <G0 rparen>
     |    |--- <MSVS pragma directive once>
     |    |--- ~
     |    |--- 'once'
@@ -5433,26 +4770,22 @@ Statements
     |    |--- <G0 lparen>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive optimize interior optimizationList> ~ <G0 string>
     |    |--- <MSVS pragma directive optimize interior optimizationList>
     |    |--- ~
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive optimize interior on off> ~ 'on' | 'off'
     |    |--- <MSVS pragma directive optimize interior on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive optimize interior> ~ <MSVS pragma directive optimize interior optimizationList> <G0 comma> <MSVS pragma directive optimize interior on off>
     |    |--- <MSVS pragma directive optimize interior>
     |    |--- ~
     |    |--- <MSVS pragma directive optimize interior optimizationList>
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive optimize interior on off>
     |--- statement
-    |    |--- <MSVS pragma directive optimize> ~ 'optimize' <G0 lparen> <MSVS pragma directive optimize interior> <G0 rparen>
     |    |--- <MSVS pragma directive optimize>
     |    |--- ~
     |    |--- 'optimize'
@@ -5460,24 +4793,20 @@ Statements
     |    |--- <MSVS pragma directive optimize interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive pack interior show> ~ 'show'
     |    |--- <MSVS pragma directive pack interior show>
     |    |--- ~
     |    |--- 'show'
     |--- statement
-    |    |--- <MSVS pragma directive pack interior 1> ~ <MSVS pragma directive pack interior show>
     |    |--- <MSVS pragma directive pack interior 1>
     |    |--- ~
     |    |--- <MSVS pragma directive pack interior show>
     |--- statement
-    |    |--- <MSVS pragma directive pack interior push pop> ~ 'push' | 'pop'
     |    |--- <MSVS pragma directive pack interior push pop>
     |    |--- ~
     |    |--- 'push'
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS pragma directive pack interior 21> ~ <MSVS pragma directive pack interior push pop> | <G0 identifier> | <MSVS pragma directive pack interior push pop> <G0 comma> <G0 identifier>
     |    |--- <MSVS pragma directive pack interior 21>
     |    |--- ~
     |    |--- <MSVS pragma directive pack interior push pop>
@@ -5488,7 +4817,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive pack interior 2> ~ <G0 number> | <MSVS pragma directive pack interior 21> <G0 comma> <G0 number>
     |    |--- <MSVS pragma directive pack interior 2>
     |    |--- ~
     |    |--- <G0 number>
@@ -5497,14 +4825,12 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS pragma directive pack interior> ~ <MSVS pragma directive pack interior 1> | <MSVS pragma directive pack interior 2>
     |    |--- <MSVS pragma directive pack interior>
     |    |--- ~
     |    |--- <MSVS pragma directive pack interior 1>
     |    |--- |
     |    |--- <MSVS pragma directive pack interior 2>
     |--- statement
-    |    |--- <MSVS pragma directive pack> ~ 'pack' <G0 lparen> <G0 rparen> | 'pack' <G0 lparen> <MSVS pragma directive pack interior> <G0 rparen>
     |    |--- <MSVS pragma directive pack>
     |    |--- ~
     |    |--- 'pack'
@@ -5516,14 +4842,12 @@ Statements
     |    |--- <MSVS pragma directive pack interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive pointers_to_members interior pointer declaration> ~ 'full_generality' | 'best_case'
     |    |--- <MSVS pragma directive pointers_to_members interior pointer declaration>
     |    |--- ~
     |    |--- 'full_generality'
     |    |--- |
     |    |--- 'best_case'
     |--- statement
-    |    |--- <MSVS pragma directive pointers_to_members interior most general representation> ~ 'single_inheritance' | 'multiple_inheritance' | 'virtual_inheritance'
     |    |--- <MSVS pragma directive pointers_to_members interior most general representation>
     |    |--- ~
     |    |--- 'single_inheritance'
@@ -5532,7 +4856,6 @@ Statements
     |    |--- |
     |    |--- 'virtual_inheritance'
     |--- statement
-    |    |--- <MSVS pragma directive pointers_to_members interior> ~ <MSVS pragma directive pointers_to_members interior pointer declaration> | <MSVS pragma directive pointers_to_members interior pointer declaration> <G0 comma> <MSVS pragma directive pointers_to_members interior most general representation>
     |    |--- <MSVS pragma directive pointers_to_members interior>
     |    |--- ~
     |    |--- <MSVS pragma directive pointers_to_members interior pointer declaration>
@@ -5541,7 +4864,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive pointers_to_members interior most general representation>
     |--- statement
-    |    |--- <MSVS pragma directive pointers_to_members> ~ 'pointers_to_members' <G0 lparen> <MSVS pragma directive pointers_to_members interior> <G0 rparen>
     |    |--- <MSVS pragma directive pointers_to_members>
     |    |--- ~
     |    |--- 'pointers_to_members'
@@ -5549,7 +4871,6 @@ Statements
     |    |--- <MSVS pragma directive pointers_to_members interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive pop_macro> ~ 'pop_macro' <G0 lparen> <G0 string> <G0 rparen>
     |    |--- <MSVS pragma directive pop_macro>
     |    |--- ~
     |    |--- 'pop_macro'
@@ -5557,7 +4878,6 @@ Statements
     |    |--- <G0 string>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive push_macro> ~ 'push_macro' <G0 lparen> <G0 string> <G0 rparen>
     |    |--- <MSVS pragma directive push_macro>
     |    |--- ~
     |    |--- 'push_macro'
@@ -5565,12 +4885,10 @@ Statements
     |    |--- <G0 string>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive region interior> ~ <G0 identifier>
     |    |--- <MSVS pragma directive region interior>
     |    |--- ~
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive region> ~ 'region' | 'region' <G0 lparen> <G0 rparen> | 'region' <G0 lparen> <MSVS pragma directive region interior> <G0 rparen>
     |    |--- <MSVS pragma directive region>
     |    |--- ~
     |    |--- 'region'
@@ -5584,12 +4902,10 @@ Statements
     |    |--- <MSVS pragma directive region interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive endregion interior> ~ <G0 identifier>
     |    |--- <MSVS pragma directive endregion interior>
     |    |--- ~
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS pragma directive endregion> ~ 'endregion' | 'endregion' <G0 lparen> <G0 rparen> | 'endregion' <G0 lparen> <MSVS pragma directive endregion interior> <G0 rparen>
     |    |--- <MSVS pragma directive endregion>
     |    |--- ~
     |    |--- 'endregion'
@@ -5603,26 +4919,22 @@ Statements
     |    |--- <MSVS pragma directive endregion interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive runtime_checks interior optimizationList> ~ <G0 string>
     |    |--- <MSVS pragma directive runtime_checks interior optimizationList>
     |    |--- ~
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive runtime_checks interior on off> ~ 'restore' | 'off'
     |    |--- <MSVS pragma directive runtime_checks interior on off>
     |    |--- ~
     |    |--- 'restore'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive runtime_checks interior> ~ <MSVS pragma directive runtime_checks interior optimizationList> <G0 comma> <MSVS pragma directive runtime_checks interior on off>
     |    |--- <MSVS pragma directive runtime_checks interior>
     |    |--- ~
     |    |--- <MSVS pragma directive runtime_checks interior optimizationList>
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive runtime_checks interior on off>
     |--- statement
-    |    |--- <MSVS pragma directive runtime_checks> ~ 'runtime_checks' <G0 lparen> <MSVS pragma directive runtime_checks interior> <G0 rparen>
     |    |--- <MSVS pragma directive runtime_checks>
     |    |--- ~
     |    |--- 'runtime_checks'
@@ -5630,7 +4942,6 @@ Statements
     |    |--- <MSVS pragma directive runtime_checks interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive section interior attribute> ~ 'read' | 'write' | 'execute' | 'shared' | 'nopage' | 'nocache' | 'discard' | 'remove'
     |    |--- <MSVS pragma directive section interior attribute>
     |    |--- ~
     |    |--- 'read'
@@ -5649,7 +4960,6 @@ Statements
     |    |--- |
     |    |--- 'remove'
     |--- statement
-    |    |--- <MSVS pragma directive section interior attribute list> ~ <MSVS pragma directive section interior attribute> | <MSVS pragma directive section interior attribute list> <G0 comma> <MSVS pragma directive section interior attribute>
     |    |--- <MSVS pragma directive section interior attribute list>
     |    |--- ~
     |    |--- <MSVS pragma directive section interior attribute>
@@ -5658,7 +4968,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive section interior attribute>
     |--- statement
-    |    |--- <MSVS pragma directive section interior> ~ <G0 string> | <G0 string> <G0 comma> <MSVS pragma directive section interior attribute list>
     |    |--- <MSVS pragma directive section interior>
     |    |--- ~
     |    |--- <G0 string>
@@ -5667,7 +4976,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS pragma directive section interior attribute list>
     |--- statement
-    |    |--- <MSVS pragma directive section> ~ 'section' <G0 lparen> <MSVS pragma directive section interior> <G0 rparen>
     |    |--- <MSVS pragma directive section>
     |    |--- ~
     |    |--- 'section'
@@ -5675,12 +4983,10 @@ Statements
     |    |--- <MSVS pragma directive section interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive setlocale interior> ~ <G0 string>
     |    |--- <MSVS pragma directive setlocale interior>
     |    |--- ~
     |    |--- <G0 string>
     |--- statement
-    |    |--- <MSVS pragma directive setlocale> ~ 'setlocale' <G0 lparen> <MSVS pragma directive setlocale interior> <G0 rparen>
     |    |--- <MSVS pragma directive setlocale>
     |    |--- ~
     |    |--- 'setlocale'
@@ -5688,14 +4994,12 @@ Statements
     |    |--- <MSVS pragma directive setlocale interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive strict_gs_check interior on off> ~ 'on' | 'off'
     |    |--- <MSVS pragma directive strict_gs_check interior on off>
     |    |--- ~
     |    |--- 'on'
     |    |--- |
     |    |--- 'off'
     |--- statement
-    |    |--- <MSVS pragma directive strict_gs_check interior> ~ <MSVS pragma directive strict_gs_check interior on off> | 'push' <G0 comma> <MSVS pragma directive strict_gs_check interior on off> | 'pop'
     |    |--- <MSVS pragma directive strict_gs_check interior>
     |    |--- ~
     |    |--- <MSVS pragma directive strict_gs_check interior on off>
@@ -5706,7 +5010,6 @@ Statements
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS pragma directive strict_gs_check> ~ 'strict_gs_check' <G0 lparen> <MSVS pragma directive strict_gs_check interior> <G0 rparen>
     |    |--- <MSVS pragma directive strict_gs_check>
     |    |--- ~
     |    |--- 'strict_gs_check'
@@ -5714,7 +5017,6 @@ Statements
     |    |--- <MSVS pragma directive strict_gs_check interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS pragma directive vtordisp interior on off number> ~ 'on' | 'off' | <G0 number>
     |    |--- <MSVS pragma directive vtordisp interior on off number>
     |    |--- ~
     |    |--- 'on'
@@ -5723,7 +5025,6 @@ Statements
     |    |--- |
     |    |--- <G0 number>
     |--- statement
-    |    |--- <MSVS pragma directive vtordisp interior> ~ <MSVS pragma directive vtordisp interior on off number> | 'push' <G0 comma> <MSVS pragma directive vtordisp interior on off number> | 'pop'
     |    |--- <MSVS pragma directive vtordisp interior>
     |    |--- ~
     |    |--- <MSVS pragma directive vtordisp interior on off number>
@@ -5734,7 +5035,6 @@ Statements
     |    |--- |
     |    |--- 'pop'
     |--- statement
-    |    |--- <MSVS pragma directive vtordisp> ~ 'vtordisp' | 'vtordisp' <G0 lparen> <G0 rparen> | 'vtordisp' <G0 lparen> <MSVS pragma directive vtordisp interior> <G0 rparen>
     |    |--- <MSVS pragma directive vtordisp>
     |    |--- ~
     |    |--- 'vtordisp'
@@ -5748,12 +5048,10 @@ Statements
     |    |--- <MSVS pragma directive vtordisp interior>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- :discard ~ <MSVS pragma>
     |    |--- :discard
     |    |--- ~
     |    |--- <MSVS pragma>
     |--- statement
-    |    |--- <MSVS declspec> ~ '__declspec' <G0 lparen> <MSVS declspec directive> <G0 rparen>
     |    |--- <MSVS declspec>
     |    |--- ~
     |    |--- '__declspec'
@@ -5761,7 +5059,6 @@ Statements
     |    |--- <MSVS declspec directive>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS declspec directive> ~ <MSVS declspec align> | <MSVS declspec allocate> | <MSVS declspec appdomain> | <MSVS declspec deprecated> | <MSVS declspec dllexport> | <MSVS declspec dllimport> | <MSVS declspec jitintrinsic> | <MSVS declspec naked> | <MSVS declspec noalias> | <MSVS declspec noinline> | <MSVS declspec noreturn> | <MSVS declspec nothrow> | <MSVS declspec novtable> | <MSVS declspec process> | <MSVS declspec property> | <MSVS declspec restrict> | <MSVS declspec safebuffers> | <MSVS declspec selectany> | <MSVS declspec thread> | <MSVS declspec uuid>
     |    |--- <MSVS declspec directive>
     |    |--- ~
     |    |--- <MSVS declspec align>
@@ -5804,7 +5101,6 @@ Statements
     |    |--- |
     |    |--- <MSVS declspec uuid>
     |--- statement
-    |    |--- <MSVS declspec align> ~ 'align' <G0 lparen> <G0 number> <G0 rparen>
     |    |--- <MSVS declspec align>
     |    |--- ~
     |    |--- 'align'
@@ -5812,7 +5108,6 @@ Statements
     |    |--- <G0 number>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS declspec allocate> ~ 'allocate' <G0 lparen> <G0 string> <G0 rparen>
     |    |--- <MSVS declspec allocate>
     |    |--- ~
     |    |--- 'allocate'
@@ -5820,12 +5115,10 @@ Statements
     |    |--- <G0 string>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS declspec appdomain> ~ 'appdomain'
     |    |--- <MSVS declspec appdomain>
     |    |--- ~
     |    |--- 'appdomain'
     |--- statement
-    |    |--- <MSVS declspec deprecated> ~ 'deprecated' | 'deprecated' <G0 lparen> <G0 rparen> | 'deprecated' <G0 lparen> <G0 string> <G0 rparen>
     |    |--- <MSVS declspec deprecated>
     |    |--- ~
     |    |--- 'deprecated'
@@ -5839,71 +5132,58 @@ Statements
     |    |--- <G0 string>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS declspec dllexport> ~ 'dllexport'
     |    |--- <MSVS declspec dllexport>
     |    |--- ~
     |    |--- 'dllexport'
     |--- statement
-    |    |--- <MSVS declspec dllimport> ~ 'dllimport'
     |    |--- <MSVS declspec dllimport>
     |    |--- ~
     |    |--- 'dllimport'
     |--- statement
-    |    |--- <MSVS declspec jitintrinsic> ~ 'jitintrinsic'
     |    |--- <MSVS declspec jitintrinsic>
     |    |--- ~
     |    |--- 'jitintrinsic'
     |--- statement
-    |    |--- <MSVS declspec naked> ~ 'naked'
     |    |--- <MSVS declspec naked>
     |    |--- ~
     |    |--- 'naked'
     |--- statement
-    |    |--- <MSVS declspec noalias> ~ 'noalias'
     |    |--- <MSVS declspec noalias>
     |    |--- ~
     |    |--- 'noalias'
     |--- statement
-    |    |--- <MSVS declspec noinline> ~ 'noinline'
     |    |--- <MSVS declspec noinline>
     |    |--- ~
     |    |--- 'noinline'
     |--- statement
-    |    |--- <MSVS declspec noreturn> ~ 'noreturn'
     |    |--- <MSVS declspec noreturn>
     |    |--- ~
     |    |--- 'noreturn'
     |--- statement
-    |    |--- <MSVS declspec nothrow> ~ 'nothrow'
     |    |--- <MSVS declspec nothrow>
     |    |--- ~
     |    |--- 'nothrow'
     |--- statement
-    |    |--- <MSVS declspec novtable> ~ 'novtable'
     |    |--- <MSVS declspec novtable>
     |    |--- ~
     |    |--- 'novtable'
     |--- statement
-    |    |--- <MSVS declspec process> ~ 'process'
     |    |--- <MSVS declspec process>
     |    |--- ~
     |    |--- 'process'
     |--- statement
-    |    |--- <MSVS declspec property interior get put> ~ 'get' | 'put'
     |    |--- <MSVS declspec property interior get put>
     |    |--- ~
     |    |--- 'get'
     |    |--- |
     |    |--- 'put'
     |--- statement
-    |    |--- <MSVS declspec property interior> ~ <MSVS declspec property interior get put> <G0 equal> <G0 identifier>
     |    |--- <MSVS declspec property interior>
     |    |--- ~
     |    |--- <MSVS declspec property interior get put>
     |    |--- <G0 equal>
     |    |--- <G0 identifier>
     |--- statement
-    |    |--- <MSVS declspec property interior list> ~ <MSVS declspec property interior> | <MSVS declspec property interior list> <G0 comma> <MSVS declspec property interior>
     |    |--- <MSVS declspec property interior list>
     |    |--- ~
     |    |--- <MSVS declspec property interior>
@@ -5912,7 +5192,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <MSVS declspec property interior>
     |--- statement
-    |    |--- <MSVS declspec property> ~ 'property' <G0 lparen> <MSVS declspec property interior list> <G0 rparen>
     |    |--- <MSVS declspec property>
     |    |--- ~
     |    |--- 'property'
@@ -5920,27 +5199,22 @@ Statements
     |    |--- <MSVS declspec property interior list>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <MSVS declspec restrict> ~ 'restrict'
     |    |--- <MSVS declspec restrict>
     |    |--- ~
     |    |--- 'restrict'
     |--- statement
-    |    |--- <MSVS declspec safebuffers> ~ 'safebuffers'
     |    |--- <MSVS declspec safebuffers>
     |    |--- ~
     |    |--- 'safebuffers'
     |--- statement
-    |    |--- <MSVS declspec selectany> ~ 'selectany'
     |    |--- <MSVS declspec selectany>
     |    |--- ~
     |    |--- 'selectany'
     |--- statement
-    |    |--- <MSVS declspec thread> ~ 'thread'
     |    |--- <MSVS declspec thread>
     |    |--- ~
     |    |--- 'thread'
     |--- statement
-    |    |--- <MSVS declspec uuid> ~ 'uuid' <G0 lparen> <G0 string> <G0 rparen>
     |    |--- <MSVS declspec uuid>
     |    |--- ~
     |    |--- 'uuid'
@@ -5948,19 +5222,16 @@ Statements
     |    |--- <G0 string>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- :discard ~ <MSVS declspec>
     |    |--- :discard
     |    |--- ~
     |    |--- <MSVS declspec>
     |--- statement
-    |    |--- <GCC attribute keyword> ~ '__attribute__' | '__attribute'
     |    |--- <GCC attribute keyword>
     |    |--- ~
     |    |--- '__attribute__'
     |    |--- |
     |    |--- '__attribute'
     |--- statement
-    |    |--- <GCC attribute> ~ <GCC attribute keyword> <G0 lparen> <G0 lparen> <G0 rparen> <G0 rparen> | <GCC attribute keyword> <G0 lparen> <G0 lparen> <GCC attribute list> <G0 rparen> <G0 rparen>
     |    |--- <GCC attribute>
     |    |--- ~
     |    |--- <GCC attribute keyword>
@@ -5976,7 +5247,6 @@ Statements
     |    |--- <G0 rparen>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <GCC attribute list> ~ <GCC attribute unit> | <GCC attribute list> <G0 comma> <GCC attribute unit>
     |    |--- <GCC attribute list>
     |    |--- ~
     |    |--- <GCC attribute unit>
@@ -5985,7 +5255,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <GCC attribute unit>
     |--- statement
-    |    |--- <GCC attribute unit> ~ <G0 word> | <G0 word> <G0 lparen> <G0 rparen> | <G0 word> <G0 lparen> <GCC attribute parameters> <G0 rparen>
     |    |--- <GCC attribute unit>
     |    |--- ~
     |    |--- <G0 word>
@@ -5999,7 +5268,6 @@ Statements
     |    |--- <GCC attribute parameters>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <GCC attribute parameters> ~ <G0 identifier> | <G0 identifier> <G0 comma> <GCC attribute parameters expressions> | <GCC attribute parameters expressions>
     |    |--- <GCC attribute parameters>
     |    |--- ~
     |    |--- <G0 identifier>
@@ -6010,7 +5278,6 @@ Statements
     |    |--- |
     |    |--- <GCC attribute parameters expressions>
     |--- statement
-    |    |--- <GCC attribute parameters expressions> ~ <GCC attribute parameters expression> | <GCC attribute parameters expressions> <G0 comma> <GCC attribute parameters expression>
     |    |--- <GCC attribute parameters expressions>
     |    |--- ~
     |    |--- <GCC attribute parameters expression>
@@ -6019,12 +5286,10 @@ Statements
     |    |--- <G0 comma>
     |    |--- <GCC attribute parameters expression>
     |--- statement
-    |    |--- <GCC attribute parameters expression> ~ <G0 expression>
     |    |--- <GCC attribute parameters expression>
     |    |--- ~
     |    |--- <G0 expression>
     |--- statement
-    |    |--- <G0 expression> ~ <G0 assignmentExpression> | <G0 expression> <G0 comma> <G0 assignmentExpression>
     |    |--- <G0 expression>
     |    |--- ~
     |    |--- <G0 assignmentExpression>
@@ -6033,7 +5298,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 assignmentExpression>
     |--- statement
-    |    |--- <G0 assignmentExpression> ~ <G0 conditionalExpression> | <G0 unaryExpression> <G0 assignmentOperator> <G0 assignmentExpression>
     |    |--- <G0 assignmentExpression>
     |    |--- ~
     |    |--- <G0 conditionalExpression>
@@ -6042,7 +5306,6 @@ Statements
     |    |--- <G0 assignmentOperator>
     |    |--- <G0 assignmentExpression>
     |--- statement
-    |    |--- <G0 assignmentOperator> ~ <G0 equal> | <G0 mul assign> | <G0 div assign> | <G0 mod assign> | <G0 add assign> | <G0 sub assign> | <G0 left assign> | <G0 right assign> | <G0 and assign> | <G0 xor assign> | <G0 or assign>
     |    |--- <G0 assignmentOperator>
     |    |--- ~
     |    |--- <G0 equal>
@@ -6067,7 +5330,6 @@ Statements
     |    |--- |
     |    |--- <G0 or assign>
     |--- statement
-    |    |--- <G0 conditionalExpression> ~ <G0 logicalOrExpression> | <G0 logicalOrExpression> <G0 question mark> <G0 expression> <G0 colon> <G0 conditionalExpression> | <G0 logicalOrExpression> <G0 question mark> <G0 colon> <G0 conditionalExpression>
     |    |--- <G0 conditionalExpression>
     |    |--- ~
     |    |--- <G0 logicalOrExpression>
@@ -6083,7 +5345,6 @@ Statements
     |    |--- <G0 colon>
     |    |--- <G0 conditionalExpression>
     |--- statement
-    |    |--- <G0 logicalOrExpression> ~ <G0 logicalAndExpression> | <G0 logicalOrExpression> <G0 or op> <G0 logicalAndExpression>
     |    |--- <G0 logicalOrExpression>
     |    |--- ~
     |    |--- <G0 logicalAndExpression>
@@ -6092,7 +5353,6 @@ Statements
     |    |--- <G0 or op>
     |    |--- <G0 logicalAndExpression>
     |--- statement
-    |    |--- <G0 logicalAndExpression> ~ <G0 inclusiveOrExpression> | <G0 logicalAndExpression> <G0 and op> <G0 inclusiveOrExpression>
     |    |--- <G0 logicalAndExpression>
     |    |--- ~
     |    |--- <G0 inclusiveOrExpression>
@@ -6101,7 +5361,6 @@ Statements
     |    |--- <G0 and op>
     |    |--- <G0 inclusiveOrExpression>
     |--- statement
-    |    |--- <G0 inclusiveOrExpression> ~ <G0 exclusiveOrExpression> | <G0 inclusiveOrExpression> <G0 vertical bar> <G0 exclusiveOrExpression>
     |    |--- <G0 inclusiveOrExpression>
     |    |--- ~
     |    |--- <G0 exclusiveOrExpression>
@@ -6110,7 +5369,6 @@ Statements
     |    |--- <G0 vertical bar>
     |    |--- <G0 exclusiveOrExpression>
     |--- statement
-    |    |--- <G0 exclusiveOrExpression> ~ <G0 andExpression> | <G0 exclusiveOrExpression> <G0 caret> <G0 andExpression>
     |    |--- <G0 exclusiveOrExpression>
     |    |--- ~
     |    |--- <G0 andExpression>
@@ -6119,7 +5377,6 @@ Statements
     |    |--- <G0 caret>
     |    |--- <G0 andExpression>
     |--- statement
-    |    |--- <G0 andExpression> ~ <G0 equalityExpression> | <G0 andExpression> <G0 ampersand> <G0 equalityExpression>
     |    |--- <G0 andExpression>
     |    |--- ~
     |    |--- <G0 equalityExpression>
@@ -6128,7 +5385,6 @@ Statements
     |    |--- <G0 ampersand>
     |    |--- <G0 equalityExpression>
     |--- statement
-    |    |--- <G0 equalityExpression> ~ <G0 relationalExpression> | <G0 equalityExpression> <G0 eq op> <G0 relationalExpression> | <G0 equalityExpression> <G0 ne op> <G0 relationalExpression>
     |    |--- <G0 equalityExpression>
     |    |--- ~
     |    |--- <G0 relationalExpression>
@@ -6141,7 +5397,6 @@ Statements
     |    |--- <G0 ne op>
     |    |--- <G0 relationalExpression>
     |--- statement
-    |    |--- <G0 relationalExpression> ~ <G0 shiftExpression> | <G0 relationalExpression> <G0 less than> <G0 shiftExpression> | <G0 relationalExpression> <G0 greater than> <G0 shiftExpression> | <G0 relationalExpression> <G0 le op> <G0 shiftExpression> | <G0 relationalExpression> <G0 ge op> <G0 shiftExpression>
     |    |--- <G0 relationalExpression>
     |    |--- ~
     |    |--- <G0 shiftExpression>
@@ -6162,7 +5417,6 @@ Statements
     |    |--- <G0 ge op>
     |    |--- <G0 shiftExpression>
     |--- statement
-    |    |--- <G0 shiftExpression> ~ <G0 additiveExpression> | <G0 shiftExpression> <G0 left op> <G0 additiveExpression> | <G0 shiftExpression> <G0 right op> <G0 additiveExpression>
     |    |--- <G0 shiftExpression>
     |    |--- ~
     |    |--- <G0 additiveExpression>
@@ -6175,7 +5429,6 @@ Statements
     |    |--- <G0 right op>
     |    |--- <G0 additiveExpression>
     |--- statement
-    |    |--- <G0 additiveExpression> ~ <G0 multiplicativeExpression> | <G0 additiveExpression> <G0 plus> <G0 multiplicativeExpression> | <G0 additiveExpression> <G0 hyphen> <G0 multiplicativeExpression>
     |    |--- <G0 additiveExpression>
     |    |--- ~
     |    |--- <G0 multiplicativeExpression>
@@ -6188,7 +5441,6 @@ Statements
     |    |--- <G0 hyphen>
     |    |--- <G0 multiplicativeExpression>
     |--- statement
-    |    |--- <G0 multiplicativeExpression> ~ <G0 castExpression> | <G0 multiplicativeExpression> <G0 star> <G0 castExpression> | <G0 multiplicativeExpression> <G0 slash> <G0 castExpression> | <G0 multiplicativeExpression> <G0 percent> <G0 castExpression>
     |    |--- <G0 multiplicativeExpression>
     |    |--- ~
     |    |--- <G0 castExpression>
@@ -6205,7 +5457,6 @@ Statements
     |    |--- <G0 percent>
     |    |--- <G0 castExpression>
     |--- statement
-    |    |--- <G0 castExpression> ~ <G0 unaryExpression> | <G0 lparen> <G0 words> <G0 rparen> <G0 castExpression>
     |    |--- <G0 castExpression>
     |    |--- ~
     |    |--- <G0 unaryExpression>
@@ -6215,7 +5466,6 @@ Statements
     |    |--- <G0 rparen>
     |    |--- <G0 castExpression>
     |--- statement
-    |    |--- <G0 unaryOperator> ~ <G0 ampersand> | <G0 star> | <G0 plus> | <G0 hyphen> | <G0 tilde> | <G0 exclamation>
     |    |--- <G0 unaryOperator>
     |    |--- ~
     |    |--- <G0 ampersand>
@@ -6230,7 +5480,6 @@ Statements
     |    |--- |
     |    |--- <G0 exclamation>
     |--- statement
-    |    |--- <G0 unaryExpression> ~ <G0 postfixExpression> | <G0 inc op> <G0 unaryExpression> | <G0 dec op> <G0 unaryExpression> | <G0 unaryOperator> <G0 castExpression> | <G0 sizeof> <G0 unaryExpression> | <G0 sizeof> <G0 lparen> <G0 words> <G0 rparen> | <G0 alignof> <G0 lparen> <G0 words> <G0 rparen>
     |    |--- <G0 unaryExpression>
     |    |--- ~
     |    |--- <G0 postfixExpression>
@@ -6257,7 +5506,6 @@ Statements
     |    |--- <G0 words>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <G0 postfixExpression> ~ <G0 primaryExpression> | <G0 postfixExpression> <G0 lbracket> <G0 expression> <G0 rbracket> | <G0 postfixExpression> <G0 lparen> <G0 rparen> | <G0 postfixExpression> <G0 lparen> <G0 argumentExpressionList> <G0 rparen> | <G0 postfixExpression> <G0 dot> <G0 identifier> | <G0 postfixExpression> <G0 ptr op> <G0 identifier> | <G0 postfixExpression> <G0 inc op> | <G0 postfixExpression> <G0 dec op> | <G0 lparen> <G0 words> <G0 rparen> <G0 lcurly> <G0 initializerList> <G0 rcurly> | <G0 lparen> <G0 words> <G0 rparen> <G0 lcurly> <G0 initializerList> <G0 comma> <G0 rcurly>
     |    |--- <G0 postfixExpression>
     |    |--- ~
     |    |--- <G0 primaryExpression>
@@ -6305,7 +5553,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 rcurly>
     |--- statement
-    |    |--- <G0 primaryExpression> ~ <G0 identifier> | <G0 constant> | <G0 string> | <G0 lparen> <G0 expression> <G0 rparen> | <G0 genericSelection>
     |    |--- <G0 primaryExpression>
     |    |--- ~
     |    |--- <G0 identifier>
@@ -6320,7 +5567,6 @@ Statements
     |    |--- |
     |    |--- <G0 genericSelection>
     |--- statement
-    |    |--- <G0 argumentExpressionList> ~ <G0 assignmentExpression> | <G0 argumentExpressionList> <G0 comma> <G0 assignmentExpression> | <G0 argumentExpressionList> <G0 comma>
     |    |--- <G0 argumentExpressionList>
     |    |--- ~
     |    |--- <G0 assignmentExpression>
@@ -6332,7 +5578,6 @@ Statements
     |    |--- <G0 argumentExpressionList>
     |    |--- <G0 comma>
     |--- statement
-    |    |--- <G0 genericSelection> ~ <G0 generic> <G0 lparen> <G0 assignmentExpression> <G0 comma> <G0 genericAssocList> <G0 rparen>
     |    |--- <G0 genericSelection>
     |    |--- ~
     |    |--- <G0 generic>
@@ -6342,7 +5587,6 @@ Statements
     |    |--- <G0 genericAssocList>
     |    |--- <G0 rparen>
     |--- statement
-    |    |--- <G0 genericAssocList> ~ <G0 genericAssociation> | <G0 genericAssocList> <G0 comma> <G0 genericAssociation>
     |    |--- <G0 genericAssocList>
     |    |--- ~
     |    |--- <G0 genericAssociation>
@@ -6351,7 +5595,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 genericAssociation>
     |--- statement
-    |    |--- <G0 genericAssociation> ~ <G0 words> <G0 colon> <G0 assignmentExpression> | <G0 default> <G0 colon> <G0 assignmentExpression>
     |    |--- <G0 genericAssociation>
     |    |--- ~
     |    |--- <G0 words>
@@ -6362,7 +5605,6 @@ Statements
     |    |--- <G0 colon>
     |    |--- <G0 assignmentExpression>
     |--- statement
-    |    |--- <G0 initializerList> ~ <G0 designation> <G0 initializer> | <G0 initializer> | <G0 identifier> <G0 colon> <G0 initializer> | <G0 initializerList> <G0 comma> <G0 designation> <G0 initializer> | <G0 initializerList> <G0 comma> <G0 initializer>
     |    |--- <G0 initializerList>
     |    |--- ~
     |    |--- <G0 designation>
@@ -6383,7 +5625,6 @@ Statements
     |    |--- <G0 comma>
     |    |--- <G0 initializer>
     |--- statement
-    |    |--- <G0 initializer> ~ <G0 lcurly> <G0 initializerList> <G0 rcurly> | <G0 lcurly> <G0 initializerList> <G0 comma> <G0 rcurly> | <G0 assignmentExpression>
     |    |--- <G0 initializer>
     |    |--- ~
     |    |--- <G0 lcurly>
@@ -6397,19 +5638,16 @@ Statements
     |    |--- |
     |    |--- <G0 assignmentExpression>
     |--- statement
-    |    |--- <G0 designation> ~ <G0 designatorList> <G0 equal>
     |    |--- <G0 designation>
     |    |--- ~
     |    |--- <G0 designatorList>
     |    |--- <G0 equal>
     |--- statement
-    |    |--- <G0 designatorList> ~ <G0 designator> +
     |    |--- <G0 designatorList>
     |    |--- ~
     |    |--- <G0 designator>
     |    |--- +
     |--- statement
-    |    |--- <G0 designator> ~ <G0 lbracket> <G0 constantExpression> <G0 rbracket> | <G0 dot> <G0 identifier> | <G0 lbracket> <G0 constantExpression> <G0 ellipsis> <G0 constantExpression> <G0 rbracket>
     |    |--- <G0 designator>
     |    |--- ~
     |    |--- <G0 lbracket>
@@ -6425,12 +5663,10 @@ Statements
     |    |--- <G0 constantExpression>
     |    |--- <G0 rbracket>
     |--- statement
-    |    |--- <G0 constantExpression> ~ <G0 conditionalExpression>
     |    |--- <G0 constantExpression>
     |    |--- ~
     |    |--- <G0 conditionalExpression>
     |--- statement
-         |--- :discard ~ <GCC attribute>
          |--- :discard
          |--- ~
          |--- <GCC attribute>
