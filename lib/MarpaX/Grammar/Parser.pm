@@ -353,6 +353,7 @@ sub _fabricate_start_rule
 
 	my(@daughters);
 	my($name);
+	my(@token);
 
 	$self -> cooked_tree -> walk_down
 	({
@@ -363,9 +364,12 @@ sub _fabricate_start_rule
 
 			return if ($#daughters < 0);
 
-			$name = $daughters[0] -> name;
+			@token = map{$_ -> name} @daughters;
 
-			if (! $first_rule && (substr($name, 0, 1) ne ':') && ($name =~ /::=/) )
+			# Skip if the rule name start with ':'.
+			# And skip if it's name is reserved or it's a lexeme rule.
+
+			if ( (substr($token[0], 0, 1) ne ':') && ($token[1] eq '::=') )
 			{
 				$first_rule = $node;
 
