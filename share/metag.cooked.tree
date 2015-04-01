@@ -233,6 +233,8 @@ Statements
     |    |--- separator
     |    |--- =>
     |    |--- <op loosen>
+    |    |--- proper
+    |    |--- =>
     |    |--- 1
     |--- statement
     |    |--- alternatives
@@ -242,6 +244,8 @@ Statements
     |    |--- separator
     |    |--- =>
     |    |--- <op equal priority>
+    |    |--- proper
+    |    |--- =>
     |    |--- 1
     |--- statement
     |    |--- alternative
@@ -675,6 +679,8 @@ Statements
     |    |--- separator
     |    |--- =>
     |    |--- <double colon>
+    |    |--- proper
+    |    |--- =>
     |    |--- 1
     |--- statement
     |    |--- <bare name>

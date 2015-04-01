@@ -295,6 +295,11 @@ sub compress_tree
 					$self -> _add_daughter('priority');
 					$self -> _add_daughter('=>');
 				}
+				elsif ($statement eq 'proper_specification')
+				{
+					$self -> _add_daughter('proper');
+					$self -> _add_daughter('=>');
+				}
 				elsif ($statement eq 'rhs')
 				{
 					$self -> _add_daughter('|') if ($alternative_count > 1);
