@@ -1018,26 +1018,68 @@ Note: For a rule like:
 
 The nodes will be:
 
-	    |--- statement
-	    |    |--- array
-	    |    |--- ::=
-	    |    |--- (
-	    |    |--- '['
-	    |    |--- ']'
-	    |    |--- )
-	    |    |--- |
-	    |    |--- (
-	    |    |--- '['
-	    |    |--- )
-	    |    |--- elements
-	    |    |--- (
-	    |    |--- ']'
-	    |    |--- )
-	    |    |--- action
-	    |    |--- =>
-	    |    |--- ::first
+	|--- statement
+	|    |--- array
+	|    |--- ::=
+	|    |--- (
+	|    |--- '['
+	|    |--- ']'
+	|    |--- )
+	|    |--- |
+	|    |--- (
+	|    |--- '['
+	|    |--- )
+	|    |--- elements
+	|    |--- (
+	|    |--- ']'
+	|    |--- )
+	|    |--- action
+	|    |--- =>
+	|    |--- ::first
 
 See share/stringparser.cooked.tree, or any file share/*.cooked.tree.
+
+=head2 Did you know there can be multiple 'statement' nodes with the same rule (1st daughter) name?
+
+E.g.: Parsing share/metag.bnf produces cases like this:
+
+	|--- statement
+	|    |--- <start rule>
+	|    |--- ::=
+	|    |--- (
+	|    |--- ':start'
+	|    |--- <op declare bnf>
+	|    |--- )
+	|    |--- symbol
+	|--- statement
+	|    |--- <start rule>
+	|    |--- ::=
+	|    |--- (
+	|    |--- 'start'
+	|    |--- 'symbol'
+	|    |--- 'is'
+	|    |--- )
+	|    |--- symbol
+
+See share/metag.cooked.tree.
+
+=head2 Did you know rules do not have to have right-hand sides?
+
+E.g.: Parsing share/metag.bnf produces cases like this:
+
+	|--- statement
+	|    |--- <event initializer>
+	|    |--- ::=
+	|--- statement
+	:
+
+See share/metag.cooked.tree.
+
+=head2 What happened to my use of 'forgiving'?
+
+It is an alias for 'latm' (Longest Acceptable Token Match), so this module always outputs 'latm'.
+
+This is deemed to be a feature.
 
 =head2 What are the details of the nodes in the raw tree?
 
