@@ -244,10 +244,20 @@ sub compress_tree
 				elsif ($statement eq 'alternative')
 				{
 					$alternative_count++;
+
+					if ($node -> my_daughter_index > 2)
+					{
+						$self -> _add_daughter('|');
+					}
 				}
 				elsif ($statement eq 'alternatives')
 				{
-					$alternative_count = 0;
+					$alternative_count++;
+
+					if ($alternative_count > 1)
+					{
+						$self -> _add_daughter('||');
+					}
 				}
 				elsif ($statement eq 'blessing')
 				{
@@ -264,10 +274,22 @@ sub compress_tree
 					$self -> _add_daughter('event');
 					$self -> _add_daughter('=>');
 				}
+				elsif ($statement eq 'group_association')
+				{
+					$self -> _add_daughter('assoc');
+					$self -> _add_daughter('=>');
+					$self -> _add_daughter('group');
+				}
 				elsif ($statement eq 'latm_specification')
 				{
 					$self -> _add_daughter('latm');
 					$self -> _add_daughter('=>');
+				}
+				elsif ($statement eq 'left_association')
+				{
+					$self -> _add_daughter('assoc');
+					$self -> _add_daughter('=>');
+					$self -> _add_daughter('left');
 				}
 				elsif ($statement eq 'lexeme_default_statement')
 				{
@@ -278,6 +300,16 @@ sub compress_tree
 				{
 					$self -> _add_daughter(':lexeme');
 					$self -> _add_daughter('~');
+				}
+				elsif ($statement eq 'naming')
+				{
+					$self -> _add_daughter('name');
+					$self -> _add_daughter('=>');
+				}
+				elsif ($statement eq 'null_ranking_constant')
+				{
+					$self -> _add_daughter('null-ranking');
+					$self -> _add_daughter('=>');
 				}
 				elsif ($statement eq 'pause_specification')
 				{
@@ -290,6 +322,10 @@ sub compress_tree
 
 					$self -> _add_daughter('(');
 				}
+				elsif ($statement eq 'priorities')
+				{
+					$alternative_count = 0;
+				}
 				elsif ($statement eq 'priority_specification')
 				{
 					$self -> _add_daughter('priority');
@@ -300,9 +336,16 @@ sub compress_tree
 					$self -> _add_daughter('proper');
 					$self -> _add_daughter('=>');
 				}
-				elsif ($statement eq 'rhs')
+				elsif ($statement eq 'rank_specification')
 				{
-					$self -> _add_daughter('|') if ($alternative_count > 1);
+					$self -> _add_daughter('rank');
+					$self -> _add_daughter('=>');
+				}
+				elsif ($statement eq 'right_association')
+				{
+					$self -> _add_daughter('assoc');
+					$self -> _add_daughter('=>');
+					$self -> _add_daughter('right');
 				}
 				elsif ($statement eq 'separator_specification')
 				{

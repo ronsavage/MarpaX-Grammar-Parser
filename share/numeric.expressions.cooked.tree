@@ -1,0 +1,69 @@
+Statements
+    |--- statement
+    |    |--- :start ::= ::=
+    |    |--- :start
+    |    |--- ::=
+    |    |--- ::=
+    |--- statement
+    |    |--- :default
+    |    |--- ::=
+    |    |--- action
+    |    |--- =>
+    |    |--- [ name, value]
+    |--- statement
+    |    |--- lexeme default
+    |    |--- =
+    |    |--- action
+    |    |--- =>
+    |    |--- [ name, value]
+    |    |--- latm
+    |    |--- =>
+    |    |--- 1
+    |--- statement
+    |    |--- Expr
+    |    |--- ::=
+    |    |--- Number
+    |    |--- ||
+    |    |--- '('
+    |    |--- Expr
+    |    |--- ')'
+    |    |--- assoc
+    |    |--- =>
+    |    |--- group
+    |    |--- ||
+    |    |--- Expr
+    |    |--- '**'
+    |    |--- Expr
+    |    |--- assoc
+    |    |--- =>
+    |    |--- right
+    |    |--- ||
+    |    |--- Expr
+    |    |--- '*'
+    |    |--- Expr
+    |    |--- |
+    |    |--- Expr
+    |    |--- '/'
+    |    |--- Expr
+    |    |--- ||
+    |    |--- Expr
+    |    |--- '+'
+    |    |--- Expr
+    |    |--- |
+    |    |--- Expr
+    |    |--- '-'
+    |    |--- Expr
+    |--- statement
+    |    |--- Number
+    |    |--- ~
+    |    |--- [\d]
+    |    |--- +
+    |--- statement
+    |    |--- :discard
+    |    |--- ~
+    |    |--- whitespace
+    |--- statement
+         |--- whitespace
+         |--- ~
+         |--- [\s]
+         |--- +
