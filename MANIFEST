@@ -37,6 +37,9 @@ share/json.3.raw.tree
 share/metag.bnf
 share/metag.cooked.tree
 share/metag.raw.tree
+share/numeric.expressions.bnf
+share/numeric.expressions.cooked.tree
+share/numeric.expressions.raw.tree
 share/stringparser.bnf
 share/stringparser.cooked.tree
 share/stringparser.raw.tree
