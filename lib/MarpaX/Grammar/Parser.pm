@@ -928,6 +928,12 @@ The command to process this file is:
 
 The outputs are share/metag.cooked.tree and share/metag.raw.tree.
 
+=head o share/numeric.expressions.bnf
+
+This BNF was extracted from L<MarpaX::Demo::SampleScripts>'s examples/ambiguous.grammar.01.pl.
+
+It helped me debug the handling of '|' and '||' between right-hand-side alternatives.
+
 =item o share/stringparser.bnf.
 
 This is a copy of L<MarpaX::Demo::StringParser>'s BNF.
