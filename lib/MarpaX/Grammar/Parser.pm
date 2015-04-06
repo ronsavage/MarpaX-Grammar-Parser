@@ -218,16 +218,13 @@ sub compress_granddaughter
 
 	my(@name) = split(/\s+/, $daughters[2] -> name);
 
-	# Discard the '[$x' and '$n]' from the end of $name.
+	# Discard the '[$x' and '$n]' from the end of @name.
 
 	pop @name for 1 .. 2;
 
-	if ($name[2] ne 'undef')
-	{
-		# Ignore the $n and '=' from the start of $name.
+	# Ignore the $n and '=' from the start of @name.
 
-		$self -> _add_daughter($statement, {op => $op, token => join(' ', @name[2 .. $#name])});
-	}
+	return $self -> _add_daughter($statement, {op => $op, token => join(' ', @name[2 .. $#name])});
 
 } # End of compress_granddaughter.
 
@@ -240,8 +237,9 @@ sub compress_tree
 
 	my($alternative_count);
 	my($daughter, @daughters);
-	my($lhs);
+	my($lhs, $last_bare_name);
 	my($name, @name);
+	my($op);
 	my($statement);
 
 	$self -> node_stack -> push(Tree::DAG_Node -> new({name => 'Dummy'}) );
@@ -263,199 +261,196 @@ sub compress_tree
 				$self -> _add_daughter('parenthesized_rhs_primary_list', {token => ')'});
 			}
 
-			if ($statement)
+			if ($statement eq 'alternative')
 			{
-				if ($statement eq 'alternative')
-				{
-					$alternative_count++;
+				$alternative_count++;
 
-					if ($node -> my_daughter_index > 2)
-					{
-						$self -> _add_daughter('alternative', {token => '|'});
-					}
-				}
-				elsif ($statement eq 'alternatives')
+				if ($node -> my_daughter_index > 2)
 				{
-					$alternative_count++;
-
-					if ($alternative_count > 1)
-					{
-						$self -> _add_daughter('alternative', {token => '||'});
-					}
-				}
-				elsif ($statement eq 'array_descriptor')
-				{
-					$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
-					$self -> compress_granddaughter($statement, $node, '=>');
-					$self -> node_stack -> pop;
-				}
-				elsif ($statement eq 'bare_name')
-				{
-					$self -> compress_granddaughter($lhs || 'rhs', $node, $lhs ? '::=' : '');
-
-					$lhs = '';
-				}
-				elsif ($statement eq 'blessing')
-				{
-#					$self -> _add_daughter('bless');
-#					$self -> _add_daughter('=>');
-				}
-				elsif ($statement eq 'boolean')
-				{
-					$self -> compress_granddaughter('boolean', $node, '=>');
-					$self -> node_stack -> pop;
-				}
-				elsif ($statement eq 'default_rule')
-				{
-					$self -> compress_granddaughter('lhs', $node, '::=');
-				}
-				elsif ($statement eq 'discard_rule')
-				{
-#					$self -> _add_daughter(':discard');
-#					$self -> _add_daughter('~');
-				}
-				elsif ($statement eq 'event_specification')
-				{
-#					$self -> _add_daughter('event');
-#					$self -> _add_daughter('=>');
-				}
-				elsif ($statement eq 'group_association')
-				{
-#					$self -> _add_daughter('assoc');
-#					$self -> _add_daughter('=>');
-#					$self -> _add_daughter('group');
-				}
-				elsif ($statement eq 'latm_specification')
-				{
-					$self -> node_stack -> push($self -> _add_daughter('latm_specification', {op => '=>', token => 'latm'}) );
-				}
-				elsif ($statement eq 'left_association')
-				{
-#					$self -> _add_daughter('assoc');
-#					$self -> _add_daughter('=>');
-#					$self -> _add_daughter('left');
-				}
-				elsif ($statement eq 'lexeme_default_statement')
-				{
-					$self -> _add_daughter('lhs', {op => '=', token => 'lexeme default'});
-				}
-				elsif ($statement eq 'lexeme_rule')
-				{
-#					$self -> _add_daughter(':lexeme');
-#					$self -> _add_daughter('~');
-				}
-				elsif ($statement eq 'naming')
-				{
-#					$self -> _add_daughter('name');
-#					$self -> _add_daughter('=>');
-				}
-				elsif ($statement eq 'null_ranking_constant')
-				{
-#					$self -> _add_daughter('null-ranking');
-#					$self -> _add_daughter('=>');
-				}
-				elsif ($statement eq 'pause_specification')
-				{
-#					$self -> _add_daughter('pause');
-#					$self -> _add_daughter('=>');
-				}
-				elsif ($statement eq 'parenthesized_rhs_primary_list')
-				{
-					$parenthesized = $$option{_depth};
-
-					$self -> _add_daughter('parenthesized_rhs_primary_list', {token => '('});
-				}
-				elsif ($statement eq 'Perl_name')
-				{
-					$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
-					$self -> compress_granddaughter($statement, $node, '=>');
-					$self -> node_stack -> pop;
-				}
-				elsif ($statement eq 'priorities')
-				{
-					$alternative_count = 0;
-				}
-				elsif ($statement eq 'priority_rule')
-				{
-					$lhs = 'lhs';
-				}
-				elsif ($statement eq 'priority_specification')
-				{
-#					$self -> _add_daughter('priority');
-#					$self -> _add_daughter('=>');
-				}
-				elsif ($statement eq 'proper_specification')
-				{
-#					$self -> _add_daughter('proper');
-#					$self -> _add_daughter('=>');
-				}
-				elsif ($statement eq 'rank_specification')
-				{
-#					$self -> _add_daughter('rank');
-#					$self -> _add_daughter('=>');
-				}
-				elsif ($statement eq 'reserved_action_name')
-				{
-					$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
-					$self -> compress_granddaughter($statement, $node, '=>');
-					$self -> node_stack -> pop;
-				}
-				elsif ($statement eq 'reserved_blessing_name')
-				{
-					$self -> node_stack -> push($self -> _add_daughter('bless', {token => 'bless'}) );
-					$self -> compress_granddaughter($statement, $node, '=>');
-					$self -> node_stack -> pop;
-				}
-				elsif ($statement eq 'right_association')
-				{
-#					$self -> _add_daughter('assoc');
-#					$self -> _add_daughter('=>');
-					$self -> _add_daughter('right');
-				}
-				elsif ($statement eq 'single_quoted_string')
-				{
-					$self -> compress_granddaughter($statement, $node, '');
-				}
-				elsif ($statement eq 'priorities')
-				{
-					$alternative_count = 0;
-				}
-				elsif ($statement eq 'standard_name')
-				{
-					$self -> node_stack -> push($self -> _add_daughter('bless', {token => 'bless'}) );
-					$self -> compress_granddaughter($statement, $node, '=>');
-					$self -> node_stack -> pop;
-				}
-				elsif ($statement eq 'start_rule')
-				{
-					$self -> _add_daughter('lhs', {op => '::=', token => ':start'});
-				}
-				elsif ($statement eq 'statement')
-				{
-					# Discard previous statement (or Dummy) from top of stack.
-
-					$node = $self -> node_stack -> pop;
-
-					$self -> node_stack -> push($self -> _add_daughter($statement, {token => $statement}) );
+					$self -> _add_daughter('alternative', {token => '|'});
 				}
 			}
-			elsif ($node -> my_daughter_index == 2)
+			elsif ($statement eq 'alternatives')
 			{
-				# Split things like:
-				# o '2 = graph_definition [SCALAR 186]'.
-				# o '2 = ::= [SCALAR 195]'.
-				# o '2 = <string lexeme> [SCALAR 2047]'.
+				$alternative_count++;
 
-				@name = split(/\s+/, $name);
-
-				# Discard the '[$x' and '$n]' from the end of $name.
-
-				pop @name for 1 .. 2;
-
-				if ($name[2] ne 'undef')
+				if ($alternative_count > 1)
 				{
-#					$self -> _add_daughter(join(' ', @name[2 .. $#name]) );
+					$self -> _add_daughter('alternative', {token => '||'});
 				}
+			}
+			elsif ($statement eq 'array_descriptor')
+			{
+				$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
+				$self -> compress_granddaughter($statement, $node, '=>');
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'bare_name')
+			{
+				$last_bare_name = $self -> compress_granddaughter($lhs || 'rhs', $node, $op || '');
+
+				$lhs = '';
+				$op  = '';
+			}
+			elsif ($statement eq 'before_or_after')
+			{
+				$self -> compress_granddaughter('pause', $node, '');
+			}
+			elsif ($statement eq 'blessing')
+			{
+#				$self -> _add_daughter('bless');
+#				$self -> _add_daughter('=>');
+			}
+			elsif ($statement eq 'boolean')
+			{
+				$self -> compress_granddaughter('boolean', $node, '=>');
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'character_class')
+			{
+				$last_bare_name = $self -> compress_granddaughter($statement, $node, '');
+			}
+			elsif ($statement eq 'default_rule')
+			{
+				$self -> compress_granddaughter('lhs', $node, '::=');
+			}
+			elsif ($statement eq 'discard_rule')
+			{
+				$lhs = $statement;
+				$op  = '~';
+			}
+			elsif ($statement eq 'event_specification')
+			{
+				$lhs = $statement;
+			}
+			elsif ($statement eq 'group_association')
+			{
+#				$self -> _add_daughter('assoc');
+#				$self -> _add_daughter('=>');
+#				$self -> _add_daughter('group');
+			}
+			elsif ($statement eq 'latm_specification')
+			{
+				$self -> node_stack -> push($self -> _add_daughter('latm_specification', {op => '=>', token => 'latm'}) );
+			}
+			elsif ($statement eq 'left_association')
+			{
+#				$self -> _add_daughter('assoc');
+#				$self -> _add_daughter('=>');
+#				$self -> _add_daughter('left');
+			}
+			elsif ($statement eq 'lexeme_default_statement')
+			{
+				$self -> _add_daughter('lhs', {op => '=', token => 'lexeme default'});
+			}
+			elsif ($statement eq 'lexeme_rule')
+			{
+				$self -> _add_daughter('lhs', {op => '~', token => ':lexeme'});
+
+				$lhs = '';
+				$op  = '';
+			}
+			elsif ($statement eq 'naming')
+			{
+#				$self -> _add_daughter('name');
+#				$self -> _add_daughter('=>');
+			}
+			elsif ($statement eq 'null_ranking_constant')
+			{
+#				$self -> _add_daughter('null-ranking');
+#				$self -> _add_daughter('=>');
+			}
+			elsif ($statement eq 'parenthesized_rhs_primary_list')
+			{
+				$parenthesized = $$option{_depth};
+
+				$self -> _add_daughter('parenthesized_rhs_primary_list', {token => '('});
+			}
+			elsif ($statement eq 'Perl_name')
+			{
+				$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
+				$self -> compress_granddaughter($statement, $node, '=>');
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'priorities')
+			{
+				$alternative_count = 0;
+			}
+			elsif ($statement eq 'priority_rule')
+			{
+				$lhs = 'lhs';
+				$op  = '::=';
+			}
+			elsif ($statement eq 'priority_specification')
+			{
+				$lhs = $statement;
+			}
+			elsif ($statement eq 'proper_specification')
+			{
+#				$self -> _add_daughter('proper');
+#				$self -> _add_daughter('=>');
+			}
+			elsif ($statement eq 'quantified_rule')
+			{
+				$lhs = 'lhs';
+				$op  = '~';
+			}
+			elsif ($statement eq 'quantifier')
+			{
+				$self -> node_stack -> push($last_bare_name);
+				$self -> compress_granddaughter($statement, $node, '');
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'rank_specification')
+			{
+#				$self -> _add_daughter('rank');
+#				$self -> _add_daughter('=>');
+			}
+			elsif ($statement eq 'reserved_action_name')
+			{
+				$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
+				$self -> compress_granddaughter($statement, $node, '=>');
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'reserved_blessing_name')
+			{
+				$self -> node_stack -> push($self -> _add_daughter('bless', {token => 'bless'}) );
+				$self -> compress_granddaughter($statement, $node, '=>');
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'right_association')
+			{
+#				$self -> _add_daughter('assoc');
+#				$self -> _add_daughter('=>');
+				$self -> _add_daughter('right');
+			}
+			elsif ($statement eq 'single_quoted_string')
+			{
+				$self -> compress_granddaughter($statement, $node, '');
+			}
+			elsif ($statement eq 'signed_integer')
+			{
+				$self -> node_stack -> push($self -> _add_daughter($lhs, {token => $lhs}) );
+				$self -> compress_granddaughter($statement, $node, '');
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'standard_name')
+			{
+				$self -> node_stack -> push($self -> _add_daughter($lhs, {token => $lhs}) );
+				$self -> compress_granddaughter($statement, $node, '=>');
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'start_rule')
+			{
+				$self -> _add_daughter('lhs', {op => '::=', token => ':start'});
+			}
+			elsif ($statement eq 'statement')
+			{
+				# Discard previous statement (or Dummy) from top of stack.
+
+				$node = $self -> node_stack -> pop;
+
+				$self -> node_stack -> push($self -> _add_daughter($statement, {token => $statement}) );
 			}
 
 			return 1; # Keep walking.
