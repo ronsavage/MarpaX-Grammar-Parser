@@ -1,217 +1,164 @@
-Statements
-    |--- statement
-    |    |--- :default
-    |    |--- ::=
-    |    |--- action
-    |    |--- =>
-    |    |--- ::array
-    |--- statement
-    |    |--- lexeme default
-    |    |--- =
-    |    |--- latm
-    |    |--- =>
-    |    |--- 1
-    |--- statement
-    |    |--- :start
-    |    |--- ::=
-    |    |--- json
-    |--- statement
-    |    |--- json
-    |    |--- ::=
-    |    |--- object
-    |    |--- action
-    |    |--- =>
-    |    |--- ::first
-    |    |--- |
-    |    |--- array
-    |    |--- action
-    |    |--- =>
-    |    |--- ::first
-    |--- statement
-    |    |--- object
-    |    |--- ::=
-    |    |--- (
-    |    |--- '{'
-    |    |--- )
-    |    |--- members
-    |    |--- (
-    |    |--- '}'
-    |    |--- )
-    |    |--- bless
-    |    |--- =>
-    |    |--- hash
-    |--- statement
-    |    |--- members
-    |    |--- ::=
-    |    |--- pair
-    |    |--- *
-    |    |--- separator
-    |    |--- =>
-    |    |--- <comma>
-    |--- statement
-    |    |--- pair
-    |    |--- ::=
-    |    |--- string
-    |    |--- (
-    |    |--- ':'
-    |    |--- )
-    |    |--- value
-    |--- statement
-    |    |--- value
-    |    |--- ::=
-    |    |--- string
-    |    |--- action
-    |    |--- =>
-    |    |--- ::first
-    |    |--- |
-    |    |--- object
-    |    |--- action
-    |    |--- =>
-    |    |--- ::first
-    |    |--- |
-    |    |--- number
-    |    |--- action
-    |    |--- =>
-    |    |--- ::first
-    |    |--- |
-    |    |--- array
-    |    |--- action
-    |    |--- =>
-    |    |--- ::first
-    |    |--- |
-    |    |--- 'true'
-    |    |--- bless
-    |    |--- =>
-    |    |--- true
-    |    |--- |
-    |    |--- 'false'
-    |    |--- bless
-    |    |--- =>
-    |    |--- false
-    |    |--- |
-    |    |--- 'null'
-    |    |--- action
-    |    |--- =>
-    |    |--- ::undef
-    |--- statement
-    |    |--- array
-    |    |--- ::=
-    |    |--- (
-    |    |--- '['
-    |    |--- ']'
-    |    |--- )
-    |    |--- |
-    |    |--- (
-    |    |--- '['
-    |    |--- )
-    |    |--- elements
-    |    |--- (
-    |    |--- ']'
-    |    |--- )
-    |    |--- action
-    |    |--- =>
-    |    |--- ::first
-    |--- statement
-    |    |--- elements
-    |    |--- ::=
-    |    |--- value
-    |    |--- +
-    |    |--- separator
-    |    |--- =>
-    |    |--- <comma>
-    |--- statement
-    |    |--- number
-    |    |--- ~
-    |    |--- int
-    |    |--- |
-    |    |--- int
-    |    |--- frac
-    |    |--- |
-    |    |--- int
-    |    |--- exp
-    |    |--- |
-    |    |--- int
-    |    |--- frac
-    |    |--- exp
-    |--- statement
-    |    |--- int
-    |    |--- ~
-    |    |--- digits
-    |    |--- |
-    |    |--- '-'
-    |    |--- digits
-    |--- statement
-    |    |--- digits
-    |    |--- ~
-    |    |--- [\d]
-    |    |--- +
-    |--- statement
-    |    |--- frac
-    |    |--- ~
-    |    |--- '.'
-    |    |--- digits
-    |--- statement
-    |    |--- exp
-    |    |--- ~
-    |    |--- e
-    |    |--- digits
-    |--- statement
-    |    |--- e
-    |    |--- ~
-    |    |--- 'e'
-    |    |--- |
-    |    |--- 'e+'
-    |    |--- |
-    |    |--- 'e-'
-    |    |--- |
-    |    |--- 'E'
-    |    |--- |
-    |    |--- 'E+'
-    |    |--- |
-    |    |--- 'E-'
-    |--- statement
-    |    |--- string
-    |    |--- ::=
-    |    |--- <string lexeme>
-    |    |--- bless
-    |    |--- =>
-    |    |--- string
-    |--- statement
-    |    |--- <string lexeme>
-    |    |--- ~
-    |    |--- quote
-    |    |--- <string contents>
-    |    |--- quote
-    |--- statement
-    |    |--- quote
-    |    |--- ~
-    |    |--- ["]
-    |--- statement
-    |    |--- <string contents>
-    |    |--- ~
-    |    |--- <string char>
-    |    |--- *
-    |--- statement
-    |    |--- <string char>
-    |    |--- ~
-    |    |--- [^"\\]
-    |    |--- |
-    |    |--- '\'
-    |    |--- <any char>
-    |--- statement
-    |    |--- <any char>
-    |    |--- ~
-    |    |--- [\d\D]
-    |--- statement
-    |    |--- comma
-    |    |--- ~
-    |    |--- ','
-    |--- statement
-    |    |--- :discard
-    |    |--- ~
-    |    |--- whitespace
-    |--- statement
-         |--- whitespace
-         |--- ~
-         |--- [\s]
-         |--- +
+statements. Attributes: {}
+    |--- statement. Attributes: {token => "statement", uid => "1"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":default", uid => "2"}
+    |    |--- action. Attributes: {token => "action", uid => "3"}
+    |         |--- reserved_action_name. Attributes: {op => "=>", token => "::array", uid => "4"}
+    |--- statement. Attributes: {token => "statement", uid => "5"}
+    |    |--- lhs. Attributes: {op => "=", token => "lexeme default", uid => "6"}
+    |    |--- rhs. Attributes: {op => "=>", token => "latm", uid => "7"}
+    |         |--- boolean. Attributes: {op => "=>", token => "1", uid => "8"}
+    |--- statement. Attributes: {token => "statement", uid => "9"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":start", uid => "10"}
+    |    |--- rhs. Attributes: {op => "", token => "json", uid => "11"}
+    |--- statement. Attributes: {token => "statement", uid => "12"}
+    |    |--- lhs. Attributes: {op => "::=", token => "json", uid => "13"}
+    |    |--- rhs. Attributes: {op => "", token => "object", uid => "14"}
+    |    |--- action. Attributes: {token => "action", uid => "15"}
+    |    |    |--- reserved_action_name. Attributes: {op => "=>", token => "::first", uid => "16"}
+    |    |--- alternative. Attributes: {token => "|", uid => "17"}
+    |    |--- rhs. Attributes: {op => "", token => "array", uid => "18"}
+    |    |--- action. Attributes: {token => "action", uid => "19"}
+    |         |--- reserved_action_name. Attributes: {op => "=>", token => "::first", uid => "20"}
+    |--- statement. Attributes: {token => "statement", uid => "21"}
+    |    |--- lhs. Attributes: {op => "::=", token => "object", uid => "22"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "23"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'{'", uid => "24"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "25"}
+    |    |--- rhs. Attributes: {op => "", token => "members", uid => "26"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "27"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'}'", uid => "28"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "29"}
+    |    |--- . Attributes: {token => "", uid => "30"}
+    |         |--- standard_name. Attributes: {op => "=>", token => "hash", uid => "31"}
+    |--- statement. Attributes: {token => "statement", uid => "32"}
+    |    |--- lhs. Attributes: {op => "~", token => "members", uid => "33"}
+    |    |--- rhs. Attributes: {op => "", token => "pair", uid => "34"}
+    |         |--- quantifier. Attributes: {op => "", token => "*", uid => "35"}
+    |--- statement. Attributes: {token => "statement", uid => "36"}
+    |    |--- lhs. Attributes: {op => "::=", token => "pair", uid => "37"}
+    |    |--- rhs. Attributes: {op => "", token => "string", uid => "38"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "39"}
+    |    |    |--- rhs. Attributes: {op => "", token => "':'", uid => "40"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "41"}
+    |    |--- rhs. Attributes: {op => "", token => "value", uid => "42"}
+    |--- statement. Attributes: {token => "statement", uid => "43"}
+    |    |--- lhs. Attributes: {op => "::=", token => "value", uid => "44"}
+    |    |--- rhs. Attributes: {op => "", token => "string", uid => "45"}
+    |    |--- action. Attributes: {token => "action", uid => "46"}
+    |    |    |--- reserved_action_name. Attributes: {op => "=>", token => "::first", uid => "47"}
+    |    |--- alternative. Attributes: {token => "|", uid => "48"}
+    |    |--- rhs. Attributes: {op => "", token => "object", uid => "49"}
+    |    |--- action. Attributes: {token => "action", uid => "50"}
+    |    |    |--- reserved_action_name. Attributes: {op => "=>", token => "::first", uid => "51"}
+    |    |--- alternative. Attributes: {token => "|", uid => "52"}
+    |    |--- rhs. Attributes: {op => "", token => "number", uid => "53"}
+    |    |--- action. Attributes: {token => "action", uid => "54"}
+    |    |    |--- reserved_action_name. Attributes: {op => "=>", token => "::first", uid => "55"}
+    |    |--- alternative. Attributes: {token => "|", uid => "56"}
+    |    |--- rhs. Attributes: {op => "", token => "array", uid => "57"}
+    |    |--- action. Attributes: {token => "action", uid => "58"}
+    |    |    |--- reserved_action_name. Attributes: {op => "=>", token => "::first", uid => "59"}
+    |    |--- alternative. Attributes: {token => "|", uid => "60"}
+    |    |--- rhs. Attributes: {op => "", token => "'true'", uid => "61"}
+    |    |--- . Attributes: {token => "", uid => "62"}
+    |    |    |--- standard_name. Attributes: {op => "=>", token => "true", uid => "63"}
+    |    |--- alternative. Attributes: {token => "|", uid => "64"}
+    |    |--- rhs. Attributes: {op => "", token => "'false'", uid => "65"}
+    |    |--- . Attributes: {token => "", uid => "66"}
+    |    |    |--- standard_name. Attributes: {op => "=>", token => "false", uid => "67"}
+    |    |--- alternative. Attributes: {token => "|", uid => "68"}
+    |    |--- rhs. Attributes: {op => "", token => "'null'", uid => "69"}
+    |    |--- action. Attributes: {token => "action", uid => "70"}
+    |         |--- reserved_action_name. Attributes: {op => "=>", token => "::undef", uid => "71"}
+    |--- statement. Attributes: {token => "statement", uid => "72"}
+    |    |--- lhs. Attributes: {op => "::=", token => "array", uid => "73"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "74"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'['", uid => "75"}
+    |    |    |--- rhs. Attributes: {op => "", token => "']'", uid => "76"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "77"}
+    |    |--- alternative. Attributes: {token => "|", uid => "78"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "79"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'['", uid => "80"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "81"}
+    |    |--- rhs. Attributes: {op => "", token => "elements", uid => "82"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "83"}
+    |    |    |--- rhs. Attributes: {op => "", token => "']'", uid => "84"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "85"}
+    |    |--- action. Attributes: {token => "action", uid => "86"}
+    |         |--- reserved_action_name. Attributes: {op => "=>", token => "::first", uid => "87"}
+    |--- statement. Attributes: {token => "statement", uid => "88"}
+    |    |--- lhs. Attributes: {op => "~", token => "elements", uid => "89"}
+    |    |--- rhs. Attributes: {op => "", token => "value", uid => "90"}
+    |         |--- quantifier. Attributes: {op => "", token => "+", uid => "91"}
+    |--- statement. Attributes: {token => "statement", uid => "92"}
+    |    |--- lhs. Attributes: {op => "::=", token => "number", uid => "93"}
+    |    |--- rhs. Attributes: {op => "", token => "int", uid => "94"}
+    |    |--- alternative. Attributes: {token => "|", uid => "95"}
+    |    |--- rhs. Attributes: {op => "", token => "int", uid => "96"}
+    |    |--- rhs. Attributes: {op => "", token => "frac", uid => "97"}
+    |    |--- alternative. Attributes: {token => "|", uid => "98"}
+    |    |--- rhs. Attributes: {op => "", token => "int", uid => "99"}
+    |    |--- rhs. Attributes: {op => "", token => "exp", uid => "100"}
+    |    |--- alternative. Attributes: {token => "|", uid => "101"}
+    |    |--- rhs. Attributes: {op => "", token => "int", uid => "102"}
+    |    |--- rhs. Attributes: {op => "", token => "frac", uid => "103"}
+    |    |--- rhs. Attributes: {op => "", token => "exp", uid => "104"}
+    |--- statement. Attributes: {token => "statement", uid => "105"}
+    |    |--- lhs. Attributes: {op => "::=", token => "int", uid => "106"}
+    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "107"}
+    |    |--- alternative. Attributes: {token => "|", uid => "108"}
+    |    |--- rhs. Attributes: {op => "", token => "'-'", uid => "109"}
+    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "110"}
+    |--- statement. Attributes: {token => "statement", uid => "111"}
+    |    |--- lhs. Attributes: {op => "~", token => "digits", uid => "112"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d]", uid => "113"}
+    |         |--- quantifier. Attributes: {op => "", token => "+", uid => "114"}
+    |--- statement. Attributes: {token => "statement", uid => "115"}
+    |    |--- lhs. Attributes: {op => "::=", token => "frac", uid => "116"}
+    |    |--- rhs. Attributes: {op => "", token => "'.'", uid => "117"}
+    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "118"}
+    |--- statement. Attributes: {token => "statement", uid => "119"}
+    |    |--- lhs. Attributes: {op => "::=", token => "exp", uid => "120"}
+    |    |--- rhs. Attributes: {op => "", token => "e", uid => "121"}
+    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "122"}
+    |--- statement. Attributes: {token => "statement", uid => "123"}
+    |    |--- lhs. Attributes: {op => "::=", token => "e", uid => "124"}
+    |    |--- rhs. Attributes: {op => "", token => "'e'", uid => "125"}
+    |    |--- alternative. Attributes: {token => "|", uid => "126"}
+    |    |--- rhs. Attributes: {op => "", token => "'e+'", uid => "127"}
+    |    |--- alternative. Attributes: {token => "|", uid => "128"}
+    |    |--- rhs. Attributes: {op => "", token => "'e-'", uid => "129"}
+    |    |--- alternative. Attributes: {token => "|", uid => "130"}
+    |    |--- rhs. Attributes: {op => "", token => "'E'", uid => "131"}
+    |    |--- alternative. Attributes: {token => "|", uid => "132"}
+    |    |--- rhs. Attributes: {op => "", token => "'E+'", uid => "133"}
+    |    |--- alternative. Attributes: {token => "|", uid => "134"}
+    |    |--- rhs. Attributes: {op => "", token => "'E-'", uid => "135"}
+    |--- statement. Attributes: {token => "statement", uid => "136"}
+    |    |--- lhs. Attributes: {op => "::=", token => "string", uid => "137"}
+    |    |--- . Attributes: {token => "", uid => "138"}
+    |         |--- standard_name. Attributes: {op => "=>", token => "string", uid => "139"}
+    |--- statement. Attributes: {token => "statement", uid => "140"}
+    |    |--- lhs. Attributes: {op => "::=", token => "quote", uid => "141"}
+    |    |--- rhs. Attributes: {op => "", token => "quote", uid => "142"}
+    |--- statement. Attributes: {token => "statement", uid => "143"}
+    |    |--- lhs. Attributes: {op => "::=", token => "quote", uid => "144"}
+    |    |--- rhs. Attributes: {op => "", token => "["]", uid => "145"}
+    |         |--- quantifier. Attributes: {op => "", token => "*", uid => "147"}
+    |--- statement. Attributes: {token => "statement", uid => "146"}
+    |--- statement. Attributes: {token => "statement", uid => "148"}
+    |    |--- rhs. Attributes: {op => "", token => "[^"\\]", uid => "149"}
+    |    |--- alternative. Attributes: {token => "|", uid => "150"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "151"}
+    |--- statement. Attributes: {token => "statement", uid => "152"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d\D]", uid => "153"}
+    |--- statement. Attributes: {token => "statement", uid => "154"}
+    |    |--- lhs. Attributes: {op => "::=", token => "comma", uid => "155"}
+    |    |--- rhs. Attributes: {op => "", token => "','", uid => "156"}
+    |--- statement. Attributes: {token => "statement", uid => "157"}
+    |    |--- lhs. Attributes: {op => "~", token => ":discard", uid => "158"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace", uid => "159"}
+    |--- statement. Attributes: {token => "statement", uid => "160"}
+         |--- lhs. Attributes: {op => "~", token => "whitespace", uid => "161"}
+         |--- rhs. Attributes: {op => "", token => "[\s]", uid => "162"}
+              |--- quantifier. Attributes: {op => "", token => "+", uid => "163"}

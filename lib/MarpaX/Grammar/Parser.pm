@@ -258,8 +258,11 @@ sub compress_tree
 			{
 				$parenthesized = 0;
 
+				$self -> node_stack -> pop;
 				$self -> _add_daughter('parenthesized_rhs_primary_list', {token => ')'});
 			}
+
+			# Process each type of statement.
 
 			if ($statement eq 'alternative')
 			{
@@ -281,7 +284,7 @@ sub compress_tree
 			}
 			elsif ($statement eq 'array_descriptor')
 			{
-				$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
+				$self -> node_stack -> push($self -> _add_daughter('rhs', {token => 'action'}) );
 				$self -> compress_granddaughter($statement, $node, '=>');
 				$self -> node_stack -> pop;
 			}
@@ -308,7 +311,7 @@ sub compress_tree
 			}
 			elsif ($statement eq 'character_class')
 			{
-				$last_bare_name = $self -> compress_granddaughter($statement, $node, '');
+				$last_bare_name = $self -> compress_granddaughter('rhs', $node, '');
 			}
 			elsif ($statement eq 'default_rule')
 			{
@@ -316,8 +319,10 @@ sub compress_tree
 			}
 			elsif ($statement eq 'discard_rule')
 			{
-				$lhs = $statement;
-				$op  = '~';
+				$self -> _add_daughter('lhs', {op => '~', token => ':discard'});
+
+				$lhs = 'rhs';
+				$op  = '';
 			}
 			elsif ($statement eq 'event_specification')
 			{
@@ -331,7 +336,7 @@ sub compress_tree
 			}
 			elsif ($statement eq 'latm_specification')
 			{
-				$self -> node_stack -> push($self -> _add_daughter('latm_specification', {op => '=>', token => 'latm'}) );
+				$self -> node_stack -> push($self -> _add_daughter('rhs', {op => '=>', token => 'latm'}) );
 			}
 			elsif ($statement eq 'left_association')
 			{
@@ -364,7 +369,7 @@ sub compress_tree
 			{
 				$parenthesized = $$option{_depth};
 
-				$self -> _add_daughter('parenthesized_rhs_primary_list', {token => '('});
+				$self -> node_stack -> push($self -> _add_daughter('parenthesized_rhs_primary_list', {token => '('}) );
 			}
 			elsif ($statement eq 'Perl_name')
 			{
@@ -426,7 +431,7 @@ sub compress_tree
 			}
 			elsif ($statement eq 'single_quoted_string')
 			{
-				$self -> compress_granddaughter($statement, $node, '');
+				$self -> compress_granddaughter('rhs', $node, '');
 			}
 			elsif ($statement eq 'signed_integer')
 			{

@@ -1,11 +1,11 @@
 statements. Attributes: {}
     |--- statement. Attributes: {token => "statement", uid => "1"}
     |    |--- lhs. Attributes: {op => "::=", token => ":default", uid => "2"}
-    |    |--- action. Attributes: {token => "action", uid => "3"}
+    |    |--- rhs. Attributes: {token => "action", uid => "3"}
     |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]", uid => "4"}
     |--- statement. Attributes: {token => "statement", uid => "5"}
     |    |--- lhs. Attributes: {op => "=", token => "lexeme default", uid => "6"}
-    |    |--- latm_specification. Attributes: {op => "=>", token => "latm", uid => "7"}
+    |    |--- rhs. Attributes: {op => "=>", token => "latm", uid => "7"}
     |         |--- boolean. Attributes: {op => "=>", token => "1", uid => "8"}
     |--- statement. Attributes: {token => "statement", uid => "9"}
     |    |--- lhs. Attributes: {op => "::=", token => ":start", uid => "10"}
@@ -33,7 +33,7 @@ statements. Attributes: {}
     |    |--- alternative. Attributes: {token => "|", uid => "32"}
     |    |--- rhs. Attributes: {op => "", token => "node_statement", uid => "33"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "34"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "','", uid => "35"}
+    |    |    |--- rhs. Attributes: {op => "", token => "','", uid => "35"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "36"}
     |    |--- rhs. Attributes: {op => "", token => "node_statement", uid => "37"}
     |--- statement. Attributes: {token => "statement", uid => "38"}
@@ -59,7 +59,7 @@ statements. Attributes: {}
     |    |--- alternative. Attributes: {token => "|", uid => "58"}
     |    |--- rhs. Attributes: {op => "", token => "edge_statement", uid => "59"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "60"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "','", uid => "61"}
+    |    |    |--- rhs. Attributes: {op => "", token => "','", uid => "61"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "62"}
     |    |--- rhs. Attributes: {op => "", token => "edge_statement", uid => "63"}
     |--- statement. Attributes: {token => "statement", uid => "64"}
@@ -86,7 +86,7 @@ statements. Attributes: {}
     |    |--- alternative. Attributes: {token => "|", uid => "85"}
     |    |--- rhs. Attributes: {op => "", token => "attribute_name", uid => "86"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "87"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "':'", uid => "88"}
+    |    |    |--- rhs. Attributes: {op => "", token => "':'", uid => "88"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "89"}
     |    |--- rhs. Attributes: {op => "", token => "attribute_value", uid => "90"}
     |--- statement. Attributes: {token => "statement", uid => "91"}
@@ -119,7 +119,7 @@ statements. Attributes: {}
     |         |--- signed_integer. Attributes: {op => "", token => "2", uid => "118"}
     |--- statement. Attributes: {token => "statement", uid => "119"}
     |    |--- lhs. Attributes: {op => "::=", token => "directed_edge", uid => "120"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "'->'", uid => "121"}
+    |    |--- rhs. Attributes: {op => "", token => "'->'", uid => "121"}
     |--- statement. Attributes: {token => "statement", uid => "122"}
     |    |--- lhs. Attributes: {op => "~", token => ":lexeme", uid => "123"}
     |    |--- rhs. Attributes: {op => "", token => "end_attributes", uid => "124"}
@@ -130,7 +130,7 @@ statements. Attributes: {}
     |         |--- signed_integer. Attributes: {op => "", token => "1", uid => "129"}
     |--- statement. Attributes: {token => "statement", uid => "130"}
     |    |--- lhs. Attributes: {op => "::=", token => "end_attributes", uid => "131"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "'}'", uid => "132"}
+    |    |--- rhs. Attributes: {op => "", token => "'}'", uid => "132"}
     |--- statement. Attributes: {token => "statement", uid => "133"}
     |    |--- lhs. Attributes: {op => "~", token => ":lexeme", uid => "134"}
     |    |--- rhs. Attributes: {op => "", token => "end_node", uid => "135"}
@@ -141,11 +141,11 @@ statements. Attributes: {}
     |         |--- signed_integer. Attributes: {op => "", token => "1", uid => "140"}
     |--- statement. Attributes: {token => "statement", uid => "141"}
     |    |--- lhs. Attributes: {op => "::=", token => "end_node", uid => "142"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "']'", uid => "143"}
+    |    |--- rhs. Attributes: {op => "", token => "']'", uid => "143"}
     |--- statement. Attributes: {token => "statement", uid => "144"}
     |    |--- lhs. Attributes: {op => "::=", token => "escaped_char", uid => "145"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "'\'", uid => "146"}
-    |    |--- character_class. Attributes: {op => "", token => "[[:print:]]", uid => "147"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "146"}
+    |    |--- rhs. Attributes: {op => "", token => "[[:print:]]", uid => "147"}
     |--- statement. Attributes: {token => "statement", uid => "148"}
     |    |--- lhs. Attributes: {op => "~", token => ":lexeme", uid => "149"}
     |    |--- rhs. Attributes: {op => "", token => "literal_label", uid => "150"}
@@ -156,7 +156,7 @@ statements. Attributes: {}
     |         |--- signed_integer. Attributes: {op => "", token => "1", uid => "155"}
     |--- statement. Attributes: {token => "statement", uid => "156"}
     |    |--- lhs. Attributes: {op => "::=", token => "literal_label", uid => "157"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "'label'", uid => "158"}
+    |    |--- rhs. Attributes: {op => "", token => "'label'", uid => "158"}
     |--- statement. Attributes: {token => "statement", uid => "159"}
     |    |--- lhs. Attributes: {op => "~", token => ":lexeme", uid => "160"}
     |    |--- rhs. Attributes: {op => "", token => "node_name", uid => "161"}
@@ -175,7 +175,7 @@ statements. Attributes: {}
     |         |--- standard_name. Attributes: {op => "=>", token => "start_attributes", uid => "174"}
     |--- statement. Attributes: {token => "statement", uid => "175"}
     |    |--- lhs. Attributes: {op => "::=", token => "start_attributes", uid => "176"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "'{'", uid => "177"}
+    |    |--- rhs. Attributes: {op => "", token => "'{'", uid => "177"}
     |--- statement. Attributes: {token => "statement", uid => "178"}
     |    |--- lhs. Attributes: {op => "~", token => ":lexeme", uid => "179"}
     |    |--- rhs. Attributes: {op => "", token => "start_node", uid => "180"}
@@ -184,12 +184,12 @@ statements. Attributes: {}
     |         |--- standard_name. Attributes: {op => "=>", token => "start_node", uid => "183"}
     |--- statement. Attributes: {token => "statement", uid => "184"}
     |    |--- lhs. Attributes: {op => "::=", token => "start_node", uid => "185"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "'['", uid => "186"}
+    |    |--- rhs. Attributes: {op => "", token => "'['", uid => "186"}
     |--- statement. Attributes: {token => "statement", uid => "187"}
     |    |--- lhs. Attributes: {op => "::=", token => "string_char_set", uid => "188"}
     |    |--- rhs. Attributes: {op => "", token => "escaped_char", uid => "189"}
     |    |--- alternative. Attributes: {token => "|", uid => "190"}
-    |    |--- character_class. Attributes: {op => "", token => "[^;:}\]]", uid => "191"}
+    |    |--- rhs. Attributes: {op => "", token => "[^;:}\]]", uid => "191"}
     |--- statement. Attributes: {token => "statement", uid => "192"}
     |    |--- lhs. Attributes: {op => "~", token => ":lexeme", uid => "193"}
     |    |--- rhs. Attributes: {op => "", token => "undirected_edge", uid => "194"}
@@ -200,10 +200,11 @@ statements. Attributes: {}
     |         |--- signed_integer. Attributes: {op => "", token => "2", uid => "199"}
     |--- statement. Attributes: {token => "statement", uid => "200"}
     |    |--- lhs. Attributes: {op => "::=", token => "undirected_edge", uid => "201"}
-    |    |--- single_quoted_string. Attributes: {op => "", token => "'--'", uid => "202"}
+    |    |--- rhs. Attributes: {op => "", token => "'--'", uid => "202"}
     |--- statement. Attributes: {token => "statement", uid => "203"}
-    |    |--- discard_rule. Attributes: {op => "~", token => "whitespace", uid => "204"}
-    |--- statement. Attributes: {token => "statement", uid => "205"}
-         |--- lhs. Attributes: {op => "~", token => "whitespace", uid => "206"}
-         |--- character_class. Attributes: {op => "", token => "[\s]", uid => "207"}
-              |--- quantifier. Attributes: {op => "", token => "+", uid => "208"}
+    |    |--- lhs. Attributes: {op => "~", token => ":discard", uid => "204"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace", uid => "205"}
+    |--- statement. Attributes: {token => "statement", uid => "206"}
+         |--- lhs. Attributes: {op => "~", token => "whitespace", uid => "207"}
+         |--- rhs. Attributes: {op => "", token => "[\s]", uid => "208"}
+              |--- quantifier. Attributes: {op => "", token => "+", uid => "209"}

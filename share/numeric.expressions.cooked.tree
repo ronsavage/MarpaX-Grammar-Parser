@@ -1,69 +1,50 @@
-Statements
-    |--- statement
-    |    |--- :start ::= ::=
-    |    |--- :start
-    |    |--- ::=
-    |    |--- ::=
-    |--- statement
-    |    |--- :default
-    |    |--- ::=
-    |    |--- action
-    |    |--- =>
-    |    |--- [ name, value]
-    |--- statement
-    |    |--- lexeme default
-    |    |--- =
-    |    |--- action
-    |    |--- =>
-    |    |--- [ name, value]
-    |    |--- latm
-    |    |--- =>
-    |    |--- 1
-    |--- statement
-    |    |--- Expr
-    |    |--- ::=
-    |    |--- Number
-    |    |--- ||
-    |    |--- '('
-    |    |--- Expr
-    |    |--- ')'
-    |    |--- assoc
-    |    |--- =>
-    |    |--- group
-    |    |--- ||
-    |    |--- Expr
-    |    |--- '**'
-    |    |--- Expr
-    |    |--- assoc
-    |    |--- =>
-    |    |--- right
-    |    |--- ||
-    |    |--- Expr
-    |    |--- '*'
-    |    |--- Expr
-    |    |--- |
-    |    |--- Expr
-    |    |--- '/'
-    |    |--- Expr
-    |    |--- ||
-    |    |--- Expr
-    |    |--- '+'
-    |    |--- Expr
-    |    |--- |
-    |    |--- Expr
-    |    |--- '-'
-    |    |--- Expr
-    |--- statement
-    |    |--- Number
-    |    |--- ~
-    |    |--- [\d]
-    |    |--- +
-    |--- statement
-    |    |--- :discard
-    |    |--- ~
-    |    |--- whitespace
-    |--- statement
-         |--- whitespace
-         |--- ~
-         |--- [\s]
-         |--- +
+statements. Attributes: {}
+    |--- statement. Attributes: {token => "statement", uid => "1"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":default", uid => "2"}
+    |    |--- rhs. Attributes: {token => "action", uid => "3"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[ name, value]", uid => "4"}
+    |--- statement. Attributes: {token => "statement", uid => "5"}
+    |    |--- lhs. Attributes: {op => "=", token => "lexeme default", uid => "6"}
+    |    |--- rhs. Attributes: {token => "action", uid => "7"}
+    |    |    |--- array_descriptor. Attributes: {op => "=>", token => "[ name, value]", uid => "8"}
+    |    |--- rhs. Attributes: {op => "=>", token => "latm", uid => "9"}
+    |         |--- boolean. Attributes: {op => "=>", token => "1", uid => "10"}
+    |--- statement. Attributes: {token => "statement", uid => "11"}
+    |    |--- lhs. Attributes: {op => "::=", token => "Expr", uid => "12"}
+    |    |--- rhs. Attributes: {op => "", token => "Number", uid => "13"}
+    |    |--- alternative. Attributes: {token => "||", uid => "14"}
+    |    |--- rhs. Attributes: {op => "", token => "'('", uid => "15"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "16"}
+    |    |--- rhs. Attributes: {op => "", token => "')'", uid => "17"}
+    |    |--- alternative. Attributes: {token => "||", uid => "18"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "19"}
+    |    |--- rhs. Attributes: {op => "", token => "'**'", uid => "20"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "21"}
+    |    |--- right. Attributes: {uid => "22"}
+    |    |--- alternative. Attributes: {token => "||", uid => "23"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "24"}
+    |    |--- rhs. Attributes: {op => "", token => "'*'", uid => "25"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "26"}
+    |    |--- alternative. Attributes: {token => "|", uid => "27"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "28"}
+    |    |--- rhs. Attributes: {op => "", token => "'/'", uid => "29"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "30"}
+    |    |--- alternative. Attributes: {token => "||", uid => "31"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "32"}
+    |    |--- rhs. Attributes: {op => "", token => "'+'", uid => "33"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "34"}
+    |    |--- alternative. Attributes: {token => "|", uid => "35"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "36"}
+    |    |--- rhs. Attributes: {op => "", token => "'-'", uid => "37"}
+    |    |--- rhs. Attributes: {op => "", token => "Expr", uid => "38"}
+    |--- statement. Attributes: {token => "statement", uid => "39"}
+    |    |--- lhs. Attributes: {op => "~", token => "Number", uid => "40"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d]", uid => "41"}
+    |         |--- quantifier. Attributes: {op => "", token => "+", uid => "42"}
+    |--- statement. Attributes: {token => "statement", uid => "43"}
+    |    |--- lhs. Attributes: {op => "~", token => ":discard", uid => "44"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace", uid => "45"}
+    |--- statement. Attributes: {token => "statement", uid => "46"}
+         |--- lhs. Attributes: {op => "~", token => "whitespace", uid => "47"}
+         |--- rhs. Attributes: {op => "", token => "[\s]", uid => "48"}
+              |--- quantifier. Attributes: {op => "", token => "+", uid => "49"}

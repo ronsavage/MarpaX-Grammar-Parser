@@ -1,592 +1,473 @@
-Statements
-    |--- statement
-    |    |--- :default
-    |    |--- ::=
-    |    |--- action
-    |    |--- =>
-    |    |--- [values]
-    |--- statement
-    |    |--- :start
-    |    |--- ::=
-    |    |--- units
-    |--- statement
-    |    |--- units
-    |    |--- ::=
-    |    |--- unit
-    |    |--- *
-    |--- statement
-    |    |--- unit
-    |    |--- ::=
-    |    |--- ESCAPED_CHARACTER
-    |    |--- action
-    |    |--- =>
-    |    |--- addEscapedCharacterToRc
-    |    |--- |
-    |    |--- INISPRINTEXCEPTCOMMA
-    |    |--- action
-    |    |--- =>
-    |    |--- addCharacterToRc
-    |    |--- |
-    |    |--- PERCENT
-    |    |--- action
-    |    |--- =>
-    |    |--- addPercentToRc
-    |    |--- |
-    |    |--- C
-    |    |--- action
-    |    |--- =>
-    |    |--- addPrintPopToRc
-    |    |--- |
-    |    |--- PRINT
-    |    |--- action
-    |    |--- =>
-    |    |--- addPrintToRc
-    |    |--- |
-    |    |--- PUSH
-    |    |--- action
-    |    |--- =>
-    |    |--- addPushToRc
-    |    |--- |
-    |    |--- DYNPOP
-    |    |--- action
-    |    |--- =>
-    |    |--- addDynPop
-    |    |--- |
-    |    |--- DYNPUSH
-    |    |--- action
-    |    |--- =>
-    |    |--- addDynPush
-    |    |--- |
-    |    |--- STATICPOP
-    |    |--- action
-    |    |--- =>
-    |    |--- addStaticPop
-    |    |--- |
-    |    |--- STATICPUSH
-    |    |--- action
-    |    |--- =>
-    |    |--- addStaticPush
-    |    |--- |
-    |    |--- L
-    |    |--- action
-    |    |--- =>
-    |    |--- addL
-    |    |--- |
-    |    |--- PUSHCONST
-    |    |--- action
-    |    |--- =>
-    |    |--- addPushConst
-    |    |--- |
-    |    |--- PUSHINT
-    |    |--- action
-    |    |--- =>
-    |    |--- addPushInt
-    |    |--- |
-    |    |--- PLUS
-    |    |--- action
-    |    |--- =>
-    |    |--- addPlus
-    |    |--- |
-    |    |--- MINUS
-    |    |--- action
-    |    |--- =>
-    |    |--- addMinus
-    |    |--- |
-    |    |--- STAR
-    |    |--- action
-    |    |--- =>
-    |    |--- addStar
-    |    |--- |
-    |    |--- DIV
-    |    |--- action
-    |    |--- =>
-    |    |--- addDiv
-    |    |--- |
-    |    |--- MOD
-    |    |--- action
-    |    |--- =>
-    |    |--- addMod
-    |    |--- |
-    |    |--- BITAND
-    |    |--- action
-    |    |--- =>
-    |    |--- addBitAnd
-    |    |--- |
-    |    |--- BITOR
-    |    |--- action
-    |    |--- =>
-    |    |--- addBitOr
-    |    |--- |
-    |    |--- BITXOR
-    |    |--- action
-    |    |--- =>
-    |    |--- addBitXor
-    |    |--- |
-    |    |--- EQUAL
-    |    |--- action
-    |    |--- =>
-    |    |--- addEqual
-    |    |--- |
-    |    |--- GREATER
-    |    |--- action
-    |    |--- =>
-    |    |--- addGreater
-    |    |--- |
-    |    |--- LOWER
-    |    |--- action
-    |    |--- =>
-    |    |--- addLower
-    |    |--- |
-    |    |--- AND
-    |    |--- action
-    |    |--- =>
-    |    |--- addLogicalAnd
-    |    |--- |
-    |    |--- OR
-    |    |--- action
-    |    |--- =>
-    |    |--- addLogicalOr
-    |    |--- |
-    |    |--- NOT
-    |    |--- action
-    |    |--- =>
-    |    |--- addNot
-    |    |--- |
-    |    |--- COMPLEMENT
-    |    |--- action
-    |    |--- =>
-    |    |--- addComplement
-    |    |--- |
-    |    |--- ADDONE
-    |    |--- action
-    |    |--- =>
-    |    |--- addOneToParams
-    |    |--- |
-    |    |--- IF
-    |    |--- units
-    |    |--- THEN
-    |    |--- units
-    |    |--- elifUnits
-    |    |--- ELSE
-    |    |--- units
-    |    |--- ENDIF
-    |    |--- action
-    |    |--- =>
-    |    |--- addIfThenElse
-    |    |--- |
-    |    |--- IF
-    |    |--- units
-    |    |--- THEN
-    |    |--- units
-    |    |--- elifUnits
-    |    |--- ENDIF
-    |    |--- action
-    |    |--- =>
-    |    |--- addIfThen
-    |    |--- |
-    |    |--- IF
-    |    |--- ENDIF
-    |    |--- action
-    |    |--- =>
-    |    |--- ifEndif
-    |    |--- |
-    |    |--- EOF
-    |    |--- action
-    |    |--- =>
-    |    |--- eof
-    |--- statement
-    |    |--- elifUnit
-    |    |--- ::=
-    |    |--- ELSE
-    |    |--- units
-    |    |--- THEN
-    |    |--- units
-    |    |--- action
-    |    |--- =>
-    |    |--- elifUnit
-    |--- statement
-    |    |--- elifUnits
-    |    |--- ::=
-    |    |--- elifUnit
-    |    |--- *
-    |--- statement
-    |    |--- _CONST
-    |    |--- ~
-    |    |--- [^']
-    |--- statement
-    |    |--- _CONST
-    |    |--- ~
-    |    |--- _BS
-    |    |--- _ALLOWED_BS
-    |--- statement
-    |    |--- _DIGITS
-    |    |--- ~
-    |    |--- [\d]
-    |    |--- +
-    |--- statement
-    |    |--- _DIGIT
-    |    |--- ~
-    |    |--- [\d]
-    |--- statement
-    |    |--- _LCHAR
-    |    |--- ~
-    |    |--- [a-z]
-    |--- statement
-    |    |--- _UCHAR
-    |    |--- ~
-    |    |--- [A-Z]
-    |--- statement
-    |    |--- _PERCENT
-    |    |--- ~
-    |    |--- '%'
-    |--- statement
-    |    |--- PERCENT
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _PERCENT
-    |--- statement
-    |    |--- _C
-    |    |--- ~
-    |    |--- 'c'
-    |--- statement
-    |    |--- C
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _C
-    |--- statement
-    |    |--- _COLON
-    |    |--- ~
-    |    |--- ':'
-    |--- statement
-    |    |--- _DOT
-    |    |--- ~
-    |    |--- '.'
-    |--- statement
-    |    |--- __FLAGS
-    |    |--- ~
-    |    |--- [-+# ]
-    |--- statement
-    |    |--- _FLAGS
-    |    |--- ~
-    |    |--- _COLON
-    |    |--- __FLAGS
-    |    |--- |
-    |    |--- __FLAGS
-    |--- statement
-    |    |--- _FORMAT
-    |    |--- ~
-    |    |--- [doxXs]
-    |--- statement
-    |    |--- PRINT
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _FORMAT
-    |    |--- |
-    |    |--- _PERCENT
-    |    |--- _DIGITS
-    |    |--- _FORMAT
-    |    |--- |
-    |    |--- _PERCENT
-    |    |--- _DIGITS
-    |    |--- _DOT
-    |    |--- _DIGITS
-    |    |--- _FORMAT
-    |--- statement
-    |    |--- PRINT
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _FLAGS
-    |    |--- _FORMAT
-    |    |--- |
-    |    |--- _PERCENT
-    |    |--- _FLAGS
-    |    |--- _DIGITS
-    |    |--- _FORMAT
-    |    |--- |
-    |    |--- _PERCENT
-    |    |--- _FLAGS
-    |    |--- _DIGITS
-    |    |--- _DOT
-    |    |--- _DIGITS
-    |    |--- _FORMAT
-    |--- statement
-    |    |--- PUSH
-    |    |--- ~
-    |    |--- '%p'
-    |    |--- _DIGIT
-    |--- statement
-    |    |--- DYNPOP
-    |    |--- ~
-    |    |--- '%P'
-    |    |--- _LCHAR
-    |--- statement
-    |    |--- DYNPUSH
-    |    |--- ~
-    |    |--- '%g'
-    |    |--- _LCHAR
-    |--- statement
-    |    |--- STATICPOP
-    |    |--- ~
-    |    |--- '%P'
-    |    |--- _UCHAR
-    |--- statement
-    |    |--- STATICPUSH
-    |    |--- ~
-    |    |--- '%g'
-    |    |--- _UCHAR
-    |--- statement
-    |    |--- L
-    |    |--- ~
-    |    |--- 'ls'
-    |--- statement
-    |    |--- _SQUOTE
-    |    |--- ~
-    |    |--- [']
-    |--- statement
-    |    |--- PUSHCONST
-    |    |--- ~
-    |    |--- '%'
-    |    |--- _SQUOTE
-    |    |--- _CONST
-    |    |--- _SQUOTE
-    |--- statement
-    |    |--- _LCURLY
-    |    |--- ~
-    |    |--- '{'
-    |--- statement
-    |    |--- _RCURLY
-    |    |--- ~
-    |    |--- '}'
-    |--- statement
-    |    |--- PUSHINT
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _LCURLY
-    |    |--- _DIGITS
-    |    |--- _RCURLY
-    |--- statement
-    |    |--- _PLUS
-    |    |--- ~
-    |    |--- '+'
-    |--- statement
-    |    |--- PLUS
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _PLUS
-    |--- statement
-    |    |--- _MINUS
-    |    |--- ~
-    |    |--- '-'
-    |--- statement
-    |    |--- MINUS
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _MINUS
-    |--- statement
-    |    |--- _STAR
-    |    |--- ~
-    |    |--- '*'
-    |--- statement
-    |    |--- STAR
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _STAR
-    |--- statement
-    |    |--- _DIV
-    |    |--- ~
-    |    |--- '/'
-    |--- statement
-    |    |--- DIV
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _DIV
-    |--- statement
-    |    |--- _MOD
-    |    |--- ~
-    |    |--- 'm'
-    |--- statement
-    |    |--- MOD
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _MOD
-    |--- statement
-    |    |--- _BITAND
-    |    |--- ~
-    |    |--- '&'
-    |--- statement
-    |    |--- BITAND
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _BITAND
-    |--- statement
-    |    |--- _BITOR
-    |    |--- ~
-    |    |--- '|'
-    |--- statement
-    |    |--- BITOR
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _BITOR
-    |--- statement
-    |    |--- _BITXOR
-    |    |--- ~
-    |    |--- '^'
-    |--- statement
-    |    |--- BITXOR
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _BITXOR
-    |--- statement
-    |    |--- _EQUAL
-    |    |--- ~
-    |    |--- '='
-    |--- statement
-    |    |--- EQUAL
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _EQUAL
-    |--- statement
-    |    |--- _GREATER
-    |    |--- ~
-    |    |--- '>'
-    |--- statement
-    |    |--- GREATER
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _GREATER
-    |--- statement
-    |    |--- _LOWER
-    |    |--- ~
-    |    |--- '<'
-    |--- statement
-    |    |--- LOWER
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _LOWER
-    |--- statement
-    |    |--- _AND
-    |    |--- ~
-    |    |--- 'A'
-    |--- statement
-    |    |--- AND
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _AND
-    |--- statement
-    |    |--- _OR
-    |    |--- ~
-    |    |--- 'O'
-    |--- statement
-    |    |--- OR
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _OR
-    |--- statement
-    |    |--- _NOT
-    |    |--- ~
-    |    |--- '!'
-    |--- statement
-    |    |--- NOT
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _NOT
-    |--- statement
-    |    |--- _COMPLEMENT
-    |    |--- ~
-    |    |--- '~'
-    |--- statement
-    |    |--- COMPLEMENT
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _COMPLEMENT
-    |--- statement
-    |    |--- _ADDONE
-    |    |--- ~
-    |    |--- 'i'
-    |--- statement
-    |    |--- ADDONE
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _ADDONE
-    |--- statement
-    |    |--- _IF
-    |    |--- ~
-    |    |--- '?'
-    |--- statement
-    |    |--- IF
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _IF
-    |--- statement
-    |    |--- _THEN
-    |    |--- ~
-    |    |--- 't'
-    |--- statement
-    |    |--- THEN
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _THEN
-    |--- statement
-    |    |--- _ELSE
-    |    |--- ~
-    |    |--- 'e'
-    |--- statement
-    |    |--- ELSE
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _ELSE
-    |--- statement
-    |    |--- _ENDIF
-    |    |--- ~
-    |    |--- ';'
-    |--- statement
-    |    |--- ENDIF
-    |    |--- ~
-    |    |--- _PERCENT
-    |    |--- _ENDIF
-    |--- statement
-    |    |--- _EOF
-    |    |--- ~
-    |    |--- ','
-    |--- statement
-    |    |--- ENDIF
-    |    |--- ~
-    |    |--- _EOF
-    |--- statement
-    |    |--- _CARET
-    |    |--- ~
-    |    |--- '^'
-    |--- statement
-    |    |--- _BS
-    |    |--- ~
-    |    |--- '\'
-    |--- statement
-    |    |--- _ALLOWED_BS
-    |    |--- ~
-    |    |--- [abEeflnrst^\,:0]
-    |--- statement
-    |    |--- _ALLOWED_BS
-    |    |--- ~
-    |    |--- _DIGIT
-    |    |--- _DIGIT
-    |    |--- _DIGIT
-    |--- statement
-    |    |--- _C0_AND_DEL
-    |    |--- ~
-    |    |--- [@A-Z[\]^_ ?]
-    |--- statement
-    |    |--- ESCAPED_CHARACTER
-    |    |--- ~
-    |    |--- _CARET
-    |    |--- _C0_AND_DEL
-    |    |--- |
-    |    |--- _BS
-    |    |--- _ALLOWED_BS
-    |--- statement
-    |    |--- INISPRINTEXCEPTCOMMA
-    |    |--- ~
-    |    |--- [\p{MarpaX::Database::Terminfo::Grammar::CharacterClasses::InIsPrintExceptComma}]
-    |--- statement
-         |--- EOF
-         |--- ~
-         |--- _EOF
+statements. Attributes: {}
+    |--- statement. Attributes: {token => "statement", uid => "1"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":default", uid => "2"}
+    |    |--- rhs. Attributes: {token => "action", uid => "3"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]", uid => "4"}
+    |--- statement. Attributes: {token => "statement", uid => "5"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":start", uid => "6"}
+    |    |--- rhs. Attributes: {op => "", token => "units", uid => "7"}
+    |--- statement. Attributes: {token => "statement", uid => "8"}
+    |    |--- lhs. Attributes: {op => "~", token => "units", uid => "9"}
+    |    |--- rhs. Attributes: {op => "", token => "unit", uid => "10"}
+    |         |--- quantifier. Attributes: {op => "", token => "*", uid => "11"}
+    |--- statement. Attributes: {token => "statement", uid => "12"}
+    |    |--- lhs. Attributes: {op => "::=", token => "unit", uid => "13"}
+    |    |--- rhs. Attributes: {op => "", token => "ESCAPED_CHARACTER", uid => "14"}
+    |    |--- action. Attributes: {token => "action", uid => "15"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addEscapedCharacterToRc", uid => "16"}
+    |    |--- alternative. Attributes: {token => "|", uid => "17"}
+    |    |--- rhs. Attributes: {op => "", token => "INISPRINTEXCEPTCOMMA", uid => "18"}
+    |    |--- action. Attributes: {token => "action", uid => "19"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addCharacterToRc", uid => "20"}
+    |    |--- alternative. Attributes: {token => "|", uid => "21"}
+    |    |--- rhs. Attributes: {op => "", token => "PERCENT", uid => "22"}
+    |    |--- action. Attributes: {token => "action", uid => "23"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPercentToRc", uid => "24"}
+    |    |--- alternative. Attributes: {token => "|", uid => "25"}
+    |    |--- rhs. Attributes: {op => "", token => "C", uid => "26"}
+    |    |--- action. Attributes: {token => "action", uid => "27"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPrintPopToRc", uid => "28"}
+    |    |--- alternative. Attributes: {token => "|", uid => "29"}
+    |    |--- rhs. Attributes: {op => "", token => "PRINT", uid => "30"}
+    |    |--- action. Attributes: {token => "action", uid => "31"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPrintToRc", uid => "32"}
+    |    |--- alternative. Attributes: {token => "|", uid => "33"}
+    |    |--- rhs. Attributes: {op => "", token => "PUSH", uid => "34"}
+    |    |--- action. Attributes: {token => "action", uid => "35"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPushToRc", uid => "36"}
+    |    |--- alternative. Attributes: {token => "|", uid => "37"}
+    |    |--- rhs. Attributes: {op => "", token => "DYNPOP", uid => "38"}
+    |    |--- action. Attributes: {token => "action", uid => "39"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addDynPop", uid => "40"}
+    |    |--- alternative. Attributes: {token => "|", uid => "41"}
+    |    |--- rhs. Attributes: {op => "", token => "DYNPUSH", uid => "42"}
+    |    |--- action. Attributes: {token => "action", uid => "43"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addDynPush", uid => "44"}
+    |    |--- alternative. Attributes: {token => "|", uid => "45"}
+    |    |--- rhs. Attributes: {op => "", token => "STATICPOP", uid => "46"}
+    |    |--- action. Attributes: {token => "action", uid => "47"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addStaticPop", uid => "48"}
+    |    |--- alternative. Attributes: {token => "|", uid => "49"}
+    |    |--- rhs. Attributes: {op => "", token => "STATICPUSH", uid => "50"}
+    |    |--- action. Attributes: {token => "action", uid => "51"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addStaticPush", uid => "52"}
+    |    |--- alternative. Attributes: {token => "|", uid => "53"}
+    |    |--- rhs. Attributes: {op => "", token => "L", uid => "54"}
+    |    |--- action. Attributes: {token => "action", uid => "55"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addL", uid => "56"}
+    |    |--- alternative. Attributes: {token => "|", uid => "57"}
+    |    |--- rhs. Attributes: {op => "", token => "PUSHCONST", uid => "58"}
+    |    |--- action. Attributes: {token => "action", uid => "59"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPushConst", uid => "60"}
+    |    |--- alternative. Attributes: {token => "|", uid => "61"}
+    |    |--- rhs. Attributes: {op => "", token => "PUSHINT", uid => "62"}
+    |    |--- action. Attributes: {token => "action", uid => "63"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPushInt", uid => "64"}
+    |    |--- alternative. Attributes: {token => "|", uid => "65"}
+    |    |--- rhs. Attributes: {op => "", token => "PLUS", uid => "66"}
+    |    |--- action. Attributes: {token => "action", uid => "67"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPlus", uid => "68"}
+    |    |--- alternative. Attributes: {token => "|", uid => "69"}
+    |    |--- rhs. Attributes: {op => "", token => "MINUS", uid => "70"}
+    |    |--- action. Attributes: {token => "action", uid => "71"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addMinus", uid => "72"}
+    |    |--- alternative. Attributes: {token => "|", uid => "73"}
+    |    |--- rhs. Attributes: {op => "", token => "STAR", uid => "74"}
+    |    |--- action. Attributes: {token => "action", uid => "75"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addStar", uid => "76"}
+    |    |--- alternative. Attributes: {token => "|", uid => "77"}
+    |    |--- rhs. Attributes: {op => "", token => "DIV", uid => "78"}
+    |    |--- action. Attributes: {token => "action", uid => "79"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addDiv", uid => "80"}
+    |    |--- alternative. Attributes: {token => "|", uid => "81"}
+    |    |--- rhs. Attributes: {op => "", token => "MOD", uid => "82"}
+    |    |--- action. Attributes: {token => "action", uid => "83"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addMod", uid => "84"}
+    |    |--- alternative. Attributes: {token => "|", uid => "85"}
+    |    |--- rhs. Attributes: {op => "", token => "BITAND", uid => "86"}
+    |    |--- action. Attributes: {token => "action", uid => "87"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addBitAnd", uid => "88"}
+    |    |--- alternative. Attributes: {token => "|", uid => "89"}
+    |    |--- rhs. Attributes: {op => "", token => "BITOR", uid => "90"}
+    |    |--- action. Attributes: {token => "action", uid => "91"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addBitOr", uid => "92"}
+    |    |--- alternative. Attributes: {token => "|", uid => "93"}
+    |    |--- rhs. Attributes: {op => "", token => "BITXOR", uid => "94"}
+    |    |--- action. Attributes: {token => "action", uid => "95"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addBitXor", uid => "96"}
+    |    |--- alternative. Attributes: {token => "|", uid => "97"}
+    |    |--- rhs. Attributes: {op => "", token => "EQUAL", uid => "98"}
+    |    |--- action. Attributes: {token => "action", uid => "99"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addEqual", uid => "100"}
+    |    |--- alternative. Attributes: {token => "|", uid => "101"}
+    |    |--- rhs. Attributes: {op => "", token => "GREATER", uid => "102"}
+    |    |--- action. Attributes: {token => "action", uid => "103"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addGreater", uid => "104"}
+    |    |--- alternative. Attributes: {token => "|", uid => "105"}
+    |    |--- rhs. Attributes: {op => "", token => "LOWER", uid => "106"}
+    |    |--- action. Attributes: {token => "action", uid => "107"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addLower", uid => "108"}
+    |    |--- alternative. Attributes: {token => "|", uid => "109"}
+    |    |--- rhs. Attributes: {op => "", token => "AND", uid => "110"}
+    |    |--- action. Attributes: {token => "action", uid => "111"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addLogicalAnd", uid => "112"}
+    |    |--- alternative. Attributes: {token => "|", uid => "113"}
+    |    |--- rhs. Attributes: {op => "", token => "OR", uid => "114"}
+    |    |--- action. Attributes: {token => "action", uid => "115"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addLogicalOr", uid => "116"}
+    |    |--- alternative. Attributes: {token => "|", uid => "117"}
+    |    |--- rhs. Attributes: {op => "", token => "NOT", uid => "118"}
+    |    |--- action. Attributes: {token => "action", uid => "119"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addNot", uid => "120"}
+    |    |--- alternative. Attributes: {token => "|", uid => "121"}
+    |    |--- rhs. Attributes: {op => "", token => "COMPLEMENT", uid => "122"}
+    |    |--- action. Attributes: {token => "action", uid => "123"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addComplement", uid => "124"}
+    |    |--- alternative. Attributes: {token => "|", uid => "125"}
+    |    |--- rhs. Attributes: {op => "", token => "ADDONE", uid => "126"}
+    |    |--- action. Attributes: {token => "action", uid => "127"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addOneToParams", uid => "128"}
+    |    |--- alternative. Attributes: {token => "|", uid => "129"}
+    |    |--- rhs. Attributes: {op => "", token => "IF", uid => "130"}
+    |    |--- rhs. Attributes: {op => "", token => "units", uid => "131"}
+    |    |--- rhs. Attributes: {op => "", token => "THEN", uid => "132"}
+    |    |--- rhs. Attributes: {op => "", token => "units", uid => "133"}
+    |    |--- rhs. Attributes: {op => "", token => "elifUnits", uid => "134"}
+    |    |--- rhs. Attributes: {op => "", token => "ELSE", uid => "135"}
+    |    |--- rhs. Attributes: {op => "", token => "units", uid => "136"}
+    |    |--- rhs. Attributes: {op => "", token => "ENDIF", uid => "137"}
+    |    |--- action. Attributes: {token => "action", uid => "138"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addIfThenElse", uid => "139"}
+    |    |--- alternative. Attributes: {token => "|", uid => "140"}
+    |    |--- rhs. Attributes: {op => "", token => "IF", uid => "141"}
+    |    |--- rhs. Attributes: {op => "", token => "units", uid => "142"}
+    |    |--- rhs. Attributes: {op => "", token => "THEN", uid => "143"}
+    |    |--- rhs. Attributes: {op => "", token => "units", uid => "144"}
+    |    |--- rhs. Attributes: {op => "", token => "elifUnits", uid => "145"}
+    |    |--- rhs. Attributes: {op => "", token => "ENDIF", uid => "146"}
+    |    |--- action. Attributes: {token => "action", uid => "147"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addIfThen", uid => "148"}
+    |    |--- alternative. Attributes: {token => "|", uid => "149"}
+    |    |--- rhs. Attributes: {op => "", token => "IF", uid => "150"}
+    |    |--- rhs. Attributes: {op => "", token => "ENDIF", uid => "151"}
+    |    |--- action. Attributes: {token => "action", uid => "152"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "ifEndif", uid => "153"}
+    |    |--- alternative. Attributes: {token => "|", uid => "154"}
+    |    |--- rhs. Attributes: {op => "", token => "EOF", uid => "155"}
+    |    |--- action. Attributes: {token => "action", uid => "156"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "eof", uid => "157"}
+    |--- statement. Attributes: {token => "statement", uid => "158"}
+    |    |--- lhs. Attributes: {op => "::=", token => "elifUnit", uid => "159"}
+    |    |--- rhs. Attributes: {op => "", token => "ELSE", uid => "160"}
+    |    |--- rhs. Attributes: {op => "", token => "units", uid => "161"}
+    |    |--- rhs. Attributes: {op => "", token => "THEN", uid => "162"}
+    |    |--- rhs. Attributes: {op => "", token => "units", uid => "163"}
+    |    |--- action. Attributes: {token => "action", uid => "164"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "elifUnit", uid => "165"}
+    |--- statement. Attributes: {token => "statement", uid => "166"}
+    |    |--- lhs. Attributes: {op => "~", token => "elifUnits", uid => "167"}
+    |    |--- rhs. Attributes: {op => "", token => "elifUnit", uid => "168"}
+    |         |--- quantifier. Attributes: {op => "", token => "*", uid => "169"}
+    |--- statement. Attributes: {token => "statement", uid => "170"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_CONST", uid => "171"}
+    |    |--- rhs. Attributes: {op => "", token => "[^']", uid => "172"}
+    |--- statement. Attributes: {token => "statement", uid => "173"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_CONST", uid => "174"}
+    |    |--- rhs. Attributes: {op => "", token => "_BS", uid => "175"}
+    |    |--- rhs. Attributes: {op => "", token => "_ALLOWED_BS", uid => "176"}
+    |--- statement. Attributes: {token => "statement", uid => "177"}
+    |    |--- lhs. Attributes: {op => "~", token => "_DIGITS", uid => "178"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d]", uid => "179"}
+    |         |--- quantifier. Attributes: {op => "", token => "+", uid => "180"}
+    |--- statement. Attributes: {token => "statement", uid => "181"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_DIGIT", uid => "182"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d]", uid => "183"}
+    |--- statement. Attributes: {token => "statement", uid => "184"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_LCHAR", uid => "185"}
+    |    |--- rhs. Attributes: {op => "", token => "[a-z]", uid => "186"}
+    |--- statement. Attributes: {token => "statement", uid => "187"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_UCHAR", uid => "188"}
+    |    |--- rhs. Attributes: {op => "", token => "[A-Z]", uid => "189"}
+    |--- statement. Attributes: {token => "statement", uid => "190"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_PERCENT", uid => "191"}
+    |    |--- rhs. Attributes: {op => "", token => "'%'", uid => "192"}
+    |--- statement. Attributes: {token => "statement", uid => "193"}
+    |    |--- lhs. Attributes: {op => "::=", token => "PERCENT", uid => "194"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "195"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "196"}
+    |--- statement. Attributes: {token => "statement", uid => "197"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_C", uid => "198"}
+    |    |--- rhs. Attributes: {op => "", token => "'c'", uid => "199"}
+    |--- statement. Attributes: {token => "statement", uid => "200"}
+    |    |--- lhs. Attributes: {op => "::=", token => "C", uid => "201"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "202"}
+    |    |--- rhs. Attributes: {op => "", token => "_C", uid => "203"}
+    |--- statement. Attributes: {token => "statement", uid => "204"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_COLON", uid => "205"}
+    |    |--- rhs. Attributes: {op => "", token => "':'", uid => "206"}
+    |--- statement. Attributes: {token => "statement", uid => "207"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_DOT", uid => "208"}
+    |    |--- rhs. Attributes: {op => "", token => "'.'", uid => "209"}
+    |--- statement. Attributes: {token => "statement", uid => "210"}
+    |    |--- lhs. Attributes: {op => "::=", token => "__FLAGS", uid => "211"}
+    |    |--- rhs. Attributes: {op => "", token => "[-+# ]", uid => "212"}
+    |--- statement. Attributes: {token => "statement", uid => "213"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_FLAGS", uid => "214"}
+    |    |--- rhs. Attributes: {op => "", token => "_COLON", uid => "215"}
+    |    |--- rhs. Attributes: {op => "", token => "__FLAGS", uid => "216"}
+    |    |--- alternative. Attributes: {token => "|", uid => "217"}
+    |    |--- rhs. Attributes: {op => "", token => "__FLAGS", uid => "218"}
+    |--- statement. Attributes: {token => "statement", uid => "219"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_FORMAT", uid => "220"}
+    |    |--- rhs. Attributes: {op => "", token => "[doxXs]", uid => "221"}
+    |--- statement. Attributes: {token => "statement", uid => "222"}
+    |    |--- lhs. Attributes: {op => "::=", token => "PRINT", uid => "223"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "224"}
+    |    |--- rhs. Attributes: {op => "", token => "_FORMAT", uid => "225"}
+    |    |--- alternative. Attributes: {token => "|", uid => "226"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "227"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGITS", uid => "228"}
+    |    |--- rhs. Attributes: {op => "", token => "_FORMAT", uid => "229"}
+    |    |--- alternative. Attributes: {token => "|", uid => "230"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "231"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGITS", uid => "232"}
+    |    |--- rhs. Attributes: {op => "", token => "_DOT", uid => "233"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGITS", uid => "234"}
+    |    |--- rhs. Attributes: {op => "", token => "_FORMAT", uid => "235"}
+    |--- statement. Attributes: {token => "statement", uid => "236"}
+    |    |--- lhs. Attributes: {op => "::=", token => "PRINT", uid => "237"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "238"}
+    |    |--- rhs. Attributes: {op => "", token => "_FLAGS", uid => "239"}
+    |    |--- rhs. Attributes: {op => "", token => "_FORMAT", uid => "240"}
+    |    |--- alternative. Attributes: {token => "|", uid => "241"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "242"}
+    |    |--- rhs. Attributes: {op => "", token => "_FLAGS", uid => "243"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGITS", uid => "244"}
+    |    |--- rhs. Attributes: {op => "", token => "_FORMAT", uid => "245"}
+    |    |--- alternative. Attributes: {token => "|", uid => "246"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "247"}
+    |    |--- rhs. Attributes: {op => "", token => "_FLAGS", uid => "248"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGITS", uid => "249"}
+    |    |--- rhs. Attributes: {op => "", token => "_DOT", uid => "250"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGITS", uid => "251"}
+    |    |--- rhs. Attributes: {op => "", token => "_FORMAT", uid => "252"}
+    |--- statement. Attributes: {token => "statement", uid => "253"}
+    |    |--- lhs. Attributes: {op => "::=", token => "PUSH", uid => "254"}
+    |    |--- rhs. Attributes: {op => "", token => "'%p'", uid => "255"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGIT", uid => "256"}
+    |--- statement. Attributes: {token => "statement", uid => "257"}
+    |    |--- lhs. Attributes: {op => "::=", token => "DYNPOP", uid => "258"}
+    |    |--- rhs. Attributes: {op => "", token => "'%P'", uid => "259"}
+    |    |--- rhs. Attributes: {op => "", token => "_LCHAR", uid => "260"}
+    |--- statement. Attributes: {token => "statement", uid => "261"}
+    |    |--- lhs. Attributes: {op => "::=", token => "DYNPUSH", uid => "262"}
+    |    |--- rhs. Attributes: {op => "", token => "'%g'", uid => "263"}
+    |    |--- rhs. Attributes: {op => "", token => "_LCHAR", uid => "264"}
+    |--- statement. Attributes: {token => "statement", uid => "265"}
+    |    |--- lhs. Attributes: {op => "::=", token => "STATICPOP", uid => "266"}
+    |    |--- rhs. Attributes: {op => "", token => "'%P'", uid => "267"}
+    |    |--- rhs. Attributes: {op => "", token => "_UCHAR", uid => "268"}
+    |--- statement. Attributes: {token => "statement", uid => "269"}
+    |    |--- lhs. Attributes: {op => "::=", token => "STATICPUSH", uid => "270"}
+    |    |--- rhs. Attributes: {op => "", token => "'%g'", uid => "271"}
+    |    |--- rhs. Attributes: {op => "", token => "_UCHAR", uid => "272"}
+    |--- statement. Attributes: {token => "statement", uid => "273"}
+    |    |--- lhs. Attributes: {op => "::=", token => "L", uid => "274"}
+    |    |--- rhs. Attributes: {op => "", token => "'ls'", uid => "275"}
+    |--- statement. Attributes: {token => "statement", uid => "276"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_SQUOTE", uid => "277"}
+    |    |--- rhs. Attributes: {op => "", token => "[']", uid => "278"}
+    |--- statement. Attributes: {token => "statement", uid => "279"}
+    |    |--- lhs. Attributes: {op => "::=", token => "PUSHCONST", uid => "280"}
+    |    |--- rhs. Attributes: {op => "", token => "'%'", uid => "281"}
+    |    |--- rhs. Attributes: {op => "", token => "_SQUOTE", uid => "282"}
+    |    |--- rhs. Attributes: {op => "", token => "_CONST", uid => "283"}
+    |    |--- rhs. Attributes: {op => "", token => "_SQUOTE", uid => "284"}
+    |--- statement. Attributes: {token => "statement", uid => "285"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_LCURLY", uid => "286"}
+    |    |--- rhs. Attributes: {op => "", token => "'{'", uid => "287"}
+    |--- statement. Attributes: {token => "statement", uid => "288"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_RCURLY", uid => "289"}
+    |    |--- rhs. Attributes: {op => "", token => "'}'", uid => "290"}
+    |--- statement. Attributes: {token => "statement", uid => "291"}
+    |    |--- lhs. Attributes: {op => "::=", token => "PUSHINT", uid => "292"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "293"}
+    |    |--- rhs. Attributes: {op => "", token => "_LCURLY", uid => "294"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGITS", uid => "295"}
+    |    |--- rhs. Attributes: {op => "", token => "_RCURLY", uid => "296"}
+    |--- statement. Attributes: {token => "statement", uid => "297"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_PLUS", uid => "298"}
+    |    |--- rhs. Attributes: {op => "", token => "'+'", uid => "299"}
+    |--- statement. Attributes: {token => "statement", uid => "300"}
+    |    |--- lhs. Attributes: {op => "::=", token => "PLUS", uid => "301"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "302"}
+    |    |--- rhs. Attributes: {op => "", token => "_PLUS", uid => "303"}
+    |--- statement. Attributes: {token => "statement", uid => "304"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_MINUS", uid => "305"}
+    |    |--- rhs. Attributes: {op => "", token => "'-'", uid => "306"}
+    |--- statement. Attributes: {token => "statement", uid => "307"}
+    |    |--- lhs. Attributes: {op => "::=", token => "MINUS", uid => "308"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "309"}
+    |    |--- rhs. Attributes: {op => "", token => "_MINUS", uid => "310"}
+    |--- statement. Attributes: {token => "statement", uid => "311"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_STAR", uid => "312"}
+    |    |--- rhs. Attributes: {op => "", token => "'*'", uid => "313"}
+    |--- statement. Attributes: {token => "statement", uid => "314"}
+    |    |--- lhs. Attributes: {op => "::=", token => "STAR", uid => "315"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "316"}
+    |    |--- rhs. Attributes: {op => "", token => "_STAR", uid => "317"}
+    |--- statement. Attributes: {token => "statement", uid => "318"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_DIV", uid => "319"}
+    |    |--- rhs. Attributes: {op => "", token => "'/'", uid => "320"}
+    |--- statement. Attributes: {token => "statement", uid => "321"}
+    |    |--- lhs. Attributes: {op => "::=", token => "DIV", uid => "322"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "323"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIV", uid => "324"}
+    |--- statement. Attributes: {token => "statement", uid => "325"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_MOD", uid => "326"}
+    |    |--- rhs. Attributes: {op => "", token => "'m'", uid => "327"}
+    |--- statement. Attributes: {token => "statement", uid => "328"}
+    |    |--- lhs. Attributes: {op => "::=", token => "MOD", uid => "329"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "330"}
+    |    |--- rhs. Attributes: {op => "", token => "_MOD", uid => "331"}
+    |--- statement. Attributes: {token => "statement", uid => "332"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_BITAND", uid => "333"}
+    |    |--- rhs. Attributes: {op => "", token => "'&'", uid => "334"}
+    |--- statement. Attributes: {token => "statement", uid => "335"}
+    |    |--- lhs. Attributes: {op => "::=", token => "BITAND", uid => "336"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "337"}
+    |    |--- rhs. Attributes: {op => "", token => "_BITAND", uid => "338"}
+    |--- statement. Attributes: {token => "statement", uid => "339"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_BITOR", uid => "340"}
+    |    |--- rhs. Attributes: {op => "", token => "'|'", uid => "341"}
+    |--- statement. Attributes: {token => "statement", uid => "342"}
+    |    |--- lhs. Attributes: {op => "::=", token => "BITOR", uid => "343"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "344"}
+    |    |--- rhs. Attributes: {op => "", token => "_BITOR", uid => "345"}
+    |--- statement. Attributes: {token => "statement", uid => "346"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_BITXOR", uid => "347"}
+    |    |--- rhs. Attributes: {op => "", token => "'^'", uid => "348"}
+    |--- statement. Attributes: {token => "statement", uid => "349"}
+    |    |--- lhs. Attributes: {op => "::=", token => "BITXOR", uid => "350"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "351"}
+    |    |--- rhs. Attributes: {op => "", token => "_BITXOR", uid => "352"}
+    |--- statement. Attributes: {token => "statement", uid => "353"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_EQUAL", uid => "354"}
+    |    |--- rhs. Attributes: {op => "", token => "'='", uid => "355"}
+    |--- statement. Attributes: {token => "statement", uid => "356"}
+    |    |--- lhs. Attributes: {op => "::=", token => "EQUAL", uid => "357"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "358"}
+    |    |--- rhs. Attributes: {op => "", token => "_EQUAL", uid => "359"}
+    |--- statement. Attributes: {token => "statement", uid => "360"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_GREATER", uid => "361"}
+    |    |--- rhs. Attributes: {op => "", token => "'>'", uid => "362"}
+    |--- statement. Attributes: {token => "statement", uid => "363"}
+    |    |--- lhs. Attributes: {op => "::=", token => "GREATER", uid => "364"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "365"}
+    |    |--- rhs. Attributes: {op => "", token => "_GREATER", uid => "366"}
+    |--- statement. Attributes: {token => "statement", uid => "367"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_LOWER", uid => "368"}
+    |    |--- rhs. Attributes: {op => "", token => "'<'", uid => "369"}
+    |--- statement. Attributes: {token => "statement", uid => "370"}
+    |    |--- lhs. Attributes: {op => "::=", token => "LOWER", uid => "371"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "372"}
+    |    |--- rhs. Attributes: {op => "", token => "_LOWER", uid => "373"}
+    |--- statement. Attributes: {token => "statement", uid => "374"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_AND", uid => "375"}
+    |    |--- rhs. Attributes: {op => "", token => "'A'", uid => "376"}
+    |--- statement. Attributes: {token => "statement", uid => "377"}
+    |    |--- lhs. Attributes: {op => "::=", token => "AND", uid => "378"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "379"}
+    |    |--- rhs. Attributes: {op => "", token => "_AND", uid => "380"}
+    |--- statement. Attributes: {token => "statement", uid => "381"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_OR", uid => "382"}
+    |    |--- rhs. Attributes: {op => "", token => "'O'", uid => "383"}
+    |--- statement. Attributes: {token => "statement", uid => "384"}
+    |    |--- lhs. Attributes: {op => "::=", token => "OR", uid => "385"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "386"}
+    |    |--- rhs. Attributes: {op => "", token => "_OR", uid => "387"}
+    |--- statement. Attributes: {token => "statement", uid => "388"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_NOT", uid => "389"}
+    |    |--- rhs. Attributes: {op => "", token => "'!'", uid => "390"}
+    |--- statement. Attributes: {token => "statement", uid => "391"}
+    |    |--- lhs. Attributes: {op => "::=", token => "NOT", uid => "392"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "393"}
+    |    |--- rhs. Attributes: {op => "", token => "_NOT", uid => "394"}
+    |--- statement. Attributes: {token => "statement", uid => "395"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_COMPLEMENT", uid => "396"}
+    |    |--- rhs. Attributes: {op => "", token => "'~'", uid => "397"}
+    |--- statement. Attributes: {token => "statement", uid => "398"}
+    |    |--- lhs. Attributes: {op => "::=", token => "COMPLEMENT", uid => "399"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "400"}
+    |    |--- rhs. Attributes: {op => "", token => "_COMPLEMENT", uid => "401"}
+    |--- statement. Attributes: {token => "statement", uid => "402"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_ADDONE", uid => "403"}
+    |    |--- rhs. Attributes: {op => "", token => "'i'", uid => "404"}
+    |--- statement. Attributes: {token => "statement", uid => "405"}
+    |    |--- lhs. Attributes: {op => "::=", token => "ADDONE", uid => "406"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "407"}
+    |    |--- rhs. Attributes: {op => "", token => "_ADDONE", uid => "408"}
+    |--- statement. Attributes: {token => "statement", uid => "409"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_IF", uid => "410"}
+    |    |--- rhs. Attributes: {op => "", token => "'?'", uid => "411"}
+    |--- statement. Attributes: {token => "statement", uid => "412"}
+    |    |--- lhs. Attributes: {op => "::=", token => "IF", uid => "413"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "414"}
+    |    |--- rhs. Attributes: {op => "", token => "_IF", uid => "415"}
+    |--- statement. Attributes: {token => "statement", uid => "416"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_THEN", uid => "417"}
+    |    |--- rhs. Attributes: {op => "", token => "'t'", uid => "418"}
+    |--- statement. Attributes: {token => "statement", uid => "419"}
+    |    |--- lhs. Attributes: {op => "::=", token => "THEN", uid => "420"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "421"}
+    |    |--- rhs. Attributes: {op => "", token => "_THEN", uid => "422"}
+    |--- statement. Attributes: {token => "statement", uid => "423"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_ELSE", uid => "424"}
+    |    |--- rhs. Attributes: {op => "", token => "'e'", uid => "425"}
+    |--- statement. Attributes: {token => "statement", uid => "426"}
+    |    |--- lhs. Attributes: {op => "::=", token => "ELSE", uid => "427"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "428"}
+    |    |--- rhs. Attributes: {op => "", token => "_ELSE", uid => "429"}
+    |--- statement. Attributes: {token => "statement", uid => "430"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_ENDIF", uid => "431"}
+    |    |--- rhs. Attributes: {op => "", token => "';'", uid => "432"}
+    |--- statement. Attributes: {token => "statement", uid => "433"}
+    |    |--- lhs. Attributes: {op => "::=", token => "ENDIF", uid => "434"}
+    |    |--- rhs. Attributes: {op => "", token => "_PERCENT", uid => "435"}
+    |    |--- rhs. Attributes: {op => "", token => "_ENDIF", uid => "436"}
+    |--- statement. Attributes: {token => "statement", uid => "437"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_EOF", uid => "438"}
+    |    |--- rhs. Attributes: {op => "", token => "','", uid => "439"}
+    |--- statement. Attributes: {token => "statement", uid => "440"}
+    |    |--- lhs. Attributes: {op => "::=", token => "ENDIF", uid => "441"}
+    |    |--- rhs. Attributes: {op => "", token => "_EOF", uid => "442"}
+    |--- statement. Attributes: {token => "statement", uid => "443"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_CARET", uid => "444"}
+    |    |--- rhs. Attributes: {op => "", token => "'^'", uid => "445"}
+    |--- statement. Attributes: {token => "statement", uid => "446"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_BS", uid => "447"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "448"}
+    |--- statement. Attributes: {token => "statement", uid => "449"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_ALLOWED_BS", uid => "450"}
+    |    |--- rhs. Attributes: {op => "", token => "[abEeflnrst^\,:0]", uid => "451"}
+    |--- statement. Attributes: {token => "statement", uid => "452"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_ALLOWED_BS", uid => "453"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGIT", uid => "454"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGIT", uid => "455"}
+    |    |--- rhs. Attributes: {op => "", token => "_DIGIT", uid => "456"}
+    |--- statement. Attributes: {token => "statement", uid => "457"}
+    |    |--- lhs. Attributes: {op => "::=", token => "_C0_AND_DEL", uid => "458"}
+    |    |--- rhs. Attributes: {op => "", token => "[@A-Z[\]^_ ?]", uid => "459"}
+    |--- statement. Attributes: {token => "statement", uid => "460"}
+    |    |--- lhs. Attributes: {op => "::=", token => "ESCAPED_CHARACTER", uid => "461"}
+    |    |--- rhs. Attributes: {op => "", token => "_CARET", uid => "462"}
+    |    |--- rhs. Attributes: {op => "", token => "_C0_AND_DEL", uid => "463"}
+    |    |--- alternative. Attributes: {token => "|", uid => "464"}
+    |    |--- rhs. Attributes: {op => "", token => "_BS", uid => "465"}
+    |    |--- rhs. Attributes: {op => "", token => "_ALLOWED_BS", uid => "466"}
+    |--- statement. Attributes: {token => "statement", uid => "467"}
+    |    |--- lhs. Attributes: {op => "::=", token => "INISPRINTEXCEPTCOMMA", uid => "468"}
+    |    |--- rhs. Attributes: {op => "", token => "[\p{MarpaX::Database::Terminfo::Grammar::CharacterClasses::InIsPrintExceptComma}]", uid => "469"}
+    |--- statement. Attributes: {token => "statement", uid => "470"}
+         |--- lhs. Attributes: {op => "::=", token => "EOF", uid => "471"}
+         |--- rhs. Attributes: {op => "", token => "_EOF", uid => "472"}
