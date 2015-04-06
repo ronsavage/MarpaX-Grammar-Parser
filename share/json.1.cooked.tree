@@ -1,187 +1,191 @@
 statements. Attributes: {}
-    |--- statement. Attributes: {token => "statement", uid => "1"}
-    |    |--- lhs. Attributes: {op => "=", token => "lexeme default", uid => "2"}
-    |    |--- rhs. Attributes: {op => "=>", token => "latm", uid => "3"}
-    |         |--- boolean. Attributes: {op => "=>", token => "1", uid => "4"}
-    |--- statement. Attributes: {token => "statement", uid => "5"}
-    |    |--- lhs. Attributes: {op => "::=", token => ":start", uid => "6"}
-    |    |--- rhs. Attributes: {op => "", token => "json", uid => "7"}
-    |--- statement. Attributes: {token => "statement", uid => "8"}
-    |    |--- lhs. Attributes: {op => "::=", token => "json", uid => "9"}
-    |    |--- rhs. Attributes: {op => "", token => "object", uid => "10"}
-    |    |--- alternative. Attributes: {token => "|", uid => "11"}
-    |    |--- rhs. Attributes: {op => "", token => "array", uid => "12"}
-    |--- statement. Attributes: {token => "statement", uid => "13"}
-    |    |--- lhs. Attributes: {op => "::=", token => "object", uid => "14"}
-    |    |--- rhs. Attributes: {op => "", token => "'{'", uid => "15"}
-    |    |--- rhs. Attributes: {op => "", token => "'}'", uid => "16"}
-    |    |--- action. Attributes: {token => "action", uid => "17"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "do_empty_object", uid => "18"}
-    |    |--- alternative. Attributes: {token => "|", uid => "19"}
-    |    |--- rhs. Attributes: {op => "", token => "'{'", uid => "20"}
-    |    |--- rhs. Attributes: {op => "", token => "members", uid => "21"}
-    |    |--- rhs. Attributes: {op => "", token => "'}'", uid => "22"}
-    |    |--- action. Attributes: {token => "action", uid => "23"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "do_object", uid => "24"}
-    |--- statement. Attributes: {token => "statement", uid => "25"}
-    |    |--- lhs. Attributes: {op => "~", token => "members", uid => "26"}
-    |    |--- rhs. Attributes: {op => "", token => "pair", uid => "27"}
-    |    |    |--- quantifier. Attributes: {op => "", token => "+", uid => "28"}
-    |    |--- action. Attributes: {token => "action", uid => "29"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "do_list", uid => "30"}
-    |--- statement. Attributes: {token => "statement", uid => "31"}
-    |    |--- lhs. Attributes: {op => "::=", token => "pair", uid => "32"}
-    |    |--- rhs. Attributes: {op => "", token => "string", uid => "33"}
-    |    |--- rhs. Attributes: {op => "", token => "':'", uid => "34"}
-    |    |--- rhs. Attributes: {op => "", token => "value", uid => "35"}
-    |    |--- action. Attributes: {token => "action", uid => "36"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "do_pair", uid => "37"}
-    |--- statement. Attributes: {token => "statement", uid => "38"}
-    |    |--- lhs. Attributes: {op => "::=", token => "value", uid => "39"}
-    |    |--- rhs. Attributes: {op => "", token => "string", uid => "40"}
-    |    |--- alternative. Attributes: {token => "|", uid => "41"}
-    |    |--- rhs. Attributes: {op => "", token => "object", uid => "42"}
-    |    |--- alternative. Attributes: {token => "|", uid => "43"}
-    |    |--- rhs. Attributes: {op => "", token => "number", uid => "44"}
-    |    |--- alternative. Attributes: {token => "|", uid => "45"}
-    |    |--- rhs. Attributes: {op => "", token => "array", uid => "46"}
-    |    |--- alternative. Attributes: {token => "|", uid => "47"}
-    |    |--- rhs. Attributes: {op => "", token => "'true'", uid => "48"}
-    |    |--- action. Attributes: {token => "action", uid => "49"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "do_true", uid => "50"}
-    |    |--- alternative. Attributes: {token => "|", uid => "51"}
-    |    |--- rhs. Attributes: {op => "", token => "'false'", uid => "52"}
-    |    |--- action. Attributes: {token => "action", uid => "53"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "do_true", uid => "54"}
-    |    |--- alternative. Attributes: {token => "|", uid => "55"}
-    |    |--- rhs. Attributes: {op => "", token => "'null'", uid => "56"}
-    |    |--- action. Attributes: {token => "action", uid => "57"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "do_null", uid => "58"}
-    |--- statement. Attributes: {token => "statement", uid => "59"}
-    |    |--- lhs. Attributes: {op => "::=", token => "array", uid => "60"}
-    |    |--- rhs. Attributes: {op => "", token => "'['", uid => "61"}
-    |    |--- rhs. Attributes: {op => "", token => "']'", uid => "62"}
-    |    |--- action. Attributes: {token => "action", uid => "63"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "do_empty_array", uid => "64"}
-    |    |--- alternative. Attributes: {token => "|", uid => "65"}
-    |    |--- rhs. Attributes: {op => "", token => "'['", uid => "66"}
-    |    |--- rhs. Attributes: {op => "", token => "elements", uid => "67"}
-    |    |--- rhs. Attributes: {op => "", token => "']'", uid => "68"}
-    |    |--- action. Attributes: {token => "action", uid => "69"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "do_array", uid => "70"}
-    |--- statement. Attributes: {token => "statement", uid => "71"}
-    |    |--- lhs. Attributes: {op => "~", token => "elements", uid => "72"}
-    |    |--- rhs. Attributes: {op => "", token => "value", uid => "73"}
-    |    |    |--- quantifier. Attributes: {op => "", token => "+", uid => "74"}
-    |    |--- action. Attributes: {token => "action", uid => "75"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "do_list", uid => "76"}
-    |--- statement. Attributes: {token => "statement", uid => "77"}
-    |    |--- lhs. Attributes: {op => "::=", token => "number", uid => "78"}
-    |    |--- rhs. Attributes: {op => "", token => "int", uid => "79"}
-    |    |--- alternative. Attributes: {token => "|", uid => "80"}
-    |    |--- rhs. Attributes: {op => "", token => "int", uid => "81"}
-    |    |--- rhs. Attributes: {op => "", token => "frac", uid => "82"}
-    |    |--- alternative. Attributes: {token => "|", uid => "83"}
-    |    |--- rhs. Attributes: {op => "", token => "int", uid => "84"}
-    |    |--- rhs. Attributes: {op => "", token => "exp", uid => "85"}
-    |    |--- alternative. Attributes: {token => "|", uid => "86"}
-    |    |--- rhs. Attributes: {op => "", token => "int", uid => "87"}
-    |    |--- rhs. Attributes: {op => "", token => "frac", uid => "88"}
-    |    |--- rhs. Attributes: {op => "", token => "exp", uid => "89"}
-    |--- statement. Attributes: {token => "statement", uid => "90"}
-    |    |--- lhs. Attributes: {op => "::=", token => "int", uid => "91"}
-    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "92"}
-    |    |--- alternative. Attributes: {token => "|", uid => "93"}
-    |    |--- rhs. Attributes: {op => "", token => "'-'", uid => "94"}
-    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "95"}
-    |--- statement. Attributes: {token => "statement", uid => "96"}
-    |    |--- lhs. Attributes: {op => "~", token => "digits", uid => "97"}
-    |    |--- rhs. Attributes: {op => "", token => "[\d]", uid => "98"}
-    |         |--- quantifier. Attributes: {op => "", token => "+", uid => "99"}
-    |--- statement. Attributes: {token => "statement", uid => "100"}
-    |    |--- lhs. Attributes: {op => "::=", token => "frac", uid => "101"}
-    |    |--- rhs. Attributes: {op => "", token => "'.'", uid => "102"}
-    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "103"}
-    |--- statement. Attributes: {token => "statement", uid => "104"}
-    |    |--- lhs. Attributes: {op => "::=", token => "exp", uid => "105"}
-    |    |--- rhs. Attributes: {op => "", token => "e", uid => "106"}
-    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "107"}
-    |--- statement. Attributes: {token => "statement", uid => "108"}
-    |    |--- lhs. Attributes: {op => "::=", token => "e", uid => "109"}
-    |    |--- rhs. Attributes: {op => "", token => "'e'", uid => "110"}
-    |    |--- alternative. Attributes: {token => "|", uid => "111"}
-    |    |--- rhs. Attributes: {op => "", token => "'e+'", uid => "112"}
-    |    |--- alternative. Attributes: {token => "|", uid => "113"}
-    |    |--- rhs. Attributes: {op => "", token => "'e-'", uid => "114"}
-    |    |--- alternative. Attributes: {token => "|", uid => "115"}
-    |    |--- rhs. Attributes: {op => "", token => "'E'", uid => "116"}
-    |    |--- alternative. Attributes: {token => "|", uid => "117"}
-    |    |--- rhs. Attributes: {op => "", token => "'E+'", uid => "118"}
-    |    |--- alternative. Attributes: {token => "|", uid => "119"}
-    |    |--- rhs. Attributes: {op => "", token => "'E-'", uid => "120"}
-    |--- statement. Attributes: {token => "statement", uid => "121"}
-    |    |--- lhs. Attributes: {op => "::=", token => "string", uid => "122"}
-    |    |--- rhs. Attributes: {op => "", token => "lstring", uid => "123"}
-    |    |--- action. Attributes: {token => "action", uid => "124"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "do_string", uid => "125"}
-    |--- statement. Attributes: {token => "statement", uid => "126"}
-    |    |--- lhs. Attributes: {op => "::=", token => "lstring", uid => "127"}
-    |    |--- rhs. Attributes: {op => "", token => "quote", uid => "128"}
-    |    |--- rhs. Attributes: {op => "", token => "in_string", uid => "129"}
-    |    |--- rhs. Attributes: {op => "", token => "quote", uid => "130"}
-    |--- statement. Attributes: {token => "statement", uid => "131"}
-    |    |--- lhs. Attributes: {op => "::=", token => "quote", uid => "132"}
-    |    |--- rhs. Attributes: {op => "", token => "["]", uid => "133"}
-    |--- statement. Attributes: {token => "statement", uid => "134"}
-    |    |--- lhs. Attributes: {op => "~", token => "in_string", uid => "135"}
-    |    |--- rhs. Attributes: {op => "", token => "in_string_char", uid => "136"}
-    |         |--- quantifier. Attributes: {op => "", token => "*", uid => "137"}
-    |--- statement. Attributes: {token => "statement", uid => "138"}
-    |    |--- lhs. Attributes: {op => "::=", token => "in_string_char", uid => "139"}
-    |    |--- rhs. Attributes: {op => "", token => "[^"\\]", uid => "140"}
-    |    |--- alternative. Attributes: {token => "|", uid => "141"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "142"}
-    |    |--- rhs. Attributes: {op => "", token => "'"'", uid => "143"}
-    |    |--- alternative. Attributes: {token => "|", uid => "144"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "145"}
-    |    |--- rhs. Attributes: {op => "", token => "'b'", uid => "146"}
-    |    |--- alternative. Attributes: {token => "|", uid => "147"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "148"}
-    |    |--- rhs. Attributes: {op => "", token => "'f'", uid => "149"}
-    |    |--- alternative. Attributes: {token => "|", uid => "150"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "151"}
-    |    |--- rhs. Attributes: {op => "", token => "'t'", uid => "152"}
-    |    |--- alternative. Attributes: {token => "|", uid => "153"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "154"}
-    |    |--- rhs. Attributes: {op => "", token => "'n'", uid => "155"}
-    |    |--- alternative. Attributes: {token => "|", uid => "156"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "157"}
-    |    |--- rhs. Attributes: {op => "", token => "'r'", uid => "158"}
-    |    |--- alternative. Attributes: {token => "|", uid => "159"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "160"}
-    |    |--- rhs. Attributes: {op => "", token => "'u'", uid => "161"}
-    |    |--- rhs. Attributes: {op => "", token => "four_hex_digits", uid => "162"}
-    |    |--- alternative. Attributes: {token => "|", uid => "163"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "164"}
-    |    |--- rhs. Attributes: {op => "", token => "'/'", uid => "165"}
-    |    |--- alternative. Attributes: {token => "|", uid => "166"}
-    |    |--- rhs. Attributes: {op => "", token => "'\\'", uid => "167"}
-    |--- statement. Attributes: {token => "statement", uid => "168"}
-    |    |--- lhs. Attributes: {op => "::=", token => "four_hex_digits", uid => "169"}
-    |    |--- rhs. Attributes: {op => "", token => "hex_digit", uid => "170"}
-    |    |--- rhs. Attributes: {op => "", token => "hex_digit", uid => "171"}
-    |    |--- rhs. Attributes: {op => "", token => "hex_digit", uid => "172"}
-    |    |--- rhs. Attributes: {op => "", token => "hex_digit", uid => "173"}
-    |--- statement. Attributes: {token => "statement", uid => "174"}
-    |    |--- lhs. Attributes: {op => "::=", token => "hex_digit", uid => "175"}
-    |    |--- rhs. Attributes: {op => "", token => "[0-9a-fA-F]", uid => "176"}
-    |--- statement. Attributes: {token => "statement", uid => "177"}
-    |    |--- lhs. Attributes: {op => "::=", token => "comma", uid => "178"}
-    |    |--- rhs. Attributes: {op => "", token => "','", uid => "179"}
-    |--- statement. Attributes: {token => "statement", uid => "180"}
-    |    |--- lhs. Attributes: {op => "~", token => ":discard", uid => "181"}
-    |    |--- rhs. Attributes: {op => "", token => "whitespace", uid => "182"}
-    |--- statement. Attributes: {token => "statement", uid => "183"}
-         |--- lhs. Attributes: {op => "~", token => "whitespace", uid => "184"}
-         |--- rhs. Attributes: {op => "", token => "[\s]", uid => "185"}
-              |--- quantifier. Attributes: {op => "", token => "+", uid => "186"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "=", token => "lexeme default"}
+    |    |--- latm_specification. Attributes: {op => "=>", token => "latm"}
+    |         |--- boolean. Attributes: {op => "=>", token => "1"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":start"}
+    |    |--- rhs. Attributes: {op => "", token => "json"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "json"}
+    |    |--- rhs. Attributes: {op => "", token => "object"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "array"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "object"}
+    |    |--- rhs. Attributes: {op => "", token => "'{'"}
+    |    |--- rhs. Attributes: {op => "", token => "'}'"}
+    |    |--- action. Attributes: {token => "action"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "do_empty_object"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'{'"}
+    |    |--- rhs. Attributes: {op => "", token => "members"}
+    |    |--- rhs. Attributes: {op => "", token => "'}'"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "do_object"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "members"}
+    |    |--- rhs. Attributes: {op => "", token => "pair"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- separator_specification. Attributes: {op => "", token => "separator_specification"}
+    |    |--- separator. Attributes: {op => "=>", token => "<comma>"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "do_list"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "pair"}
+    |    |--- rhs. Attributes: {op => "", token => "string"}
+    |    |--- rhs. Attributes: {op => "", token => "':'"}
+    |    |--- rhs. Attributes: {op => "", token => "value"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "do_pair"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "value"}
+    |    |--- rhs. Attributes: {op => "", token => "string"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "object"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "number"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "array"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'true'"}
+    |    |--- action. Attributes: {token => "action"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "do_true"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'false'"}
+    |    |--- action. Attributes: {token => "action"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "do_true"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'null'"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "do_null"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "array"}
+    |    |--- rhs. Attributes: {op => "", token => "'['"}
+    |    |--- rhs. Attributes: {op => "", token => "']'"}
+    |    |--- action. Attributes: {token => "action"}
+    |    |    |--- Perl_name. Attributes: {op => "=>", token => "do_empty_array"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'['"}
+    |    |--- rhs. Attributes: {op => "", token => "elements"}
+    |    |--- rhs. Attributes: {op => "", token => "']'"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "do_array"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "elements"}
+    |    |--- rhs. Attributes: {op => "", token => "value"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- separator_specification. Attributes: {op => "", token => "separator_specification"}
+    |    |--- separator. Attributes: {op => "=>", token => "<comma>"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "do_list"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "number"}
+    |    |--- rhs. Attributes: {op => "", token => "int"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "int"}
+    |    |--- rhs. Attributes: {op => "", token => "frac"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "int"}
+    |    |--- rhs. Attributes: {op => "", token => "exp"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "int"}
+    |    |--- rhs. Attributes: {op => "", token => "frac"}
+    |    |--- rhs. Attributes: {op => "", token => "exp"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "int"}
+    |    |--- rhs. Attributes: {op => "", token => "digits"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'-'"}
+    |    |--- rhs. Attributes: {op => "", token => "digits"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "digits"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "frac"}
+    |    |--- rhs. Attributes: {op => "", token => "'.'"}
+    |    |--- rhs. Attributes: {op => "", token => "digits"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "exp"}
+    |    |--- rhs. Attributes: {op => "", token => "e"}
+    |    |--- rhs. Attributes: {op => "", token => "digits"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "e"}
+    |    |--- rhs. Attributes: {op => "", token => "'e'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'e+'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'e-'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'E'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'E+'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'E-'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "string"}
+    |    |--- rhs. Attributes: {op => "", token => "lstring"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- Perl_name. Attributes: {op => "=>", token => "do_string"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "lstring"}
+    |    |--- rhs. Attributes: {op => "", token => "quote"}
+    |    |--- rhs. Attributes: {op => "", token => "in_string"}
+    |    |--- rhs. Attributes: {op => "", token => "quote"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "quote"}
+    |    |--- rhs. Attributes: {op => "", token => "["]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "in_string"}
+    |    |--- rhs. Attributes: {op => "", token => "in_string_char"}
+    |         |--- quantifier. Attributes: {op => "", token => "*"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "in_string_char"}
+    |    |--- rhs. Attributes: {op => "", token => "[^"\\]"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'"'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'b'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'f'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'t'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'n'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'r'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'u'"}
+    |    |--- rhs. Attributes: {op => "", token => "four_hex_digits"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'/'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'\\'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "four_hex_digits"}
+    |    |--- rhs. Attributes: {op => "", token => "hex_digit"}
+    |    |--- rhs. Attributes: {op => "", token => "hex_digit"}
+    |    |--- rhs. Attributes: {op => "", token => "hex_digit"}
+    |    |--- rhs. Attributes: {op => "", token => "hex_digit"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "hex_digit"}
+    |    |--- rhs. Attributes: {op => "", token => "[0-9a-fA-F]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "comma"}
+    |    |--- rhs. Attributes: {op => "", token => "','"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => ":discard"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace"}
+    |--- statement. Attributes: {token => "statement"}
+         |--- lhs. Attributes: {op => "~", token => "whitespace"}
+         |--- rhs. Attributes: {op => "", token => "[\s]"}
+              |--- quantifier. Attributes: {op => "", token => "+"}

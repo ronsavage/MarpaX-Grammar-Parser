@@ -1,175 +1,198 @@
 statements. Attributes: {}
-    |--- statement. Attributes: {token => "statement", uid => "1"}
-    |    |--- lhs. Attributes: {op => "::=", token => ":default", uid => "2"}
-    |    |--- action. Attributes: {token => "action", uid => "3"}
-    |         |--- reserved_action_name. Attributes: {op => "=>", token => "::first", uid => "4"}
-    |--- statement. Attributes: {token => "statement", uid => "5"}
-    |    |--- lhs. Attributes: {op => "=", token => "lexeme default", uid => "6"}
-    |    |--- rhs. Attributes: {op => "=>", token => "latm", uid => "7"}
-    |    |    |--- boolean. Attributes: {op => "=>", token => "1", uid => "8"}
-    |    |--- rhs. Attributes: {token => "action", uid => "9"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name,value]", uid => "10"}
-    |--- statement. Attributes: {token => "statement", uid => "11"}
-    |    |--- lhs. Attributes: {op => "::=", token => "json", uid => "12"}
-    |    |--- rhs. Attributes: {op => "", token => "hash", uid => "13"}
-    |    |--- alternative. Attributes: {token => "|", uid => "14"}
-    |    |--- rhs. Attributes: {op => "", token => "array", uid => "15"}
-    |--- statement. Attributes: {token => "statement", uid => "16"}
-    |    |--- lhs. Attributes: {op => "::=", token => "hash", uid => "17"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "18"}
-    |    |    |--- rhs. Attributes: {op => "", token => "'{'", uid => "19"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "20"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "21"}
-    |    |    |--- rhs. Attributes: {op => "", token => "'}'", uid => "22"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "23"}
-    |    |--- rhs. Attributes: {token => "action", uid => "24"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name,value]", uid => "25"}
-    |--- statement. Attributes: {token => "statement", uid => "26"}
-    |    |--- lhs. Attributes: {op => "~", token => "pair", uid => "27"}
-    |    |    |--- quantifier. Attributes: {op => "", token => "*", uid => "28"}
-    |    |--- rhs. Attributes: {token => "action", uid => "29"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]", uid => "30"}
-    |--- statement. Attributes: {token => "statement", uid => "31"}
-    |    |--- lhs. Attributes: {op => "::=", token => "pair", uid => "32"}
-    |    |--- rhs. Attributes: {op => "", token => "string", uid => "33"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "34"}
-    |    |    |--- rhs. Attributes: {op => "", token => "':'", uid => "35"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "36"}
-    |    |--- rhs. Attributes: {op => "", token => "value", uid => "37"}
-    |    |--- rhs. Attributes: {token => "action", uid => "38"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]", uid => "39"}
-    |--- statement. Attributes: {token => "statement", uid => "40"}
-    |    |--- lhs. Attributes: {op => "::=", token => "value", uid => "41"}
-    |    |--- rhs. Attributes: {op => "", token => "string", uid => "42"}
-    |    |--- alternative. Attributes: {token => "|", uid => "43"}
-    |    |--- rhs. Attributes: {op => "", token => "hash", uid => "44"}
-    |    |--- alternative. Attributes: {token => "|", uid => "45"}
-    |    |--- rhs. Attributes: {op => "", token => "number", uid => "46"}
-    |    |--- alternative. Attributes: {token => "|", uid => "47"}
-    |    |--- rhs. Attributes: {op => "", token => "array", uid => "48"}
-    |    |--- alternative. Attributes: {token => "|", uid => "49"}
-    |    |--- rhs. Attributes: {op => "", token => "true", uid => "50"}
-    |    |--- alternative. Attributes: {token => "|", uid => "51"}
-    |    |--- rhs. Attributes: {op => "", token => "false", uid => "52"}
-    |    |--- alternative. Attributes: {token => "|", uid => "53"}
-    |    |--- rhs. Attributes: {op => "", token => "null", uid => "54"}
-    |--- statement. Attributes: {token => "statement", uid => "55"}
-    |    |--- lhs. Attributes: {op => "::=", token => "true", uid => "56"}
-    |    |--- rhs. Attributes: {op => "", token => "'true'", uid => "57"}
-    |    |--- rhs. Attributes: {token => "action", uid => "58"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name]", uid => "59"}
-    |--- statement. Attributes: {token => "statement", uid => "60"}
-    |    |--- lhs. Attributes: {op => "::=", token => "false", uid => "61"}
-    |    |--- rhs. Attributes: {op => "", token => "'false'", uid => "62"}
-    |    |--- rhs. Attributes: {token => "action", uid => "63"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name]", uid => "64"}
-    |--- statement. Attributes: {token => "statement", uid => "65"}
-    |    |--- lhs. Attributes: {op => "::=", token => "null", uid => "66"}
-    |    |--- rhs. Attributes: {op => "", token => "'null'", uid => "67"}
-    |    |--- rhs. Attributes: {token => "action", uid => "68"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name]", uid => "69"}
-    |--- statement. Attributes: {token => "statement", uid => "70"}
-    |    |--- lhs. Attributes: {op => "::=", token => "array", uid => "71"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "72"}
-    |    |    |--- rhs. Attributes: {op => "", token => "'['", uid => "73"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "74"}
-    |    |--- rhs. Attributes: {op => "", token => "elements", uid => "75"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "76"}
-    |    |    |--- rhs. Attributes: {op => "", token => "']'", uid => "77"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "78"}
-    |    |--- rhs. Attributes: {token => "action", uid => "79"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name,values]", uid => "80"}
-    |--- statement. Attributes: {token => "statement", uid => "81"}
-    |    |--- lhs. Attributes: {op => "~", token => "elements", uid => "82"}
-    |    |--- rhs. Attributes: {op => "", token => "value", uid => "83"}
-    |    |    |--- quantifier. Attributes: {op => "", token => "*", uid => "84"}
-    |    |--- rhs. Attributes: {token => "action", uid => "85"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]", uid => "86"}
-    |--- statement. Attributes: {token => "statement", uid => "87"}
-    |    |--- lhs. Attributes: {op => "::=", token => "number", uid => "88"}
-    |    |--- rhs. Attributes: {op => "", token => "int", uid => "89"}
-    |    |--- alternative. Attributes: {token => "|", uid => "90"}
-    |    |--- rhs. Attributes: {op => "", token => "int", uid => "91"}
-    |    |--- rhs. Attributes: {op => "", token => "frac", uid => "92"}
-    |    |--- alternative. Attributes: {token => "|", uid => "93"}
-    |    |--- rhs. Attributes: {op => "", token => "int", uid => "94"}
-    |    |--- rhs. Attributes: {op => "", token => "exp", uid => "95"}
-    |    |--- alternative. Attributes: {token => "|", uid => "96"}
-    |    |--- rhs. Attributes: {op => "", token => "int", uid => "97"}
-    |    |--- rhs. Attributes: {op => "", token => "frac", uid => "98"}
-    |    |--- rhs. Attributes: {op => "", token => "exp", uid => "99"}
-    |--- statement. Attributes: {token => "statement", uid => "100"}
-    |    |--- lhs. Attributes: {op => "::=", token => "int", uid => "101"}
-    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "102"}
-    |    |--- alternative. Attributes: {token => "|", uid => "103"}
-    |    |--- rhs. Attributes: {op => "", token => "'-'", uid => "104"}
-    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "105"}
-    |--- statement. Attributes: {token => "statement", uid => "106"}
-    |    |--- lhs. Attributes: {op => "~", token => "digits", uid => "107"}
-    |    |--- rhs. Attributes: {op => "", token => "[\d]", uid => "108"}
-    |         |--- quantifier. Attributes: {op => "", token => "+", uid => "109"}
-    |--- statement. Attributes: {token => "statement", uid => "110"}
-    |    |--- lhs. Attributes: {op => "::=", token => "frac", uid => "111"}
-    |    |--- rhs. Attributes: {op => "", token => "'.'", uid => "112"}
-    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "113"}
-    |--- statement. Attributes: {token => "statement", uid => "114"}
-    |    |--- lhs. Attributes: {op => "::=", token => "exp", uid => "115"}
-    |    |--- rhs. Attributes: {op => "", token => "e", uid => "116"}
-    |    |--- rhs. Attributes: {op => "", token => "digits", uid => "117"}
-    |--- statement. Attributes: {token => "statement", uid => "118"}
-    |    |--- lhs. Attributes: {op => "::=", token => "e", uid => "119"}
-    |    |--- rhs. Attributes: {op => "", token => "'e'", uid => "120"}
-    |    |--- alternative. Attributes: {token => "|", uid => "121"}
-    |    |--- rhs. Attributes: {op => "", token => "'e+'", uid => "122"}
-    |    |--- alternative. Attributes: {token => "|", uid => "123"}
-    |    |--- rhs. Attributes: {op => "", token => "'e-'", uid => "124"}
-    |    |--- alternative. Attributes: {token => "|", uid => "125"}
-    |    |--- rhs. Attributes: {op => "", token => "'E'", uid => "126"}
-    |    |--- alternative. Attributes: {token => "|", uid => "127"}
-    |    |--- rhs. Attributes: {op => "", token => "'E+'", uid => "128"}
-    |    |--- alternative. Attributes: {token => "|", uid => "129"}
-    |    |--- rhs. Attributes: {op => "", token => "'E-'", uid => "130"}
-    |--- statement. Attributes: {token => "statement", uid => "131"}
-    |    |--- lhs. Attributes: {op => "::=", token => "string", uid => "132"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "133"}
-    |    |    |--- rhs. Attributes: {op => "", token => "quote", uid => "134"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "135"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "136"}
-    |    |    |--- rhs. Attributes: {op => "", token => "quote", uid => "137"}
-    |    |         |--- quantifier. Attributes: {op => "", token => "*", uid => "142"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "138"}
-    |    |--- rhs. Attributes: {token => "action", uid => "139"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name,values]", uid => "140"}
-    |--- statement. Attributes: {token => "statement", uid => "141"}
-    |    |--- rhs. Attributes: {token => "action", uid => "143"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]", uid => "144"}
-    |--- statement. Attributes: {token => "statement", uid => "145"}
-    |    |--- alternative. Attributes: {token => "|", uid => "146"}
-    |    |--- alternative. Attributes: {token => "|", uid => "147"}
-    |--- statement. Attributes: {token => "statement", uid => "148"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "(", uid => "149"}
-    |    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "150"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")", uid => "151"}
-    |--- statement. Attributes: {token => "statement", uid => "152"}
-    |    |--- lhs. Attributes: {op => "::=", token => "quote", uid => "153"}
-    |    |--- rhs. Attributes: {op => "", token => "["]", uid => "154"}
-    |--- statement. Attributes: {token => "statement", uid => "155"}
-    |    |--- rhs. Attributes: {op => "", token => "[^"\\]", uid => "156"}
-    |         |--- quantifier. Attributes: {op => "", token => "*", uid => "157"}
-    |--- statement. Attributes: {token => "statement", uid => "158"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'", uid => "159"}
-    |    |--- rhs. Attributes: {op => "", token => "'u'", uid => "160"}
-    |--- statement. Attributes: {token => "statement", uid => "161"}
-    |    |--- rhs. Attributes: {op => "", token => "[0-9A-Fa-f]", uid => "162"}
-    |--- statement. Attributes: {token => "statement", uid => "163"}
-    |    |--- rhs. Attributes: {op => "", token => "[\d\D]", uid => "164"}
-    |--- statement. Attributes: {token => "statement", uid => "165"}
-    |    |--- lhs. Attributes: {op => "::=", token => "comma", uid => "166"}
-    |    |--- rhs. Attributes: {op => "", token => "','", uid => "167"}
-    |--- statement. Attributes: {token => "statement", uid => "168"}
-    |    |--- lhs. Attributes: {op => "~", token => ":discard", uid => "169"}
-    |    |--- rhs. Attributes: {op => "", token => "whitespace", uid => "170"}
-    |--- statement. Attributes: {token => "statement", uid => "171"}
-         |--- lhs. Attributes: {op => "~", token => "whitespace", uid => "172"}
-         |--- rhs. Attributes: {op => "", token => "[\s]", uid => "173"}
-              |--- quantifier. Attributes: {op => "", token => "+", uid => "174"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":default"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- reserved_action_name. Attributes: {op => "=>", token => "::first"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "=", token => "lexeme default"}
+    |    |--- latm_specification. Attributes: {op => "=>", token => "latm"}
+    |    |    |--- boolean. Attributes: {op => "=>", token => "1"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name,value]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "json"}
+    |    |--- rhs. Attributes: {op => "", token => "hash"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "array"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "hash"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'{'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<hash pairs>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'}'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name,value]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<hash pairs>"}
+    |    |--- rhs. Attributes: {op => "", token => "pair"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "*"}
+    |    |--- separator_specification. Attributes: {op => "", token => "separator_specification"}
+    |    |--- separator. Attributes: {op => "=>", token => "<comma>"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "pair"}
+    |    |--- rhs. Attributes: {op => "", token => "string"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "':'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "value"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "value"}
+    |    |--- rhs. Attributes: {op => "", token => "string"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "hash"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "number"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "array"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "true"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "false"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "null"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "true"}
+    |    |--- rhs. Attributes: {op => "", token => "'true'"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "false"}
+    |    |--- rhs. Attributes: {op => "", token => "'false'"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "null"}
+    |    |--- rhs. Attributes: {op => "", token => "'null'"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "array"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'['"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "elements"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "']'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name,values]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "elements"}
+    |    |--- rhs. Attributes: {op => "", token => "value"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "*"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |    |    |--- array_descriptor. Attributes: {op => "=>", token => "[values]"}
+    |    |--- separator_specification. Attributes: {op => "", token => "separator_specification"}
+    |    |--- separator. Attributes: {op => "=>", token => "<comma>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "number"}
+    |    |--- rhs. Attributes: {op => "", token => "int"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "int"}
+    |    |--- rhs. Attributes: {op => "", token => "frac"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "int"}
+    |    |--- rhs. Attributes: {op => "", token => "exp"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "int"}
+    |    |--- rhs. Attributes: {op => "", token => "frac"}
+    |    |--- rhs. Attributes: {op => "", token => "exp"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "int"}
+    |    |--- rhs. Attributes: {op => "", token => "digits"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'-'"}
+    |    |--- rhs. Attributes: {op => "", token => "digits"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "digits"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "frac"}
+    |    |--- rhs. Attributes: {op => "", token => "'.'"}
+    |    |--- rhs. Attributes: {op => "", token => "digits"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "exp"}
+    |    |--- rhs. Attributes: {op => "", token => "e"}
+    |    |--- rhs. Attributes: {op => "", token => "digits"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "e"}
+    |    |--- rhs. Attributes: {op => "", token => "'e'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'e+'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'e-'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'E'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'E+'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'E-'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "string"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "quote"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<string contents>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "quote"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[name,values]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<string contents>"}
+    |    |--- rhs. Attributes: {op => "", token => "<string piece>"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "*"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<string piece>"}
+    |    |--- rhs. Attributes: {op => "", token => "<easy string>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<escaped char>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<hex char>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<escaped char>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<any char>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "quote"}
+    |    |--- rhs. Attributes: {op => "", token => "["]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<easy string>"}
+    |    |--- rhs. Attributes: {op => "", token => "[^"\\]"}
+    |         |--- quantifier. Attributes: {op => "", token => "*"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<hex char>"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "'u'"}
+    |    |--- rhs. Attributes: {op => "", token => "<hex digit>"}
+    |    |--- rhs. Attributes: {op => "", token => "<hex digit>"}
+    |    |--- rhs. Attributes: {op => "", token => "<hex digit>"}
+    |    |--- rhs. Attributes: {op => "", token => "<hex digit>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<hex digit>"}
+    |    |--- rhs. Attributes: {op => "", token => "[0-9A-Fa-f]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<any char>"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d\D]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "comma"}
+    |    |--- rhs. Attributes: {op => "", token => "','"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => ":discard"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace"}
+    |--- statement. Attributes: {token => "statement"}
+         |--- lhs. Attributes: {op => "~", token => "whitespace"}
+         |--- rhs. Attributes: {op => "", token => "[\s]"}
+              |--- quantifier. Attributes: {op => "", token => "+"}

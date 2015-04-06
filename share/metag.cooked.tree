@@ -1,857 +1,716 @@
-Statements
-    |--- statement
-    |    |--- :default
-    |    |--- ::=
-    |    |--- action
-    |    |--- =>
-    |    |--- [start,length,values]
-    |    |--- bless
-    |    |--- =>
-    |    |--- ::lhs
-    |--- statement
-    |    |--- lexeme default
-    |    |--- =
-    |    |--- action
-    |    |--- =>
-    |    |--- [start,length,value]
-    |    |--- bless
-    |    |--- =>
-    |    |--- ::name
-    |    |--- latm
-    |    |--- =>
-    |    |--- 1
-    |--- statement
-    |    |--- :start
-    |    |--- ::=
-    |    |--- statements
-    |--- statement
-    |    |--- statements
-    |    |--- ::=
-    |    |--- statement
-    |    |--- +
-    |--- statement
-    |    |--- statement
-    |    |--- ::=
-    |    |--- <start rule>
-    |    |--- |
-    |    |--- <empty rule>
-    |    |--- |
-    |    |--- <null statement>
-    |    |--- |
-    |    |--- <statement group>
-    |    |--- |
-    |    |--- <priority rule>
-    |    |--- |
-    |    |--- <quantified rule>
-    |    |--- |
-    |    |--- <discard rule>
-    |    |--- |
-    |    |--- <default rule>
-    |    |--- |
-    |    |--- <lexeme default statement>
-    |    |--- |
-    |    |--- <discard default statement>
-    |    |--- |
-    |    |--- <lexeme rule>
-    |    |--- |
-    |    |--- <completion event declaration>
-    |    |--- |
-    |    |--- <nulled event declaration>
-    |    |--- |
-    |    |--- <prediction event declaration>
-    |    |--- |
-    |    |--- <current lexer statement>
-    |    |--- |
-    |    |--- <inaccessible statement>
-    |--- statement
-    |    |--- <null statement>
-    |    |--- ::=
-    |    |--- ';'
-    |--- statement
-    |    |--- <statement group>
-    |    |--- ::=
-    |    |--- (
-    |    |--- '{'
-    |    |--- )
-    |    |--- statements
-    |    |--- '}'
-    |--- statement
-    |    |--- <start rule>
-    |    |--- ::=
-    |    |--- (
-    |    |--- ':start'
-    |    |--- <op declare bnf>
-    |    |--- )
-    |    |--- symbol
-    |--- statement
-    |    |--- <start rule>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'start'
-    |    |--- 'symbol'
-    |    |--- 'is'
-    |    |--- )
-    |    |--- symbol
-    |--- statement
-    |    |--- <default rule>
-    |    |--- ::=
-    |    |--- ':default'
-    |    |--- <op declare bnf>
-    |    |--- <adverb list>
-    |--- statement
-    |    |--- <lexeme default statement>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'lexeme'
-    |    |--- 'default'
-    |    |--- '='
-    |    |--- )
-    |    |--- <adverb list>
-    |--- statement
-    |    |--- <discard default statement>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'discard'
-    |    |--- 'default'
-    |    |--- '='
-    |    |--- )
-    |    |--- <adverb list>
-    |--- statement
-    |    |--- <priority rule>
-    |    |--- ::=
-    |    |--- lhs
-    |    |--- <op declare>
-    |    |--- priorities
-    |--- statement
-    |    |--- <empty rule>
-    |    |--- ::=
-    |    |--- lhs
-    |    |--- <op declare>
-    |    |--- <adverb list>
-    |--- statement
-    |    |--- <quantified rule>
-    |    |--- ::=
-    |    |--- lhs
-    |    |--- <op declare>
-    |    |--- <single symbol>
-    |    |--- quantifier
-    |    |--- <adverb list>
-    |--- statement
-    |    |--- <discard rule>
-    |    |--- ::=
-    |    |--- (
-    |    |--- ':discard'
-    |    |--- <op declare match>
-    |    |--- )
-    |    |--- <single symbol>
-    |    |--- <adverb list>
-    |--- statement
-    |    |--- <lexeme rule>
-    |    |--- ::=
-    |    |--- (
-    |    |--- ':lexeme'
-    |    |--- <op declare match>
-    |    |--- )
-    |    |--- symbol
-    |    |--- <adverb list>
-    |--- statement
-    |    |--- <completion event declaration>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'event'
-    |    |--- )
-    |    |--- <event initialization>
-    |    |--- (
-    |    |--- '='
-    |    |--- 'completed'
-    |    |--- )
-    |    |--- <symbol name>
-    |--- statement
-    |    |--- <nulled event declaration>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'event'
-    |    |--- )
-    |    |--- <event initialization>
-    |    |--- (
-    |    |--- '='
-    |    |--- 'nulled'
-    |    |--- )
-    |    |--- <symbol name>
-    |--- statement
-    |    |--- <prediction event declaration>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'event'
-    |    |--- )
-    |    |--- <event initialization>
-    |    |--- (
-    |    |--- '='
-    |    |--- 'predicted'
-    |    |--- )
-    |    |--- <symbol name>
-    |--- statement
-    |    |--- <current lexer statement>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'current'
-    |    |--- 'lexer'
-    |    |--- 'is'
-    |    |--- )
-    |    |--- <lexer name>
-    |--- statement
-    |    |--- <inaccessible statement>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'inaccessible'
-    |    |--- 'is'
-    |    |--- )
-    |    |--- <inaccessible treatment>
-    |    |--- (
-    |    |--- 'by'
-    |    |--- 'default'
-    |    |--- )
-    |--- statement
-    |    |--- <inaccessible treatment>
-    |    |--- ::=
-    |    |--- 'warn'
-    |    |--- |
-    |    |--- 'ok'
-    |    |--- |
-    |    |--- 'fatal'
-    |--- statement
-    |    |--- <op declare>
-    |    |--- ::=
-    |    |--- <op declare bnf>
-    |    |--- |
-    |    |--- <op declare match>
-    |--- statement
-    |    |--- priorities
-    |    |--- ::=
-    |    |--- alternatives
-    |    |--- +
-    |    |--- separator
-    |    |--- =>
-    |    |--- <op loosen>
-    |    |--- proper
-    |    |--- =>
-    |    |--- 1
-    |--- statement
-    |    |--- alternatives
-    |    |--- ::=
-    |    |--- alternative
-    |    |--- +
-    |    |--- separator
-    |    |--- =>
-    |    |--- <op equal priority>
-    |    |--- proper
-    |    |--- =>
-    |    |--- 1
-    |--- statement
-    |    |--- alternative
-    |    |--- ::=
-    |    |--- rhs
-    |    |--- <adverb list>
-    |--- statement
-    |    |--- <adverb list>
-    |    |--- ::=
-    |    |--- <adverb list items>
-    |--- statement
-    |    |--- <adverb list items>
-    |    |--- ::=
-    |    |--- <adverb item>
-    |    |--- *
-    |--- statement
-    |    |--- <adverb item>
-    |    |--- ::=
-    |    |--- action
-    |    |--- |
-    |    |--- <left association>
-    |    |--- |
-    |    |--- <right association>
-    |    |--- |
-    |    |--- <group association>
-    |    |--- |
-    |    |--- <separator specification>
-    |    |--- |
-    |    |--- <proper specification>
-    |    |--- |
-    |    |--- <rank specification>
-    |    |--- |
-    |    |--- <null ranking specification>
-    |    |--- |
-    |    |--- <priority specification>
-    |    |--- |
-    |    |--- <pause specification>
-    |    |--- |
-    |    |--- <event specification>
-    |    |--- |
-    |    |--- <latm specification>
-    |    |--- |
-    |    |--- blessing
-    |    |--- |
-    |    |--- naming
-    |    |--- |
-    |    |--- <null adverb>
-    |--- statement
-    |    |--- <null adverb>
-    |    |--- ::=
-    |    |--- ','
-    |--- statement
-    |    |--- action
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'action'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <action name>
-    |--- statement
-    |    |--- <left association>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'assoc'
-    |    |--- '=>'
-    |    |--- 'left'
-    |    |--- )
-    |--- statement
-    |    |--- <right association>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'assoc'
-    |    |--- '=>'
-    |    |--- 'right'
-    |    |--- )
-    |--- statement
-    |    |--- <group association>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'assoc'
-    |    |--- '=>'
-    |    |--- 'group'
-    |    |--- )
-    |--- statement
-    |    |--- <separator specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'separator'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <single symbol>
-    |--- statement
-    |    |--- <proper specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'proper'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- boolean
-    |--- statement
-    |    |--- <rank specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'rank'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <signed integer>
-    |--- statement
-    |    |--- <null ranking specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'null-ranking'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <null ranking constant>
-    |--- statement
-    |    |--- <null ranking specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'null'
-    |    |--- 'rank'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <null ranking constant>
-    |--- statement
-    |    |--- <null ranking constant>
-    |    |--- ::=
-    |    |--- 'low'
-    |    |--- |
-    |    |--- 'high'
-    |--- statement
-    |    |--- <priority specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'priority'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <signed integer>
-    |--- statement
-    |    |--- <pause specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'pause'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <before or after>
-    |--- statement
-    |    |--- <event specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'event'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <event initialization>
-    |--- statement
-    |    |--- <event initialization>
-    |    |--- ::=
-    |    |--- <event name>
-    |    |--- <event initializer>
-    |--- statement
-    |    |--- <event initializer>
-    |    |--- ::=
-    |    |--- (
-    |    |--- '='
-    |    |--- )
-    |    |--- <on or off>
-    |--- statement
-    |    |--- <on or off>
-    |    |--- ::=
-    |    |--- 'on'
-    |    |--- |
-    |    |--- 'off'
-    |--- statement
-    |    |--- <event initializer>
-    |    |--- ::=
-    |--- statement
-    |    |--- <latm specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'forgiving'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- boolean
-    |--- statement
-    |    |--- <latm specification>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'latm'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- boolean
-    |--- statement
-    |    |--- <blessing>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'bless'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <blessing name>
-    |--- statement
-    |    |--- <naming>
-    |    |--- ::=
-    |    |--- (
-    |    |--- 'name'
-    |    |--- '=>'
-    |    |--- )
-    |    |--- <alternative name>
-    |--- statement
-    |    |--- <alternative name>
-    |    |--- ::=
-    |    |--- <standard name>
-    |    |--- |
-    |    |--- <single quoted name>
-    |--- statement
-    |    |--- <lexer name>
-    |    |--- ::=
-    |    |--- <standard name>
-    |    |--- |
-    |    |--- <single quoted name>
-    |--- statement
-    |    |--- <event name>
-    |    |--- ::=
-    |    |--- <standard name>
-    |    |--- |
-    |    |--- <single quoted name>
-    |    |--- |
-    |    |--- <reserved event name>
-    |--- statement
-    |    |--- <reserved event name>
-    |    |--- ~
-    |    |--- ':symbol'
-    |--- statement
-    |    |--- <blessing name>
-    |    |--- ::=
-    |    |--- <standard name>
-    |--- statement
-    |    |--- <blessing name>
-    |    |--- ::=
-    |    |--- <reserved blessing name>
-    |--- statement
-    |    |--- lhs
-    |    |--- ::=
-    |    |--- <symbol name>
-    |--- statement
-    |    |--- rhs
-    |    |--- ::=
-    |    |--- <rhs primary>
-    |    |--- +
-    |--- statement
-    |    |--- <rhs primary>
-    |    |--- ::=
-    |    |--- <single symbol>
-    |--- statement
-    |    |--- <rhs primary>
-    |    |--- ::=
-    |    |--- <single quoted string>
-    |--- statement
-    |    |--- <rhs primary>
-    |    |--- ::=
-    |    |--- <parenthesized rhs primary list>
-    |--- statement
-    |    |--- <parenthesized rhs primary list>
-    |    |--- ::=
-    |    |--- (
-    |    |--- '('
-    |    |--- )
-    |    |--- <rhs primary list>
-    |    |--- (
-    |    |--- ')'
-    |    |--- )
-    |--- statement
-    |    |--- <rhs primary list>
-    |    |--- ::=
-    |    |--- <rhs primary>
-    |    |--- +
-    |--- statement
-    |    |--- <single symbol>
-    |    |--- ::=
-    |    |--- symbol
-    |    |--- |
-    |    |--- <character class>
-    |--- statement
-    |    |--- symbol
-    |    |--- ::=
-    |    |--- <symbol name>
-    |--- statement
-    |    |--- <symbol name>
-    |    |--- ::=
-    |    |--- <bare name>
-    |--- statement
-    |    |--- <symbol name>
-    |    |--- ::=
-    |    |--- <bracketed name>
-    |--- statement
-    |    |--- <action name>
-    |    |--- ::=
-    |    |--- <Perl name>
-    |--- statement
-    |    |--- <action name>
-    |    |--- ::=
-    |    |--- <reserved action name>
-    |--- statement
-    |    |--- <action name>
-    |    |--- ::=
-    |    |--- <array descriptor>
-    |--- statement
-    |    |--- :discard
-    |    |--- ~
-    |    |--- whitespace
-    |--- statement
-    |    |--- whitespace
-    |    |--- ~
-    |    |--- [\s]
-    |    |--- +
-    |--- statement
-    |    |--- :discard
-    |    |--- ~
-    |    |--- <hash comment>
-    |--- statement
-    |    |--- <hash comment>
-    |    |--- ~
-    |    |--- <terminated hash comment>
-    |    |--- |
-    |    |--- <unterminated final hash comment>
-    |--- statement
-    |    |--- <terminated hash comment>
-    |    |--- ~
-    |    |--- '#'
-    |    |--- <hash comment body>
-    |    |--- <vertical space char>
-    |--- statement
-    |    |--- <unterminated final hash comment>
-    |    |--- ~
-    |    |--- '#'
-    |    |--- <hash comment body>
-    |--- statement
-    |    |--- <hash comment body>
-    |    |--- ~
-    |    |--- <hash comment char>
-    |    |--- *
-    |--- statement
-    |    |--- <vertical space char>
-    |    |--- ~
-    |    |--- [\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
-    |--- statement
-    |    |--- <hash comment char>
-    |    |--- ~
-    |    |--- [^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
-    |--- statement
-    |    |--- <op declare bnf>
-    |    |--- ~
-    |    |--- '::='
-    |--- statement
-    |    |--- <op declare match>
-    |    |--- ~
-    |    |--- '~'
-    |--- statement
-    |    |--- <op loosen>
-    |    |--- ~
-    |    |--- '||'
-    |--- statement
-    |    |--- <op equal priority>
-    |    |--- ~
-    |    |--- '|'
-    |--- statement
-    |    |--- quantifier
-    |    |--- ::=
-    |    |--- '*'
-    |    |--- |
-    |    |--- '+'
-    |--- statement
-    |    |--- <before or after>
-    |    |--- ~
-    |    |--- 'before'
-    |    |--- |
-    |    |--- 'after'
-    |--- statement
-    |    |--- <signed integer>
-    |    |--- ~
-    |    |--- <integer>
-    |    |--- |
-    |    |--- <sign>
-    |    |--- <integer>
-    |--- statement
-    |    |--- <sign>
-    |    |--- ~
-    |    |--- [+-]
-    |--- statement
-    |    |--- <integer>
-    |    |--- ~
-    |    |--- [\d]
-    |    |--- +
-    |--- statement
-    |    |--- boolean
-    |    |--- ~
-    |    |--- [01]
-    |--- statement
-    |    |--- <reserved action name>
-    |    |--- ~
-    |    |--- '::'
-    |    |--- <one or more word characters>
-    |--- statement
-    |    |--- <reserved blessing name>
-    |    |--- ~
-    |    |--- '::'
-    |    |--- <one or more word characters>
-    |--- statement
-    |    |--- <one or more word characters>
-    |    |--- ~
-    |    |--- [\w]
-    |    |--- +
-    |--- statement
-    |    |--- <zero or more word characters>
-    |    |--- ~
-    |    |--- [\w]
-    |    |--- *
-    |--- statement
-    |    |--- <Perl identifier>
-    |    |--- ~
-    |    |--- [\w]
-    |    |--- +
-    |--- statement
-    |    |--- <double colon>
-    |    |--- ~
-    |    |--- '::'
-    |--- statement
-    |    |--- <Perl name>
-    |    |--- ~
-    |    |--- <Perl identifier>
-    |    |--- +
-    |    |--- separator
-    |    |--- =>
-    |    |--- <double colon>
-    |    |--- proper
-    |    |--- =>
-    |    |--- 1
-    |--- statement
-    |    |--- <bare name>
-    |    |--- ~
-    |    |--- [\w]
-    |    |--- +
-    |--- statement
-    |    |--- <standard name>
-    |    |--- ~
-    |    |--- [a-zA-Z]
-    |    |--- <zero or more word characters>
-    |--- statement
-    |    |--- <bracketed name>
-    |    |--- ~
-    |    |--- '<'
-    |    |--- <bracketed name string>
-    |    |--- '>'
-    |--- statement
-    |    |--- <bracketed name string>
-    |    |--- ~
-    |    |--- [\s\w]
-    |    |--- +
-    |--- statement
-    |    |--- <array descriptor>
-    |    |--- ~
-    |    |--- <array descriptor left bracket>
-    |    |--- <result item descriptor list>
-    |    |--- <array descriptor right bracket>
-    |--- statement
-    |    |--- <array descriptor left bracket>
-    |    |--- ~
-    |    |--- '['
-    |--- statement
-    |    |--- <array descriptor left bracket>
-    |    |--- ~
-    |    |--- '['
-    |    |--- whitespace
-    |--- statement
-    |    |--- <array descriptor right bracket>
-    |    |--- ~
-    |    |--- ']'
-    |--- statement
-    |    |--- <array descriptor right bracket>
-    |    |--- ~
-    |    |--- whitespace
-    |    |--- ']'
-    |--- statement
-    |    |--- <result item descriptor list>
-    |    |--- ~
-    |    |--- <result item descriptor>
-    |    |--- *
-    |    |--- separator
-    |    |--- =>
-    |    |--- <result item descriptor separator>
-    |--- statement
-    |    |--- <result item descriptor separator>
-    |    |--- ~
-    |    |--- [,]
-    |--- statement
-    |    |--- <result item descriptor separator>
-    |    |--- ~
-    |    |--- [,]
-    |    |--- whitespace
-    |--- statement
-    |    |--- <result item descriptor>
-    |    |--- ~
-    |    |--- 'start'
-    |    |--- |
-    |    |--- 'length'
-    |    |--- |
-    |    |--- 'g1start'
-    |    |--- |
-    |    |--- 'g1length'
-    |    |--- |
-    |    |--- 'name'
-    |    |--- |
-    |    |--- 'lhs'
-    |    |--- |
-    |    |--- 'symbol'
-    |    |--- |
-    |    |--- 'rule'
-    |    |--- |
-    |    |--- 'value'
-    |    |--- |
-    |    |--- 'values'
-    |--- statement
-    |    |--- <single quoted string>
-    |    |--- ~
-    |    |--- [']
-    |    |--- <string without single quote or vertical space>
-    |    |--- [']
-    |    |--- <character class modifiers>
-    |--- statement
-    |    |--- <single quoted name>
-    |    |--- ~
-    |    |--- [']
-    |    |--- <string without single quote or vertical space>
-    |    |--- [']
-    |--- statement
-    |    |--- <string without single quote or vertical space>
-    |    |--- ~
-    |    |--- [^'\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]
-    |    |--- +
-    |--- statement
-    |    |--- <character class>
-    |    |--- ~
-    |    |--- '['
-    |    |--- <cc elements>
-    |    |--- ']'
-    |    |--- <character class modifiers>
-    |--- statement
-    |    |--- <cc elements>
-    |    |--- ~
-    |    |--- <cc element>
-    |    |--- +
-    |--- statement
-    |    |--- <cc element>
-    |    |--- ~
-    |    |--- <safe cc character>
-    |--- statement
-    |    |--- <safe cc character>
-    |    |--- ~
-    |    |--- [^\x{5d}\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]
-    |--- statement
-    |    |--- <cc element>
-    |    |--- ~
-    |    |--- <escaped cc character>
-    |--- statement
-    |    |--- <escaped cc character>
-    |    |--- ~
-    |    |--- '\'
-    |    |--- <horizontal character>
-    |--- statement
-    |    |--- <cc element>
-    |    |--- ~
-    |    |--- <posix char class>
-    |--- statement
-    |    |--- <cc element>
-    |    |--- ~
-    |    |--- <negated posix char class>
-    |--- statement
-    |    |--- <character class modifiers>
-    |    |--- ~
-    |    |--- <character class modifier>
-    |    |--- *
-    |--- statement
-    |    |--- <character class modifier>
-    |    |--- ~
-    |    |--- ':ic'
-    |--- statement
-    |    |--- <character class modifier>
-    |    |--- ~
-    |    |--- ':i'
-    |--- statement
-    |    |--- <posix char class>
-    |    |--- ~
-    |    |--- '[:'
-    |    |--- <posix char class name>
-    |    |--- ':]'
-    |--- statement
-    |    |--- <negated posix char class>
-    |    |--- ~
-    |    |--- '[:^'
-    |    |--- <posix char class name>
-    |    |--- ':]'
-    |--- statement
-    |    |--- <posix char class name>
-    |    |--- ~
-    |    |--- [[:alnum:]]
-    |    |--- +
-    |--- statement
-         |--- <horizontal character>
-         |--- ~
-         |--- [^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
+statements. Attributes: {}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":default"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |    |    |--- array_descriptor. Attributes: {op => "=>", token => "[start,length,values]"}
+    |    |--- bless. Attributes: {token => "bless"}
+    |         |--- reserved_blessing_name. Attributes: {op => "=>", token => "::lhs"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "=", token => "lexeme default"}
+    |    |--- rhs. Attributes: {token => "action"}
+    |    |    |--- array_descriptor. Attributes: {op => "=>", token => "[start,length,value]"}
+    |    |--- bless. Attributes: {token => "bless"}
+    |    |    |--- reserved_blessing_name. Attributes: {op => "=>", token => "::name"}
+    |    |--- latm_specification. Attributes: {op => "=>", token => "latm"}
+    |         |--- boolean. Attributes: {op => "=>", token => "1"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => ":start"}
+    |    |--- blessing_name. Attributes: {op => "", token => "statements"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "statements"}
+    |    |--- rhs. Attributes: {op => "", token => "statement"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "statement"}
+    |    |--- rhs. Attributes: {op => "", token => "<start rule>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<empty rule>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<null statement>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<statement group>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<priority rule>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<quantified rule>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<discard rule>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<default rule>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<lexeme default statement>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<discard default statement>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<lexeme rule>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<completion event declaration>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<nulled event declaration>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<prediction event declaration>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<current lexer statement>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<inaccessible statement>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<null statement>"}
+    |    |--- rhs. Attributes: {op => "", token => "';'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<statement group>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'{'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "statements"}
+    |    |--- rhs. Attributes: {op => "", token => "'}'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<start rule>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "':start'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "<op declare bnf>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "symbol"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<start rule>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'start'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'symbol'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'is'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "symbol"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<default rule>"}
+    |    |--- rhs. Attributes: {op => "", token => "':default'"}
+    |    |--- rhs. Attributes: {op => "", token => "<op declare bnf>"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<lexeme default statement>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'lexeme'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'default'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'='"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<discard default statement>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'discard'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'default'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'='"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<priority rule>"}
+    |    |--- rhs. Attributes: {op => "", token => "lhs"}
+    |    |--- rhs. Attributes: {op => "", token => "<op declare>"}
+    |    |--- rhs. Attributes: {op => "", token => "priorities"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<empty rule>"}
+    |    |--- rhs. Attributes: {op => "", token => "lhs"}
+    |    |--- rhs. Attributes: {op => "", token => "<op declare>"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<quantified rule>"}
+    |    |--- rhs. Attributes: {op => "", token => "lhs"}
+    |    |--- rhs. Attributes: {op => "", token => "<op declare>"}
+    |    |--- rhs. Attributes: {op => "", token => "<single symbol>"}
+    |    |--- rhs. Attributes: {op => "", token => "quantifier"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<discard rule>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "':discard'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "<op declare match>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<single symbol>"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<lexeme rule>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "':lexeme'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "<op declare match>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "symbol"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<completion event declaration>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'event'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<event initialization>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'='"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'completed'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<symbol name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<nulled event declaration>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'event'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<event initialization>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'='"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'nulled'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<symbol name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<prediction event declaration>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'event'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<event initialization>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'='"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'predicted'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<symbol name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<current lexer statement>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'current'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'lexer'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'is'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<lexer name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<inaccessible statement>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'inaccessible'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'is'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<inaccessible treatment>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'by'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'default'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<inaccessible treatment>"}
+    |    |--- rhs. Attributes: {op => "", token => "'warn'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'ok'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'fatal'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<op declare>"}
+    |    |--- rhs. Attributes: {op => "", token => "<op declare bnf>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<op declare match>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "priorities"}
+    |    |--- rhs. Attributes: {op => "", token => "alternatives"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- separator_specification. Attributes: {op => "", token => "separator_specification"}
+    |    |--- separator. Attributes: {op => "=>", token => "<op loosen>"}
+    |    |--- proper_specification. Attributes: {op => "", token => "proper_specification"}
+    |         |--- boolean. Attributes: {op => "=>", token => "1"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "alternatives"}
+    |    |--- rhs. Attributes: {op => "", token => "alternative"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- separator_specification. Attributes: {op => "", token => "separator_specification"}
+    |    |--- separator. Attributes: {op => "=>", token => "<op equal priority>"}
+    |    |--- proper_specification. Attributes: {op => "", token => "proper_specification"}
+    |         |--- boolean. Attributes: {op => "=>", token => "1"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "alternative"}
+    |    |--- rhs. Attributes: {op => "", token => "rhs"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<adverb list>"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb list items>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<adverb list items>"}
+    |    |--- rhs. Attributes: {op => "", token => "<adverb item>"}
+    |         |--- quantifier. Attributes: {op => "", token => "*"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<adverb item>"}
+    |    |--- rhs. Attributes: {op => "", token => "action"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<left association>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<right association>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<group association>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<separator specification>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<proper specification>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<rank specification>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<null ranking specification>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<priority specification>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<pause specification>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<event specification>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<latm specification>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "blessing"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "naming"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<null adverb>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<null adverb>"}
+    |    |--- rhs. Attributes: {op => "", token => "','"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "action"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'action'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<action name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<left association>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'assoc'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'left'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<right association>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'assoc'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'right'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<group association>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'assoc'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'group'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<separator specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'separator'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<single symbol>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<proper specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'proper'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "boolean"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<rank specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'rank'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<signed integer>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<null ranking specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'null-ranking'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<null ranking constant>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<null ranking specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'null'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'rank'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<null ranking constant>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<null ranking constant>"}
+    |    |--- rhs. Attributes: {op => "", token => "'low'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'high'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<priority specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'priority'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<signed integer>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<pause specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'pause'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<before or after>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<event specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'event'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<event initialization>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<event initialization>"}
+    |    |--- rhs. Attributes: {op => "", token => "<event name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<event initializer>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<event initializer>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'='"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<on or off>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<on or off>"}
+    |    |--- rhs. Attributes: {op => "", token => "'on'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'off'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- rhs. Attributes: {op => "", token => "<event initializer>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<latm specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'forgiving'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "boolean"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<latm specification>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'latm'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "boolean"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<blessing>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'bless'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<blessing name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<naming>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'name'"}
+    |    |    |--- rhs. Attributes: {op => "", token => "'=>'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<alternative name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<alternative name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<standard name>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<single quoted name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<lexer name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<standard name>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<single quoted name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<event name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<standard name>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<single quoted name>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<reserved event name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<reserved event name>"}
+    |    |--- rhs. Attributes: {op => "", token => "':symbol'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<blessing name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<standard name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<blessing name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<reserved blessing name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "lhs"}
+    |    |--- rhs. Attributes: {op => "", token => "<symbol name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "rhs"}
+    |    |--- rhs. Attributes: {op => "", token => "<rhs primary>"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<rhs primary>"}
+    |    |--- rhs. Attributes: {op => "", token => "<single symbol>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<rhs primary>"}
+    |    |--- rhs. Attributes: {op => "", token => "<single quoted string>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<rhs primary>"}
+    |    |--- rhs. Attributes: {op => "", token => "<parenthesized rhs primary list>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<parenthesized rhs primary list>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "'('"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {op => "", token => "<rhs primary list>"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {op => "", token => "')'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<rhs primary list>"}
+    |    |--- rhs. Attributes: {op => "", token => "<rhs primary>"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<single symbol>"}
+    |    |--- rhs. Attributes: {op => "", token => "symbol"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<character class>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "symbol"}
+    |    |--- rhs. Attributes: {op => "", token => "<symbol name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<symbol name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<bare name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<symbol name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<bracketed name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<action name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<Perl name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<action name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<reserved action name>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<action name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<array descriptor>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => ":discard"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "whitespace"}
+    |    |--- rhs. Attributes: {op => "", token => "[\s]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => ":discard"}
+    |    |--- rhs. Attributes: {op => "", token => "<hash comment>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<hash comment>"}
+    |    |--- rhs. Attributes: {op => "", token => "<terminated hash comment>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<unterminated final hash comment>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<terminated hash comment>"}
+    |    |--- rhs. Attributes: {op => "", token => "'#'"}
+    |    |--- rhs. Attributes: {op => "", token => "<hash comment body>"}
+    |    |--- rhs. Attributes: {op => "", token => "<vertical space char>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<unterminated final hash comment>"}
+    |    |--- rhs. Attributes: {op => "", token => "'#'"}
+    |    |--- rhs. Attributes: {op => "", token => "<hash comment body>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<hash comment body>"}
+    |    |--- rhs. Attributes: {op => "", token => "<hash comment char>"}
+    |         |--- quantifier. Attributes: {op => "", token => "*"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<vertical space char>"}
+    |    |--- rhs. Attributes: {op => "", token => "[\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<hash comment char>"}
+    |    |--- rhs. Attributes: {op => "", token => "[^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<op declare bnf>"}
+    |    |--- rhs. Attributes: {op => "", token => "'::='"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<op declare match>"}
+    |    |--- rhs. Attributes: {op => "", token => "'~'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<op loosen>"}
+    |    |--- rhs. Attributes: {op => "", token => "'||'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<op equal priority>"}
+    |    |--- rhs. Attributes: {op => "", token => "'|'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "quantifier"}
+    |    |--- rhs. Attributes: {op => "", token => "'*'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'+'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<before or after>"}
+    |    |--- rhs. Attributes: {op => "", token => "'before'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'after'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<signed integer>"}
+    |    |--- rhs. Attributes: {op => "", token => "<integer>"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "<sign>"}
+    |    |--- rhs. Attributes: {op => "", token => "<integer>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<sign>"}
+    |    |--- rhs. Attributes: {op => "", token => "[+-]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<integer>"}
+    |    |--- rhs. Attributes: {op => "", token => "[\d]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "boolean"}
+    |    |--- rhs. Attributes: {op => "", token => "[01]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<reserved action name>"}
+    |    |--- rhs. Attributes: {op => "", token => "'::'"}
+    |    |--- rhs. Attributes: {op => "", token => "<one or more word characters>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<reserved blessing name>"}
+    |    |--- rhs. Attributes: {op => "", token => "'::'"}
+    |    |--- rhs. Attributes: {op => "", token => "<one or more word characters>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<one or more word characters>"}
+    |    |--- rhs. Attributes: {op => "", token => "[\w]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<zero or more word characters>"}
+    |    |--- rhs. Attributes: {op => "", token => "[\w]"}
+    |         |--- quantifier. Attributes: {op => "", token => "*"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<Perl identifier>"}
+    |    |--- rhs. Attributes: {op => "", token => "[\w]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<double colon>"}
+    |    |--- rhs. Attributes: {op => "", token => "'::'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<Perl name>"}
+    |    |--- rhs. Attributes: {op => "", token => "<Perl identifier>"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- separator_specification. Attributes: {op => "", token => "separator_specification"}
+    |    |--- separator. Attributes: {op => "=>", token => "<double colon>"}
+    |    |--- proper_specification. Attributes: {op => "", token => "proper_specification"}
+    |         |--- boolean. Attributes: {op => "=>", token => "1"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<bare name>"}
+    |    |--- rhs. Attributes: {op => "", token => "[\w]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<standard name>"}
+    |    |--- rhs. Attributes: {op => "", token => "[a-zA-Z]"}
+    |    |--- rhs. Attributes: {op => "", token => "<zero or more word characters>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<bracketed name>"}
+    |    |--- rhs. Attributes: {op => "", token => "'<'"}
+    |    |--- rhs. Attributes: {op => "", token => "<bracketed name string>"}
+    |    |--- rhs. Attributes: {op => "", token => "'>'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<bracketed name string>"}
+    |    |--- rhs. Attributes: {op => "", token => "[\s\w]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<array descriptor>"}
+    |    |--- rhs. Attributes: {op => "", token => "<array descriptor left bracket>"}
+    |    |--- rhs. Attributes: {op => "", token => "<result item descriptor list>"}
+    |    |--- rhs. Attributes: {op => "", token => "<array descriptor right bracket>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<array descriptor left bracket>"}
+    |    |--- rhs. Attributes: {op => "", token => "'['"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<array descriptor left bracket>"}
+    |    |--- rhs. Attributes: {op => "", token => "'['"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<array descriptor right bracket>"}
+    |    |--- rhs. Attributes: {op => "", token => "']'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<array descriptor right bracket>"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace"}
+    |    |--- rhs. Attributes: {op => "", token => "']'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<result item descriptor list>"}
+    |    |--- rhs. Attributes: {op => "", token => "<result item descriptor>"}
+    |    |    |--- quantifier. Attributes: {op => "", token => "*"}
+    |    |--- separator_specification. Attributes: {op => "", token => "separator_specification"}
+    |    |--- separator. Attributes: {op => "=>", token => "<result item descriptor separator>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<result item descriptor separator>"}
+    |    |--- rhs. Attributes: {op => "", token => "[,]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<result item descriptor separator>"}
+    |    |--- rhs. Attributes: {op => "", token => "[,]"}
+    |    |--- rhs. Attributes: {op => "", token => "whitespace"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<result item descriptor>"}
+    |    |--- rhs. Attributes: {op => "", token => "'start'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'length'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'g1start'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'g1length'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'name'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'lhs'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'symbol'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'rule'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'value'"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- rhs. Attributes: {op => "", token => "'values'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<single quoted string>"}
+    |    |--- rhs. Attributes: {op => "", token => "[']"}
+    |    |--- rhs. Attributes: {op => "", token => "<string without single quote or vertical space>"}
+    |    |--- rhs. Attributes: {op => "", token => "[']"}
+    |    |--- rhs. Attributes: {op => "", token => "<character class modifiers>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<single quoted name>"}
+    |    |--- rhs. Attributes: {op => "", token => "[']"}
+    |    |--- rhs. Attributes: {op => "", token => "<string without single quote or vertical space>"}
+    |    |--- rhs. Attributes: {op => "", token => "[']"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<string without single quote or vertical space>"}
+    |    |--- rhs. Attributes: {op => "", token => "[^'\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<character class>"}
+    |    |--- rhs. Attributes: {op => "", token => "'['"}
+    |    |--- rhs. Attributes: {op => "", token => "<cc elements>"}
+    |    |--- rhs. Attributes: {op => "", token => "']'"}
+    |    |--- rhs. Attributes: {op => "", token => "<character class modifiers>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<cc elements>"}
+    |    |--- rhs. Attributes: {op => "", token => "<cc element>"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<cc element>"}
+    |    |--- rhs. Attributes: {op => "", token => "<safe cc character>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<safe cc character>"}
+    |    |--- rhs. Attributes: {op => "", token => "[^\x{5d}\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<cc element>"}
+    |    |--- rhs. Attributes: {op => "", token => "<escaped cc character>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<escaped cc character>"}
+    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- rhs. Attributes: {op => "", token => "<horizontal character>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<cc element>"}
+    |    |--- rhs. Attributes: {op => "", token => "<posix char class>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<cc element>"}
+    |    |--- rhs. Attributes: {op => "", token => "<negated posix char class>"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<character class modifiers>"}
+    |    |--- rhs. Attributes: {op => "", token => "<character class modifier>"}
+    |         |--- quantifier. Attributes: {op => "", token => "*"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<character class modifier>"}
+    |    |--- rhs. Attributes: {op => "", token => "':ic'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<character class modifier>"}
+    |    |--- rhs. Attributes: {op => "", token => "':i'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<posix char class>"}
+    |    |--- rhs. Attributes: {op => "", token => "'[:'"}
+    |    |--- rhs. Attributes: {op => "", token => "<posix char class name>"}
+    |    |--- rhs. Attributes: {op => "", token => "':]'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "::=", token => "<negated posix char class>"}
+    |    |--- rhs. Attributes: {op => "", token => "'[:^'"}
+    |    |--- rhs. Attributes: {op => "", token => "<posix char class name>"}
+    |    |--- rhs. Attributes: {op => "", token => "':]'"}
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {op => "~", token => "<posix char class name>"}
+    |    |--- rhs. Attributes: {op => "", token => "[[:alnum:]]"}
+    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |--- statement. Attributes: {token => "statement"}
+         |--- lhs. Attributes: {op => "::=", token => "<horizontal character>"}
+         |--- rhs. Attributes: {op => "", token => "[^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]"}
