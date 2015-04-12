@@ -240,6 +240,8 @@ sub compress_tree
 			$name      = $node -> name;
 			$statement = ($name =~ /Class = .+::(.+?)\s/) ? $1 : '';
 
+			return 1 if ($node -> is_root);
+
 			# Reset $parenthesized if the nesting depth is less than when it was set.
 
 			if ($$option{_depth} < $parenthesized)
@@ -249,8 +251,6 @@ sub compress_tree
 				$self -> node_stack -> pop;
 				$self -> _add_daughter('parenthesized_rhs_primary_list', {token => ')'});
 			}
-
-			return 1 if (! $statement);
 
 			# Process each type of statement. They are in alphabetical order.
 
