@@ -1,6 +1,6 @@
-:default       ::= action => [ name, value]
+:default       ::= action => [name,value]
 
-lexeme default = action => [ name, value] latm => 1
+lexeme default = action => [name,value] latm => 1
 
 Expr           ::= Number
 					|| '(' Expr ')'      assoc => group

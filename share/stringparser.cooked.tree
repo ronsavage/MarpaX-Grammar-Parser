@@ -1,205 +1,205 @@
 statements. Attributes: {}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => ":default"}
+    |    |--- lhs. Attributes: {token => ":default"}
     |    |--- rhs. Attributes: {token => "action"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]"}
+    |         |--- array_descriptor. Attributes: {token => "[values]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "=", token => "lexeme default"}
-    |    |--- latm_specification. Attributes: {op => "=>", token => "latm"}
-    |         |--- boolean. Attributes: {op => "=>", token => "1"}
+    |    |--- lhs. Attributes: {token => "lexeme default"}
+    |    |--- latm_specification. Attributes: {token => "latm"}
+    |         |--- boolean. Attributes: {token => "1"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => ":start"}
-    |    |--- rhs. Attributes: {op => "", token => "graph_grammar"}
+    |    |--- lhs. Attributes: {token => ":start"}
+    |    |--- rhs. Attributes: {token => "graph_grammar"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "graph_grammar"}
-    |    |--- rhs. Attributes: {op => "", token => "graph_definition"}
+    |    |--- lhs. Attributes: {token => "graph_grammar"}
+    |    |--- rhs. Attributes: {token => "graph_definition"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "graph_definition"}
-    |    |--- rhs. Attributes: {op => "", token => "node_definition"}
+    |    |--- lhs. Attributes: {token => "graph_definition"}
+    |    |--- rhs. Attributes: {token => "node_definition"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "edge_definition"}
+    |    |--- rhs. Attributes: {token => "edge_definition"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "node_definition"}
-    |    |--- rhs. Attributes: {op => "", token => "node_statement"}
+    |    |--- lhs. Attributes: {token => "node_definition"}
+    |    |--- rhs. Attributes: {token => "node_statement"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "node_statement"}
-    |    |--- rhs. Attributes: {op => "", token => "graph_definition"}
+    |    |--- rhs. Attributes: {token => "node_statement"}
+    |    |--- rhs. Attributes: {token => "graph_definition"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "node_statement"}
-    |    |--- rhs. Attributes: {op => "", token => "node_name_token"}
+    |    |--- lhs. Attributes: {token => "node_statement"}
+    |    |--- rhs. Attributes: {token => "node_name_token"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "node_name_token"}
-    |    |--- rhs. Attributes: {op => "", token => "attribute_definition"}
+    |    |--- rhs. Attributes: {token => "node_name_token"}
+    |    |--- rhs. Attributes: {token => "attribute_definition"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "node_statement"}
+    |    |--- rhs. Attributes: {token => "node_statement"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {op => "", token => "','"}
+    |    |    |--- rhs. Attributes: {token => "','"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {op => "", token => "node_statement"}
+    |    |--- rhs. Attributes: {token => "node_statement"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "node_name_token"}
-    |    |--- rhs. Attributes: {op => "", token => "start_node"}
-    |    |--- rhs. Attributes: {op => "", token => "end_node"}
+    |    |--- lhs. Attributes: {token => "node_name_token"}
+    |    |--- rhs. Attributes: {token => "start_node"}
+    |    |--- rhs. Attributes: {token => "end_node"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "start_node"}
-    |    |--- rhs. Attributes: {op => "", token => "node_name"}
-    |    |--- rhs. Attributes: {op => "", token => "end_node"}
+    |    |--- rhs. Attributes: {token => "start_node"}
+    |    |--- rhs. Attributes: {token => "node_name"}
+    |    |--- rhs. Attributes: {token => "end_node"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "edge_definition"}
-    |    |--- rhs. Attributes: {op => "", token => "edge_statement"}
+    |    |--- lhs. Attributes: {token => "edge_definition"}
+    |    |--- rhs. Attributes: {token => "edge_statement"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "edge_statement"}
-    |    |--- rhs. Attributes: {op => "", token => "graph_definition"}
+    |    |--- rhs. Attributes: {token => "edge_statement"}
+    |    |--- rhs. Attributes: {token => "graph_definition"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "edge_statement"}
-    |    |--- rhs. Attributes: {op => "", token => "edge_name"}
+    |    |--- lhs. Attributes: {token => "edge_statement"}
+    |    |--- rhs. Attributes: {token => "edge_name"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "edge_name"}
-    |    |--- rhs. Attributes: {op => "", token => "attribute_definition"}
+    |    |--- rhs. Attributes: {token => "edge_name"}
+    |    |--- rhs. Attributes: {token => "attribute_definition"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "edge_statement"}
+    |    |--- rhs. Attributes: {token => "edge_statement"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {op => "", token => "','"}
+    |    |    |--- rhs. Attributes: {token => "','"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {op => "", token => "edge_statement"}
+    |    |--- rhs. Attributes: {token => "edge_statement"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "edge_name"}
-    |    |--- rhs. Attributes: {op => "", token => "directed_edge"}
+    |    |--- lhs. Attributes: {token => "edge_name"}
+    |    |--- rhs. Attributes: {token => "directed_edge"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "undirected_edge"}
+    |    |--- rhs. Attributes: {token => "undirected_edge"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => "attribute_definition"}
-    |    |--- rhs. Attributes: {op => "", token => "attribute_statement"}
-    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- lhs. Attributes: {token => "attribute_definition"}
+    |    |--- rhs. Attributes: {token => "attribute_statement"}
+    |         |--- quantifier. Attributes: {token => "+"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "attribute_statement"}
-    |    |--- rhs. Attributes: {op => "", token => "start_attributes"}
-    |    |--- rhs. Attributes: {op => "", token => "string_token_set"}
-    |    |--- rhs. Attributes: {op => "", token => "end_attributes"}
+    |    |--- lhs. Attributes: {token => "attribute_statement"}
+    |    |--- rhs. Attributes: {token => "start_attributes"}
+    |    |--- rhs. Attributes: {token => "string_token_set"}
+    |    |--- rhs. Attributes: {token => "end_attributes"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => "string_token_set"}
-    |    |--- rhs. Attributes: {op => "", token => "string_token_pair"}
-    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- lhs. Attributes: {token => "string_token_set"}
+    |    |--- rhs. Attributes: {token => "string_token_pair"}
+    |         |--- quantifier. Attributes: {token => "+"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "string_token_pair"}
-    |    |--- rhs. Attributes: {op => "", token => "literal_label"}
+    |    |--- lhs. Attributes: {token => "string_token_pair"}
+    |    |--- rhs. Attributes: {token => "literal_label"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "attribute_name"}
+    |    |--- rhs. Attributes: {token => "attribute_name"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {op => "", token => "':'"}
+    |    |    |--- rhs. Attributes: {token => "':'"}
     |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {op => "", token => "attribute_value"}
+    |    |--- rhs. Attributes: {token => "attribute_value"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "attribute_name"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "attribute_name"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "attribute_name"}
+    |         |--- standard_name. Attributes: {token => "attribute_name"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => "attribute_name"}
-    |    |--- rhs. Attributes: {op => "", token => "string_char_set"}
-    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- lhs. Attributes: {token => "attribute_name"}
+    |    |--- rhs. Attributes: {token => "string_char_set"}
+    |         |--- quantifier. Attributes: {token => "+"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "attribute_value"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "attribute_value"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "attribute_value"}
+    |         |--- standard_name. Attributes: {token => "attribute_value"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => "attribute_value"}
-    |    |--- rhs. Attributes: {op => "", token => "string_char_set"}
-    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- lhs. Attributes: {token => "attribute_value"}
+    |    |--- rhs. Attributes: {token => "string_char_set"}
+    |         |--- quantifier. Attributes: {token => "+"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "directed_edge"}
-    |    |    |--- priority. Attributes: {op => "", token => "2"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "directed_edge"}
+    |    |    |--- priority. Attributes: {token => "2"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "directed_edge"}
+    |         |--- standard_name. Attributes: {token => "directed_edge"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "directed_edge"}
-    |    |--- rhs. Attributes: {op => "", token => "'->'"}
+    |    |--- lhs. Attributes: {token => "directed_edge"}
+    |    |--- rhs. Attributes: {token => "'->'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "end_attributes"}
-    |    |    |--- priority. Attributes: {op => "", token => "1"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "end_attributes"}
+    |    |    |--- priority. Attributes: {token => "1"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "end_attributes"}
+    |         |--- standard_name. Attributes: {token => "end_attributes"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "end_attributes"}
-    |    |--- rhs. Attributes: {op => "", token => "'}'"}
+    |    |--- lhs. Attributes: {token => "end_attributes"}
+    |    |--- rhs. Attributes: {token => "'}'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "end_node"}
-    |    |    |--- priority. Attributes: {op => "", token => "1"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "end_node"}
+    |    |    |--- priority. Attributes: {token => "1"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "end_node"}
+    |         |--- standard_name. Attributes: {token => "end_node"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "end_node"}
-    |    |--- rhs. Attributes: {op => "", token => "']'"}
+    |    |--- lhs. Attributes: {token => "end_node"}
+    |    |--- rhs. Attributes: {token => "']'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "escaped_char"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'"}
-    |    |--- rhs. Attributes: {op => "", token => "[[:print:]]"}
+    |    |--- lhs. Attributes: {token => "escaped_char"}
+    |    |--- rhs. Attributes: {token => "'\'"}
+    |    |--- rhs. Attributes: {token => "[[:print:]]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "literal_label"}
-    |    |    |--- priority. Attributes: {op => "", token => "1"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "literal_label"}
+    |    |    |--- priority. Attributes: {token => "1"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "literal_label"}
+    |         |--- standard_name. Attributes: {token => "literal_label"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "literal_label"}
-    |    |--- rhs. Attributes: {op => "", token => "'label'"}
+    |    |--- lhs. Attributes: {token => "literal_label"}
+    |    |--- rhs. Attributes: {token => "'label'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "node_name"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "node_name"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "node_name"}
+    |         |--- standard_name. Attributes: {token => "node_name"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => "node_name"}
-    |    |--- rhs. Attributes: {op => "", token => "string_char_set"}
-    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- lhs. Attributes: {token => "node_name"}
+    |    |--- rhs. Attributes: {token => "string_char_set"}
+    |         |--- quantifier. Attributes: {token => "+"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "start_attributes"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "start_attributes"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "start_attributes"}
+    |         |--- standard_name. Attributes: {token => "start_attributes"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "start_attributes"}
-    |    |--- rhs. Attributes: {op => "", token => "'{'"}
+    |    |--- lhs. Attributes: {token => "start_attributes"}
+    |    |--- rhs. Attributes: {token => "'{'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "start_node"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "start_node"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "start_node"}
+    |         |--- standard_name. Attributes: {token => "start_node"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "start_node"}
-    |    |--- rhs. Attributes: {op => "", token => "'['"}
+    |    |--- lhs. Attributes: {token => "start_node"}
+    |    |--- rhs. Attributes: {token => "'['"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "string_char_set"}
-    |    |--- rhs. Attributes: {op => "", token => "escaped_char"}
+    |    |--- lhs. Attributes: {token => "string_char_set"}
+    |    |--- rhs. Attributes: {token => "escaped_char"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "[^;:}\]]"}
+    |    |--- rhs. Attributes: {token => "[^;:}\]]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":lexeme"}
-    |    |--- rhs. Attributes: {op => "", token => "undirected_edge"}
-    |    |    |--- priority. Attributes: {op => "", token => "2"}
-    |    |--- pause. Attributes: {op => "", token => "before"}
+    |    |--- lhs. Attributes: {token => ":lexeme"}
+    |    |--- rhs. Attributes: {token => "undirected_edge"}
+    |    |    |--- priority. Attributes: {token => "2"}
+    |    |--- pause. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {op => "=>", token => "undirected_edge"}
+    |         |--- standard_name. Attributes: {token => "undirected_edge"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "undirected_edge"}
-    |    |--- rhs. Attributes: {op => "", token => "'--'"}
+    |    |--- lhs. Attributes: {token => "undirected_edge"}
+    |    |--- rhs. Attributes: {token => "'--'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => ":discard"}
-    |    |--- rhs. Attributes: {op => "", token => "whitespace"}
+    |    |--- lhs. Attributes: {token => ":discard"}
+    |    |--- rhs. Attributes: {token => "whitespace"}
     |--- statement. Attributes: {token => "statement"}
-         |--- lhs. Attributes: {op => "~", token => "whitespace"}
-         |--- rhs. Attributes: {op => "", token => "[\s]"}
-              |--- quantifier. Attributes: {op => "", token => "+"}
+         |--- lhs. Attributes: {token => "whitespace"}
+         |--- rhs. Attributes: {token => "[\s]"}
+              |--- quantifier. Attributes: {token => "+"}

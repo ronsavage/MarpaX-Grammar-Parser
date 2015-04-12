@@ -1,473 +1,473 @@
 statements. Attributes: {}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => ":default"}
+    |    |--- lhs. Attributes: {token => ":default"}
     |    |--- rhs. Attributes: {token => "action"}
-    |         |--- array_descriptor. Attributes: {op => "=>", token => "[values]"}
+    |         |--- array_descriptor. Attributes: {token => "[values]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => ":start"}
-    |    |--- rhs. Attributes: {op => "", token => "units"}
+    |    |--- lhs. Attributes: {token => ":start"}
+    |    |--- rhs. Attributes: {token => "units"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => "units"}
-    |    |--- rhs. Attributes: {op => "", token => "unit"}
-    |         |--- quantifier. Attributes: {op => "", token => "*"}
+    |    |--- lhs. Attributes: {token => "units"}
+    |    |--- rhs. Attributes: {token => "unit"}
+    |         |--- quantifier. Attributes: {token => "*"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "unit"}
-    |    |--- rhs. Attributes: {op => "", token => "ESCAPED_CHARACTER"}
+    |    |--- lhs. Attributes: {token => "unit"}
+    |    |--- rhs. Attributes: {token => "ESCAPED_CHARACTER"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addEscapedCharacterToRc"}
+    |    |    |--- Perl_name. Attributes: {token => "addEscapedCharacterToRc"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "INISPRINTEXCEPTCOMMA"}
+    |    |--- rhs. Attributes: {token => "INISPRINTEXCEPTCOMMA"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addCharacterToRc"}
+    |    |    |--- Perl_name. Attributes: {token => "addCharacterToRc"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "PERCENT"}
+    |    |--- rhs. Attributes: {token => "PERCENT"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPercentToRc"}
+    |    |    |--- Perl_name. Attributes: {token => "addPercentToRc"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "C"}
+    |    |--- rhs. Attributes: {token => "C"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPrintPopToRc"}
+    |    |    |--- Perl_name. Attributes: {token => "addPrintPopToRc"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "PRINT"}
+    |    |--- rhs. Attributes: {token => "PRINT"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPrintToRc"}
+    |    |    |--- Perl_name. Attributes: {token => "addPrintToRc"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "PUSH"}
+    |    |--- rhs. Attributes: {token => "PUSH"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPushToRc"}
+    |    |    |--- Perl_name. Attributes: {token => "addPushToRc"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "DYNPOP"}
+    |    |--- rhs. Attributes: {token => "DYNPOP"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addDynPop"}
+    |    |    |--- Perl_name. Attributes: {token => "addDynPop"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "DYNPUSH"}
+    |    |--- rhs. Attributes: {token => "DYNPUSH"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addDynPush"}
+    |    |    |--- Perl_name. Attributes: {token => "addDynPush"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "STATICPOP"}
+    |    |--- rhs. Attributes: {token => "STATICPOP"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addStaticPop"}
+    |    |    |--- Perl_name. Attributes: {token => "addStaticPop"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "STATICPUSH"}
+    |    |--- rhs. Attributes: {token => "STATICPUSH"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addStaticPush"}
+    |    |    |--- Perl_name. Attributes: {token => "addStaticPush"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "L"}
+    |    |--- rhs. Attributes: {token => "L"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addL"}
+    |    |    |--- Perl_name. Attributes: {token => "addL"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "PUSHCONST"}
+    |    |--- rhs. Attributes: {token => "PUSHCONST"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPushConst"}
+    |    |    |--- Perl_name. Attributes: {token => "addPushConst"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "PUSHINT"}
+    |    |--- rhs. Attributes: {token => "PUSHINT"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPushInt"}
+    |    |    |--- Perl_name. Attributes: {token => "addPushInt"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "PLUS"}
+    |    |--- rhs. Attributes: {token => "PLUS"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addPlus"}
+    |    |    |--- Perl_name. Attributes: {token => "addPlus"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "MINUS"}
+    |    |--- rhs. Attributes: {token => "MINUS"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addMinus"}
+    |    |    |--- Perl_name. Attributes: {token => "addMinus"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "STAR"}
+    |    |--- rhs. Attributes: {token => "STAR"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addStar"}
+    |    |    |--- Perl_name. Attributes: {token => "addStar"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "DIV"}
+    |    |--- rhs. Attributes: {token => "DIV"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addDiv"}
+    |    |    |--- Perl_name. Attributes: {token => "addDiv"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "MOD"}
+    |    |--- rhs. Attributes: {token => "MOD"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addMod"}
+    |    |    |--- Perl_name. Attributes: {token => "addMod"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "BITAND"}
+    |    |--- rhs. Attributes: {token => "BITAND"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addBitAnd"}
+    |    |    |--- Perl_name. Attributes: {token => "addBitAnd"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "BITOR"}
+    |    |--- rhs. Attributes: {token => "BITOR"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addBitOr"}
+    |    |    |--- Perl_name. Attributes: {token => "addBitOr"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "BITXOR"}
+    |    |--- rhs. Attributes: {token => "BITXOR"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addBitXor"}
+    |    |    |--- Perl_name. Attributes: {token => "addBitXor"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "EQUAL"}
+    |    |--- rhs. Attributes: {token => "EQUAL"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addEqual"}
+    |    |    |--- Perl_name. Attributes: {token => "addEqual"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "GREATER"}
+    |    |--- rhs. Attributes: {token => "GREATER"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addGreater"}
+    |    |    |--- Perl_name. Attributes: {token => "addGreater"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "LOWER"}
+    |    |--- rhs. Attributes: {token => "LOWER"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addLower"}
+    |    |    |--- Perl_name. Attributes: {token => "addLower"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "AND"}
+    |    |--- rhs. Attributes: {token => "AND"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addLogicalAnd"}
+    |    |    |--- Perl_name. Attributes: {token => "addLogicalAnd"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "OR"}
+    |    |--- rhs. Attributes: {token => "OR"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addLogicalOr"}
+    |    |    |--- Perl_name. Attributes: {token => "addLogicalOr"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "NOT"}
+    |    |--- rhs. Attributes: {token => "NOT"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addNot"}
+    |    |    |--- Perl_name. Attributes: {token => "addNot"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "COMPLEMENT"}
+    |    |--- rhs. Attributes: {token => "COMPLEMENT"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addComplement"}
+    |    |    |--- Perl_name. Attributes: {token => "addComplement"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "ADDONE"}
+    |    |--- rhs. Attributes: {token => "ADDONE"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addOneToParams"}
+    |    |    |--- Perl_name. Attributes: {token => "addOneToParams"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "IF"}
-    |    |--- rhs. Attributes: {op => "", token => "units"}
-    |    |--- rhs. Attributes: {op => "", token => "THEN"}
-    |    |--- rhs. Attributes: {op => "", token => "units"}
-    |    |--- rhs. Attributes: {op => "", token => "elifUnits"}
-    |    |--- rhs. Attributes: {op => "", token => "ELSE"}
-    |    |--- rhs. Attributes: {op => "", token => "units"}
-    |    |--- rhs. Attributes: {op => "", token => "ENDIF"}
+    |    |--- rhs. Attributes: {token => "IF"}
+    |    |--- rhs. Attributes: {token => "units"}
+    |    |--- rhs. Attributes: {token => "THEN"}
+    |    |--- rhs. Attributes: {token => "units"}
+    |    |--- rhs. Attributes: {token => "elifUnits"}
+    |    |--- rhs. Attributes: {token => "ELSE"}
+    |    |--- rhs. Attributes: {token => "units"}
+    |    |--- rhs. Attributes: {token => "ENDIF"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addIfThenElse"}
+    |    |    |--- Perl_name. Attributes: {token => "addIfThenElse"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "IF"}
-    |    |--- rhs. Attributes: {op => "", token => "units"}
-    |    |--- rhs. Attributes: {op => "", token => "THEN"}
-    |    |--- rhs. Attributes: {op => "", token => "units"}
-    |    |--- rhs. Attributes: {op => "", token => "elifUnits"}
-    |    |--- rhs. Attributes: {op => "", token => "ENDIF"}
+    |    |--- rhs. Attributes: {token => "IF"}
+    |    |--- rhs. Attributes: {token => "units"}
+    |    |--- rhs. Attributes: {token => "THEN"}
+    |    |--- rhs. Attributes: {token => "units"}
+    |    |--- rhs. Attributes: {token => "elifUnits"}
+    |    |--- rhs. Attributes: {token => "ENDIF"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "addIfThen"}
+    |    |    |--- Perl_name. Attributes: {token => "addIfThen"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "IF"}
-    |    |--- rhs. Attributes: {op => "", token => "ENDIF"}
+    |    |--- rhs. Attributes: {token => "IF"}
+    |    |--- rhs. Attributes: {token => "ENDIF"}
     |    |--- action. Attributes: {token => "action"}
-    |    |    |--- Perl_name. Attributes: {op => "=>", token => "ifEndif"}
+    |    |    |--- Perl_name. Attributes: {token => "ifEndif"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "EOF"}
+    |    |--- rhs. Attributes: {token => "EOF"}
     |    |--- action. Attributes: {token => "action"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "eof"}
+    |         |--- Perl_name. Attributes: {token => "eof"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "elifUnit"}
-    |    |--- rhs. Attributes: {op => "", token => "ELSE"}
-    |    |--- rhs. Attributes: {op => "", token => "units"}
-    |    |--- rhs. Attributes: {op => "", token => "THEN"}
-    |    |--- rhs. Attributes: {op => "", token => "units"}
+    |    |--- lhs. Attributes: {token => "elifUnit"}
+    |    |--- rhs. Attributes: {token => "ELSE"}
+    |    |--- rhs. Attributes: {token => "units"}
+    |    |--- rhs. Attributes: {token => "THEN"}
+    |    |--- rhs. Attributes: {token => "units"}
     |    |--- action. Attributes: {token => "action"}
-    |         |--- Perl_name. Attributes: {op => "=>", token => "elifUnit"}
+    |         |--- Perl_name. Attributes: {token => "elifUnit"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => "elifUnits"}
-    |    |--- rhs. Attributes: {op => "", token => "elifUnit"}
-    |         |--- quantifier. Attributes: {op => "", token => "*"}
+    |    |--- lhs. Attributes: {token => "elifUnits"}
+    |    |--- rhs. Attributes: {token => "elifUnit"}
+    |         |--- quantifier. Attributes: {token => "*"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_CONST"}
-    |    |--- rhs. Attributes: {op => "", token => "[^']"}
+    |    |--- lhs. Attributes: {token => "_CONST"}
+    |    |--- rhs. Attributes: {token => "[^']"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_CONST"}
-    |    |--- rhs. Attributes: {op => "", token => "_BS"}
-    |    |--- rhs. Attributes: {op => "", token => "_ALLOWED_BS"}
+    |    |--- lhs. Attributes: {token => "_CONST"}
+    |    |--- rhs. Attributes: {token => "_BS"}
+    |    |--- rhs. Attributes: {token => "_ALLOWED_BS"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "~", token => "_DIGITS"}
-    |    |--- rhs. Attributes: {op => "", token => "[\d]"}
-    |         |--- quantifier. Attributes: {op => "", token => "+"}
+    |    |--- lhs. Attributes: {token => "_DIGITS"}
+    |    |--- rhs. Attributes: {token => "[\d]"}
+    |         |--- quantifier. Attributes: {token => "+"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_DIGIT"}
-    |    |--- rhs. Attributes: {op => "", token => "[\d]"}
+    |    |--- lhs. Attributes: {token => "_DIGIT"}
+    |    |--- rhs. Attributes: {token => "[\d]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_LCHAR"}
-    |    |--- rhs. Attributes: {op => "", token => "[a-z]"}
+    |    |--- lhs. Attributes: {token => "_LCHAR"}
+    |    |--- rhs. Attributes: {token => "[a-z]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_UCHAR"}
-    |    |--- rhs. Attributes: {op => "", token => "[A-Z]"}
+    |    |--- lhs. Attributes: {token => "_UCHAR"}
+    |    |--- rhs. Attributes: {token => "[A-Z]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "'%'"}
+    |    |--- lhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "'%'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
+    |    |--- lhs. Attributes: {token => "PERCENT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_C"}
-    |    |--- rhs. Attributes: {op => "", token => "'c'"}
+    |    |--- lhs. Attributes: {token => "_C"}
+    |    |--- rhs. Attributes: {token => "'c'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "C"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_C"}
+    |    |--- lhs. Attributes: {token => "C"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_C"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_COLON"}
-    |    |--- rhs. Attributes: {op => "", token => "':'"}
+    |    |--- lhs. Attributes: {token => "_COLON"}
+    |    |--- rhs. Attributes: {token => "':'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_DOT"}
-    |    |--- rhs. Attributes: {op => "", token => "'.'"}
+    |    |--- lhs. Attributes: {token => "_DOT"}
+    |    |--- rhs. Attributes: {token => "'.'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "__FLAGS"}
-    |    |--- rhs. Attributes: {op => "", token => "[-+# ]"}
+    |    |--- lhs. Attributes: {token => "__FLAGS"}
+    |    |--- rhs. Attributes: {token => "[-+# ]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_FLAGS"}
-    |    |--- rhs. Attributes: {op => "", token => "_COLON"}
-    |    |--- rhs. Attributes: {op => "", token => "__FLAGS"}
+    |    |--- lhs. Attributes: {token => "_FLAGS"}
+    |    |--- rhs. Attributes: {token => "_COLON"}
+    |    |--- rhs. Attributes: {token => "__FLAGS"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "__FLAGS"}
+    |    |--- rhs. Attributes: {token => "__FLAGS"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_FORMAT"}
-    |    |--- rhs. Attributes: {op => "", token => "[doxXs]"}
+    |    |--- lhs. Attributes: {token => "_FORMAT"}
+    |    |--- rhs. Attributes: {token => "[doxXs]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "PRINT"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_FORMAT"}
+    |    |--- lhs. Attributes: {token => "PRINT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_FORMAT"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGITS"}
-    |    |--- rhs. Attributes: {op => "", token => "_FORMAT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_DIGITS"}
+    |    |--- rhs. Attributes: {token => "_FORMAT"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGITS"}
-    |    |--- rhs. Attributes: {op => "", token => "_DOT"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGITS"}
-    |    |--- rhs. Attributes: {op => "", token => "_FORMAT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_DIGITS"}
+    |    |--- rhs. Attributes: {token => "_DOT"}
+    |    |--- rhs. Attributes: {token => "_DIGITS"}
+    |    |--- rhs. Attributes: {token => "_FORMAT"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "PRINT"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_FLAGS"}
-    |    |--- rhs. Attributes: {op => "", token => "_FORMAT"}
+    |    |--- lhs. Attributes: {token => "PRINT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_FLAGS"}
+    |    |--- rhs. Attributes: {token => "_FORMAT"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_FLAGS"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGITS"}
-    |    |--- rhs. Attributes: {op => "", token => "_FORMAT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_FLAGS"}
+    |    |--- rhs. Attributes: {token => "_DIGITS"}
+    |    |--- rhs. Attributes: {token => "_FORMAT"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_FLAGS"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGITS"}
-    |    |--- rhs. Attributes: {op => "", token => "_DOT"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGITS"}
-    |    |--- rhs. Attributes: {op => "", token => "_FORMAT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_FLAGS"}
+    |    |--- rhs. Attributes: {token => "_DIGITS"}
+    |    |--- rhs. Attributes: {token => "_DOT"}
+    |    |--- rhs. Attributes: {token => "_DIGITS"}
+    |    |--- rhs. Attributes: {token => "_FORMAT"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "PUSH"}
-    |    |--- rhs. Attributes: {op => "", token => "'%p'"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGIT"}
+    |    |--- lhs. Attributes: {token => "PUSH"}
+    |    |--- rhs. Attributes: {token => "'%p'"}
+    |    |--- rhs. Attributes: {token => "_DIGIT"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "DYNPOP"}
-    |    |--- rhs. Attributes: {op => "", token => "'%P'"}
-    |    |--- rhs. Attributes: {op => "", token => "_LCHAR"}
+    |    |--- lhs. Attributes: {token => "DYNPOP"}
+    |    |--- rhs. Attributes: {token => "'%P'"}
+    |    |--- rhs. Attributes: {token => "_LCHAR"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "DYNPUSH"}
-    |    |--- rhs. Attributes: {op => "", token => "'%g'"}
-    |    |--- rhs. Attributes: {op => "", token => "_LCHAR"}
+    |    |--- lhs. Attributes: {token => "DYNPUSH"}
+    |    |--- rhs. Attributes: {token => "'%g'"}
+    |    |--- rhs. Attributes: {token => "_LCHAR"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "STATICPOP"}
-    |    |--- rhs. Attributes: {op => "", token => "'%P'"}
-    |    |--- rhs. Attributes: {op => "", token => "_UCHAR"}
+    |    |--- lhs. Attributes: {token => "STATICPOP"}
+    |    |--- rhs. Attributes: {token => "'%P'"}
+    |    |--- rhs. Attributes: {token => "_UCHAR"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "STATICPUSH"}
-    |    |--- rhs. Attributes: {op => "", token => "'%g'"}
-    |    |--- rhs. Attributes: {op => "", token => "_UCHAR"}
+    |    |--- lhs. Attributes: {token => "STATICPUSH"}
+    |    |--- rhs. Attributes: {token => "'%g'"}
+    |    |--- rhs. Attributes: {token => "_UCHAR"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "L"}
-    |    |--- rhs. Attributes: {op => "", token => "'ls'"}
+    |    |--- lhs. Attributes: {token => "L"}
+    |    |--- rhs. Attributes: {token => "'ls'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_SQUOTE"}
-    |    |--- rhs. Attributes: {op => "", token => "[']"}
+    |    |--- lhs. Attributes: {token => "_SQUOTE"}
+    |    |--- rhs. Attributes: {token => "[']"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "PUSHCONST"}
-    |    |--- rhs. Attributes: {op => "", token => "'%'"}
-    |    |--- rhs. Attributes: {op => "", token => "_SQUOTE"}
-    |    |--- rhs. Attributes: {op => "", token => "_CONST"}
-    |    |--- rhs. Attributes: {op => "", token => "_SQUOTE"}
+    |    |--- lhs. Attributes: {token => "PUSHCONST"}
+    |    |--- rhs. Attributes: {token => "'%'"}
+    |    |--- rhs. Attributes: {token => "_SQUOTE"}
+    |    |--- rhs. Attributes: {token => "_CONST"}
+    |    |--- rhs. Attributes: {token => "_SQUOTE"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_LCURLY"}
-    |    |--- rhs. Attributes: {op => "", token => "'{'"}
+    |    |--- lhs. Attributes: {token => "_LCURLY"}
+    |    |--- rhs. Attributes: {token => "'{'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_RCURLY"}
-    |    |--- rhs. Attributes: {op => "", token => "'}'"}
+    |    |--- lhs. Attributes: {token => "_RCURLY"}
+    |    |--- rhs. Attributes: {token => "'}'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "PUSHINT"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_LCURLY"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGITS"}
-    |    |--- rhs. Attributes: {op => "", token => "_RCURLY"}
+    |    |--- lhs. Attributes: {token => "PUSHINT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_LCURLY"}
+    |    |--- rhs. Attributes: {token => "_DIGITS"}
+    |    |--- rhs. Attributes: {token => "_RCURLY"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_PLUS"}
-    |    |--- rhs. Attributes: {op => "", token => "'+'"}
+    |    |--- lhs. Attributes: {token => "_PLUS"}
+    |    |--- rhs. Attributes: {token => "'+'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "PLUS"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_PLUS"}
+    |    |--- lhs. Attributes: {token => "PLUS"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_PLUS"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_MINUS"}
-    |    |--- rhs. Attributes: {op => "", token => "'-'"}
+    |    |--- lhs. Attributes: {token => "_MINUS"}
+    |    |--- rhs. Attributes: {token => "'-'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "MINUS"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_MINUS"}
+    |    |--- lhs. Attributes: {token => "MINUS"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_MINUS"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_STAR"}
-    |    |--- rhs. Attributes: {op => "", token => "'*'"}
+    |    |--- lhs. Attributes: {token => "_STAR"}
+    |    |--- rhs. Attributes: {token => "'*'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "STAR"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_STAR"}
+    |    |--- lhs. Attributes: {token => "STAR"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_STAR"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_DIV"}
-    |    |--- rhs. Attributes: {op => "", token => "'/'"}
+    |    |--- lhs. Attributes: {token => "_DIV"}
+    |    |--- rhs. Attributes: {token => "'/'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "DIV"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIV"}
+    |    |--- lhs. Attributes: {token => "DIV"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_DIV"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_MOD"}
-    |    |--- rhs. Attributes: {op => "", token => "'m'"}
+    |    |--- lhs. Attributes: {token => "_MOD"}
+    |    |--- rhs. Attributes: {token => "'m'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "MOD"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_MOD"}
+    |    |--- lhs. Attributes: {token => "MOD"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_MOD"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_BITAND"}
-    |    |--- rhs. Attributes: {op => "", token => "'&'"}
+    |    |--- lhs. Attributes: {token => "_BITAND"}
+    |    |--- rhs. Attributes: {token => "'&'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "BITAND"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_BITAND"}
+    |    |--- lhs. Attributes: {token => "BITAND"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_BITAND"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_BITOR"}
-    |    |--- rhs. Attributes: {op => "", token => "'|'"}
+    |    |--- lhs. Attributes: {token => "_BITOR"}
+    |    |--- rhs. Attributes: {token => "'|'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "BITOR"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_BITOR"}
+    |    |--- lhs. Attributes: {token => "BITOR"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_BITOR"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_BITXOR"}
-    |    |--- rhs. Attributes: {op => "", token => "'^'"}
+    |    |--- lhs. Attributes: {token => "_BITXOR"}
+    |    |--- rhs. Attributes: {token => "'^'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "BITXOR"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_BITXOR"}
+    |    |--- lhs. Attributes: {token => "BITXOR"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_BITXOR"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_EQUAL"}
-    |    |--- rhs. Attributes: {op => "", token => "'='"}
+    |    |--- lhs. Attributes: {token => "_EQUAL"}
+    |    |--- rhs. Attributes: {token => "'='"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "EQUAL"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_EQUAL"}
+    |    |--- lhs. Attributes: {token => "EQUAL"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_EQUAL"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_GREATER"}
-    |    |--- rhs. Attributes: {op => "", token => "'>'"}
+    |    |--- lhs. Attributes: {token => "_GREATER"}
+    |    |--- rhs. Attributes: {token => "'>'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "GREATER"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_GREATER"}
+    |    |--- lhs. Attributes: {token => "GREATER"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_GREATER"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_LOWER"}
-    |    |--- rhs. Attributes: {op => "", token => "'<'"}
+    |    |--- lhs. Attributes: {token => "_LOWER"}
+    |    |--- rhs. Attributes: {token => "'<'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "LOWER"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_LOWER"}
+    |    |--- lhs. Attributes: {token => "LOWER"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_LOWER"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_AND"}
-    |    |--- rhs. Attributes: {op => "", token => "'A'"}
+    |    |--- lhs. Attributes: {token => "_AND"}
+    |    |--- rhs. Attributes: {token => "'A'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "AND"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_AND"}
+    |    |--- lhs. Attributes: {token => "AND"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_AND"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_OR"}
-    |    |--- rhs. Attributes: {op => "", token => "'O'"}
+    |    |--- lhs. Attributes: {token => "_OR"}
+    |    |--- rhs. Attributes: {token => "'O'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "OR"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_OR"}
+    |    |--- lhs. Attributes: {token => "OR"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_OR"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_NOT"}
-    |    |--- rhs. Attributes: {op => "", token => "'!'"}
+    |    |--- lhs. Attributes: {token => "_NOT"}
+    |    |--- rhs. Attributes: {token => "'!'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "NOT"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_NOT"}
+    |    |--- lhs. Attributes: {token => "NOT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_NOT"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_COMPLEMENT"}
-    |    |--- rhs. Attributes: {op => "", token => "'~'"}
+    |    |--- lhs. Attributes: {token => "_COMPLEMENT"}
+    |    |--- rhs. Attributes: {token => "'~'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "COMPLEMENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_COMPLEMENT"}
+    |    |--- lhs. Attributes: {token => "COMPLEMENT"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_COMPLEMENT"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_ADDONE"}
-    |    |--- rhs. Attributes: {op => "", token => "'i'"}
+    |    |--- lhs. Attributes: {token => "_ADDONE"}
+    |    |--- rhs. Attributes: {token => "'i'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "ADDONE"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_ADDONE"}
+    |    |--- lhs. Attributes: {token => "ADDONE"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_ADDONE"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_IF"}
-    |    |--- rhs. Attributes: {op => "", token => "'?'"}
+    |    |--- lhs. Attributes: {token => "_IF"}
+    |    |--- rhs. Attributes: {token => "'?'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "IF"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_IF"}
+    |    |--- lhs. Attributes: {token => "IF"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_IF"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_THEN"}
-    |    |--- rhs. Attributes: {op => "", token => "'t'"}
+    |    |--- lhs. Attributes: {token => "_THEN"}
+    |    |--- rhs. Attributes: {token => "'t'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "THEN"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_THEN"}
+    |    |--- lhs. Attributes: {token => "THEN"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_THEN"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_ELSE"}
-    |    |--- rhs. Attributes: {op => "", token => "'e'"}
+    |    |--- lhs. Attributes: {token => "_ELSE"}
+    |    |--- rhs. Attributes: {token => "'e'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "ELSE"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_ELSE"}
+    |    |--- lhs. Attributes: {token => "ELSE"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_ELSE"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_ENDIF"}
-    |    |--- rhs. Attributes: {op => "", token => "';'"}
+    |    |--- lhs. Attributes: {token => "_ENDIF"}
+    |    |--- rhs. Attributes: {token => "';'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "ENDIF"}
-    |    |--- rhs. Attributes: {op => "", token => "_PERCENT"}
-    |    |--- rhs. Attributes: {op => "", token => "_ENDIF"}
+    |    |--- lhs. Attributes: {token => "ENDIF"}
+    |    |--- rhs. Attributes: {token => "_PERCENT"}
+    |    |--- rhs. Attributes: {token => "_ENDIF"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_EOF"}
-    |    |--- rhs. Attributes: {op => "", token => "','"}
+    |    |--- lhs. Attributes: {token => "_EOF"}
+    |    |--- rhs. Attributes: {token => "','"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "ENDIF"}
-    |    |--- rhs. Attributes: {op => "", token => "_EOF"}
+    |    |--- lhs. Attributes: {token => "ENDIF"}
+    |    |--- rhs. Attributes: {token => "_EOF"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_CARET"}
-    |    |--- rhs. Attributes: {op => "", token => "'^'"}
+    |    |--- lhs. Attributes: {token => "_CARET"}
+    |    |--- rhs. Attributes: {token => "'^'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_BS"}
-    |    |--- rhs. Attributes: {op => "", token => "'\'"}
+    |    |--- lhs. Attributes: {token => "_BS"}
+    |    |--- rhs. Attributes: {token => "'\'"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_ALLOWED_BS"}
-    |    |--- rhs. Attributes: {op => "", token => "[abEeflnrst^\,:0]"}
+    |    |--- lhs. Attributes: {token => "_ALLOWED_BS"}
+    |    |--- rhs. Attributes: {token => "[abEeflnrst^\,:0]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_ALLOWED_BS"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGIT"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGIT"}
-    |    |--- rhs. Attributes: {op => "", token => "_DIGIT"}
+    |    |--- lhs. Attributes: {token => "_ALLOWED_BS"}
+    |    |--- rhs. Attributes: {token => "_DIGIT"}
+    |    |--- rhs. Attributes: {token => "_DIGIT"}
+    |    |--- rhs. Attributes: {token => "_DIGIT"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "_C0_AND_DEL"}
-    |    |--- rhs. Attributes: {op => "", token => "[@A-Z[\]^_ ?]"}
+    |    |--- lhs. Attributes: {token => "_C0_AND_DEL"}
+    |    |--- rhs. Attributes: {token => "[@A-Z[\]^_ ?]"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "ESCAPED_CHARACTER"}
-    |    |--- rhs. Attributes: {op => "", token => "_CARET"}
-    |    |--- rhs. Attributes: {op => "", token => "_C0_AND_DEL"}
+    |    |--- lhs. Attributes: {token => "ESCAPED_CHARACTER"}
+    |    |--- rhs. Attributes: {token => "_CARET"}
+    |    |--- rhs. Attributes: {token => "_C0_AND_DEL"}
     |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {op => "", token => "_BS"}
-    |    |--- rhs. Attributes: {op => "", token => "_ALLOWED_BS"}
+    |    |--- rhs. Attributes: {token => "_BS"}
+    |    |--- rhs. Attributes: {token => "_ALLOWED_BS"}
     |--- statement. Attributes: {token => "statement"}
-    |    |--- lhs. Attributes: {op => "::=", token => "INISPRINTEXCEPTCOMMA"}
-    |    |--- rhs. Attributes: {op => "", token => "[\p{MarpaX::Database::Terminfo::Grammar::CharacterClasses::InIsPrintExceptComma}]"}
+    |    |--- lhs. Attributes: {token => "INISPRINTEXCEPTCOMMA"}
+    |    |--- rhs. Attributes: {token => "[\p{MarpaX::Database::Terminfo::Grammar::CharacterClasses::InIsPrintExceptComma}]"}
     |--- statement. Attributes: {token => "statement"}
-         |--- lhs. Attributes: {op => "::=", token => "EOF"}
-         |--- rhs. Attributes: {op => "", token => "_EOF"}
+         |--- lhs. Attributes: {token => "EOF"}
+         |--- rhs. Attributes: {token => "_EOF"}
