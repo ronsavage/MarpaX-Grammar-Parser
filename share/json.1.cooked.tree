@@ -1,4 +1,4 @@
-statements. Attributes: {}
+statements. Attributes: {token => ""}
     |--- statement. Attributes: {token => "statement"}
     |    |--- lhs. Attributes: {token => "lexeme default"}
     |    |--- latm_specification. Attributes: {token => "latm"}
