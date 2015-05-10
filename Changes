@@ -2,7 +2,7 @@ Revision history for Perl extension MarpaX::Grammar::Parser.
 
 2.00  Tue Mar 17 08:38:00 2015
 	- Replace Data::TreeDumper with Data::RenderAsTree.
-	- Remove the feature with allow the user to output the user's BNF rules as a hashref. I see
+	- Remove the feature which allowed the user to output the user's BNF rules as a hashref. I see
 		little value in this feature.
 	- Remove various output files from share/. E.g. trees with attributes included. They can easily
 		be generated using the bind_attributes option to bnf2tree.pl.

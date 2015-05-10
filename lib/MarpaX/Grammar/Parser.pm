@@ -1133,27 +1133,25 @@ So, for a rule like:
 
 	array ::= ('[' ']') | ('[') elements (']') action => ::first
 
-The nodes will be:
+The nodes will be (see share/json.2.cooked.tree):
 
 	:
-	|--- statement
-	|    |--- array
-	|    |--- ::=
-	|    |--- (
-	|    |--- '['
-	|    |--- ']'
-	|    |--- )
-	|    |--- |
-	|    |--- (
-	|    |--- '['
-	|    |--- )
-	|    |--- elements
-	|    |--- (
-	|    |--- ']'
-	|    |--- )
-	|    |--- action
-	|    |--- =>
-	|    |--- ::first
+    |--- statement. Attributes: {token => "statement"}
+    |    |--- lhs. Attributes: {token => "array"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {token => "'['"}
+    |    |    |--- rhs. Attributes: {token => "']'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- alternative. Attributes: {token => "|"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {token => "'['"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- rhs. Attributes: {token => "elements"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
+    |    |    |--- rhs. Attributes: {token => "']'"}
+    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
+    |    |--- action. Attributes: {token => "action"}
+    |         |--- reserved_action_name. Attributes: {token => "::first"}
 	:
 
 Firstly, strip off the first 2 daughters. They are the rule name and the separator.
