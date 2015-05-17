@@ -223,6 +223,7 @@ sub compress_tree
 {
 	my($self)          = @_;
 	my($parenthesized) = 0;
+	my(%type)          = (op_declare_bnf => 'bnf', op_declare_match => 'lexeme');
 
 	my($alternative_count);
 	my($daughter, @daughters);
@@ -252,7 +253,7 @@ sub compress_tree
 				$self -> _add_daughter('parenthesized_rhs_primary_list', {token => ')'});
 			}
 
-			# Process each type of statement. They are in alphabetical order.
+			# Process statements in alphabetical order.
 
 			if ($statement eq 'alternative')
 			{
@@ -278,7 +279,7 @@ sub compress_tree
 			}
 			elsif ($statement eq 'array_descriptor')
 			{
-				$self -> node_stack -> push($self -> _add_daughter('rhs', {token => 'action'}) );
+				$self -> node_stack -> push($self -> _add_daughter($lhs || 'rhs', {token => 'action'}) );
 				$self -> compress_granddaughter($statement, $node);
 				$self -> node_stack -> pop;
 			}
@@ -341,6 +342,9 @@ sub compress_tree
 			elsif ($statement eq 'lexeme_default_statement')
 			{
 				$self -> _add_daughter('lhs', {token => 'lexeme default'});
+				$self -> _add_daughter('op_declare_bnf', {token => 'bnf'});
+
+				$lhs = 'action'; # Just in case the action adverb appears.
 			}
 			elsif ($statement eq 'lexeme_rule')
 			{
@@ -351,6 +355,10 @@ sub compress_tree
 			elsif ($statement eq 'null_ranking_constant')
 			{
 				$self -> compress_granddaughter($statement, $node);
+			}
+			elsif ($statement =~ /op_declare_(?:bnf|match)/)
+			{
+				$self -> _add_daughter($statement, {token => $type{$statement} });
 			}
 			elsif ($statement eq 'parenthesized_rhs_primary_list')
 			{
@@ -437,6 +445,9 @@ sub compress_tree
 			elsif ($statement eq 'start_rule')
 			{
 				$self -> _add_daughter('lhs', {token => ':start'});
+				$self -> _add_daughter('op_declare_bnf', {token => 'bnf'});
+
+				$lhs = ':start';
 			}
 			elsif ($statement eq 'statement')
 			{
