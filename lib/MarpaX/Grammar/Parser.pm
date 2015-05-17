@@ -350,6 +350,7 @@ sub compress_tree
 			elsif ($statement eq 'lexeme_rule')
 			{
 				$self -> _add_daughter('lhs', {token => ':lexeme'});
+				$self -> _add_daughter('op_declare_match', {token => 'bnf'});
 
 				$lhs = '';
 			}
