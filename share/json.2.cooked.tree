@@ -190,6 +190,7 @@ statements. Attributes: {token => ""}
     |    |--- rhs. Attributes: {token => "','"}
     |--- statement. Attributes: {token => "statement"}
     |    |--- lhs. Attributes: {token => ":discard"}
+    |    |--- op_declare_match. Attributes: {token => "lexeme"}
     |    |--- rhs. Attributes: {token => "whitespace"}
     |--- statement. Attributes: {token => "statement"}
          |--- lhs. Attributes: {token => "whitespace"}

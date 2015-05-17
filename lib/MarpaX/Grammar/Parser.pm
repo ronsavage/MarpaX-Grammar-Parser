@@ -320,6 +320,7 @@ sub compress_tree
 			elsif ($statement eq 'discard_rule')
 			{
 				$self -> _add_daughter('lhs', {token => ':discard'});
+				$self -> _add_daughter('op_declare_match', {token => 'lexeme'});
 
 				$lhs = 'rhs';
 			}
