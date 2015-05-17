@@ -40,6 +40,6 @@ requires 'warnings'           => 0;
 test_requires 'Test::More' => 0.98;
 #test_requires 'Test::Pod'  => 1.45; # Make it optional. See t/pod.t
 
-recursive_author_tests('xt');
+tests_recursive('xt');
 
 WriteAll;
