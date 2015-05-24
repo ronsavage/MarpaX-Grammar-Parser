@@ -254,7 +254,11 @@ sub compress_tree
 
 			# Process statements in alphabetical order.
 
-			if ($statement eq 'alternative')
+			if ($statement eq 'action_name')
+			{
+				$lhs = 'rhs';
+			}
+			elsif ($statement eq 'alternative')
 			{
 				$alternative_count++;
 
@@ -333,7 +337,7 @@ sub compress_tree
 			}
 			elsif ($statement eq 'latm_specification')
 			{
-				$last_name = $self -> _add_daughter($statement, {token => 'latm'});
+				$last_name = $self -> _add_daughter('rhs', {token => 'latm'});
 			}
 			elsif ($statement eq 'left_association')
 			{
@@ -415,7 +419,7 @@ sub compress_tree
 			}
 			elsif ($statement eq 'reserved_blessing_name')
 			{
-				$self -> node_stack -> push($self -> _add_daughter('bless', {token => 'bless'}) );
+				$self -> node_stack -> push($self -> _add_daughter('rhs', {token => 'bless'}) );
 				$self -> compress_granddaughter($statement, $node);
 				$self -> node_stack -> pop;
 			}
@@ -448,7 +452,7 @@ sub compress_tree
 				$self -> _add_daughter('lhs', {token => ':start'});
 				$self -> _add_daughter('op_declare_bnf', {token => 'bnf'});
 
-				$lhs = ':start';
+				$lhs = 'rhs';
 			}
 			elsif ($statement eq 'statement')
 			{
