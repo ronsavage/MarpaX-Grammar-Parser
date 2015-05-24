@@ -89,5 +89,7 @@ undirected_edge			~ '--'
 
 # Boilerplate.
 
+discard default         = event => :symbol = on
+
 :discard				~ whitespace
 whitespace				~ [\s]+

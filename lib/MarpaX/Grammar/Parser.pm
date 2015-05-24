@@ -320,6 +320,13 @@ sub compress_tree
 			{
 				$self -> compress_granddaughter('lhs', $node);
 			}
+			elsif ($statement eq 'discard_default_statement')
+			{
+				$self -> _add_daughter('lhs', {token => 'discard default'});
+				$self -> _add_daughter('op_declare_bnf', {token => 'bnf'});
+
+				$lhs = undef; # Just in case the action adverb appears.
+			}
 			elsif ($statement eq 'discard_rule')
 			{
 				$self -> _add_daughter('lhs', {token => ':discard'});
@@ -348,7 +355,7 @@ sub compress_tree
 				$self -> _add_daughter('lhs', {token => 'lexeme default'});
 				$self -> _add_daughter('op_declare_bnf', {token => 'bnf'});
 
-				$lhs = 'action'; # Just in case the action adverb appears.
+				$lhs = undef;
 			}
 			elsif ($statement eq 'lexeme_rule')
 			{
@@ -420,6 +427,12 @@ sub compress_tree
 			elsif ($statement eq 'reserved_blessing_name')
 			{
 				$self -> node_stack -> push($self -> _add_daughter('rhs', {token => 'bless'}) );
+				$self -> compress_granddaughter($statement, $node);
+				$self -> node_stack -> pop;
+			}
+			elsif ($statement eq 'reserved_event_name')
+			{
+				$self -> node_stack -> push($self -> _add_daughter('event', {token => 'event'}) );
 				$self -> compress_granddaughter($statement, $node);
 				$self -> node_stack -> pop;
 			}
