@@ -7,6 +7,9 @@ Revision history for Perl extension MarpaX::Grammar::Parser.
 	- Remove various output files from share/. E.g. trees with attributes included. They can easily
 		be generated using the bind_attributes option to bnf2tree.pl.
 	- Remove share/*.treedumper. Now that Data::RenderAsTree is used, that file is obsolete.
+	- Add lib/MarpaX/Grammar/Parser/Filer.pm. It's used by the following.
+	- Add scripts/generate.trees.pl, which converts all share/*.bnf files into their corresponding
+		share/*.(cooked,raw).tree versions.
 
 1.09  Fri Feb  6 09:21:00 2015
 	- Tree::DAG_Node V 1.24 changed the output indentation slightly, and the expected output was

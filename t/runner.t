@@ -6,7 +6,7 @@ use File::Temp;
 
 use MarpaX::Grammar::Parser;
 
-use Path::Tiny;   # For path().
+use Path::Tiny; # For path().
 
 use Test::More;
 
