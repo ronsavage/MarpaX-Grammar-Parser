@@ -294,7 +294,9 @@ sub compress_tree
 			}
 			elsif ($statement eq 'before_or_after')
 			{
-				$self -> compress_granddaughter('pause', $node);
+				$self -> node_stack -> push($self -> _add_daughter('pause_specification', {token => 'pause_specification'}) );
+				$self -> compress_granddaughter($statement, $node);
+				$self -> node_stack -> pop;
 			}
 			elsif ($statement eq 'blessing_name')
 			{
@@ -377,6 +379,10 @@ sub compress_tree
 				$parenthesized = $$option{_depth};
 
 				$self -> node_stack -> push($self -> _add_daughter('parenthesized_rhs_primary_list', {token => '('}) );
+			}
+			elsif ($statement eq 'pause_specification')
+			{
+				$lhs = $statement;
 			}
 			elsif ($statement eq 'Perl_name')
 			{
