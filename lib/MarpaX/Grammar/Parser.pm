@@ -288,9 +288,9 @@ sub compress_tree
 			}
 			elsif ($statement eq 'bare_name')
 			{
-				$last_name = $self -> compress_granddaughter($lhs || 'rhs', $node);
-
-				$lhs = '';
+				$self -> node_stack -> push($self -> _add_daughter('rhs', {token => 'bare_name'}) );
+				$self -> compress_granddaughter('bare_name', $node);
+				$self -> node_stack -> pop;
 			}
 			elsif ($statement eq 'before_or_after')
 			{

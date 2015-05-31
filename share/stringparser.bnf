@@ -1,5 +1,10 @@
 :default				::= action => [values]
 
+discard default         = event => :symbol
+
+:discard				~ whitespace
+whitespace				~ [\s]+
+
 lexeme default			= latm => 1		# Longest Acceptable Token Match.
 
 :start					::= graph_grammar
@@ -86,10 +91,3 @@ string_char_set			~ escaped_char
 
 :lexeme					~ undirected_edge			pause => before		event => undirected_edge	priority => 2
 undirected_edge			~ '--'
-
-# Boilerplate.
-
-discard default         = event => :symbol = on
-
-:discard				~ whitespace
-whitespace				~ [\s]+
