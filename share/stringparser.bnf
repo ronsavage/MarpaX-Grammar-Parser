@@ -5,7 +5,7 @@ discard default         = event => :symbol
 :discard				~ whitespace
 whitespace				~ [\s]+
 
-lexeme default			= latm => 1		# Longest Acceptable Token Match.
+lexeme default			= latm => 1 # Longest Acceptable Token Match.
 
 :start					::= graph_grammar
 
