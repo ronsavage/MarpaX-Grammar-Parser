@@ -104,6 +104,14 @@ has raw_tree_file =>
 	required => 0,
 );
 
+has statement_count =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Int,
+	required => 0,
+);
+
 has user_bnf_file =>
 (
 	default  => sub{return ''},
@@ -147,11 +155,19 @@ sub _add_daughter
 {
 	my($self, $name, $attributes) = @_;
 	$attributes ||= {};
-	my($node)   = Tree::DAG_Node -> new
-					({
-						attributes => $attributes,
-						name       => $name,
-					});
+
+	if ($name eq 'statement')
+	{
+		$self -> statement_count($self -> statement_count + 1);
+
+		$$attributes{count} = $self -> statement_count;
+	}
+
+	my($node) = Tree::DAG_Node -> new
+				({
+					attributes => $attributes,
+					name       => $name,
+				});
 	my($tos) = $self -> node_stack -> last;
 
 	$tos -> add_daughter($node);
@@ -649,7 +665,7 @@ sub run
 
 	if ($self -> _find_start_rule eq 'No')
 	{
-		#$self -> _fabricate_start_rule;
+		#$self -> _fabricate_start_rule; TODO.
 	}
 
 	my($cooked_tree_file) = $self -> cooked_tree_file;
