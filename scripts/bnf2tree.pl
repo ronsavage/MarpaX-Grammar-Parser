@@ -27,6 +27,7 @@ if ($option_parser -> getoptions
 	'minlevel=s',
 	'raw_tree_file=s',
 	'user_bnf_file=s',
+	'verbose=i',
 ) )
 {
 	pod2usage(1) if ($option{'help'});
@@ -62,6 +63,7 @@ bnf2tree.pl [options]
 	-minlevel logOption2
 	-raw_tree_file aTextFileName
 	-user_bnf_file aUserBNFFileName
+	-verbose $Boolean
 
 Exit value: 0 for success, 1 for failure. Die upon error.
 
@@ -142,6 +144,12 @@ See share/stringparser.bnf for a sample.
 This option is mandatory.
 
 Default: ''.
+
+=item o -verbose $Boolean
+
+Display more or less during debugging.
+
+Default: 0.
 
 =back
 

@@ -120,6 +120,14 @@ has user_bnf_file =>
 	required => 0,
 );
 
+has verbose =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+	isa      => Bool,
+	required => 1,
+);
+
 our $VERSION = '2.00';
 
 # ------------------------------------------------
@@ -178,37 +186,6 @@ sub _add_daughter
 
 # ------------------------------------------------
 
-sub clean_name
-{
-	my($self, $name) = @_;
-	my($attributes)  = {bracketed_name => 0, quantifier => '', real_name => $name};
-
-	# Expected cases:
-	# o {bare_name => $name}.
-	# o {bracketed_name => $name}.
-	# o $name.
-
-	if (ref $name eq 'HASH')
-	{
-		if (defined $$name{bare_name})
-		{
-			$$attributes{real_name} = $name = $$name{bare_name};
-		}
-		else
-		{
-			$$attributes{real_name}      = $name = $$name{bracketed_name};
-			$$attributes{bracketed_name} = 1;
-			$name                        =~ s/^<//;
-			$name                        =~ s/>$//;
-		}
-	}
-
-	return ($name, $attributes);
-
-} # End of clean_name.
-
-# ------------------------------------------------
-
 sub compress_granddaughter
 {
 	my($self, $statement, $node) = @_;
@@ -234,6 +211,23 @@ sub compress_granddaughter
 
 # ------------------------------------------------
 
+sub compress_simple_granddaughter
+{
+	my($self, $statement, $node) = @_;
+	my(@daughters) = $node -> daughters;
+	@daughters     = $daughters[0] -> daughters;
+
+	# Split things like:
+	# o '1 = 0 [SCALAR 84]'.
+
+	my(@name) = split(/\s+/, $daughters[1] -> name);
+
+	return $self -> _add_daughter('initial_value', {token => $name[2]});
+
+} # End of compress_simple_granddaughter.
+
+# ------------------------------------------------
+
 sub compress_tree
 {
 	my($self)          = @_;
@@ -243,6 +237,7 @@ sub compress_tree
 	my(%bare_name_map) =
 	(
 		discard_rule    => 1,
+		lexeme_rule     => 1,
 		priority_rule   => 1,
 		quantified_rule => 1,
 		start_rule      => 1,
@@ -277,6 +272,13 @@ sub compress_tree
 			}
 
 			# Process statements in alphabetical order.
+
+			return 1 if (! $statement);
+
+			if ($self -> verbose)
+			{
+				print "$statement. \n";
+			}
 
 			if ($statement eq 'action_name')
 			{
@@ -368,6 +370,12 @@ sub compress_tree
 
 				$node_id = 'rhs';
 				$context = $statement;
+			}
+			elsif ($statement eq 'event_initializer')
+			{
+				$self -> node_stack -> push($self -> _add_daughter($statement, {token => $statement}) );
+				$self -> compress_simple_granddaughter($statement, $node);
+				$self -> node_stack -> pop;
 			}
 			elsif ($statement eq 'event_specification')
 			{

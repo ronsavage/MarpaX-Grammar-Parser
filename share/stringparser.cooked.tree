@@ -8,7 +8,9 @@ statements. Attributes: {token => ""}
     |    |--- lhs. Attributes: {token => "discard default"}
     |    |--- op_declare_bnf. Attributes: {token => "bnf"}
     |    |--- event. Attributes: {token => "event"}
-    |         |--- reserved_event_name. Attributes: {token => ":symbol"}
+    |    |    |--- reserved_event_name. Attributes: {token => ":symbol"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "3", token => "statement"}
     |    |--- lhs. Attributes: {token => ":discard"}
     |    |--- op_declare_match. Attributes: {token => "lexeme"}
@@ -175,10 +177,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "19", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "attribute_name"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "attribute_name"}
+    |    |    |--- standard_name. Attributes: {token => "attribute_name"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "20", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "attribute_name"}
@@ -188,10 +194,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "21", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "attribute_value"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "attribute_value"}
+    |    |    |--- standard_name. Attributes: {token => "attribute_value"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "22", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "attribute_value"}
@@ -201,10 +211,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "23", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "directed_edge"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "directed_edge"}
+    |    |    |--- standard_name. Attributes: {token => "directed_edge"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "24", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "directed_edge"}
@@ -213,10 +227,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "25", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "end_attributes"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "end_attributes"}
+    |    |    |--- standard_name. Attributes: {token => "end_attributes"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "26", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "end_attributes"}
@@ -225,10 +243,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "27", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "end_node"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "end_node"}
+    |    |    |--- standard_name. Attributes: {token => "end_node"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "28", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "end_node"}
@@ -245,10 +267,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "30", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "literal_label"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "literal_label"}
+    |    |    |--- standard_name. Attributes: {token => "literal_label"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "31", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "literal_label"}
@@ -257,10 +283,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "32", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "node_name"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "node_name"}
+    |    |    |--- standard_name. Attributes: {token => "node_name"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "33", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "node_name"}
@@ -270,10 +300,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "34", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "start_attributes"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "start_attributes"}
+    |    |    |--- standard_name. Attributes: {token => "start_attributes"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "35", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "start_attributes"}
@@ -282,10 +316,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "36", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "start_node"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "start_node"}
+    |    |    |--- standard_name. Attributes: {token => "start_node"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "37", token => "statement"}
     |    |--- lhs. Attributes: {token => "bare_name"}
     |    |    |--- bare_name. Attributes: {token => "start_node"}
@@ -303,10 +341,14 @@ statements. Attributes: {token => ""}
     |--- statement. Attributes: {count => "39", token => "statement"}
     |    |--- lhs. Attributes: {token => ":lexeme"}
     |    |--- op_declare_match. Attributes: {token => "bnf"}
+    |    |--- rhs. Attributes: {token => "bare_name"}
+    |    |    |--- bare_name. Attributes: {token => "undirected_edge"}
     |    |--- pause_specification. Attributes: {token => "pause_specification"}
     |    |    |--- before_or_after. Attributes: {token => "before"}
     |    |--- event_specification. Attributes: {token => "event_specification"}
-    |         |--- standard_name. Attributes: {token => "undirected_edge"}
+    |    |    |--- standard_name. Attributes: {token => "undirected_edge"}
+    |    |--- event_initializer. Attributes: {token => "event_initializer"}
+    |         |--- initial_value. Attributes: {token => "0"}
     |--- statement. Attributes: {count => "40", token => "statement"}
          |--- lhs. Attributes: {token => "bare_name"}
          |    |--- bare_name. Attributes: {token => "undirected_edge"}
