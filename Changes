@@ -1,5 +1,15 @@
 Revision history for Perl extension MarpaX::Grammar::Parser.
 
+2.01  Fri Jun 17 11:34:00 2016
+	- Adopt workflow techniques suggested by Kent Fredric. This means a cleaner workdir and a
+		much more reliable dist. The latter now has auto-generated MANIFEST and META.* files.
+		See http://savage.net.au/Ron/html/My.Workflow.for.Building.Distros.html for details.
+	- Remove 'use utf8' within modules.
+	- Remove 'use open qw(:std :utf8)' within modules.
+	- Switch from File::Slurp to File::Slurper, since it's my new standard, and because CPAN
+		testers report the former gets, for recent Perls, a deprecated warning about using sysread()
+		on a utf8 file handle.
+
 2.00  Tue Mar 17 08:38:00 2015
 	- Replace Data::TreeDumper with Data::RenderAsTree.
 	- Remove the feature which allowed the user to output the user's BNF rules as a hashref. I see

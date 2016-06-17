@@ -1,13 +1,11 @@
 package MarpaX::Grammar::Parser::Filer;
 
 use strict;
-use utf8;
 use warnings;
 use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
-use open      qw(:std :utf8); # Undeclared streams in UTF-8.
 
-use File::Basename; # For basename().
-use File::Slurp;    # For read_file().
+use File::Basename;	# For basename().
+use File::Slurper;	# For read_text().
 use File::Spec;
 
 use MarpaX::Grammar::Parser;
@@ -16,7 +14,7 @@ use Moo;
 
 use Path::Tiny; # For path().
 
-our $VERSION = '1.05';
+our $VERSION = '2.01';
 
 # ------------------------------------------------
 

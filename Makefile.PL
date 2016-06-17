@@ -6,7 +6,7 @@ use inc::Module::Install;
 
 name 'MarpaX-Grammar-Parser';
 
-license 'artistic_2';
+license 'perl';
 
 perl_version '5.014000';
 

@@ -1,14 +1,12 @@
 package MarpaX::Grammar::Parser;
 
 use strict;
-use utf8;
 use warnings;
 use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
-use open      qw(:std :utf8); # Undeclared streams in UTF-8.
 
 use Data::RenderAsTree;
 
-use File::Slurp; # For read_file().
+use File::Slurper; # For read_text().
 
 use List::AllUtils qw/any max/;
 
@@ -128,7 +126,7 @@ has verbose =>
 	required => 1,
 );
 
-our $VERSION = '2.00';
+our $VERSION = '2.01';
 
 # ------------------------------------------------
 
@@ -633,9 +631,9 @@ sub log
 sub run
 {
 	my($self)          = @_;
-	my $marpa_bnf      = read_file($self -> marpa_bnf_file, binmode => ':utf8');
+	my $marpa_bnf      = read_text($self -> marpa_bnf_file);
 	my($marpa_grammar) = Marpa::R2::Scanless::G -> new({bless_package => 'MarpaX::Grammar::Parser', source => \$marpa_bnf});
-	my $user_bnf       = read_file($self -> user_bnf_file, binmode =>':utf8');
+	my $user_bnf       = read_text($self -> user_bnf_file);
 	my($recce)         = Marpa::R2::Scanless::R -> new({grammar => $marpa_grammar});
 
 	$recce -> read(\$user_bnf);
