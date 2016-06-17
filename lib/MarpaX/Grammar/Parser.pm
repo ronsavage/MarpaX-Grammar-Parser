@@ -630,11 +630,13 @@ sub log
 
 sub run
 {
-	my($self)          = @_;
-	my $marpa_bnf      = read_text($self -> marpa_bnf_file);
-	my($marpa_grammar) = Marpa::R2::Scanless::G -> new({bless_package => 'MarpaX::Grammar::Parser', source => \$marpa_bnf});
-	my $user_bnf       = read_text($self -> user_bnf_file);
-	my($recce)         = Marpa::R2::Scanless::R -> new({grammar => $marpa_grammar});
+	my($self)			= @_;
+	my $marpa_bnf		= read_text($self -> marpa_bnf_file);
+	$marpa_bnf			= $marpa_bnf =~ /([\w\W]+)/ ? $1 : $marpa_bnf; # Untaint.
+	my($marpa_grammar)	= Marpa::R2::Scanless::G -> new({bless_package => 'MarpaX::Grammar::Parser', source => \$marpa_bnf});
+	my $user_bnf		= read_text($self -> user_bnf_file);
+	$user_bnf			= $user_bnf =~ /([\w\W]+)/ ? $1 : $user_bnf; # Untaint.
+	my($recce)			= Marpa::R2::Scanless::R -> new({grammar => $marpa_grammar});
 
 	$recce -> read(\$user_bnf);
 
