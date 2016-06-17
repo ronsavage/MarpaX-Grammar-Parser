@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use File::Slurper; # For read_text().
+use File::Slurper 'read_text';
 use File::Temp;
 
 use MarpaX::Grammar::Parser;

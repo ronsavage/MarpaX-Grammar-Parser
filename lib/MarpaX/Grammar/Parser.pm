@@ -6,7 +6,7 @@ use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
 use Data::RenderAsTree;
 
-use File::Slurper; # For read_text().
+use File::Slurper 'read_text';
 
 use List::AllUtils qw/any max/;
 
