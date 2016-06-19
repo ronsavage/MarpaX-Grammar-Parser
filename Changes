@@ -9,6 +9,8 @@ Revision history for Perl extension MarpaX::Grammar::Parser.
 	- Switch from File::Slurp to File::Slurper, since it's my new standard, and because CPAN
 		testers report the former gets, for recent Perls, a deprecated warning about using sysread()
 		on a utf8 file handle.
+	- Patch Parser.pm to untaint both the BNF and the input stream.
+	- Rework because some tests fail with recent Perls.
 
 2.00  2015-03-17T08:38:00
 	- Replace Data::TreeDumper with Data::RenderAsTree.

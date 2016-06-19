@@ -10,7 +10,7 @@ use MarpaX::Grammar::Parser;
 
 use Path::Tiny; # For path().
 
-use Test::More;
+use Test2::Bundle::Extended;
 
 # ------------------------------------------------
 
@@ -20,14 +20,13 @@ sub process
 
 	# The EXLOCK option is for BSD-based systems.
 
-	my($temp_dir)        = File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
-	my($temp_dir_name)   = $temp_dir -> dirname;
-	my($tree_file_name)  = path($temp_dir_name, "$file_name.test.tree");
-	my($marpa_file_name) = path('share', 'metag.bnf');
-	my($user_file_name)  = path('share', "$file_name.bnf");
-	my($orig_file_name)  = path('share', "$file_name.raw.tree");
-
-	my($parser) = MarpaX::Grammar::Parser -> new
+	my($temp_dir)			= File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
+	my($temp_dir_name)		= $temp_dir -> dirname;
+	my($tree_file_name)		= path($temp_dir_name, "$file_name.test.tree");
+	my($marpa_file_name)	= path('share', 'metag.bnf');
+	my($user_file_name)		= path('share', "$file_name.bnf");
+	my($orig_file_name)		= path('share', "$file_name.raw.tree");
+	my($parser)				= MarpaX::Grammar::Parser -> new
 	(
 		bind_attributes => 0,
 		logger          => '',
@@ -36,10 +35,9 @@ sub process
 		user_bnf_file   => "$user_file_name",
 	);
 
-	isa_ok($parser, 'MarpaX::Grammar::Parser', 'new() returned correct object type');
-	is($parser -> user_bnf_file, $user_file_name, 'input_file() returns correct string');
 	is($parser -> logger, '', 'logger() returns correct string');
-	is($parser -> raw_tree_file, $tree_file_name, 'tree_file() returns correct string');
+	is($parser -> user_bnf_file, "$user_file_name", 'input_file() returns correct string');
+	is($parser -> raw_tree_file, "$tree_file_name", 'tree_file() returns correct string');
 
 	$parser -> run;
 
@@ -49,18 +47,16 @@ sub process
 
 # ------------------------------------------------
 
-BEGIN {use_ok('MarpaX::Grammar::Parser'); }
-
 my($count) = 1;
 
 for (qw/c.ast json.1 json.2 json.3 stringparser termcap.info/)
 {
-	diag $_;
-	diag "Testing c.ast takes 7 seconds...." if ($_ eq 'c.ast');
+	diag("Input: $_");
+	diag('Note! Testing c.ast can take 7 seconds') if (/c.ast/);
 
 	process($_);
 
-	$count += 5;
+	$count += 4;
 }
 
 print "# Internal test count: $count. \n";

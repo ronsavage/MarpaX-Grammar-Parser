@@ -38,8 +38,9 @@ requires 'strict'				=> 0;
 requires 'Types::Standard'		=> 1.000004;
 requires 'warnings'				=> 0;
 
-test_requires 'Test::More' => 0.98;
-#test_requires 'Test::Pod'  => 1.45; # Make it optional. See t/pod.t
+test_requires 'Test2::Bundle::Extended'	=> '0.000030';;
+test_requires 'Test::More'				=> 0.98;
+#test_requires 'Test::Pod'				=> 1.45; # Make it optional. See xt/author/pod.t
 
 tests_recursive('xt');
 
