@@ -240,6 +240,27 @@ sub compress_tree
 		quantified_rule => 1,
 		start_rule      => 1,
 	);
+	my(%expected) =
+	(
+		statements					=> 0,	# 0: Store.
+		statement					=> 0,
+		default_rule				=> 1,	# 1: Use granddaughter[2]{1,1}.
+		op_declare_bnf				=> 1,
+		lexeme_default_statement	=> 0,
+		action_name					=> 2,	# 2: Use granddaughter[2]{2,2}.
+		blessing_name				=> 2,	# But rename blessing => bless?
+		latm_specification			=> 2,
+		start_rule					=> 4,	# 4: Use granddaughter[2]{4,4}.
+		quantified_rule				=> 0,
+		lhs							=> 0,
+		bare_name					=> 1,
+		single_symbol				=> 4,
+		quantifier					=> 1,
+		priority_rule				=> 0,
+		alternative					=> 0,
+		rhs_primary					=> 0,
+		bracketed_name				=> 1,
+	);
 
 	my($alternative_count);
 	my($daughter, @daughters);
@@ -270,6 +291,7 @@ sub compress_tree
 			}
 
 			# Process statements in alphabetical order.
+			# This order makes following the giant 'if' easier'.
 
 			return 1 if (! $statement);
 
@@ -456,9 +478,13 @@ sub compress_tree
 			}
 			elsif ($statement eq 'quantifier')
 			{
+				$self -> _dump_node_stack("1 before compress_granddaughter. Pushing last_name: $last_name. ");
 				$self -> node_stack -> push($last_name);
+				$self -> _dump_node_stack('2 before compress_granddaughter');
 				$self -> compress_granddaughter($statement, $node);
+				$self -> _dump_node_stack('3 after compress_granddaughter');
 				$self -> node_stack -> pop;
+				$self -> _dump_node_stack('4 after compress_granddaughter');
 			}
 			elsif ($statement eq 'rank_specification')
 			{
@@ -531,6 +557,19 @@ sub compress_tree
 	});
 
 } # End of compress_tree.
+
+# ------------------------------------------------
+
+sub _dump_node_stack
+{
+	my($self, $message)	= @_;
+	my($length)			= $self -> node_stack -> length;
+
+	print "$message. Length of node_stack: $length. \n";
+
+	$self -> node_stack -> foreach(sub{print $_ -> name, ". \n"});
+
+} # End of _dump_node_stack.
 
 # ------------------------------------------------
 
