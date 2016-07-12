@@ -1,878 +1,130 @@
-statements. Attributes: {token => ""}
-    |--- statement. Attributes: {count => "1", token => "statement"}
-    |    |--- lhs. Attributes: {token => ":default"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "action"}
-    |    |    |--- array_descriptor. Attributes: {token => "[start,length,values]"}
-    |    |--- rhs. Attributes: {token => "bless"}
-    |         |--- reserved_blessing_name. Attributes: {token => "::lhs"}
-    |--- statement. Attributes: {count => "2", token => "statement"}
-    |    |--- lhs. Attributes: {token => "lexeme default"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "action"}
-    |    |    |--- array_descriptor. Attributes: {token => "[start,length,value]"}
-    |    |--- rhs. Attributes: {token => "bless"}
-    |    |    |--- reserved_blessing_name. Attributes: {token => "::name"}
-    |    |--- rhs. Attributes: {token => "latm"}
-    |         |--- boolean. Attributes: {token => "1"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "3", token => "statement"}
-    |    |--- lhs. Attributes: {token => ":start"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "statements"}
-    |--- statement. Attributes: {count => "4", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "statements"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "statement"}
-    |--- statement. Attributes: {count => "5", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "statement"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<start rule>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<empty rule>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<null statement>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<statement group>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<priority rule>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<quantified rule>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<discard rule>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<default rule>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<lexeme default statement>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<discard default statement>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<lexeme rule>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<completion event declaration>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<nulled event declaration>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<prediction event declaration>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<current lexer statement>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<inaccessible statement>"}
-    |--- statement. Attributes: {count => "6", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<null statement>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "';'"}
-    |--- statement. Attributes: {count => "7", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<statement group>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'{'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "statements"}
-    |    |--- rhs. Attributes: {token => "'}'"}
-    |--- statement. Attributes: {count => "8", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<start rule>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "':start'"}
-    |    |    |--- rhs. Attributes: {token => "<op declare bnf>"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "symbol"}
-    |--- statement. Attributes: {count => "9", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<start rule>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'start'"}
-    |    |    |--- rhs. Attributes: {token => "'symbol'"}
-    |    |    |--- rhs. Attributes: {token => "'is'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "symbol"}
-    |--- statement. Attributes: {count => "10", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<default rule>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "':default'"}
-    |    |--- rhs. Attributes: {token => "<op declare bnf>"}
-    |    |--- rhs. Attributes: {token => "<adverb list>"}
-    |--- statement. Attributes: {count => "11", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<lexeme default statement>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'lexeme'"}
-    |    |    |--- rhs. Attributes: {token => "'default'"}
-    |    |    |--- rhs. Attributes: {token => "'='"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<adverb list>"}
-    |--- statement. Attributes: {count => "12", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<discard default statement>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'discard'"}
-    |    |    |--- rhs. Attributes: {token => "'default'"}
-    |    |    |--- rhs. Attributes: {token => "'='"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<adverb list>"}
-    |--- statement. Attributes: {count => "13", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<priority rule>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "lhs"}
-    |    |--- rhs. Attributes: {token => "<op declare>"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "priorities"}
-    |--- statement. Attributes: {count => "14", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<empty rule>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "lhs"}
-    |    |--- rhs. Attributes: {token => "<op declare>"}
-    |    |--- rhs. Attributes: {token => "<adverb list>"}
-    |--- statement. Attributes: {count => "15", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<quantified rule>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "lhs"}
-    |    |--- rhs. Attributes: {token => "<op declare>"}
-    |    |--- rhs. Attributes: {token => "<single symbol>"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "quantifier"}
-    |    |--- rhs. Attributes: {token => "<adverb list>"}
-    |--- statement. Attributes: {count => "16", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<discard rule>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "':discard'"}
-    |    |    |--- rhs. Attributes: {token => "<op declare match>"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<single symbol>"}
-    |    |--- rhs. Attributes: {token => "<adverb list>"}
-    |--- statement. Attributes: {count => "17", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<lexeme rule>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "':lexeme'"}
-    |    |    |--- rhs. Attributes: {token => "<op declare match>"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "symbol"}
-    |    |--- rhs. Attributes: {token => "<adverb list>"}
-    |--- statement. Attributes: {count => "18", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<completion event declaration>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'event'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<event initialization>"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'='"}
-    |    |    |--- rhs. Attributes: {token => "'completed'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<symbol name>"}
-    |--- statement. Attributes: {count => "19", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<nulled event declaration>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'event'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<event initialization>"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'='"}
-    |    |    |--- rhs. Attributes: {token => "'nulled'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<symbol name>"}
-    |--- statement. Attributes: {count => "20", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<prediction event declaration>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'event'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<event initialization>"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'='"}
-    |    |    |--- rhs. Attributes: {token => "'predicted'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<symbol name>"}
-    |--- statement. Attributes: {count => "21", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<current lexer statement>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'current'"}
-    |    |    |--- rhs. Attributes: {token => "'lexer'"}
-    |    |    |--- rhs. Attributes: {token => "'is'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<lexer name>"}
-    |--- statement. Attributes: {count => "22", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<inaccessible statement>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'inaccessible'"}
-    |    |    |--- rhs. Attributes: {token => "'is'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<inaccessible treatment>"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'by'"}
-    |    |    |--- rhs. Attributes: {token => "'default'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |--- statement. Attributes: {count => "23", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<inaccessible treatment>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "'warn'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'ok'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'fatal'"}
-    |--- statement. Attributes: {count => "24", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<op declare>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<op declare bnf>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<op declare match>"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "25", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "priorities"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "alternatives"}
-    |    |--- separator. Attributes: {token => "<op loosen>"}
-    |    |--- proper_specification. Attributes: {token => "proper_specification"}
-    |         |--- boolean. Attributes: {token => "1"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "26", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "alternatives"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "alternative"}
-    |    |--- separator. Attributes: {token => "<op equal priority>"}
-    |    |--- proper_specification. Attributes: {token => "proper_specification"}
-    |         |--- boolean. Attributes: {token => "1"}
-    |--- statement. Attributes: {count => "27", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "alternative"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "rhs"}
-    |    |--- rhs. Attributes: {token => "<adverb list>"}
-    |--- statement. Attributes: {count => "28", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<adverb list>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<adverb list items>"}
-    |--- statement. Attributes: {count => "29", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<adverb list items>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<adverb item>"}
-    |         |--- quantifier. Attributes: {token => "*"}
-    |--- statement. Attributes: {count => "30", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<adverb item>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "action"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<left association>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<right association>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<group association>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<separator specification>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<proper specification>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<rank specification>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<null ranking specification>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<priority specification>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<pause specification>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<event specification>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<latm specification>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "blessing"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "naming"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<null adverb>"}
-    |--- statement. Attributes: {count => "31", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<null adverb>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "','"}
-    |--- statement. Attributes: {count => "32", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "action"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'action'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<action name>"}
-    |--- statement. Attributes: {count => "33", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<left association>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'assoc'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |    |--- rhs. Attributes: {token => "'left'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |--- statement. Attributes: {count => "34", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<right association>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'assoc'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |    |--- rhs. Attributes: {token => "'right'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |--- statement. Attributes: {count => "35", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<group association>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'assoc'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |    |--- rhs. Attributes: {token => "'group'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |--- statement. Attributes: {count => "36", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<separator specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'separator'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<single symbol>"}
-    |--- statement. Attributes: {count => "37", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<proper specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'proper'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "boolean"}
-    |--- statement. Attributes: {count => "38", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<rank specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'rank'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<signed integer>"}
-    |--- statement. Attributes: {count => "39", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<null ranking specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'null-ranking'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<null ranking constant>"}
-    |--- statement. Attributes: {count => "40", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<null ranking specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'null'"}
-    |    |    |--- rhs. Attributes: {token => "'rank'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<null ranking constant>"}
-    |--- statement. Attributes: {count => "41", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<null ranking constant>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "'low'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'high'"}
-    |--- statement. Attributes: {count => "42", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<priority specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'priority'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<signed integer>"}
-    |--- statement. Attributes: {count => "43", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<pause specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'pause'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<before or after>"}
-    |--- statement. Attributes: {count => "44", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<event specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'event'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<event initialization>"}
-    |--- statement. Attributes: {count => "45", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<event initialization>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<event name>"}
-    |    |--- rhs. Attributes: {token => "<event initializer>"}
-    |--- statement. Attributes: {count => "46", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<event initializer>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'='"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<on or off>"}
-    |--- statement. Attributes: {count => "47", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<on or off>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "'on'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'off'"}
-    |--- statement. Attributes: {count => "48", token => "statement"}
-    |    |--- rhs. Attributes: {token => "<event initializer>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |--- statement. Attributes: {count => "49", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<latm specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'forgiving'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "boolean"}
-    |--- statement. Attributes: {count => "50", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<latm specification>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'latm'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "boolean"}
-    |--- statement. Attributes: {count => "51", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<blessing>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'bless'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<blessing name>"}
-    |--- statement. Attributes: {count => "52", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<naming>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'name'"}
-    |    |    |--- rhs. Attributes: {token => "'=>'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<alternative name>"}
-    |--- statement. Attributes: {count => "53", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<alternative name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<standard name>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<single quoted name>"}
-    |--- statement. Attributes: {count => "54", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<lexer name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<standard name>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<single quoted name>"}
-    |--- statement. Attributes: {count => "55", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<event name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<standard name>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<single quoted name>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<reserved event name>"}
-    |--- statement. Attributes: {count => "56", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<reserved event name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "':symbol'"}
-    |--- statement. Attributes: {count => "57", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<blessing name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<standard name>"}
-    |--- statement. Attributes: {count => "58", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<blessing name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<reserved blessing name>"}
-    |--- statement. Attributes: {count => "59", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "lhs"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<symbol name>"}
-    |--- statement. Attributes: {count => "60", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "rhs"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<rhs primary>"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "61", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<rhs primary>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<single symbol>"}
-    |--- statement. Attributes: {count => "62", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<rhs primary>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<single quoted string>"}
-    |--- statement. Attributes: {count => "63", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<rhs primary>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<parenthesized rhs primary list>"}
-    |--- statement. Attributes: {count => "64", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<parenthesized rhs primary list>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "'('"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |    |--- rhs. Attributes: {token => "<rhs primary list>"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => "("}
-    |    |    |--- rhs. Attributes: {token => "')'"}
-    |    |--- parenthesized_rhs_primary_list. Attributes: {token => ")"}
-    |--- statement. Attributes: {count => "65", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<rhs primary list>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<rhs primary>"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "66", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<single symbol>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "symbol"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<character class>"}
-    |--- statement. Attributes: {count => "67", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "symbol"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<symbol name>"}
-    |--- statement. Attributes: {count => "68", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<symbol name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<bare name>"}
-    |--- statement. Attributes: {count => "69", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<symbol name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<bracketed name>"}
-    |--- statement. Attributes: {count => "70", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<action name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<Perl name>"}
-    |--- statement. Attributes: {count => "71", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<action name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<reserved action name>"}
-    |--- statement. Attributes: {count => "72", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<action name>"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "<array descriptor>"}
-    |--- statement. Attributes: {count => "73", token => "statement"}
-    |    |--- lhs. Attributes: {token => ":discard"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "whitespace"}
-    |--- statement. Attributes: {count => "74", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "whitespace"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[\s]"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "75", token => "statement"}
-    |    |--- lhs. Attributes: {token => ":discard"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<hash comment>"}
-    |--- statement. Attributes: {count => "76", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<hash comment>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<terminated hash comment>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<unterminated final hash comment>"}
-    |--- statement. Attributes: {count => "77", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<terminated hash comment>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'#'"}
-    |    |--- rhs. Attributes: {token => "<hash comment body>"}
-    |    |--- rhs. Attributes: {token => "<vertical space char>"}
-    |--- statement. Attributes: {count => "78", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<unterminated final hash comment>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'#'"}
-    |    |--- rhs. Attributes: {token => "<hash comment body>"}
-    |--- statement. Attributes: {count => "79", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<hash comment body>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<hash comment char>"}
-    |         |--- quantifier. Attributes: {token => "*"}
-    |--- statement. Attributes: {count => "80", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<vertical space char>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]"}
-    |--- statement. Attributes: {count => "81", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<hash comment char>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]"}
-    |--- statement. Attributes: {count => "82", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<op declare bnf>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'::='"}
-    |--- statement. Attributes: {count => "83", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<op declare match>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'~'"}
-    |--- statement. Attributes: {count => "84", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<op loosen>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'||'"}
-    |--- statement. Attributes: {count => "85", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<op equal priority>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'|'"}
-    |--- statement. Attributes: {count => "86", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "quantifier"}
-    |    |--- op_declare_bnf. Attributes: {token => "bnf"}
-    |    |--- rhs. Attributes: {token => "'*'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'+'"}
-    |--- statement. Attributes: {count => "87", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<before or after>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'before'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'after'"}
-    |--- statement. Attributes: {count => "88", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<signed integer>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<integer>"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "<sign>"}
-    |    |--- rhs. Attributes: {token => "<integer>"}
-    |--- statement. Attributes: {count => "89", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<sign>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[+-]"}
-    |--- statement. Attributes: {count => "90", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<integer>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[\d]"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "91", token => "statement"}
-    |    |--- lhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "boolean"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[01]"}
-    |--- statement. Attributes: {count => "92", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<reserved action name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'::'"}
-    |    |--- rhs. Attributes: {token => "<one or more word characters>"}
-    |--- statement. Attributes: {count => "93", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<reserved blessing name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'::'"}
-    |    |--- rhs. Attributes: {token => "<one or more word characters>"}
-    |--- statement. Attributes: {count => "94", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<one or more word characters>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[\w]"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "95", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<zero or more word characters>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[\w]"}
-    |         |--- quantifier. Attributes: {token => "*"}
-    |--- statement. Attributes: {count => "96", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<Perl identifier>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[\w]"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "97", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<double colon>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'::'"}
-    |--- statement. Attributes: {count => "98", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<Perl name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<Perl identifier>"}
-    |    |    |--- quantifier. Attributes: {token => "+"}
-    |    |--- separator. Attributes: {token => "<double colon>"}
-    |    |--- proper_specification. Attributes: {token => "proper_specification"}
-    |         |--- boolean. Attributes: {token => "1"}
-    |--- statement. Attributes: {count => "99", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<bare name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[\w]"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "100", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<standard name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[a-zA-Z]"}
-    |    |--- rhs. Attributes: {token => "<zero or more word characters>"}
-    |--- statement. Attributes: {count => "101", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<bracketed name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'<'"}
-    |    |--- rhs. Attributes: {token => "<bracketed name string>"}
-    |    |--- rhs. Attributes: {token => "'>'"}
-    |--- statement. Attributes: {count => "102", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<bracketed name string>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[\s\w]"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "103", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<array descriptor>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<array descriptor left bracket>"}
-    |    |--- rhs. Attributes: {token => "<result item descriptor list>"}
-    |    |--- rhs. Attributes: {token => "<array descriptor right bracket>"}
-    |--- statement. Attributes: {count => "104", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<array descriptor left bracket>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'['"}
-    |--- statement. Attributes: {count => "105", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<array descriptor left bracket>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'['"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "whitespace"}
-    |--- statement. Attributes: {count => "106", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<array descriptor right bracket>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "']'"}
-    |--- statement. Attributes: {count => "107", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<array descriptor right bracket>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |    |    |--- bare_name. Attributes: {token => "whitespace"}
-    |    |--- rhs. Attributes: {token => "']'"}
-    |--- statement. Attributes: {count => "108", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<result item descriptor list>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<result item descriptor>"}
-    |    |    |--- quantifier. Attributes: {token => "*"}
-    |    |--- separator. Attributes: {token => "<result item descriptor separator>"}
-    |--- statement. Attributes: {count => "109", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<result item descriptor separator>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[,]"}
-    |--- statement. Attributes: {count => "110", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<result item descriptor separator>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[,]"}
-    |    |--- rhs. Attributes: {token => "bare_name"}
-    |         |--- bare_name. Attributes: {token => "whitespace"}
-    |--- statement. Attributes: {count => "111", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<result item descriptor>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'start'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'length'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'g1start'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'g1length'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'name'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'lhs'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'symbol'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'rule'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'value'"}
-    |    |--- alternative. Attributes: {token => "|"}
-    |    |--- rhs. Attributes: {token => "'values'"}
-    |--- statement. Attributes: {count => "112", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<single quoted string>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[']"}
-    |    |--- rhs. Attributes: {token => "<string without single quote or vertical space>"}
-    |    |--- rhs. Attributes: {token => "[']"}
-    |    |--- rhs. Attributes: {token => "<character class modifiers>"}
-    |--- statement. Attributes: {count => "113", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<single quoted name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[']"}
-    |    |--- rhs. Attributes: {token => "<string without single quote or vertical space>"}
-    |    |--- rhs. Attributes: {token => "[']"}
-    |--- statement. Attributes: {count => "114", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<string without single quote or vertical space>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[^'\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "115", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<character class>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'['"}
-    |    |--- rhs. Attributes: {token => "<cc elements>"}
-    |    |--- rhs. Attributes: {token => "']'"}
-    |    |--- rhs. Attributes: {token => "<character class modifiers>"}
-    |--- statement. Attributes: {count => "116", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<cc elements>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<cc element>"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "117", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<cc element>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<safe cc character>"}
-    |--- statement. Attributes: {count => "118", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<safe cc character>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[^\x{5d}\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]"}
-    |--- statement. Attributes: {count => "119", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<cc element>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<escaped cc character>"}
-    |--- statement. Attributes: {count => "120", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<escaped cc character>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'\'"}
-    |    |--- rhs. Attributes: {token => "<horizontal character>"}
-    |--- statement. Attributes: {count => "121", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<cc element>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<posix char class>"}
-    |--- statement. Attributes: {count => "122", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<cc element>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<negated posix char class>"}
-    |--- statement. Attributes: {count => "123", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<character class modifiers>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "<character class modifier>"}
-    |         |--- quantifier. Attributes: {token => "*"}
-    |--- statement. Attributes: {count => "124", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<character class modifier>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "':ic'"}
-    |--- statement. Attributes: {count => "125", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<character class modifier>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "':i'"}
-    |--- statement. Attributes: {count => "126", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<posix char class>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'[:'"}
-    |    |--- rhs. Attributes: {token => "<posix char class name>"}
-    |    |--- rhs. Attributes: {token => "':]'"}
-    |--- statement. Attributes: {count => "127", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<negated posix char class>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "'[:^'"}
-    |    |--- rhs. Attributes: {token => "<posix char class name>"}
-    |    |--- rhs. Attributes: {token => "':]'"}
-    |--- statement. Attributes: {count => "128", token => "statement"}
-    |    |--- lhs. Attributes: {token => "<posix char class name>"}
-    |    |--- op_declare_match. Attributes: {token => "lexeme"}
-    |    |--- rhs. Attributes: {token => "[[:alnum:]]"}
-    |         |--- quantifier. Attributes: {token => "+"}
-    |--- statement. Attributes: {count => "129", token => "statement"}
-         |--- lhs. Attributes: {token => "<horizontal character>"}
-         |--- op_declare_match. Attributes: {token => "lexeme"}
-         |--- rhs. Attributes: {token => "[^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]"}
+Cooked tree. Attributes: {rule => "", uid => "1"}
+    |--- statements. Attributes: {rule => "", uid => "2"}
+    |--- default_rule. Attributes: {rule => ":default ::= action => [start,length,values] bless => ::lhs", uid => "3"}
+    |--- lexeme_default_statement. Attributes: {rule => "lexeme default = action => [start,length,value] bless => ::name latm => 1", uid => "4"}
+    |--- start_rule. Attributes: {rule => ":start ::= statements", uid => "5"}
+    |--- quantified_rule. Attributes: {rule => "statements ::= statement+", uid => "6"}
+    |--- priority_rule. Attributes: {rule => "statement ::=  <start rule>  <empty rule>  <null statement>  <statement group>  <priority rule>  <quantified rule>  <discard rule>  <default rule>  <lexeme default statement>  <discard default statement>  <lexeme rule>  <completion event declaration>  <nulled event declaration>  <prediction event declaration>  <current lexer statement>  <inaccessible statement>", uid => "7"}
+    |--- priority_rule. Attributes: {rule => "<null statement> ::= ", uid => "8"}
+    |--- priority_rule. Attributes: {rule => "<statement group> ::= ('{') statements '}'", uid => "9"}
+    |--- priority_rule. Attributes: {rule => "<start rule> ::= (':start'  <op declare bnf>) symbol", uid => "10"}
+    |--- priority_rule. Attributes: {rule => "<start rule> ::= ('start' 'symbol' 'is') symbol", uid => "11"}
+    |--- priority_rule. Attributes: {rule => "<default rule> ::=   <op declare bnf>  <adverb list>", uid => "12"}
+    |--- priority_rule. Attributes: {rule => "<lexeme default statement> ::= ('lexeme' 'default' '=') <adverb list>", uid => "13"}
+    |--- priority_rule. Attributes: {rule => "<discard default statement> ::= ('discard' 'default' '=') <adverb list>", uid => "14"}
+    |--- priority_rule. Attributes: {rule => "<priority rule> ::=  lhs  <op declare>  priorities", uid => "15"}
+    |--- priority_rule. Attributes: {rule => "<empty rule> ::=  lhs  <op declare>  <adverb list>", uid => "16"}
+    |--- priority_rule. Attributes: {rule => "<quantified rule> ::=  lhs  <op declare>  <single symbol>  quantifier  <adverb list>", uid => "17"}
+    |--- priority_rule. Attributes: {rule => "<discard rule> ::= (':discard'  <op declare match>) <single symbol>  <adverb list>", uid => "18"}
+    |--- priority_rule. Attributes: {rule => "<lexeme rule> ::= (':lexeme'  <op declare match>) symbol  <adverb list>", uid => "19"}
+    |--- priority_rule. Attributes: {rule => "<completion event declaration> ::= ('event') <event initialization>  '=' 'completed'  <symbol name>", uid => "20"}
+    |--- priority_rule. Attributes: {rule => "<nulled event declaration> ::= ('event') <event initialization>  '=' 'nulled'  <symbol name>", uid => "21"}
+    |--- priority_rule. Attributes: {rule => "<prediction event declaration> ::= ('event') <event initialization>  '=' 'predicted'  <symbol name>", uid => "22"}
+    |--- priority_rule. Attributes: {rule => "<current lexer statement> ::= ('current' 'lexer' 'is') <lexer name>", uid => "23"}
+    |--- priority_rule. Attributes: {rule => "<inaccessible statement> ::= ('inaccessible' 'is') <inaccessible treatment>  'by' 'default'", uid => "24"}
+    |--- priority_rule. Attributes: {rule => "<inaccessible treatment> ::=   ", uid => "25"}
+    |--- priority_rule. Attributes: {rule => "<op declare> ::=  <op declare bnf>  <op declare match>", uid => "26"}
+    |--- quantified_rule. Attributes: {rule => "priorities ::= alternatives+", uid => "27"}
+    |--- quantified_rule. Attributes: {rule => "alternatives ::= alternative+", uid => "28"}
+    |--- priority_rule. Attributes: {rule => "alternative ::=  rhs  <adverb list>", uid => "29"}
+    |--- priority_rule. Attributes: {rule => "<adverb list> ::=  <adverb list items>", uid => "30"}
+    |--- quantified_rule. Attributes: {rule => "<adverb list items> ::= <adverb item>*", uid => "31"}
+    |--- priority_rule. Attributes: {rule => "<adverb item> ::=  action  <left association>  <right association>  <group association>  <separator specification>  <proper specification>  <rank specification>  <null ranking specification>  <priority specification>  <pause specification>  <event specification>  <latm specification>  blessing  naming  <null adverb>", uid => "32"}
+    |--- priority_rule. Attributes: {rule => "<null adverb> ::= ", uid => "33"}
+    |--- priority_rule. Attributes: {rule => "action ::= ('action' '=>') <action name>", uid => "34"}
+    |--- priority_rule. Attributes: {rule => "<left association> ::= ('assoc' '=>' 'left')", uid => "35"}
+    |--- priority_rule. Attributes: {rule => "<right association> ::= ('assoc' '=>' 'right')", uid => "36"}
+    |--- priority_rule. Attributes: {rule => "<group association> ::= ('assoc' '=>' 'group')", uid => "37"}
+    |--- priority_rule. Attributes: {rule => "<separator specification> ::= ('separator' '=>') <single symbol>", uid => "38"}
+    |--- priority_rule. Attributes: {rule => "<proper specification> ::= ('proper' '=>') boolean", uid => "39"}
+    |--- priority_rule. Attributes: {rule => "<rank specification> ::= ('rank' '=>') <signed integer>", uid => "40"}
+    |--- priority_rule. Attributes: {rule => "<null ranking specification> ::= ('null-ranking' '=>') <null ranking constant>", uid => "41"}
+    |--- priority_rule. Attributes: {rule => "<null ranking specification> ::= ('null' 'rank' '=>') <null ranking constant>", uid => "42"}
+    |--- priority_rule. Attributes: {rule => "<null ranking constant> ::=  ", uid => "43"}
+    |--- priority_rule. Attributes: {rule => "<priority specification> ::= ('priority' '=>') <signed integer>", uid => "44"}
+    |--- priority_rule. Attributes: {rule => "<pause specification> ::= ('pause' '=>') <before or after>", uid => "45"}
+    |--- priority_rule. Attributes: {rule => "<event specification> ::= ('event' '=>') <event initialization>", uid => "46"}
+    |--- priority_rule. Attributes: {rule => "<event initialization> ::=  <event name>  <event initializer>", uid => "47"}
+    |--- priority_rule. Attributes: {rule => "<event initializer> ::= ('=') <on or off>", uid => "48"}
+    |--- priority_rule. Attributes: {rule => "<on or off> ::=  ", uid => "49"}
+    |--- lhs. Attributes: {rule => "", uid => "50"}
+    |--- priority_rule. Attributes: {rule => "<latm specification> ::= ('forgiving' '=>') boolean", uid => "51"}
+    |--- priority_rule. Attributes: {rule => "<latm specification> ::= ('latm' '=>') boolean", uid => "52"}
+    |--- priority_rule. Attributes: {rule => "<blessing> ::= ('bless' '=>') <blessing name>", uid => "53"}
+    |--- priority_rule. Attributes: {rule => "<naming> ::= ('name' '=>') <alternative name>", uid => "54"}
+    |--- priority_rule. Attributes: {rule => "<alternative name> ::=  <standard name>  <single quoted name>", uid => "55"}
+    |--- priority_rule. Attributes: {rule => "<lexer name> ::=  <standard name>  <single quoted name>", uid => "56"}
+    |--- priority_rule. Attributes: {rule => "<event name> ::=  <standard name>  <single quoted name>  <reserved event name>", uid => "57"}
+    |--- priority_rule. Attributes: {rule => "<reserved event name> ~ ", uid => "58"}
+    |--- priority_rule. Attributes: {rule => "<blessing name> ::=  <standard name>", uid => "59"}
+    |--- priority_rule. Attributes: {rule => "<blessing name> ::=  <reserved blessing name>", uid => "60"}
+    |--- priority_rule. Attributes: {rule => "lhs ::=  <symbol name>", uid => "61"}
+    |--- quantified_rule. Attributes: {rule => "rhs ::= <rhs primary>+", uid => "62"}
+    |--- priority_rule. Attributes: {rule => "<rhs primary> ::=  <single symbol>", uid => "63"}
+    |--- priority_rule. Attributes: {rule => "<rhs primary> ::=  <single quoted string>", uid => "64"}
+    |--- priority_rule. Attributes: {rule => "<rhs primary> ::=  <parenthesized rhs primary list>", uid => "65"}
+    |--- priority_rule. Attributes: {rule => "<parenthesized rhs primary list> ::= ('(') <rhs primary list>  ')'", uid => "66"}
+    |--- quantified_rule. Attributes: {rule => "<rhs primary list> ::= <rhs primary>+", uid => "67"}
+    |--- priority_rule. Attributes: {rule => "<single symbol> ::=  symbol  <character class>", uid => "68"}
+    |--- priority_rule. Attributes: {rule => "symbol ::=  <symbol name>", uid => "69"}
+    |--- priority_rule. Attributes: {rule => "<symbol name> ::=  <bare name>", uid => "70"}
+    |--- priority_rule. Attributes: {rule => "<symbol name> ::=  <bracketed name>", uid => "71"}
+    |--- priority_rule. Attributes: {rule => "<action name> ::=  <Perl name>", uid => "72"}
+    |--- priority_rule. Attributes: {rule => "<action name> ::=  <reserved action name>", uid => "73"}
+    |--- priority_rule. Attributes: {rule => "<action name> ::=  <array descriptor>", uid => "74"}
+    |--- discard_rule. Attributes: {rule => "", uid => "75"}
+    |--- quantified_rule. Attributes: {rule => "whitespace ~ [\s]+", uid => "76"}
+    |--- discard_rule. Attributes: {rule => "", uid => "77"}
+    |--- priority_rule. Attributes: {rule => "<hash comment> ~  <terminated hash comment>  <unterminated final hash comment>", uid => "78"}
+    |--- priority_rule. Attributes: {rule => "<terminated hash comment> ~   <hash comment body>  <vertical space char>", uid => "79"}
+    |--- priority_rule. Attributes: {rule => "<unterminated final hash comment> ~   <hash comment body>", uid => "80"}
+    |--- quantified_rule. Attributes: {rule => "<hash comment body> ~ <hash comment char>*", uid => "81"}
+    |--- priority_rule. Attributes: {rule => "<vertical space char> ~  [\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]", uid => "82"}
+    |--- priority_rule. Attributes: {rule => "<hash comment char> ~  [^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]", uid => "83"}
+    |--- priority_rule. Attributes: {rule => "<op declare bnf> ~ ", uid => "84"}
+    |--- priority_rule. Attributes: {rule => "<op declare match> ~ ", uid => "85"}
+    |--- priority_rule. Attributes: {rule => "<op loosen> ~ ", uid => "86"}
+    |--- priority_rule. Attributes: {rule => "<op equal priority> ~ ", uid => "87"}
+    |--- priority_rule. Attributes: {rule => "quantifier ::=  ", uid => "88"}
+    |--- priority_rule. Attributes: {rule => "<before or after> ~  ", uid => "89"}
+    |--- priority_rule. Attributes: {rule => "<signed integer> ~  <integer>  <sign>  <integer>", uid => "90"}
+    |--- priority_rule. Attributes: {rule => "<sign> ~  [+-]", uid => "91"}
+    |--- quantified_rule. Attributes: {rule => "<integer> ~ [\d]+", uid => "92"}
+    |--- priority_rule. Attributes: {rule => "boolean ~  [01]", uid => "93"}
+    |--- priority_rule. Attributes: {rule => "<reserved action name> ~   <one or more word characters>", uid => "94"}
+    |--- priority_rule. Attributes: {rule => "<reserved blessing name> ~   <one or more word characters>", uid => "95"}
+    |--- quantified_rule. Attributes: {rule => "<one or more word characters> ~ [\w]+", uid => "96"}
+    |--- quantified_rule. Attributes: {rule => "<zero or more word characters> ~ [\w]*", uid => "97"}
+    |--- quantified_rule. Attributes: {rule => "<Perl identifier> ~ [\w]+", uid => "98"}
+    |--- priority_rule. Attributes: {rule => "<double colon> ~ ", uid => "99"}
+    |--- quantified_rule. Attributes: {rule => "<Perl name> ~ <Perl identifier>+", uid => "100"}
+    |--- quantified_rule. Attributes: {rule => "<bare name> ~ [\w]+", uid => "101"}
+    |--- priority_rule. Attributes: {rule => "<standard name> ~  [a-zA-Z]  <zero or more word characters>", uid => "102"}
+    |--- priority_rule. Attributes: {rule => "<bracketed name> ~   <bracketed name string> '>'", uid => "103"}
+    |--- quantified_rule. Attributes: {rule => "<bracketed name string> ~ [\s\w]+", uid => "104"}
+    |--- priority_rule. Attributes: {rule => "<array descriptor> ~  <array descriptor left bracket>  <result item descriptor list>  <array descriptor right bracket>", uid => "105"}
+    |--- priority_rule. Attributes: {rule => "<array descriptor left bracket> ~ ", uid => "106"}
+    |--- priority_rule. Attributes: {rule => "<array descriptor left bracket> ~   whitespace", uid => "107"}
+    |--- priority_rule. Attributes: {rule => "<array descriptor right bracket> ~ ", uid => "108"}
+    |--- priority_rule. Attributes: {rule => "<array descriptor right bracket> ~  whitespace ']'", uid => "109"}
+    |--- quantified_rule. Attributes: {rule => "<result item descriptor list> ~ <result item descriptor>*", uid => "110"}
+    |--- priority_rule. Attributes: {rule => "<result item descriptor separator> ~  [,]", uid => "111"}
+    |--- priority_rule. Attributes: {rule => "<result item descriptor separator> ~  [,]  whitespace", uid => "112"}
+    |--- priority_rule. Attributes: {rule => "<result item descriptor> ~          ", uid => "113"}
+    |--- priority_rule. Attributes: {rule => "<single quoted string> ~  [']  <string without single quote or vertical space>  [']  <character class modifiers>", uid => "114"}
+    |--- priority_rule. Attributes: {rule => "<single quoted name> ~  [']  <string without single quote or vertical space>  [']", uid => "115"}
+    |--- quantified_rule. Attributes: {rule => "<string without single quote or vertical space> ~ [^'\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]+", uid => "116"}
+    |--- priority_rule. Attributes: {rule => "<character class> ~   <cc elements> ']'  <character class modifiers>", uid => "117"}
+    |--- quantified_rule. Attributes: {rule => "<cc elements> ~ <cc element>+", uid => "118"}
+    |--- priority_rule. Attributes: {rule => "<cc element> ~  <safe cc character>", uid => "119"}
+    |--- priority_rule. Attributes: {rule => "<safe cc character> ~  [^\x{5d}\x{0A}\x{0B}\x{0C}\x{0D}\x{0085}\x{2028}\x{2029}]", uid => "120"}
+    |--- priority_rule. Attributes: {rule => "<cc element> ~  <escaped cc character>", uid => "121"}
+    |--- priority_rule. Attributes: {rule => "<escaped cc character> ~   <horizontal character>", uid => "122"}
+    |--- priority_rule. Attributes: {rule => "<cc element> ~  <posix char class>", uid => "123"}
+    |--- priority_rule. Attributes: {rule => "<cc element> ~  <negated posix char class>", uid => "124"}
+    |--- quantified_rule. Attributes: {rule => "<character class modifiers> ~ <character class modifier>*", uid => "125"}
+    |--- priority_rule. Attributes: {rule => "<character class modifier> ~ ", uid => "126"}
+    |--- priority_rule. Attributes: {rule => "<character class modifier> ~ ", uid => "127"}
+    |--- priority_rule. Attributes: {rule => "<posix char class> ~   <posix char class name> ':]'", uid => "128"}
+    |--- priority_rule. Attributes: {rule => "<negated posix char class> ~   <posix char class name> ':]'", uid => "129"}
+    |--- quantified_rule. Attributes: {rule => "<posix char class name> ~ [[:alnum:]]+", uid => "130"}

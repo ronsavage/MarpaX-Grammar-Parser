@@ -16,8 +16,6 @@ use Marpa::R2;
 
 use Moo;
 
-use Set::Array;
-
 use Tree::DAG_Node;
 
 use Types::Standard qw/Any Bool Int Object Str/;
@@ -32,7 +30,7 @@ has bind_attributes =>
 
 has cooked_tree =>
 (
-	default  => sub{return Tree::DAG_Node -> new({name => 'statements', attributes => {token => ''} })},
+	default  => sub{return Tree::DAG_Node -> new({name => 'Cooked tree', attributes => {rule => '', uid => 1} })},
 	is       => 'rw',
 	isa      => Object,
 	required => 0,
@@ -78,14 +76,6 @@ has minlevel =>
 	required => 0,
 );
 
-has node_stack =>
-(
-	default  => sub{return Set::Array -> new},
-	is       => 'rw',
-	isa      => Object,
-	required => 0,
-);
-
 has raw_tree =>
 (
 	default  => sub{return ''},
@@ -102,9 +92,9 @@ has raw_tree_file =>
 	required => 0,
 );
 
-has statement_count =>
+has uid =>
 (
-	default  => sub{return 0},
+	default  => sub{return 1},
 	is       => 'rw',
 	isa      => Int,
 	required => 0,
@@ -151,509 +141,304 @@ sub BUILD
 		);
 	}
 
-	$self -> node_stack -> push($self -> cooked_tree);
-
 } # End of BUILD.
 
 # ------------------------------------------------
 
-sub _add_daughter
+sub add_cooked_daughter
 {
-	my($self, $name, $attributes) = @_;
-	$attributes ||= {};
+	my($self, $name, $rule)	= @_;
+	my($uid)				= $self -> uid($self -> uid + 1);
+	my($attributes)			||= {rule => $rule, uid => $uid};
+	my($node)				= Tree::DAG_Node -> new
+								({
+									attributes	=> $attributes,
+									name		=> $name,
+								});
 
-	if ($name eq 'statement')
-	{
-		$self -> statement_count($self -> statement_count + 1);
+	$self -> cooked_tree -> add_daughter($node);
 
-		$$attributes{count} = $self -> statement_count;
-	}
-
-	my($node) = Tree::DAG_Node -> new
-				({
-					attributes => $attributes,
-					name       => $name,
-				});
-	my($tos) = $self -> node_stack -> last;
-
-	$tos -> add_daughter($node);
-
-	return $node;
-
-} # End of _add_daughter.
+} # End of add_cooked_daughter.
 
 # ------------------------------------------------
 
-sub compress_granddaughter
+sub build_compressed_tree
 {
-	my($self, $statement, $node) = @_;
-	my(@daughters) = $node -> daughters;
-	@daughters     = $daughters[0] -> daughters;
+	my($self, $statements) = @_;
+
+	my(@parts);
+	my($rule);
+	my($statement);
+
+	for my $item (@$statements)
+	{
+		$statement = $$item{statement};
+
+		$self -> log(debug => sprintf('%3i', $$item{depth}) . ". $statement. $$item{token}.");
+
+		# Note: We ignore 'statements' since it was added in BUILD().
+
+		if ($statement =~ /^statement$/)
+		{
+			$rule = $self -> build_rule(\@parts);
+
+			$self -> add_cooked_daughter($parts[0]{statement}, $rule);
+
+			@parts = ();
+		}
+		else
+		{
+			push @parts, $item;
+		}
+	}
+
+} # End of build_compressed_tree.
+
+# ------------------------------------------------
+
+sub build_rule
+{
+	my($self, $parts)	= @_;
+	my($statement)		= $$parts[0]{statement};
+	my($rule)			= '';
+
+	if ($statement eq 'default_rule')
+	{
+		#  5. default_rule. :default.
+		#  7. op_declare_bnf. ::=.
+		# 15. action_name. [start,length,values].
+		# 15. blessing_name. ::lhs.
+
+		$rule = ":default $$parts[1]{token} action => $$parts[2]{token} bless => $$parts[3]{token}";
+	}
+	elsif ($statement eq 'lexeme_default_statement')
+	{
+		#  5. lexeme_default_statement. .
+		# 15. action_name. [start,length,value].
+		# 15. blessing_name. ::name.
+		# 13. latm_specification. 1.
+
+		$rule = "lexeme default = action => $$parts[1]{token} bless => $$parts[2]{token} latm => $$parts[3]{token}";
+	}
+	elsif ($statement eq 'start_rule')
+	{
+		#  5. start_rule. .
+		# 11. bare_name. statements.
+
+		$rule = ":start ::= $$parts[1]{token}";
+	}
+	elsif ($statement eq 'quantified_rule')
+	{
+		#  5. quantified_rule. .
+		#  7. lhs. .
+		# 11. bare_name. statements.
+		#  9. op_declare_bnf. ::=.
+		#  7. single_symbol. .
+		# 13. bare_name. statement.
+		#  7. quantifier. +.
+
+		$rule = "$$parts[2]{token} $$parts[3]{token} $$parts[5]{token}$$parts[6]{token}";
+	}
+	elsif ($statement eq 'priority_rule')
+	{
+		$rule = $self -> collect_alternatives($parts);
+	}
+	else
+	{
+		$rule = '';
+	}
+
+} # End of build_rule.
+
+# ------------------------------------------------
+
+sub collect_alternatives
+{
+	my($self, $parts) = @_;
+
+	#   5. priority_rule. .
+	#   7. lhs. .
+	#  11. bare_name. statement.
+	#   9. op_declare_bnf. ::=.
+	#  11. alternative. .
+	#  17. single_symbol. .
+	#  23. bracketed_name. <start rule>.
+	#  11. alternative. .
+	#  17. single_symbol. .
+	#  23. bracketed_name. <discard default statement>.
+	#  ...
+	#
+	# Or: <null statement> ::= ';'
+	#
+	#  5. priority_rule. .
+	#  7. lhs. .
+	# 11. bracketed_name. <null statement>.
+	#  9. op_declare_bnf. ::=.
+	# 11. alternative. .
+	# 17. single_quoted_string. ';'.
+	#
+	# Or: <statement group> ::= ('{') statements '}'
+	# Or: <start rule> ::= (':start' <op declare bnf>) symbol
+	# Note: Since there are multiple tokens inside the '()',
+	# we use the depth to find the implicit ')'.
+	# See collect_hidden_parts().
+
+	my($limit)	= $#$parts;
+	my($rule)	= '';
+
+	my(@alternatives);
+	my($hidden);
+	my($i, $item);
+	my($final_i);
+	my(@tokens);
+
+	# We use a C-style 'for' and not something like 'for $i (0 .. $limit)',
+	# bacause in the latter case Perl ignores our update to $i.
+
+	for ($i = 2; $i <= $limit; $i++)
+	{
+		$item = $$parts[$i];
+
+		if ($$item{statement} eq 'alternative')
+		{
+			if ($$parts[$i + 1]{statement} eq 'parenthesized_rhs_primary_list')
+			{
+				$hidden	= $self -> collect_hidden_parts($parts, $i);
+				$i		= $$hidden[0] - 1;
+
+				push @alternatives, $$hidden[1];
+			}
+			else
+			{
+				push @alternatives, $$parts[$i]{token};
+			}
+		}
+		else
+		{
+			if ($#alternatives >= 0)
+			{
+				push @tokens, join(' | ', @alternatives);
+
+				@alternatives = ();
+			}
+			else
+			{
+				push @tokens, $$parts[$i]{token};
+			}
+		}
+	}
+
+	$rule = join(' ', @tokens);
+
+	$self -> log(debug => "Leaving collect_alternatives(). Return: $rule");
+
+	return $rule;
+
+} # End of collect_alternatives.
+
+# ------------------------------------------------
+
+sub collect_hidden_parts
+{
+	my($self, $parts, $i) = @_;
+
+	# Or: <statement group> ::= ('{') statements '}'
+	#
+	#  5. priority_rule. .
+	#  7. lhs. .
+	# 11. bracketed_name. <statement group>.
+	#  9. op_declare_bnf. ::=.
+	# 11. alternative. .
+	# 17. parenthesized_rhs_primary_list. .
+	# 23. single_quoted_string. '{'.
+	# 17. single_symbol. .
+	# 23. bare_name. statements.
+	# 17. single_quoted_string. '}'.
+	#
+	# Or: <start rule> ::= (':start' <op declare bnf>) symbol
+	#
+	#  5. priority_rule. .
+	#  7. lhs. .
+	# 11. bracketed_name. <start rule>.
+	#  9. op_declare_bnf. ::=.
+	# 11. alternative. .
+	# 17. parenthesized_rhs_primary_list. .
+	# 23. single_quoted_string. ':start'.
+	# 23. single_symbol. .
+	# 29. bracketed_name. <op declare bnf>.
+	# 17. single_symbol. .
+	# 23. bare_name. symbol.
+	#
+	# Step past 'parenthesized_rhs_primary_list'.
+
+	$i += 2;
+
+	my($current_depth)	= $$parts[$i]{depth}; # 23.
+	my($finished)		= 0;
+	my($initial_i)		= $i;
+
+	my(@hidden);
+
+	while (! $finished)
+	{
+		if ($$parts[$i]{depth} < $current_depth)
+		{
+			$finished = 1;
+		}
+		else
+		{
+			push @hidden, $$parts[$i]{token};
+
+			if ($i == $#$parts)
+			{
+				$finished = 1;
+			}
+			else
+			{
+				$i++;
+			}
+		}
+	}
+
+	return [$i, '(' . join(' ', @hidden) . ')'];
+
+} # End of collect_hidden_parts.
+
+# ------------------------------------------------
+
+sub get_grand_daughter
+{
+	my($self, $node)	= @_;
+	my(@daughters)		= $node -> daughters;
+	@daughters			= $daughters[0] -> daughters;
+
+	return $daughters[2];
+
+} # End of get_grand_daughter.
+
+# ------------------------------------------------
+
+sub get_grand_daughters_name
+{
+	my($self, $node)	= @_;
+	my($grand_daughter)	= $self -> get_grand_daughter($node);
 
 	# Split things like:
 	# o '2 = graph_definition [SCALAR 186]'.
 	# o '2 = ::= [SCALAR 195]'.
 	# o '2 = <string lexeme> [SCALAR 2047]'.
 
-	my(@name) = split(/\s+/, $daughters[2] -> name);
+	my(@name) = split(/\s+/, $grand_daughter -> name);
 
 	# Discard the '[$x' and '$n]' from the end of @name.
+	# Discard the $n and '=' from the start of @name.
 
 	pop @name for 1 .. 2;
+	shift @name for 1 .. 2;
 
-	# Ignore the $n and '=' from the start of @name.
+	return join(' ', @name);
 
-	return $self -> _add_daughter($statement, {token => join(' ', @name[2 .. $#name])});
-
-} # End of compress_granddaughter.
-
-# ------------------------------------------------
-
-sub compress_simple_granddaughter
-{
-	my($self, $statement, $node) = @_;
-	my(@daughters) = $node -> daughters;
-	@daughters     = $daughters[0] -> daughters;
-
-	# Split things like:
-	# o '1 = 0 [SCALAR 84]'.
-
-	my(@name) = split(/\s+/, $daughters[1] -> name);
-
-	return $self -> _add_daughter('initial_value', {token => $name[2]});
-
-} # End of compress_simple_granddaughter.
-
-# ------------------------------------------------
-
-sub compress_tree
-{
-	my($self)          = @_;
-	my($parenthesized) = 0;
-	my(%type)          = (op_declare_bnf => 'bnf', op_declare_match => 'lexeme');
-	my($context)       = '';
-	my(%bare_name_map) =
-	(
-		discard_rule    => 1,
-		lexeme_rule     => 1,
-		priority_rule   => 1,
-		quantified_rule => 1,
-		start_rule      => 1,
-	);
-	my(%expected) =
-	(
-		statements					=> 0,	# 0: Store.
-		statement					=> 0,
-		default_rule				=> 1,	# 1: Use granddaughter[2]{1,1}.
-		op_declare_bnf				=> 1,
-		lexeme_default_statement	=> 0,
-		action_name					=> 2,	# 2: Use granddaughter[2]{2,2}.
-		blessing_name				=> 2,	# But rename blessing => bless?
-		latm_specification			=> 2,
-		start_rule					=> 4,	# 4: Use granddaughter[2]{4,4}.
-		quantified_rule				=> 0,
-		lhs							=> 0,
-		bare_name					=> 1,
-		single_symbol				=> 4,
-		quantifier					=> 1,
-		priority_rule				=> 0,
-		alternative					=> 0,
-		rhs_primary					=> 0,
-		bracketed_name				=> 1,
-	);
-
-	my($alternative_count);
-	my($daughter, @daughters);
-	my($last_name);
-	my($node_id, $name, @name);
-	my($statement);
-
-	$self -> node_stack -> push(Tree::DAG_Node -> new({name => 'Dummy'}) );
-
-	$self -> raw_tree -> walk_down
-	({
-		callback => sub
-		{
-			my($node, $option) = @_;
-			$name      = $node -> name;
-			$statement = ($name =~ /Class = .+::(.+?)\s/) ? $1 : '';
-
-			return 1 if ($node -> is_root);
-
-			# Reset $parenthesized if the nesting depth is less than when it was set.
-
-			if ($$option{_depth} < $parenthesized)
-			{
-				$parenthesized = 0;
-
-				$self -> node_stack -> pop;
-				$self -> _add_daughter('parenthesized_rhs_primary_list', {token => ')'});
-			}
-
-			# Process statements in alphabetical order.
-			# This order makes following the giant 'if' easier'.
-
-			return 1 if (! $statement);
-
-			if ($self -> verbose)
-			{
-				print "$statement. \n";
-			}
-
-			if ($statement eq 'action_name')
-			{
-				$node_id = 'rhs';
-			}
-			elsif ($statement eq 'alternative')
-			{
-				$alternative_count++;
-
-				if ($node -> my_daughter_index > 2)
-				{
-					$self -> _add_daughter($statement, {token => '|'});
-				}
-			}
-			elsif ($statement eq 'alternative_name')
-			{
-				$node_id = $statement;
-			}
-			elsif ($statement eq 'alternatives')
-			{
-				$alternative_count++;
-
-				if ($alternative_count > 1)
-				{
-					$self -> _add_daughter($statement, {token => '||'});
-				}
-			}
-			elsif ($statement eq 'array_descriptor')
-			{
-				$self -> node_stack -> push($self -> _add_daughter($node_id || 'rhs', {token => 'action'}) );
-				$self -> compress_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'bare_name')
-			{
-				if ($bare_name_map{$context})
-				{
-					$self -> node_stack -> push($self -> _add_daughter($node_id || 'rhs', {token => 'bare_name'}) );
-					$self -> compress_granddaughter('bare_name', $node);
-					$self -> node_stack -> pop;
-
-					$node_id = '';
-				}
-			}
-			elsif ($statement eq 'before_or_after')
-			{
-				$self -> node_stack -> push($self -> _add_daughter('pause_specification', {token => 'pause_specification'}) );
-				$self -> compress_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'blessing_name')
-			{
-				$node_id = $statement;
-			}
-			elsif ($statement eq 'boolean')
-			{
-				$self -> node_stack -> push($last_name);
-				$self -> compress_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'bracketed_name')
-			{
-				$last_name = $self -> compress_granddaughter($node_id || 'rhs', $node);
-
-				$node_id = '';
-			}
-			elsif ($statement eq 'character_class')
-			{
-				$last_name = $self -> compress_granddaughter('rhs', $node);
-			}
-			elsif ($statement eq 'default_rule')
-			{
-				$context = $statement;
-
-				$self -> compress_granddaughter('lhs', $node);
-			}
-			elsif ($statement eq 'discard_default_statement')
-			{
-				$self -> _add_daughter('lhs', {token => 'discard default'});
-				$self -> _add_daughter('op_declare_bnf', {token => 'bnf'});
-
-				#$node_id = undef; # TODO: Reactivate? Just in case the action adverb appears.
-				$context  = $statement;
-			}
-			elsif ($statement eq 'discard_rule')
-			{
-				$self -> _add_daughter('lhs', {token => ':discard'});
-				$self -> _add_daughter('op_declare_match', {token => 'lexeme'});
-
-				$node_id = 'rhs';
-				$context = $statement;
-			}
-			elsif ($statement eq 'event_initializer')
-			{
-				$self -> node_stack -> push($self -> _add_daughter($statement, {token => $statement}) );
-				$self -> compress_simple_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'event_specification')
-			{
-				$node_id = $statement;
-			}
-			elsif ($statement eq 'group_association')
-			{
-				$last_name = $self -> _add_daughter('assoc', { token => 'group'});
-			}
-			elsif ($statement eq 'latm_specification')
-			{
-				$last_name = $self -> _add_daughter('rhs', {token => 'latm'});
-			}
-			elsif ($statement eq 'left_association')
-			{
-				$last_name = $self -> _add_daughter('assoc', {token => 'left'});
-			}
-			elsif ($statement eq 'lexeme_default_statement')
-			{
-				$self -> _add_daughter('lhs', {token => 'lexeme default'});
-				$self -> _add_daughter('op_declare_bnf', {token => 'bnf'});
-
-				$node_id = undef;
-				$context = $statement;
-			}
-			elsif ($statement eq 'lexeme_rule')
-			{
-				$self -> _add_daughter('lhs', {token => ':lexeme'});
-				$self -> _add_daughter('op_declare_match', {token => 'bnf'});
-
-				$node_id = '';
-				$context = $statement;
-			}
-			elsif ($statement eq 'null_ranking_constant')
-			{
-				$self -> compress_granddaughter($statement, $node);
-			}
-			elsif ($statement =~ /op_declare_(?:bnf|match)/)
-			{
-				$self -> _add_daughter($statement, {token => $type{$statement} });
-			}
-			elsif ($statement eq 'parenthesized_rhs_primary_list')
-			{
-				$parenthesized = $$option{_depth};
-
-				$self -> node_stack -> push($self -> _add_daughter('parenthesized_rhs_primary_list', {token => '('}) );
-			}
-			elsif ($statement eq 'pause_specification')
-			{
-				$node_id = $statement;
-			}
-			elsif ($statement eq 'Perl_name')
-			{
-				$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
-				$self -> compress_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'priorities')
-			{
-				$alternative_count = 0;
-			}
-			elsif ($statement eq 'priority_rule')
-			{
-				$node_id = 'lhs';
-				$context = $statement;
-			}
-			elsif ($statement eq 'priority_specification')
-			{
-				$node_id = 'priority';
-			}
-			elsif ($statement eq 'proper_specification')
-			{
-				$last_name = $self -> _add_daughter($statement, {token => $statement});
-				$node_id   = 'proper';
-			}
-			elsif ($statement eq 'quantified_rule')
-			{
-				$node_id = 'lhs';
-				$context = $statement;
-			}
-			elsif ($statement eq 'quantifier')
-			{
-				$self -> _dump_node_stack("1 before compress_granddaughter. Pushing last_name: $last_name. ");
-				$self -> node_stack -> push($last_name);
-				$self -> _dump_node_stack('2 before compress_granddaughter');
-				$self -> compress_granddaughter($statement, $node);
-				$self -> _dump_node_stack('3 after compress_granddaughter');
-				$self -> node_stack -> pop;
-				$self -> _dump_node_stack('4 after compress_granddaughter');
-			}
-			elsif ($statement eq 'rank_specification')
-			{
-				$last_name = $self -> _add_daughter($statement, {token => $statement});
-
-				$node_id = 'rank';
-			}
-			elsif ($statement eq 'reserved_action_name')
-			{
-				$self -> node_stack -> push($self -> _add_daughter('action', {token => 'action'}) );
-				$self -> compress_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'reserved_blessing_name')
-			{
-				$self -> node_stack -> push($self -> _add_daughter('rhs', {token => 'bless'}) );
-				$self -> compress_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'reserved_event_name')
-			{
-				$self -> node_stack -> push($self -> _add_daughter('event', {token => 'event'}) );
-				$self -> compress_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'right_association')
-			{
-				$last_name = $self -> _add_daughter('assoc', {token => 'right'});
-			}
-			elsif ($statement eq 'separator_specification')
-			{
-				$node_id = 'separator';
-			}
-			elsif ($statement eq 'signed_integer')
-			{
-				$self -> node_stack -> push($last_name);
-				$self -> compress_granddaughter($node_id, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'single_quoted_string')
-			{
-				$self -> compress_granddaughter('rhs', $node);
-			}
-			elsif ($statement eq 'standard_name')
-			{
-				$self -> node_stack -> push($self -> _add_daughter($node_id, {token => $node_id}) );
-				$self -> compress_granddaughter($statement, $node);
-				$self -> node_stack -> pop;
-			}
-			elsif ($statement eq 'start_rule')
-			{
-				$self -> _add_daughter('lhs', {token => ':start'});
-				$self -> _add_daughter('op_declare_bnf', {token => 'bnf'});
-
-				$node_id = 'rhs';
-				$context = $statement;
-			}
-			elsif ($statement eq 'statement')
-			{
-				# Discard previous statement (or Dummy) from top of stack.
-
-				$node = $self -> node_stack -> pop;
-
-				$self -> node_stack -> push($self -> _add_daughter($statement, {token => $statement}) );
-			}
-
-			return 1; # Keep walking.
-		},
-		_depth => 0,
-	});
-
-} # End of compress_tree.
-
-# ------------------------------------------------
-
-sub _dump_node_stack
-{
-	my($self, $message)	= @_;
-	my($length)			= $self -> node_stack -> length;
-
-	print "$message. Length of node_stack: $length. \n";
-
-	$self -> node_stack -> foreach(sub{print $_ -> name, ". \n"});
-
-} # End of _dump_node_stack.
-
-# ------------------------------------------------
-
-sub _fabricate_start_rule
-{
-	my($self)       = @_;
-	my($first_rule) = '';
-
-	my(@daughters);
-	my($name);
-	my(@token);
-
-	$self -> cooked_tree -> walk_down
-	({
-		callback => sub
-		{
-			my($node, $option) = @_;
-			@daughters = $node -> daughters;
-
-			return if ($#daughters < 0);
-
-			@token = map{$_ -> name} @daughters;
-
-			# Skip if the rule name start with ':'.
-			# And skip if it's name is reserved or it's a lexeme rule.
-
-			if ( (substr($token[0], 0, 1) ne ':') && ($token[1] eq '::=') )
-			{
-				$first_rule = $node;
-
-				return 0; # Stop walking.
-			}
-
-			return 1; # Keep walking.
-		},
-		_depth => 0,
-	});
-
-	die "Unable to determine which rule is the first\n" if (! $first_rule);
-
-	@daughters = $first_rule -> daughters;
-	$name      = $daughters[1] -> name;
-	my($node)  = Tree::DAG_Node -> new({name => 'statement'});
-
-	$self -> cooked_tree -> add_daughter_left($node);
-
-	for my $new_name (":start ::= $name", ':start', '::=', $name)
-	{
-		$node -> add_daughter(Tree::DAG_Node -> new({name => $new_name}) );
-	}
-
-} # End of _fabricate_start_rule.
-
-# ------------------------------------------------
-
-sub _find_start_rule
-{
-	my($self)  = @_;
-	my($found) = 'No';
-
-	my($name);
-
-	$self -> cooked_tree -> walk_down
-	({
-		callback => sub
-		{
-			my($node, $option) = @_;
-			$name = $node -> name;
-
-			if ($name eq ':start')
-			{
-				$found = 'Yes';
-
-				return 0; # Stop walking.
-			}
-
-			return 1; # Keep walking.
-		},
-		_depth => 0,
-	});
-
-	return $found;
-
-} # End of _find_start_rule.
+} # End of get_grand_daughters_name.
 
 # ------------------------------------------------
 
@@ -664,6 +449,109 @@ sub log
 	$self -> logger -> log($level => $s) if ($self -> logger);
 
 } # End of log.
+
+# ------------------------------------------------
+
+sub parse_raw_tree
+{
+	my($self)	= @_;
+	my(%type)	=
+	(
+		action_name						=> 2,	# 2: Use granddaughter[2]{2,2}.
+		alternative						=> 0,	# 0: Store.
+		bare_name						=> 1,	# 1: Use granddaughter[2]{1,1}.
+		blessing_name					=> 2,
+		bracketed_name					=> 1,
+		character_class					=> 1,
+		default_rule					=> 1,
+		discard_rule					=> 0,
+		latm_specification				=> 2,
+		lexeme_default_statement		=> 0,
+		lhs								=> 0,
+		op_declare_bnf					=> 1,
+		op_declare_match				=> 1,
+		parenthesized_rhs_primary_list	=> 0,
+		priority_rule					=> 0,
+		proper_specification			=> 2,
+		quantified_rule					=> 0,
+		quantifier						=> 1,
+		separator_specification			=> 0,
+		single_symbol					=> 4,	# 4: Use granddaughter[2]{4,4}.
+		single_quoted_string			=> 1,
+		statement						=> 0,
+		statements						=> 0,
+		start_rule						=> 4,
+	);
+
+	my($grand_daughter);
+	my($name);
+	my($statement, @statements);
+	my($type);
+
+	$self -> raw_tree -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+
+			return 1 if ($node -> is_root);
+
+			$name		= $node -> name;
+			$statement	= ($name =~ /Class = .+::(.+?)\s/) ? $1 : '';
+
+			return 1 if (! $statement);
+
+			$type = $type{$statement};
+
+			return 1 if (! defined $type);
+
+			if ($type == 0)
+			{
+				push @statements,
+				{
+					depth		=> $$option{_depth},
+					statement	=> $statement,
+					token		=> '',
+				};
+			}
+			elsif ($type == 1)
+			{
+				push @statements,
+				{
+					depth		=> $$option{_depth},
+					statement	=> $statement,
+					token		=> $self -> get_grand_daughters_name($node),
+				};
+			}
+			elsif ($type == 2)
+			{
+				$grand_daughter = $self -> get_grand_daughter($node);
+
+				push @statements,
+				{
+					depth		=> $$option{_depth},
+					statement	=> $statement,
+					token		=> $self -> get_grand_daughters_name($grand_daughter),
+				};
+			}
+			else
+			{
+				push @statements,
+				{
+					depth		=> $$option{_depth},
+					statement	=> $statement,
+					token		=> '',
+				};
+			}
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	return \@statements;
+
+} # End of parse_raw_tree.
 
 # ------------------------------------------------
 
@@ -692,7 +580,7 @@ sub run
 			attributes       => 0,
 			max_key_length   => 100,
 			max_value_length => 100,
-			title            => 'Marpa value()',
+			title            => 'Raw tree',
 			verbose          => 0,
 		);
 	my($output) = $renderer -> render($value);
@@ -708,12 +596,9 @@ sub run
 		close $fh;
 	}
 
-	$self -> compress_tree;
+	my($statements) = $self -> parse_raw_tree;
 
-	if ($self -> _find_start_rule eq 'No')
-	{
-		#$self -> _fabricate_start_rule; TODO.
-	}
+	$self -> build_compressed_tree($statements);
 
 	my($cooked_tree_file) = $self -> cooked_tree_file;
 
