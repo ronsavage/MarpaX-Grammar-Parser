@@ -308,9 +308,17 @@ sub collect_alternatives
 
 				push @alternatives, $$hidden[1];
 			}
+			elsif (defined $$parts[$i + 2])
+			{
+				push @alternatives, $$parts[$i + 2]{token};
+
+				$i += 2;
+			}
 			else
 			{
-				push @alternatives, $$parts[$i]{token};
+				push @alternatives, $$parts[$i + 1]{token};
+
+				$i++;
 			}
 		}
 		else
@@ -323,14 +331,17 @@ sub collect_alternatives
 			}
 			else
 			{
-				push @tokens, $$parts[$i]{token};
+				push @tokens, $$parts[$i]{token} if ($$parts[$i]{token});
 			}
 		}
 	}
 
-	$rule = join(' ', @tokens);
+	if ($#alternatives >= 0)
+	{
+		push @tokens, join(' | ', @alternatives);
+	}
 
-	$self -> log(debug => "Leaving collect_alternatives(). Return: $rule");
+	$rule = join(' ', @tokens);
 
 	return $rule;
 
@@ -555,6 +566,39 @@ sub parse_raw_tree
 
 # ------------------------------------------------
 
+sub report_rules
+{
+	my($self) = @_;
+
+	my($attributes);
+	my($name);
+
+	open(my $fh, '>', 'rules.log') || die "Can't open(> rules.log): $!\n";
+
+	$self -> cooked_tree -> walk_down
+	({
+		callback => sub
+		{
+			my($node, $option) = @_;
+
+			return 1 if ($node -> is_root);
+
+			$name		= $node -> name;
+			$attributes	= $node -> attributes;
+
+			print $fh "$$attributes{rule}\n";
+
+			return 1; # Keep walking.
+		},
+		_depth => 0,
+	});
+
+	close $fh;
+
+} # End of report_rules.
+
+# ------------------------------------------------
+
 sub run
 {
 	my($self)			= @_;
@@ -608,6 +652,8 @@ sub run
 		print $fh map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => 0})};
 		close $fh;
 	}
+
+	$self -> report_rules;
 
 	# Return 0 for success and 1 for failure.
 
