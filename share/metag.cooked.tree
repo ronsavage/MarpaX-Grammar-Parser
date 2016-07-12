@@ -7,7 +7,7 @@ Cooked tree. Attributes: {rule => "", uid => "1"}
     |--- priority_rule. Attributes: {rule => "statement ::= <start rule> | <empty rule> | <null statement> | <statement group> | <priority rule> | <quantified rule> | <discard rule> | <default rule> | <lexeme default statement> | <discard default statement> | <lexeme rule> | <completion event declaration> | <nulled event declaration> | <prediction event declaration> | <current lexer statement> | <inaccessible statement>", uid => "7"}
     |--- priority_rule. Attributes: {rule => "<null statement> ::= ';'", uid => "8"}
     |--- priority_rule. Attributes: {rule => "<statement group> ::= ('{') statements '}'", uid => "9"}
-    |--- priority_rule. Attributes: {rule => "<start rule> ::= (':start'  <op declare bnf>) symbol", uid => "10"}
+    |--- priority_rule. Attributes: {rule => "<start rule> ::= (':start' <op declare bnf>) symbol", uid => "10"}
     |--- priority_rule. Attributes: {rule => "<start rule> ::= ('start' 'symbol' 'is') symbol", uid => "11"}
     |--- priority_rule. Attributes: {rule => "<default rule> ::=  <adverb list>", uid => "12"}
     |--- priority_rule. Attributes: {rule => "<lexeme default statement> ::= ('lexeme' 'default' '=') <adverb list>", uid => "13"}
@@ -15,8 +15,8 @@ Cooked tree. Attributes: {rule => "", uid => "1"}
     |--- priority_rule. Attributes: {rule => "<priority rule> ::= lhs <op declare> priorities", uid => "15"}
     |--- priority_rule. Attributes: {rule => "<empty rule> ::= lhs <op declare> <adverb list>", uid => "16"}
     |--- priority_rule. Attributes: {rule => "<quantified rule> ::= lhs <op declare> <single symbol> quantifier <adverb list>", uid => "17"}
-    |--- priority_rule. Attributes: {rule => "<discard rule> ::= (':discard'  <op declare match>) <single symbol> <adverb list>", uid => "18"}
-    |--- priority_rule. Attributes: {rule => "<lexeme rule> ::= (':lexeme'  <op declare match>) symbol <adverb list>", uid => "19"}
+    |--- priority_rule. Attributes: {rule => "<discard rule> ::= (':discard' <op declare match>) <single symbol> <adverb list>", uid => "18"}
+    |--- priority_rule. Attributes: {rule => "<lexeme rule> ::= (':lexeme' <op declare match>) symbol <adverb list>", uid => "19"}
     |--- priority_rule. Attributes: {rule => "<completion event declaration> ::= ('event') <event initialization> '=' 'completed' <symbol name>", uid => "20"}
     |--- priority_rule. Attributes: {rule => "<nulled event declaration> ::= ('event') <event initialization> '=' 'nulled' <symbol name>", uid => "21"}
     |--- priority_rule. Attributes: {rule => "<prediction event declaration> ::= ('event') <event initialization> '=' 'predicted' <symbol name>", uid => "22"}

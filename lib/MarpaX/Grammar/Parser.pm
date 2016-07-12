@@ -92,6 +92,14 @@ has raw_tree_file =>
 	required => 0,
 );
 
+has rules_file =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	isa      => Str,
+	required => 0,
+);
+
 has uid =>
 (
 	default  => sub{return 1},
@@ -398,7 +406,7 @@ sub collect_hidden_parts
 		}
 		else
 		{
-			push @hidden, $$parts[$i]{token};
+			push @hidden, $$parts[$i]{token} if ($$parts[$i]{token});
 
 			if ($i == $#$parts)
 			{
@@ -572,8 +580,7 @@ sub report_rules
 
 	my($attributes);
 	my($name);
-
-	open(my $fh, '>', 'rules.log') || die "Can't open(> rules.log): $!\n";
+	my(@rules);
 
 	$self -> cooked_tree -> walk_down
 	({
@@ -586,14 +593,14 @@ sub report_rules
 			$name		= $node -> name;
 			$attributes	= $node -> attributes;
 
-			print $fh "$$attributes{rule}\n";
+			push @rules, $$attributes{rule};
 
 			return 1; # Keep walking.
 		},
 		_depth => 0,
 	});
 
-	close $fh;
+	return \@rules;
 
 } # End of report_rules.
 
@@ -653,7 +660,14 @@ sub run
 		close $fh;
 	}
 
-	$self -> report_rules;
+	my($rules_file) = $self -> rules_file;
+
+	if ($rules_file)
+	{
+		open(my $fh, '>', $rules_file) || die "Can't open(> $rules_file): $!\n";
+		print $fh map{"$_\n"} @{$self -> report_rules};
+		close $fh;
+	}
 
 	# Return 0 for success and 1 for failure.
 

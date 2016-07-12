@@ -26,6 +26,7 @@ if ($option_parser -> getoptions
 	'maxlevel=s',
 	'minlevel=s',
 	'raw_tree_file=s',
+	'rules_file=s',
 	'user_bnf_file=s',
 	'verbose=i',
 ) )
@@ -62,6 +63,7 @@ bnf2tree.pl [options]
 	-maxlevel logOption1
 	-minlevel logOption2
 	-raw_tree_file aTextFileName
+	-rules_file aTextFileName
 	-user_bnf_file aUserBNFFileName
 	-verbose $Boolean
 
@@ -130,6 +132,14 @@ No lower levels are used.
 =item o -raw_tree_file aTextFileName
 
 The name of the text file to write containing the grammar as a raw tree.
+
+If '', the file is not written.
+
+Default: ''.
+
+=item o -rules_file aTextFileName
+
+The name of the text file to write containing the BNF generated from parsing the input.
 
 If '', the file is not written.
 
