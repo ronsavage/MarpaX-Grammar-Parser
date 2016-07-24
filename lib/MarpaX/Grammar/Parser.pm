@@ -170,65 +170,55 @@ sub add_cooked_daughter
 
 # ------------------------------------------------
 
-sub build_compressed_tree
-{
-	my($self, $statements) = @_;
-
-	my($format);
-	my(@parts);
-	my($rule);
-	my($statement);
-
-	for my $item (@$statements)
-	{
-		$statement	= $$item{statement};
-		$format		= $$item{depth} == 3 ? '* %3i' : '  %3i';
-
-		$self -> log(debug => sprintf($format, $$item{depth}) . ". $statement. $$item{token}.");
-
-		# Wrap up each statement as we encounter it.
-
-		if ($statement =~ /^statement$/)
-		{
-			$rule = $self -> build_rule(\@parts);
-
-			$self -> add_cooked_daughter($parts[0]{statement}, $rule);
-
-			@parts = ();
-		}
-		else
-		{
-			push @parts, $item;
-		}
-	}
-
-} # End of build_compressed_tree.
-
-# ------------------------------------------------
-
 sub build_rule
 {
 	my($self, $parts)	= @_;
-	my($statement)		= $$parts[0]{statement};
+	my($last)			= 0;
 	my($rule)			= '';
+	my($statement)		= $$parts[0]{statement};
+
+	$self -> log(debug => "build_rule: $statement. !" . join('!, !', map{$$_{token} } @$parts) . '!');
+
+	my(@adverbs);
 
 	if ($statement eq 'default_rule')
 	{
-		$rule = ":default $$parts[1]{token} action => $$parts[2]{token} bless => $$parts[3]{token}";
+		$last	= 3;
+		$rule	= ":default $$parts[1]{token} action => $$parts[2]{token} bless => $$parts[3]{token}";
 	}
 	elsif ($statement eq 'lexeme_default_statement')
 	{
-		$rule = "lexeme default = action => $$parts[1]{token} bless => $$parts[2]{token} latm => $$parts[3]{token}";
+		$last	= 3;
+		$rule	= "lexeme default = action => $$parts[1]{token} bless => $$parts[2]{token} latm => $$parts[3]{token}";
 	}
 	elsif ($statement eq 'start_rule')
 	{
-		$rule = ":start ::= $$parts[1]{token}";
+		$last	= 1;
+		$rule	= ":start ::= $$parts[1]{token}";
 	}
 	elsif ($statement eq 'quantified_rule')
 	{
-		$self -> log(debug => "Processing '$statement'. part[2]: $$parts[2]{token}/$$parts[3]{token}/$$parts[5]{token}/$$parts[6]{token}.");
+		$last	= 6;
+		$rule	= "$$parts[2]{token} $$parts[3]{token} $$parts[5]{token}$$parts[6]{token}";
 
-		$rule = "$$parts[2]{token} $$parts[3]{token} $$parts[5]{token}$$parts[6]{token} ";# . $self -> collect_alternatives($parts);
+		if ($last < $#$parts)
+		{
+			shift @$parts for (1 .. $#$parts - $last + 1);
+
+			@adverbs	= ();
+			@$parts		= grep{length($$_{token}) > 0} @$parts;
+
+			$self -> log(debug => "Before <$rule>. Parts: !" . join('!, !', map{$$_{token} } @$parts) . '!');
+
+			for (my $j = 0; $j <= $#$parts; $j += 2)
+			{
+				push @adverbs, "$$parts[$j]{token} => $$parts[$j + 1]{token}";
+			}
+
+			$rule .= ' ' . join(' ', @adverbs);
+
+			$self -> log(debug => "After  <$rule>");
+		}
 	}
 	elsif ($statement eq 'priority_rule')
 	{
@@ -238,6 +228,8 @@ sub build_rule
 	{
 		$rule = '';
 	}
+
+	$self -> log(debug => "build_rule: Returns $rule.");
 
 } # End of build_rule.
 
@@ -251,14 +243,14 @@ sub collect_alternatives
 
 	my(@alternatives);
 	my($hidden);
-	my($i, $item);
+	my($item);
 	my($final_i);
 	my(@tokens);
 
 	# We use a C-style 'for' and not something like 'for $i (0 .. $limit)',
 	# bacause in the latter case Perl ignores our update to $i.
 
-	for ($i = 2; $i <= $limit; $i++)
+	for (my $i = 2; $i <= $limit; $i++)
 	{
 		$item = $$parts[$i];
 
@@ -321,24 +313,14 @@ sub collect_alternatives
 
 				push @tokens, $$item{token};
 			}
-			elsif ($$item{statement} eq 'proper_specification')
-			{
-				$self -> log(debug => "6 Push 'proper'");
-
-				push @tokens, 'proper';
-			}
-			elsif ($$item{statement} eq 'separator_specification')
-			{
-				$self -> log(debug => "7 Push 'separator'");
-
-				push @tokens, 'separator';
-			}
 			elsif ($$item{statement} eq 'single_symbol')
 			{
 				# NOP.
 			}
 			else
 			{
+				$self -> log(debug => 'parts: !' . join('! !', map{$$_{token} } @$parts) . '!');
+
 				die "2 No provision for statement '$$item{statement}'\n";
 			}
 		}
@@ -404,6 +386,70 @@ sub collect_hidden_parts
 
 # ------------------------------------------------
 
+sub compress_tree
+{
+	my($self, $statements)	= @_;
+	my($limit)				= $#$statements;
+
+	my($format);
+	my($item);
+	my(@parts);
+	my($rule);
+	my($statement);
+
+	# We use a C-style 'for' and not something like 'for $i (0 .. $limit)',
+	# bacause in the latter case Perl ignores our update to $i.
+
+	for (my $i = 0; $i <= $limit; $i++)
+	{
+		$item		= $$statements[$i];
+		$statement	= $$item{statement};
+		$format		= $$item{depth} == 3 ? '* %3i' : '  %3i';
+
+		$self -> log(debug => sprintf($format, $$item{depth}) . ". $statement. $$item{token}.");
+
+		# Wrap up each statement as we encounter it.
+
+		if ($statement =~ /^statement$/)
+		{
+			$rule = $self -> build_rule(\@parts);
+
+			$self -> add_cooked_daughter($parts[0]{statement}, $rule);
+
+			@parts = ();
+		}
+		elsif ($statement =~ /proper_specification/)
+		{
+			push @parts,
+			{
+				depth		=> $$item{depth},
+				statement	=> $$item{statement},
+				token		=> 'proper',
+			};
+
+			push @parts, $item;
+		}
+		elsif ($statement =~ /separator_specification/)
+		{
+			push @parts, $item;
+
+			$i		+= 2;
+			$item	= $$statements[$i];
+
+			push @parts, $item;
+		}
+		else
+		{
+			push @parts, $item;
+		}
+	}
+
+	$self -> log(debug => 'Excess !' . join('! !', map{$$_{token} } @parts) . '!');
+
+} # End of compress_tree.
+
+# ------------------------------------------------
+
 sub get_grand_daughter
 {
 	my($self, $node)	= @_;
@@ -456,7 +502,8 @@ sub parse_raw_tree
 	my(%type)	=
 	(
 		action_name						=> 2,	# 2: Use granddaughter[2]{2,2}.
-		alternative						=> 0,	# 0: Store.
+		adverb_item						=> 0,	# 0: Store.
+		alternative						=> 0,
 		bare_name						=> 1,	# 1: Use granddaughter[2]{1,1}.
 		blessing_name					=> 2,
 		bracketed_name					=> 1,
@@ -473,12 +520,12 @@ sub parse_raw_tree
 		proper_specification			=> 2,
 		quantified_rule					=> 0,
 		quantifier						=> 1,
-		separator_specification			=> 0,
-		single_symbol					=> 4,	# 4: Use granddaughter[2]{4,4}.
+		separator_specification			=> 4,
+		single_symbol					=> 0,
 		single_quoted_string			=> 1,
 		statement						=> 0,
 		statements						=> 0,
-		start_rule						=> 4,
+		start_rule						=> 0,
 	);
 
 	my($grand_daughter);
@@ -532,14 +579,18 @@ sub parse_raw_tree
 					token		=> $self -> get_grand_daughters_name($grand_daughter),
 				};
 			}
-			else # $type == 4.
+			elsif ($type == 4)
 			{
 				push @statements,
 				{
 					depth		=> $$option{_depth},
 					statement	=> $statement,
-					token		=> '',
+					token		=> 'separator',
 				};
+			}
+			else
+			{
+				die "Unexpected type $type\n";
 			}
 
 			return 1; # Keep walking.
@@ -634,7 +685,7 @@ sub run
 
 	# Convert the arrayref into a user-friendly tree.
 
-	$self -> build_compressed_tree($statements);
+	$self -> compress_tree($statements);
 
 	my($cooked_tree_file) = $self -> cooked_tree_file;
 
