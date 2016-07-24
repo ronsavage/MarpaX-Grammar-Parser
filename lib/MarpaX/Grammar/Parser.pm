@@ -226,7 +226,9 @@ sub build_rule
 	}
 	elsif ($statement eq 'quantified_rule')
 	{
-		$rule = "$$parts[2]{token} $$parts[3]{token} $$parts[5]{token}$$parts[6]{token}";
+		$self -> log(debug => "Processing '$statement'. part[2]: $$parts[2]{token}/$$parts[3]{token}/$$parts[5]{token}/$$parts[6]{token}.");
+
+		$rule = "$$parts[2]{token} $$parts[3]{token} $$parts[5]{token}$$parts[6]{token} ";# . $self -> collect_alternatives($parts);
 	}
 	elsif ($statement eq 'priority_rule')
 	{
@@ -284,7 +286,7 @@ sub collect_alternatives
 			}
 			elsif ($$item{statement} =~ /(?:bare_name|bracketed_name|character_class|op_declare_bnf|op_declare_match|single_quoted_string)/)
 			{
-				$self -> log(debug => "1 Push $$item{token}");
+				$self -> log(debug => "2 Push $$item{token}");
 
 				push @alternatives, $$item{token};
 			}
@@ -297,7 +299,7 @@ sub collect_alternatives
 		{
 			if ($#alternatives >= 0)
 			{
-				$self -> log(debug => '2 Joining alternatives: ' . join(' | ', @alternatives) . '.');
+				$self -> log(debug => '3 Joining alternatives: ' . join(' | ', @alternatives) . '.');
 
 				push @tokens, join(' | ', @alternatives);
 
@@ -307,17 +309,29 @@ sub collect_alternatives
 			if ($$item{statement} eq 'parenthesized_rhs_primary_list')
 			{
 				$hidden	= $self -> collect_hidden_parts($parts, $i);
-				$i		= $$hidden[0] - 1;
+				$i		= $$hidden[0];
 
-				$self -> log(debug => "2 Push hidden $$hidden[1]");
+				$self -> log(debug => "4 Push hidden $$hidden[1]");
 
 				push @alternatives, $$hidden[1];
 			}
 			elsif ($$item{statement} =~ /(?:bare_name|bracketed_name|character_class|op_declare_bnf|op_declare_match|single_quoted_string)/)
 			{
-				$self -> log(debug => "2 Push $$item{token}");
+				$self -> log(debug => "5 Push $$item{token}");
 
 				push @tokens, $$item{token};
+			}
+			elsif ($$item{statement} eq 'proper_specification')
+			{
+				$self -> log(debug => "6 Push 'proper'");
+
+				push @tokens, 'proper';
+			}
+			elsif ($$item{statement} eq 'separator_specification')
+			{
+				$self -> log(debug => "7 Push 'separator'");
+
+				push @tokens, 'separator';
 			}
 			elsif ($$item{statement} eq 'single_symbol')
 			{
@@ -334,7 +348,7 @@ sub collect_alternatives
 
 	if ($#alternatives >= 0)
 	{
-		$self -> log(debug => '2 Joining alternatives: ' . join(' | ', @alternatives) . '.');
+		$self -> log(debug => '8 Joining alternatives: ' . join(' | ', @alternatives) . '.');
 
 		push @tokens, join(' | ', @alternatives);
 	}
@@ -518,7 +532,7 @@ sub parse_raw_tree
 					token		=> $self -> get_grand_daughters_name($grand_daughter),
 				};
 			}
-			else
+			else # $type == 4.
 			{
 				push @statements,
 				{
