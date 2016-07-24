@@ -174,17 +174,19 @@ sub build_compressed_tree
 {
 	my($self, $statements) = @_;
 
+	my($format);
 	my(@parts);
 	my($rule);
 	my($statement);
 
 	for my $item (@$statements)
 	{
-		$statement = $$item{statement};
+		$statement	= $$item{statement};
+		$format		= $$item{depth} == 3 ? '* %3i' : '  %3i';
 
-		$self -> log(debug => sprintf('%3i', $$item{depth}) . ". $statement. $$item{token}.");
+		$self -> log(debug => sprintf($format, $$item{depth}) . ". $statement. $$item{token}.");
 
-		# Note: We ignore 'statements' since it was added in BUILD().
+		# Wrap up each statement as we encounter it.
 
 		if ($statement =~ /^statement$/)
 		{
@@ -212,39 +214,18 @@ sub build_rule
 
 	if ($statement eq 'default_rule')
 	{
-		#  5. default_rule. :default.
-		#  7. op_declare_bnf. ::=.
-		# 15. action_name. [start,length,values].
-		# 15. blessing_name. ::lhs.
-
 		$rule = ":default $$parts[1]{token} action => $$parts[2]{token} bless => $$parts[3]{token}";
 	}
 	elsif ($statement eq 'lexeme_default_statement')
 	{
-		#  5. lexeme_default_statement. .
-		# 15. action_name. [start,length,value].
-		# 15. blessing_name. ::name.
-		# 13. latm_specification. 1.
-
 		$rule = "lexeme default = action => $$parts[1]{token} bless => $$parts[2]{token} latm => $$parts[3]{token}";
 	}
 	elsif ($statement eq 'start_rule')
 	{
-		#  5. start_rule. .
-		# 11. bare_name. statements.
-
 		$rule = ":start ::= $$parts[1]{token}";
 	}
 	elsif ($statement eq 'quantified_rule')
 	{
-		#  5. quantified_rule. .
-		#  7. lhs. .
-		# 11. bare_name. statements.
-		#  9. op_declare_bnf. ::=.
-		#  7. single_symbol. .
-		# 13. bare_name. statement.
-		#  7. quantifier. +.
-
 		$rule = "$$parts[2]{token} $$parts[3]{token} $$parts[5]{token}$$parts[6]{token}";
 	}
 	elsif ($statement eq 'priority_rule')
@@ -262,37 +243,9 @@ sub build_rule
 
 sub collect_alternatives
 {
-	my($self, $parts) = @_;
-
-	#   5. priority_rule. .
-	#   7. lhs. .
-	#  11. bare_name. statement.
-	#   9. op_declare_bnf. ::=.
-	#  11. alternative. .
-	#  17. single_symbol. .
-	#  23. bracketed_name. <start rule>.
-	#  11. alternative. .
-	#  17. single_symbol. .
-	#  23. bracketed_name. <discard default statement>.
-	#  ...
-	#
-	# Or: <null statement> ::= ';'
-	#
-	#  5. priority_rule. .
-	#  7. lhs. .
-	# 11. bracketed_name. <null statement>.
-	#  9. op_declare_bnf. ::=.
-	# 11. alternative. .
-	# 17. single_quoted_string. ';'.
-	#
-	# Or: <statement group> ::= ('{') statements '}'
-	# Or: <start rule> ::= (':start' <op declare bnf>) symbol
-	# Note: Since there are multiple tokens inside the '()',
-	# we use the depth to find the implicit ')'.
-	# See collect_hidden_parts().
-
-	my($limit)	= $#$parts;
-	my($rule)	= '';
+	my($self, $parts)	= @_;
+	my($limit)			= $#$parts;
+	my($rule)			= '';
 
 	my(@alternatives);
 	my($hidden);
@@ -309,47 +262,86 @@ sub collect_alternatives
 
 		if ($$item{statement} eq 'alternative')
 		{
-			if ($$parts[$i + 1]{statement} eq 'parenthesized_rhs_primary_list')
+			$i++;
+
+			$item = $$parts[$i];
+
+			if ($$item{statement} eq 'single_symbol')
+			{
+				$i++;
+
+				$item = $$parts[$i];
+			}
+
+			if ($$item{statement} eq 'parenthesized_rhs_primary_list')
 			{
 				$hidden	= $self -> collect_hidden_parts($parts, $i);
 				$i		= $$hidden[0] - 1;
 
+				$self -> log(debug => "1 Push hidden $$hidden[1]");
+
 				push @alternatives, $$hidden[1];
 			}
-			elsif (defined $$parts[$i + 2])
+			elsif ($$item{statement} =~ /(?:bare_name|bracketed_name|character_class|op_declare_bnf|op_declare_match|single_quoted_string)/)
 			{
-				push @alternatives, $$parts[$i + 2]{token};
+				$self -> log(debug => "1 Push $$item{token}");
 
-				$i += 2;
+				push @alternatives, $$item{token};
 			}
 			else
 			{
-				push @alternatives, $$parts[$i + 1]{token};
-
-				$i++;
+				die "1 No provision for statement '$$item{statement}'\n";
 			}
 		}
 		else
 		{
 			if ($#alternatives >= 0)
 			{
+				$self -> log(debug => '2 Joining alternatives: ' . join(' | ', @alternatives) . '.');
+
 				push @tokens, join(' | ', @alternatives);
 
 				@alternatives = ();
 			}
+
+			if ($$item{statement} eq 'parenthesized_rhs_primary_list')
+			{
+				$hidden	= $self -> collect_hidden_parts($parts, $i);
+				$i		= $$hidden[0] - 1;
+
+				$self -> log(debug => "2 Push hidden $$hidden[1]");
+
+				push @alternatives, $$hidden[1];
+			}
+			elsif ($$item{statement} =~ /(?:bare_name|bracketed_name|character_class|op_declare_bnf|op_declare_match|single_quoted_string)/)
+			{
+				$self -> log(debug => "2 Push $$item{token}");
+
+				push @tokens, $$item{token};
+			}
+			elsif ($$item{statement} eq 'single_symbol')
+			{
+				# NOP.
+			}
 			else
 			{
-				push @tokens, $$parts[$i]{token} if ($$parts[$i]{token});
+				die "2 No provision for statement '$$item{statement}'\n";
 			}
 		}
 	}
 
+	$self -> log(debug => "After loop. limit: $limit. alternatives: $#alternatives");
+
 	if ($#alternatives >= 0)
 	{
+		$self -> log(debug => '2 Joining alternatives: ' . join(' | ', @alternatives) . '.');
+
 		push @tokens, join(' | ', @alternatives);
 	}
 
 	$rule = join(' ', @tokens);
+
+	$self -> log(debug => "Rule: $rule");
 
 	return $rule;
 
@@ -361,36 +353,9 @@ sub collect_hidden_parts
 {
 	my($self, $parts, $i) = @_;
 
-	# Or: <statement group> ::= ('{') statements '}'
-	#
-	#  5. priority_rule. .
-	#  7. lhs. .
-	# 11. bracketed_name. <statement group>.
-	#  9. op_declare_bnf. ::=.
-	# 11. alternative. .
-	# 17. parenthesized_rhs_primary_list. .
-	# 23. single_quoted_string. '{'.
-	# 17. single_symbol. .
-	# 23. bare_name. statements.
-	# 17. single_quoted_string. '}'.
-	#
-	# Or: <start rule> ::= (':start' <op declare bnf>) symbol
-	#
-	#  5. priority_rule. .
-	#  7. lhs. .
-	# 11. bracketed_name. <start rule>.
-	#  9. op_declare_bnf. ::=.
-	# 11. alternative. .
-	# 17. parenthesized_rhs_primary_list. .
-	# 23. single_quoted_string. ':start'.
-	# 23. single_symbol. .
-	# 29. bracketed_name. <op declare bnf>.
-	# 17. single_symbol. .
-	# 23. bare_name. symbol.
-	#
 	# Step past 'parenthesized_rhs_primary_list'.
 
-	$i += 2;
+	$i += 1;
 
 	my($current_depth)	= $$parts[$i]{depth}; # 23.
 	my($finished)		= 0;
@@ -626,6 +591,8 @@ sub run
 
 	die "Parse failed\n" if (! defined $value);
 
+	# Convert Marpa's return value $value into a tree for ease of processing.
+
 	my($renderer) = Data::RenderAsTree -> new
 		(
 			attributes       => 0,
@@ -647,7 +614,11 @@ sub run
 		close $fh;
 	}
 
+	# Extract only the bits and pieces of interest. Output an arrayref.
+
 	my($statements) = $self -> parse_raw_tree;
+
+	# Convert the arrayref into a user-friendly tree.
 
 	$self -> build_compressed_tree($statements);
 
@@ -659,6 +630,8 @@ sub run
 		print $fh map{"$_\n"} @{$self -> cooked_tree -> tree2string({no_attributes => 0})};
 		close $fh;
 	}
+
+	# Save our version of the orginal BNF.
 
 	my($rules_file) = $self -> rules_file;
 
@@ -1162,7 +1135,7 @@ The following items explain this in more detail.
 
 =head2 What are the details of the nodes in the cooked tree?
 
-Under the root (whose name is 'Statements'), there are a set of nodes:
+Under the root (whose name is 'Cooked tree'), there are a set of nodes:
 
 =over 4
 
