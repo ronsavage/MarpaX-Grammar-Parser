@@ -5,7 +5,6 @@ use warnings;
 use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
 use File::Basename;	# For basename().
-use File::Slurper 'read_text';
 use File::Spec;
 
 use MarpaX::Grammar::Parser;
