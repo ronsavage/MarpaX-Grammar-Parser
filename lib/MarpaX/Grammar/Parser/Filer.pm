@@ -81,7 +81,7 @@ L<MarpaX::Grammar::Parser::Filer> - Helps generate share/*.(cooked,raw).tree fil
 
 This module is only for use by the author of C<MarpaX::Grammar::Parser>.
 
-See scripts/generate.demo.pl.
+See scripts/generate.trees.pl.
 
 =head1 Description
 
