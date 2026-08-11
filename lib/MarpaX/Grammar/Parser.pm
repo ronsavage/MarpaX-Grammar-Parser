@@ -721,7 +721,7 @@ sub run
 
 =head1 NAME
 
-C<MarpaX::Grammar::Parser> - Converts a Marpa grammar into a tree using Tree::DAG_Node
+MarpaX::Grammar::Parser - Converts a Marpa grammar into a tree using Tree::DAG_Node
 
 =head1 Synopsis
 

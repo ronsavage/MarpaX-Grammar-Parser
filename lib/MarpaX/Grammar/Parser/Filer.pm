@@ -75,7 +75,7 @@ sub generate_trees
 
 =head1 NAME
 
-L<MarpaX::Grammar::Parser::Filer> - Helps generate share/*.(cooked,raw).tree files
+MarpaX::Grammar::Parser::Filer - Helps generate share/*.(cooked,raw).tree files
 
 =head1 Synopsis
 
